@@ -46,12 +46,12 @@ killall -q activate-linux swayidle mpDris2 polkit-gnome-authentication-agent-1 w
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Brightness                                  │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+functions[BrightnessHandler] )) && BrightnessHandler set_minimum_brightness &! # Check function if it available && set minimum capacity of brightness
-# (( $+functions[ThisWillSaveYourEyes] )) && ThisWillSaveYourEyes &! # Check function if it available && start wlsunset
+(( $+functions[BrightnessHandler] )) && BrightnessHandler set_minimum_brightness 5 &! # Check function if it available && set minimum capacity of brightness
+(( $+functions[ThisWillSaveYourEyes] )) && ThisWillSaveYourEyes &! # Check function if it available && start wlsunset
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Other                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 # (( $+commands[activate-linux] )) && activate-linux &!   # Start activate-linux :D
 (( $+commands[xhost] )) && xhost +si:localuser:root &!  # This will fix trouble with program that required root access like gparted, since we use wayland as display server.
 (( $+commands[foot] )) && foot --server &!              # Check command if it available && start terminal foot server
-(( $+commands[swayidle] )) && swayidle -w timeout 300 'zsh -ic "lock_screen"' timeout 600 'zsh -ic "BrightnessHandler save_current_brightness && BrightnessHandler set_value 7"' timeout 700 'zsh -ic "BrightnessHandler set_value 0"' resume 'BrightnessHandler restore_brightness' &! # Check command if it available && start idle manager
+(( $+commands[swayidle] )) && swayidle -w timeout 300 '/bin/zsh -ic "lock_screen"' timeout 600 '/bin/zsh -ic "BrightnessHandler save_current_brightness && BrightnessHandler set_value 7"' resume '/bin/zsh -ic "BrightnessHandler restore_brightness"' &! # Check command if it available && start idle manager

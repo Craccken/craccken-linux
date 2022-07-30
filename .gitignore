@@ -1,7 +1,14 @@
 # Ignore neovim plugins
 prefix/airootfs/etc/xdg/nvim/pack/packer/
 
+# Ignore zinit plugins
 prefix/airootfs/etc/skel/.local/share/zinit/
 prefix/airootfs/root/.local/share/zinit/
+
+# Ignore Hyprland
+prefix/airootfs/usr/local/src/Hyprland/
+
+# Ignore build log and directory
 .error.log
-output
+output/
+work/

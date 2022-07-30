@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+local random_file=$(find /usr/include -type f | shuf -n 1) # Pick random file from /usr/include
+local file_lengths=$(wc -l "${random_file}" | awk '{print $1}') # Get line counts from random_file
+local random_line=$(( RANDOM % file_lengths )) # Pick random line from file_lengths
+nvim +${random_line} "${random_file}" # Open up random_file in random_line on neovim
