@@ -35,7 +35,7 @@ function main {
     # │                               Refresh airootfs                               │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     warn_msg "Refreshing..." # Show warning message
-    cp -rf ./efiboot ./syslinux ./grub ./profiledef.sh ./packages.x86_64 --target-directory=./prefix/
+    ln -sf ../efiboot ../syslinux ../grub ../profiledef.sh ../packages.x86_64 --target-directory=./prefix/
     cp -rf ./customize_airootfs.sh ./prefix/airootfs/root
     parallel-moreutils -j $(nproc --all) rm -rf -- \
         ./prefix/airootfs/etc/ssh \
