@@ -1,0 +1,59 @@
+#!/bin/env zsh
+# vim:ft=sh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                   Options                                    ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                             Changing Directories                             │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+setopt autocd                   # Enable change directory just by typing its name
+setopt auto_pushd               # Make 'cd' push the old directory onto the directory stack
+setopt cd_silent                # Never print the working directory after a 'cd' (whether explicit or implied with the AUTO_CD option set).
+setopt pushd_to_home            # If run 'pushd' with no arguments act like 'pushd $HOME'
+#setopt posix_cd                 # Modifies the behaviour of cd, chdir and pushd commands to make them more compatible with the POSIX standard.
+setopt pushd_silent             # Do not print the directory stack after 'pushd' or 'popd'
+setopt pushd_minus              # Exchanges the meanings of `+' and `-' when used with a number to specify a directory in the stack.
+setopt pushd_ignore_dups        # Don't push multiple copies of the same directory onto the directory stack
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  Completion                                  │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+setopt auto_param_slash         # If a parameter is completed whose content is name of a directory the add a trailing slash instead of a space.
+setopt auto_remove_slash        # When the last character resulting from a completion is a slash and the next character typed is a word delimeter, a slash, or a character that ends command (such as a semicolon or an ampersand), remove the slash
+setopt complete_aliases         # Prevents aliases on the command line from being internally substituted before completion is attempted.
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                   History                                    │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+setopt hist_verify              # Show command with history expansion to user before running it
+setopt hist_beep                # Beep in ZLE when a widget attempts to access a history entry which isn't there.
+setopt hist_ignore_dups         # Ignore duplicated commands history list
+setopt hist_find_no_dups        # ignore duplicates when searching history
+setopt hist_ignore_space        # Ignore commands that start with space
+setopt hist_reduce_blanks       # Remove superflous blanks from each command line being added in history list.
+setopt hist_expire_dups_first   # Delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt inc_append_history       # Adds commands history as they are typed, not at shell exit
+setopt share_history            # Share command history data
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    Prompt                                    │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+setopt PROMPT_SUBST             # Enable parameter expansion, command substitution, and arithmetic expansion, inside prompt
+setopt transient_rprompt        # Remove any right prompt from display when accepting a command line.
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                     Zle                                      │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+setopt beep                     # Beep on error in ZLE.
+setopt vi                       # If ZLE is loaded, turning on this option has equivalent effect of `bindkey -v'.
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                            Expansion and Globbing                            │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+setopt no_case_glob             # Set case insensitive globbing
+setopt nonomatch                # Hide error message if there is no match for the pattern
+setopt magic_equal_subst        # Enable filename expansion for arguments of the form ‘anything=expression’
+setopt numericglobsort          # If numeric filenames are matched by a filename generation pattern, sort the filenames numerically rather than lexicographically.
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                 Input/Ouput                                  │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+setopt interactivecomments      # Enable comments in interactive mode
+#setopt noclobber                # Prevents you from accidentally overwriting an existing file, If you really do want to clobber a file, you can use the >! operator.
+#setopt cshjunkiequotes          # Ignore `'` example type this without enabling this option you will see the difference: ls 'foo
+#setopt notify                   # Report the status of background jobs immediately
+#setopt ksh_arrays               # Set array elements numbered from zero

@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed fzf # Check if command is installed
+
+local fzf_header="$1" # Get argument-1 value and store it into variable
+shift 1 # Remove argument-1 value
+local -a fzf_style=( # Create local array for store color configurations
+    "--color='fg+:#da0000'"             # Text (current line)
+    "--color='bg+:#270000'"             # Background (current line)
+    "--color='fg:#d00000'"              # Text color
+    "--color='bg:#150000'"              # Background color
+    "--color='preview-fg:#da0000'"      # Preview window text
+    "--color='preview-bg:#170000'"      # Preview window background
+    "--color='hl:#ee0000:bold'"         # Highlighted substrings
+    "--color='hl+:#ff0000:bold:italic'" # Highlighted substrings (current line)
+    "--color='gutter:#160000'"          # Gutter on the left (default to bg+)
+    "--color='query:#d00000'"           # Query string
+    "--color='disabled:#250000'"        # Query string when search is disabled
+    "--color='info:#4d0000'"            # Info line (match counters)
+    "--color='border:#af0000'"          # Border arround the window
+    "--color='prompt:#c00000'"          # Prompt search
+    "--color='pointer:#570000'"         # Pointer to the current line
+    "--color='marker:#5f0000:italic'"   # Multi-select marker
+    "--color='spinner:#c00000'"         # Streaming input indicator
+    "--color='header:#4e0000'"          # Header text
+)
+FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${fzf_style[@]} --preview-window '0%'" fzf --no-multi --header="$fzf_header" "$@" --preview="killall -q ffplay; ffplay -nodisp -autoexit /opt/craccken/sound/move/kpcrgsigf098q2v5gelb.wav 2>/dev/null" 

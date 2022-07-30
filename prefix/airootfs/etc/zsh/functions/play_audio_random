@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed ffplay # Check if command is installed || exit
+
+killall -q ffplay || : # Kill old process of ffplay
+[[ ! $EUID -eq 0 ]] && ffplay -nodisp -autoexit $(find "$1" -maxdepth 1 -type f -readable | shuf -n 1) &>/dev/null &|

@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+need_installed zbarimg dunstify || return $? # Check if command is installed || exit with error exit-code
+
+local temporary_file="/tmp/$(generate_random_name 10).png" # Create local variable for storing temporary_file name
+(( $+functions[screenshot] )) && screenshot "$temporary_file" # Screenshot and output it into temporary_file
+LC_ALL=C zbarimg --quiet --raw "$temporary_file" | wl-copy  # Scan qr on the output of screenshot image and copy to clipboard
+if [[ $? -eq 0 ]]; then # Check if scanning is successfull and then:
+    dunstify --raw_icon="${temporary_file}" "$0" "Coppied to the clipboard" # Send notification
+else
+    dunstify --raw_icon="${temporary_file}" --urgency=critical "$0" "No barcode detected" # Send critical notification
+fi # End if-else statement

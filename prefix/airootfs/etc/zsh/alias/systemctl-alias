@@ -1,0 +1,25 @@
+#!/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                    Add some useful aliases for systemctl                     │
+# │        https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/systemd        │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+alias sv_cat='systemctl cat'                                # Show backing files of one or more units
+alias sv_show='systemctl show'                              # Show properties of units, jobs, or the manager itself
+alias sv_help='systemctl --help'                            # Show manapage of systemctl
+alias sv_status='systemctl status'                          # Show terse runtime status information about one or more units
+alias sv_list_jobs='systemctl list-jobs'                    # List jobs that are in progress
+alias sv_list_timers='systemctl list-timers'                # List timer units currently in memory
+alias sv_is_failed_?='systemctl is-failed'                  # Show whether a unit is failed
+alias sv_is_enabled_?='systemctl is-enabled'                # Show whether a unit is enabled
+alias sv_list_all_units='systemctl list-units'              # List all units systemd has in memory
+alias sv_list_unit_files='systemctl list-unit-files'        # List unit files installed on the system
+alias sv_list_dependencies='systemctl list-dependencies'    # Show unit dependency tree
+
+alias sv_start='sudo systemctl start'                       # Start unit(s)
+alias sv_stop='sudo systemctl stop'                         # Stop unit(s)
+alias sv_restart='sudo systemctl restart'                   # Restart unit(s); stop + start 
+alias sv_enable='sudo systemctl enable'                     # Enable unit(s)
+alias sv_disable='sudo systemctl disable'                   # Disable unit(s)
+alias sv_reenable='sudo systemctl reenable'                 # Reenable unit(s); disable + enable
+alias sv_reload='sudo systemctl reload'                     # Reload unit(s); remain running + re-read configuration files

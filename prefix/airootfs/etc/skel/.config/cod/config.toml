@@ -1,0 +1,47 @@
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                              Cod configuration                               ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# Put this configuration into '~/.config/cod/config.toml'.
+# Lines starting with '#' are comments.
+
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                    Rules                                     ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#  ▲
+#  █ Configuration might have several '[[rule]]' sections.                                        
+#  █ Whenever cod detects usage of help command in the shell it will scan all such sections.      
+#  █ When it finds first appropriate rule (see 'executable' key) 'policy' from this rule is used. 
+#  █ If no appropriate rule is found default policy is used.                                      
+#  ▼                                                                                               
+
+# 'executable' controls which executables this rule is applied to.
+# 'executable' might have one of following forms:
+#   - '/path/to/executable' :: current rule applies to specified executable
+#   - '/path/to/dir/*' :: current rule applies to all executables in '/path/to/dir' directory but not in its subdirectories.
+#   - '/path/to/dir/**' :: current rule applies to all executables in '/path/to/dir' directory or its subdirectory
+#   - 'exec-name' :: current rule applies to all executables with basename 'exec-name'
+# Paths must be absolute. '~/' is expanded to home directory.
+#  ▲
+#  █ 'policy' controls cod actions whenever it detects usage of help command      
+#  █ in the shell. Possible values for 'policy' are:                              
+#  █   - 'ask'    :: default policy, cod will ask if you want to learn command;   
+#  █   - 'trust'  :: cod will automatically learn detected help command;          
+#  █   - 'ignore' :: cod will ignore all command for this executable.             
+#  ▼                                                                               
+
+[[rule]]
+executable = "/usr/local/bin/*"
+policy = 'ask'
+
+[[rule]]
+executable = "/usr/bin/*"
+policy = 'ask'
+
+[[rule]]
+executable = "~/bin/*"
+policy = 'ask'
+
+# Examples:
+#   [[rule]]
+#   executable = "~/my/repo/**"
+#   policy = 'trust'

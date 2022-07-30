@@ -1,0 +1,11 @@
+#!/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │   Add some aliases for paru AUR-helper https://github.com/morganamilo/paru   │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+alias paru_install_package='paru -S --needed'
+alias paru_update_n_upgrade='paru'
+alias paru_search_package='paru -Ss'
+alias paru_info_package='paru -Si'
+alias paru_remove_package='paru -Rs'
+alias paru_remove_package_n_configuration='paru -Rns'

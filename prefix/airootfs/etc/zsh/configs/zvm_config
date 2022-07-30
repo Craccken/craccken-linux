@@ -1,0 +1,40 @@
+#!/bin/env zsh
+# vim:ft=sh
+ZVM_KEYTIMEOUT=0.4                              # Set key input timeout for waiting next key, in seconds.
+ZVM_ESC_KEYTIMEOUT=0.02                         # This option only for NEX-ENGINE, adjust the waiting timeout for the esc-key.
+ZVM_CURSOR_STYLE_ENABLED=true                   # Enable the cursor style feature
+ZVM_VI_INSERT_ESCAPE_BINDKEY="jk"               # Set custom escape key in insert-mode
+ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX      # Set readkey engine for reading and processing key events.
+ZVM_VISUAL_MODE_CURSOR=$ZVM_CURSOR_BEAM         # Set the prompt cursor in visual-mode.
+ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK        # Set the prompt cursor in normal-mode.
+ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE    # Set the prompt cursor in operator-pending-mode.
+ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_USER_DEFAULT # Set the prompt cursor in insert-mode.
+ZVM_VI_HIGHLIGHT_FOREGROUND=none                # Set visual-mode highlight foreground.
+ZVM_VI_HIGHLIGHT_BACKGROUND=#262626             # Set visual-mode highlight background.
+ZVM_LINE_INIT_MODE=$ZVM_MODE_LAST               # Set initial-mode to last mode
+export KEYTIMEOUT=1                             # Set KEYTIMEOUT vim-mode-zsh to 1
+
+zvm_after_select_vi_mode(){ # Define function that auto excecute, each changing mode.
+    is_terminal_width_resized && update_prompt # Check terminal is resized && update prompt
+    if [[ -z $NO_VIM_INDICATOR ]] || (( $NO_VIM_INDICATOR == 0 )); then # If no_vim_indicator variable empty or 0 then:
+        case $ZVM_MODE in # Read $ZVM_MODE environment-variable.
+            $ZVM_MODE_NORMAL) # If the value is $ZVM_MODE_NORMAL then:
+                PROMPT="%F{#5f00d7}│%F{reset}${PROMPT_ZSH:-\>} " # Set prompt style.
+                ;;
+            $ZVM_MODE_INSERT) # If the value is $ZVM_MODE_INSERT then:
+                PROMPT="%F{#00af00}│%F{reset}${PROMPT_ZSH:-\>} " # Set prompt style.
+                ;;
+            $ZVM_MODE_VISUAL) # If the value is $ZVM_MODE_VISUAL then:
+                PROMPT="%F{#ff7733}│%F{reset}${PROMPT_ZSH:-\>} " # Set prompt style.
+                ;;
+            $ZVM_MODE_VISUAL_LINE) # If the value is $ZVM_MODE_VISUAL_LINE then:
+                PROMPT="%F{#ff7733}│%F{reset}${PROMPT_ZSH:-\>} " # Set prompt style.
+                ;;
+            $ZVM_MODE_REPLACE) # If the value is $ZVM_MODE_REPLACE then:
+                PROMPT="%F{#2c99ef}│%F{reset}${PROMPT_ZSH:-\>} " # Set prompt style.
+                ;;
+        esac # End switch-case statement
+    fi # End if-else statement
+    # TIPS: if you want to know prompt-escapes(%) see -- https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
+    [[ $TTY == /dev/tty* ]] && PROMPT="%F{%(#.#800000.#008000)}|%K{#ffffff}%F{#000000} %n > tty%l %F{reset}%K{reset}:%~ %F{%(?.#008000.#800000)}>%F{reset} " # Check if TTY is /dev/tty && set prompt style.
+}

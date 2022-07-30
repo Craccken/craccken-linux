@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                               Clean up process                               │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+killall -q swayidle polkit-gnome-authentication-agent-1 waybar dunst VBoxClient swaybg nm-applet mpvpaper # Kill old proccess, so it will not overlaping process
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    Audio                                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[pipewire] )) && [[ -z "$(pidof pipewire)" ]] && riverctl spawn "pipewire"                   # Check command if it available && check if process program not running && start pipewire
+(( $+commands[pipewire-pulse] )) && [[ -z "$(pidof pipewire-pulse)" ]] && riverctl spawn "pipewire-pulse" # Check command if it available && check if process program not running && start pipewire-pulse
+(( $+commands[wireplumber] )) && [[ -z "$(pidof wireplumber)" ]] && riverctl spawn "wireplumber"          # Check command if it available && check if process program not running && start wireplumber
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  Wallpaper                                   │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[mpvpaper] )) && mpvpaper -v -s -f --mpv-options "--no-audio --quiet" eDP-1 /opt/craccken/live-wallpaper/craccken-live-wallpaper.mp4   # Check command if it available && Run live-wallpaper :D
+(( $+commands[swaybg] )) && riverctl spawn "swaybg -m fill -i $(find /opt/craccken/wallpaper -maxdepth 1 -type f | shuf -n 1)"                      # Check command if it available && set the random wallpaper from directory /opt/craccken/wallpaper
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                Screencasting                                 │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+[[ -f /usr/lib/xdg-desktop-portal ]] && riverctl spawn "/usr/lib/xdg-desktop-portal -r"
+[[ -f /usr/lib/xdg-desktop-portal-wlr ]] && riverctl spawn "/usr/lib/xdg-desktop-portal-wlr -r"
+[[ -f /usr/lib/xdg-desktop-portal-gtk ]] && riverctl spawn "/usr/lib/xdg-desktop-portal-gtk -r"
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    Polkit                                    │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+riverctl spawn "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" # Enable polkit-gnome for run root-application with normal user like gparted.
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  Statusbar                                   │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[waybar] )) && riverctl spawn "waybar" # Check command if it available && start waybar
+(( $+commands[waybar] )) && riverctl spawn "waybar -c /etc/xdg/waybar/top-bar_config" # Check command if it available && start waybar
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                 Notification                                 │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[dunst] )) && riverctl spawn "dunst" # Check command if it available && start notification-daemon
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  VirtualBox                                  │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+if [[ "$(systemd-detect-virt)" == "oracle" ]]; then # Check if running in vbox then:
+    (( $+commands[VBoxClient] )) && riverctl spawn "VBoxClient-all"  # Start all vbox service(drag_and_drop, shared_clipboard, seamless)
+fi # End if-else statement
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    Other                                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[xhost] )) && riverctl spawn "xhost +si:localuser:root"                                                                        # This will fix trouble with program that required root access like gparted, since we use wayland as display server.
+(( $+commands[nwg-drawer] )) && riverctl spawn "nwg-drawer -r"                                                                              # Start nwg-drawer in background
+(( $+commands[swayidle] )) && swayidle -w timeout 300 'zsh -ic "lock_screen"' timeout 600 'light -O && light -S 7' resume 'light -I' &!     # Check command if it available && start idle manager

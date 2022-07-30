@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
+need_installed curl || return $? # Check if command is installed || exit
+need_internet # Need internet to run
+
+curl -s 'https://www.name-generator.org.uk/quick/' -X POST -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0' --data-raw "type=12&spam_check=&count=${1:-1}&gender=b" | pup 'div.name_heading text{}'

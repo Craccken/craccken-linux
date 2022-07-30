@@ -1,0 +1,106 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal ksharrays pipefail nounset
+need_installed fzf convert || return $? # Check if command is installed || exit with error exit-code
+killall -q convert # Clean up old process
+
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                             Imagemagick Options                              ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ╭──────────╮
+# │ Options: │
+# ╰──────────╯
+# -swap index,index
+#   | Swap the positions of two images in the image sequence. 
+#   | For example, -swap 0,2 swaps the first and the third images in the current image sequence. 
+#   | Use +swap to switch the last two images in the sequence.
+# -colorspace value
+#   | Set the image colorspace.
+# -clone index(s)
+#   | Inside parenthesis (where the operator is normally used) 
+#   | it will make a clone of the images from the last 'pushed' image sequence, 
+#   | and adds them to the end of the current image sequence. 
+#   | Outside parenthesis (not recommended) it clones the images from the current image sequence. 
+#   | 
+#   | Specify the image by its index in the sequence. 
+#   | The first image is index 0. Negative indexes are relative to the end of the sequence; 
+#   | for example, −1 represents the last image of the sequence. 
+#   | Specify a range of images with a dash (e.g. 0−4). 
+#   | Separate multiple indexes with commas but no spaces (e.g. 0,2,5). 
+#   | A value of '0−−1 will effectively clone all the images. 
+#   |
+#   | The +clone will simply make a copy of the last image in the image sequence, 
+#   | and is thus equivalent to using an argument of '−1'. 
+# -geometry geometry
+#   | Set the preferred size and location of the image.
+
+is_file_valid() { # Create function
+    local file="$1" # Store argument-1 that pass to this function as local variable
+    if [[ ! -f $file ]]; then # If file not exist then:
+        send_return ENOENT || return $? # Exit
+    else
+        if [[ ! -r $file ]] || [[ ! $file == *.jpg ]]; then # If file is not readable or the format not .jpg then:
+            send_return EBADF || return $? # Exit
+        fi # End if-else statement
+    fi # End if-else statement
+}
+
+initialize() { # Create function
+    must_have_argument $1 || return $?  # Must have argument-1 passed to this function || exit
+    must_have_argument $2 || return $?  # Must have argument-2 passed to this function || exit
+}
+
+local -a available_options=( 
+    "glitch" 
+    "blur"
+) # Declare local array
+local option="${1:-$(print -l ${(o)available_options[*]} | fzf --no-multi --header='Choose an option')}" # Declare local variable if argument-1 empty then pick option with fzf
+case ${option} in # Read option variable
+    "glitch") 
+        initialize $2 $3 || return $?   # Call initialize function
+        is_file_valid $2 || return $?   # Check if file(argument-2) is valid || exit
+        local input_file="${2}"         # Store argument-2 to local variable
+        local output_file="${3}"        # Store argument-3 to local variable 
+        # ╭──────────────────────────────────────────────────────────────────────────────╮
+        # │              If you want custom effect edit this below variable              │
+        # ╰──────────────────────────────────────────────────────────────────────────────╯
+        local number=12         # NUMBER of glitch lines. Values are integers > 0.
+        local reseed=77         # RESEED is the initial seed value for the random number generator. Values are integers >= 0.
+        local distance=-15      # DISTANCE is the separation distance of the red-cyan channels in the output. Values are negative integers. 
+        local amplitude=25      # AMPLITUDE of the horizontal distortion of glitch lines. Values are integers >= 0.
+        local thickness=70      # THICKNESS (or height) of the glitch lines. Values are integers >= 0.
+        local jaggedness=20     # JAGGEDNESS of the glitches. Values are integers > 0. The default=20.
+        local colors="red-cyan" # COLORS to use in channel separation. The choices are: red-cyan(rc), green-magenta(gm) and blue-yellow(by).
+        local temporary_file="/tmp/glitch_$$.mpc" # Set temporary cached image
+        convert -quiet "${input_file}" +repage ${temporary_file} # Read the input image into the temporary-image.
+        # ╭──────────────────────────────────────────────────────────────────────────────╮
+        # │                              Dimension of image                              │
+        # ╰──────────────────────────────────────────────────────────────────────────────╯
+        local dimension=$(convert -ping $temporary_file -format "%wx%h" info:)  # Get input image size dimension and store it as variable
+        local width=$(echo $dimension | cut -d 'x' -f1)                         # Get width from dimension variable
+        local height=$(echo $dimension | cut -d 'x' -f2)                        # Get height from dimension variable
+        # ╭──────────────────────────────────────────────────────────────────────────────╮
+        # │                                  Draw lines                                  │
+        # ╰──────────────────────────────────────────────────────────────────────────────╯
+        local lines=0 # Create local variable
+        local draw_args="line 0,0" # Create local variable that will use for draw argument later
+        repeat $number; { # Create random length lines for constant gray sections to overlay on random column image below 
+            local y1=$(convert xc: -seed $reseed -format "%[fx:round(($lines+1)*$height/$number + (rand()>0.5?1:-1)*$height/(3*$number))]" info:)
+            local y2=$(( y1+$thickness ))
+            draw_args="$draw_args 0,$y1 line 0,$y2"
+            reseed=$(( 11*reseed+13 ))
+            lines=$(( lines+1 ))
+        }
+        draw_args="$draw_args 0,$height"
+        # ╭──────────────────────────────────────────────────────────────────────────────╮
+        # │       If you want to change variation colors put '-separate -swap 0,1        │
+        # │                      -combine' before the $output_file                       │
+        # ╰──────────────────────────────────────────────────────────────────────────────╯
+        LC_ALL=C convert $temporary_file $temporary_file -geometry ${distance}+0 -compose stereo -composite \
+            \( -size 1x$height xc: -seed $reseed +noise random -colorspace gray -fill gray -draw "$draw_args" -alpha off -scale x${jaggedness}% -scale ${width}X${height}! \) \
+            -define compose:args=${amplitude},0 -compose displace -composite "${output_file}"
+        ;;
+    "transparent") ;;
+    *) send_return EINVAL || return $? ;;
+esac # End switch-case statement
+unset -f initialize is_file_valid

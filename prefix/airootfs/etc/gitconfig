@@ -1,0 +1,86 @@
+[core]
+    editor = nvim
+    pager = delta
+[init]
+    defaultBranch = main # Set default branch name, when initializing a repository (git init)
+[credential]
+    helper = cache --timeout 1728000 # Set helper to temporarily store password in memory,(--timeout; number of seconds to cache credentials; 1728000=20_day)
+[diff]
+    tool = nvimdiff # Controls which diff tool is used.
+[difftool]
+    prompt = false # Do not prompt before launching a difftool
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\"" # Specify command for nvimdiff to get used on difftool
+[merge]
+    tool = nvimdiff # Controls which merge tool is used.
+[mergetool]
+    prompt = true # Ask before launching a mergetool
+[mergetool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'" # Specify command for nvimdif to get used on mergetool
+[delta]
+    tabs = 8                            # The number of spaces to replace tab characters with.
+    true-color = always                 # Whether to emit 24-bit ("true color") RGB color codes, Options are auto, always, and never.
+    side-by-side = false                # Display a side-by-side diff view instead of the traditional view
+    keep-plus-minus-markers = false     # Prefix added/removed lines with a +/- character, exactly as git does.
+    features = styles commit_styles file_styles hunk_header_styles merge_conflict_styles blame_styles grep_styles line_numbers_styles wrap_lines # Name of delta features to use (space-separated).
+[delta "styles"]
+    dark = true                                 # Use default colors appropriate for a dark terminal background.
+    zero-style = syntax normal                  # Style (foreground, background, attributes) for unchanged lines.
+    plus-style = syntax "#002100"               # Style (foreground, background, attributes) for added lines.
+    minus-style = syntax "#210000"              # Style (foreground, background, attributes) for removed lines.
+    plus-emph-style = syntax "#002700" bold ul  # Style (foreground, background, attributes) for emphasized sections of added lines.
+    minus-emph-style = syntax "#270000" bold ul # Style (foreground, background, attributes) for emphasized sections of removed lines.
+    plus-non-emph-style = syntax "#002100"      # Style (foreground, background, attributes) for non-emphasized sections of added lines that have an emphasized section.
+    minus-non-emph-style = syntax "#210000"     # Style (foreground, background, attributes) for non-emphasized sections of removed lines that have an emphasized section.
+    inline-hint-style = "#202020" bold          # Style (foreground, background, attributes) for content added by delta to the original diff such as special characters to highlight tabs, and the symbols used to indicate wrapped lines.
+[delta "commit_styles"]
+    commit-style = "#2c99ef" "#06161e"          # Style (foreground, background, attributes) for the commit hash line.
+    commit-decoration-style = "#5f00d7" bold ol # Style (foreground, background, attributes) for the commit hash decoration.
+    commit-regex = "^commit"                    # The regular expression used to identify the commit line when parsing git output
+[delta "file_styles"]
+    file-style = "#36a3d9" bold ul              # Style (foreground, background, attributes) for the file section.
+    file-decoration-style = "#4b00cd" ol ul     # Style (foreground, background, attributes) for the file decoration.
+    file-modified-label = "MODIFIED:"           # Text to display in front of a modified file path.
+    file-removed-label = "REMOVED:"             # Text to display in front of a removed file path.
+    file-added-label = "ADDED:"                 # Text to display in front of a added file path.
+    file-copied-label = "COPIED:"               # Text to display in front of a copied file path.
+    file-renamed-label = "RENAMED:"             # Text to display in front of a renamed file path.
+[delta "hunk_header_styles"]
+    hunk-header-style = line-number file syntax italic          # Style (foreground, background, attributes) for the hunk-header.
+    hunk-header-file-style = "#ddbb3d" italic ul                # Style (foreground, background, attributes) for the file path part of the hunk-header.
+    hunk-header-line-number-style = "#ba174e" "#20040d" bold    # Style (foreground, background, attributes) for the line number part of the hunk-header.
+    hunk-header-decoration-style = "#ff7733" box                # Style (foreground, background, attributes) for the hunk-header decoration.
+    hunk-label = ""                                             # Text to display in front of a hunk header.
+[delta "merge_conflict_styles"]
+    merge-conflict-begin-symbol = "▼"                           # A string that is repeated to form the line marking the beginning of a merge conflict region.
+    merge-conflict-end-symbol = "▲"                             # A string that is repeated to form the line marking the end of a merge conflict region
+    merge-conflict-ours-diff-header-style = normal              # Style (foreground, background, attributes) for the header above the diff between the ancestral commit and 'our' branch.
+    merge-conflict-ours-diff-header-decoration-style = box      # Style (foreground, background, attributes) for the decoration of the header above the diff between the ancestral commit and 'our' branch.
+    merge-conflict-theirs-diff-header-style = normal            # Style (foreground, background, attributes) for the header above the diff between the ancestral commit and 'their' branch.
+    merge-conflict-theirs-diff-header-decoration-style = box    # Style (foreground, background, attributes) for the decoration of the header above the diff between the ancestral commit and 'their' branch.
+[delta "blame_styles"]
+    blame-format = "{author:^16} {commit:^7} {timestamp:^16} │" # Format string for git blame commit metadata.
+    blame-palette = "#000000 #060606 #0a0a0a #0f0f0f"           # Background colors used for git blame lines (space-separated string).
+    blame-timestamp-format = "%Y-%m-%d %H:%M:%S %z"             # Format of `git blame` timestamp in raw git output received by delta
+[delta "grep_styles"]
+    grep-match-line-style = syntax "#002100"                # Style (foreground, background, attributes) for matching lines of code in grep output.
+    grep-match-word-style = syntax "#002700" bold ul italic # Style (foreground, background, attributes) for the specific matching substrings within a matching line of code in grep output.
+    grep-context-line-style = syntax normal                 # Style (foreground, background, attributes) for non-matching lines of code in grep output.
+    grep-file-style = "#ddbb3d" italic ul                   # Style (foreground, background, attributes) for file paths in grep output.
+    grep-line-number-style = "#636363" bold                 # Style (foreground, background, attributes) for line numbers in grep output.
+    grep-separator-symbol = ":"                             # Symbol used in grep output to separate file path (and line number) from the line of file contents.
+[delta "line_numbers_styles"]
+    line-numbers = true                         # Display line numbers next to the diff.
+    line-numbers-zero-style = "#313131"         # Style (foreground, background, attributes) for line numbers in unchanged (zero) lines.
+    line-numbers-plus-style = "#00af00"         # Style (foreground, background, attributes) for line numbers in the new (plus) version of the file.
+    line-numbers-minus-style = "#af0000"        # Style (foreground, background, attributes) for line numbers in the old (minus) version of the file.
+    line-numbers-left-style = "#ff6e33" dim     # Style (foreground, background, attributes) for the left column of line numbers.
+    line-numbers-left-format = "{nm:^4}┊"       # Format string for the left column of line numbers.
+    line-numbers-right-style = "#ff7733" bold   # Style (foreground, background, attributes) for the right column of line numbers.
+    line-numbers-right-format = "{np:^4}│"      # Format string for the right column of line numbers.
+[delta "wrap_styles"]
+    wrap-max-lines = 0              # How often a line should be wrapped if it does not fit.
+    wrap-left-symbol = "↵"          # Symbol added to the end of a line indicating that the content has been wrapped onto the next line and continues left-aligned
+    wrap-right-symbol = "↴"         # Symbol added to the end of a line indicating that the content has been wrapped onto the next line and continues right-aligned
+    wrap-right-percent = 36.0       # Threshold for right-aligning wrapped content.
+    wrap-right-prefix-symbol = "…"  # Symbol displayed in front of right-aligned wrapped content.

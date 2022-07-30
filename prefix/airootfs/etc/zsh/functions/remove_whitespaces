@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed awk # Check if command is installed || exit with error exit-code
+must_have_argument $1 # Must have argument-1 passed to this function || exit
+
+awk '{$1=$1; print}' "$1"

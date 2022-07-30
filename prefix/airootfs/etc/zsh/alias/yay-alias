@@ -1,0 +1,11 @@
+#!/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │     Add some aliases for yay AUR-helper -- https://github.com/Jguer/yay      │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+alias yay_install_package='yay -S --needed'
+alias yay_update_n_upgrade='yay -Syu'
+alias yay_search_package='yay -Ss'
+alias yay_info_package='yay -Si'
+alias yay_remove_package='yay -Rs'
+alias yay_remove_package_n_configuration='yay -Rns'

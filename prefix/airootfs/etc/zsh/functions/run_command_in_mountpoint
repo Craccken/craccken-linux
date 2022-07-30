@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+need_installed arch-chroot || return $? # Check if command is installed || exit
+need_root_user || return $? # Need root user to run || exit
+must_have_argument $1 || return $? # Must have argument-1 passed || exit
+must_have_argument $2 || return $? # Must have argument-2 passed || exit
+
+check_mount $1 || return $? # Check mountpoint || exit
+arch-chroot $1 /bin/bash -c "$2" # Run shell command in mountpoint

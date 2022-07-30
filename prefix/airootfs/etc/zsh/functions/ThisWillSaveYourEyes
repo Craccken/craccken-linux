@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed wlsunset # Check if command is installed || exit with error exit-code
+killall -q wlsunset || : # Kill old process of wlsunset
+
+if [[ ! -f "$XDG_DATA_HOME/.location" ]]; then # Check if file not exist
+    local latitude="$(curl -s "https://json.geoiplookup.io/$(get-info public_ip)" | grep -i "latitude" | awk '{print $NF}' | cut -d',' -f1)" # Get your latitude from internet
+    local longitude="$(curl -s "https://json.geoiplookup.io/$(get-info public_ip)" | grep -i "longitude" | awk '{print $NF}' | cut -d',' -f1)" # Get your longitude from internet
+    echo "${latitude},${longitude}" > "$XDG_DATA_HOME/.location" # Output it to file, so we can use it without internet
+else
+    local latitude="$(< "$XDG_DATA_HOME/.location" | cut -d ',' -f1)" # Get latitude from file
+    local longitude="$(< "$XDG_DATA_HOME/.location" | cut -d ',' -f2)" # Get longitude from file
+fi # End if-else
+wlsunset -l "${latitude}" -L "${longitude}" # Start gamma adjustments

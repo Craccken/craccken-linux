@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+speak "Updating,all zsh plugins." || : # Speak string
+zinit self-update &>/dev/null &     # Update and compile Zinit, and run as background process
+zinit update -q --all &>/dev/null & # Update all plugins and snippets with quiet mode, and run as background process
+wait # Wait until all background process done

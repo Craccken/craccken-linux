@@ -1,0 +1,57 @@
+window {
+    font-size: 19px; /* Indicates the desired height of glyphs from the font */
+    background-color: rgba(0, 0, 0, 0); /* Sets the background color of an element. */
+    font-family: CozetteVector, FontAwesome, Roboto, Helvetica, Arial, sans-serif; /* Specifies a prioritized list of font family names or generic family names. */
+}
+
+#outer-box { /* Outer bar container, takes all the window width/height */
+    padding: 4px; /* Shorthand property to set values for the thickness of the padding area. */
+}
+
+#inner-box { /* Inner bar container, surrounds buttons */
+    border-radius: 1rem; /* Defines the radii of the outer border edge. */
+    background-color: rgba(0, 0, 0, 0.97); /* Sets the background color of an element. */
+    padding-top: 0.4rem;  /* Shorthand property to set values for the thickness of the padding area. */
+    padding-left: 0.5rem; /* Shorthand property to set values for the thickness of the padding area. */
+    padding-right: 0.5rem; /* Shorthand property to set values for the thickness of the padding area. */
+    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area. */
+    box-shadow: 0px 2px 2.9px 0.1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
+}
+
+image { /* Style for image in inner-box */
+	border: none; /* Shorthand property for setting border width, style, and color. */
+	box-shadow: none; /* Attaches one or more drop\-shadows to the box. */
+    background: none; /* Shorthand property for setting most background properties at the same place in the style sheet. */
+}
+
+button { /* Style for button in inner-box */
+    color: #e6e5e6; /* Sets the color of an element's text. */
+    border: unset;  /* Shorthand property for setting border width, style, and color. */
+    margin-top: 0.2rem; /* Shorthand property to set values for the thickness of the margin area top. */
+    margin-bottom: 0.2rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
+    margin-left: 0.6rem; /* Shorthand property to set values for the thickness of the margin area. */
+    margin-right: 0.6rem; /* Shorthand property to set values for the thickness of the margin area. */
+    background-image: unset; /* Sets the background image(s) of an element. */
+    padding-left: 0.7rem; /* Shorthand property to set values for the thickness of the padding area. */
+    padding-right: 0.7rem; /* Shorthand property to set values for the thickness of the padding area. */
+    transition-delay: 0ms; /* Defines when the transition will start. */
+    transition-duration: 97ms; /* Defines when the transition will start. */
+    transition-property: all; /* Specifies the name of the CSS property to which the transition is applied. */
+    transition-timing-function: ease; /* Describes how the intermediate values used during a transition will be calculated. */
+}
+
+button:hover { /* Style for button when hover in inner-box */
+    color: #ffcaff; /* Sets the color of an element's text. */
+    margin-top: 0; /* Shorthand property to set values for the thickness of the margin area top. */
+    margin-bottom: 0; /* Shorthand property to set values for the thickness of the margin area bottom. */
+    padding-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the padding area. */
+    border-style: solid; /* The style of the border around edges of an element. */
+    border-top-width: 0; /* Sets the thickness of the top border. */
+    border-left-width: 0; /* Sets the thickness of the bottom border. */
+    border-right-width: 0; /* Sets the thickness of the right border. */
+    border-bottom-left-radius: 0; /* Defines the radii of the bottom left outer border edge. */
+    border-bottom-right-radius: 0; /* Defines the radii of the bottom right outer border edge. */
+    border-bottom-width: 0.3em; /* Sets the thickness of the bottom border. */
+    font-size: 21px; /* Indicates the desired height of glyphs from the font */
+    border-image: linear-gradient(120deg, #aed1ef 0%, #f0b9ef 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
+}

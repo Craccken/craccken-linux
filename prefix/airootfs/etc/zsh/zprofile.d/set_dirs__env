@@ -1,0 +1,37 @@
+#!/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                              XDG base directory                              │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+[[ ! -d /tmp/"$USER" ]] && mkdir /tmp/"$USER"   # If /tmp/username directory not exist && Create directory /tmp/username
+#export XDG_RUNTIME_DIR="/tmp/$USER"           # Used for non-essential, user-specific data files such as sockets, named pipes, etc.
+export XDG_CONFIG_HOME="$HOME/.config"          # Where user-specific configurations should be written (analogous to /etc).
+export XDG_STATE_HOME="$HOME/.local/state"      # Where user-specific state files should be written (analogous to /var/lib).
+export XDG_DATA_HOME="$HOME/.local/share"       # Where user-specific data files should be written (analogous to /usr/share).
+export XDG_CACHE_HOME="$HOME/.cache"            # Where user-specific non-essential (cached) data should be written (analogous to /var/cache).
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                              XDG user directory                              │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+export XDG_DESKTOP_DIR="$HOME/Desktop"
+export XDG_DOWNLOAD_DIR="$HOME/Downloads"
+export XDG_TEMPLATES_DIR="$HOME/Templates"
+export XDG_PUBLICSHARE_DIR="$HOME/Public"
+export XDG_DOCUMENTS_DIR="$HOME/Documents"
+export XDG_MUSIC_DIR="$HOME/Music"
+export XDG_PICTURES_DIR="$HOME/Pictures"
+export XDG_VIDEOS_DIR="$HOME/Videos"
+export XDG_SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    Other                                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+export ZDOTDIR="$HOME/.config/zsh"                  # Set directory for placing user zsh configurations, all zsh configurations like zshrc,zshenv,etc will be excuted on that directory example `$ZDOTDIR/.config/zsh/zshrc`
+export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"      # Name of the default lesskey(keybinding file for less) binary file. (Not used  if  "$LESSKEYIN"  exists.)
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"  # Name of the history file used to remember search commands and shell commands between invocations of less. If set to "-" or "/dev/null", a history file is not used. The default is "$XDG_DATA_HOME/lesshst" or "$HOME/.lesshst" on Unix systems.
+export CARGO_HOME="$XDG_DATA_HOME/cargo"            # Cargo maintains a local cache of the registry index and of git checkouts of crates. By default these are stored under $HOME/.cargo
+export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"        # Set location of wget startup file
+export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"      # Directory where MPlayer looks for user settings.
+export GOPATH="$XDG_DATA_HOME/go"                   # The GOPATH is an environment variable that helps Go to look for go source code.
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"          # Sets the root rustup folder, used for storing installed toolchains and configuration options.
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"        # If set, this environment variable should be the path to a directory, which IPython will use for user data.
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"    # Set this environment variable to use a particular directory, other than the default, for Jupyter config files.
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npmrc"   # The location of user-level configuration settings.

@@ -1,0 +1,12 @@
+#!/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                         Add some useful aliases tmux                         │
+# │         https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux          │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+alias ta='tmux attach -t'           # Attach new tmux session to already named session.
+alias tad='tmux attach -dt'         # Detach named tmux session
+alias tns='tmux new-session -s'      # Create a new named tmux session 
+alias tls='tmux list-sessions'       # Displays a list of running tmux sessions
+alias tksv='tmux kill-server'       # Terminate all running tmux sessions
+alias tkss='tmux kill-session -t'   # Terminate named running tmux session

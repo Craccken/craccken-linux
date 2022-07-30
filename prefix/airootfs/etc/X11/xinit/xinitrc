@@ -1,0 +1,38 @@
+#!/bin/env zsh
+# vim:ft=sh
+#  ██╗  ██╗██╗███╗   ██╗██╗████████╗██████╗  ██████╗
+#  ╚██╗██╔╝██║████╗  ██║██║╚══██╔══╝██╔══██╗██╔════╝
+#   ╚███╔╝ ██║██╔██╗ ██║██║   ██║   ██████╔╝██║     
+#   ██╔██╗ ██║██║╚██╗██║██║   ██║   ██╔══██╗██║     
+#  ██╔╝ ██╗██║██║ ╚████║██║   ██║   ██║  ██║╚██████╗
+#  ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │        /etc/X11/xinit/xinitrc: system-wide .xinitrc file for xinit(1)        │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# This file execute if you run startx or xinit
+
+[ -f /etc/X11/xinit/Xresources ] && xrdb /etc/X11/xinit/Xresources
+[ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
+
+[ -f /etc/X11/xinit/Xmodmap ] && xmodmap /etc/X11/xinit/Xmodmap
+[ -f $HOME/.Xmodmap ] && xmodmap $HOME/.Xmodmap
+
+[ -f /etc/X11/xinit/Xprofile ] && . /etc/X11/xinit/Xprofile
+[ -f $HOME/.Xprofile ] && . $HOME/.Xprofile
+
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                    Run all system xinitrc shell scripts.                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+if [[ -d /etc/X11/xinit/xinitrc.d ]]; then # Check if xinitrc.d is directory
+    for file in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+        [[ -x $file ]] && source "$file" # Check if file is executeable && execute it
+    done # End for-loop statement
+fi # End if-else statement
+
+# export SSH_ASKPASS="/usr/lib/ssh/ssh-askpass" # Set default askpass program for ssh
+# export SUDO_ASKPASS="/usr/lib/ssh/x11-ssh-askpass"  # Set default askpass program for sudo with -A flag
+# fpath+=/etc/zsh/functions/ && autoload start_live_wallpaper && start_live_wallpaper /usr/local/share/craccken/cracsloth/craccken-live-wallpaper.mp4 # Autoload functions && run functions that play live-wallpaper
+# (($+commands[picom])) && picom &!                                   # Check if picom is available && run picom as background process
+# (($+commands[dunst])) && dunst &!                                   # Check if dunst is available && run dunst as background process
+# (($+commands[nitrogen])) && nitrogen --restore &!                   # Check if nitrogen is available && run nitrogen as background process
+# (($+commands[dwm])) && exec dwm &>/dev/null                         # Run window-manager

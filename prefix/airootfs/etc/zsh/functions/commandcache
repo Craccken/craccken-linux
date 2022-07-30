@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed md5sum # Check if command is installed || exit with error exit-code
+
+local command_cache_dir=${COMMAND_CACHE_DIR:-"$HOME/.cache/.command-cache"} # Create variable for storing cache directory
+local command_hash=$(echo -n "$*" | md5sum | cut -d' ' -f1) # Get command hash
+local command_cache_file="${command_cache_dir}/init-${1##*/}-${command_hash}.sh" # Create variable for storing cache file
+
+if [[ ! -s "$command_cache_file" ]]; then # If file size is not more than 0 bytes
+    need_installed "$1" # Check if command is installed
+    mkdir -p "$command_cache_dir" # Create command_cache_dir if not created
+    warn_msg "$1: Initialization not cached, caching output of: $*"
+    echo "$@" > "$command_cache_file" # Print argument into cache file
+    eval "$(<$command_cache_file)" # Source cache, eval is fastttt
+    return # exit this functions
+fi # End if-else statement
+
+eval "$(<$command_cache_file)" # Source cache

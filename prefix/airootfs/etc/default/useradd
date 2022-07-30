@@ -1,0 +1,63 @@
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃     useradd -- create a new user or update default new user information      ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃             This file contain useradd configuration, useradd(8)              ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#                  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#                  ┃ [The group name or number of the user's initial login group.] ┃
+#                  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#  ▲
+#  █ If not specified, the behavior of useradd will depend on              
+#  █ the USERGROUPS_ENAB variable in /etc/login.defs.                      
+#  █ If this variable is set to yes (or -U/--user-group is                 
+#  █ specified on the command line), a group will be created for the user, 
+#  █ with the same name as her loginname.                                  
+#  ▼                                                                        
+GROUP=users
+#                        ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#                        ┃ [The path prefix for a new user's home directory] ┃
+#                        ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#  ▲
+#  █ The user's name will be affixed to the end of BASE_DIR    
+#  █ to form the new user's home directory name,               
+#  █ if the -d option is not used when creating a new account. 
+#  ▼                                                            
+HOME=/home
+#    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#    ┃ [The number of days after a password expires until the account is permanently disabled.] ┃
+#    ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#  ▲
+#  █ A value of disables the account as soon as the password has expired, 
+#  █ and a value of -1 disables the feature.                              
+#  ▼                                                                       
+INACTIVE=-1
+#                      ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#                      ┃ [The date on which the user account will be disabled] ┃
+#                      ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#  ▲
+#  █ Specified in the format YYYY-MM-DD.                                         
+#  █ If not specified, useradd will use the default expiry date specified by     
+#  █ the EXPIRE variable in /etc/default/useradd, or an empty string (no expiry) 
+#  █ by default.                                                                 
+#  ▼                                                                              
+EXPIRE=
+#                              ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#                              ┃ [The name of the user's login shell] ┃
+#                              ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#  ▲
+#  █ The default login shell specified by the SHELL 
+#  █ variable in /etc/default/useradd, or an        
+#  █ empty string by default.                       
+#  ▼                                                 
+SHELL=/bin/zsh
+#                                    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#                                    ┃ [The skeleton directory] ┃
+#                                    ┗━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#  ▲
+#  █ which contains files and directories to be 
+#  █ copied in the user's home directory,       
+#  █ when the home directory by useradd.        
+#  ▼                                             
+SKEL_DIR=/etc/skel
+CREATE_MAIL_SPOOL=no

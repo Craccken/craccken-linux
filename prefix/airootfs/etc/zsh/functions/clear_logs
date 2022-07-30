@@ -1,0 +1,51 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_root_user # Need root user to run || exit
+need_installed parallel-moreutils # Check if command is installed || exit 
+
+local log # Create local variable
+local -a log_files=( # Create local array for store log files that will be remove
+    /var/log/messages                       # General message and system related stuff
+    /var/log/auth.log                       # Authenication logs
+    /var/log/kern.log                       # Kernel logs
+    /var/log/cron.log                       # Crond logs
+    /var/log/maillog                        # Mail server logs
+    /var/log/boot.log                       # System boot log
+    /var/log/Xorg.0.log                     # Xorg display server log
+    /var/log/mysqld.log                     # MySQL database server log file
+    /var/log/qmail                          # Qmail log directory
+    /var/log/httpd                          # Apache access and error logs directory
+    /var/log/apache2                        # Apache access and error logs directory
+    /var/log/lighttpd                       # Lighttpd access and error logs directory
+    /var/log/secure                         # Authentication log
+    /var/log/utmp                           # Login records file
+    /var/log/wtmp                           # Login records file
+    /var/log/yum.log                        # Yum command log file
+    /var/log/pacman.log                     # pacman command log file
+    /var/log/system.log                     # System Log
+    /var/log/DiagnosticMessages             # Mac Analytics Data
+    /Library/Logs                           # System Application Logs
+    /Library/Logs/DiagnosticReports         # System Reports
+    ~/Library/Logs                          # User Application Logs
+    ~/Library/Logs/DiagnosticReports        # User Reports
+)
+for log in "${log_files[@]}"; do # Create for-loop to iterate log_files list
+    if [[ -f "${log}" ]]; then # Check if file exists
+        if [[ -w "${log}" ]]; then # Check if log file writable
+            echo > "${log}" # Flush the log with empty line
+            echo # New line
+            info_msg "${log} cleaned."
+        else
+            warn_msg "${log} is not writable! Change the permission the file with 'chmod'."
+        fi # End if-else statement
+    elif [[ -d "${log}" ]]; then # Check if log is directory
+        if [[ -w "${log}" ]]; then # Check if directory writable
+            rm -rf "${log}"/* # Remove all file that contain in log directory
+            echo # New line
+            info_msg "${log} cleaned."
+        else
+            warn_msg "${log} is not writable! Change the permission the file with 'chmod'."
+        fi # End if-else statement
+    fi # End if-else statement
+done # Done for-loop statement

@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
+need_installed curl || return $? # Check if command is installed || exit
+need_internet # Need internet to run
+
+mkdir -p /tmp/$0 # Create cache folder
+local output_file="${1:-$(mktemp /tmp/$0/XXXXXXXXXX)}" # Create local variable for storing output file
+curl -s https://thispersondoesnotexist.com/image -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0' -o "${output_file}" # Get image from website and store it to output_file
+< "${output_file}" | wl-copy # Copy the output file from generated image
+dunstify --raw_icon="${output_file}" "$0" "Generated image has been coppied to the clipboard\n${output_file}" # Send-notification

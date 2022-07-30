@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                          Connect/Disconnect openvpn                          │
+# │                  Usage: toggle_openvpn yourconfigfile.ovpn                   │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed killall openvpn # Check if command is installed || exit
+
+AskPassword # Ask the password || exit
+sudo killall -INT -q openvpn && warn_msg "Disconnected" || {sudo openvpn "$1" &>/dev/null &!; warn_msg "Connected!";}

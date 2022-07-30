@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail
+zinit delete --clean # delete plugins or snippets that are not loaded.

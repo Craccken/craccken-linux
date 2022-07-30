@@ -1,0 +1,42 @@
+#!/bin/env zsh
+# vim:ft=sh
+local -a FZF_TAB_GROUP_COLORS=( # Create local array for store group color
+    $'\033[94m' 
+    $'\033[32m' 
+    $'\033[33m' 
+    $'\033[35m' 
+    $'\033[31m' 
+    $'\033[38;5;27m' 
+    $'\033[36m'
+    $'\033[38;5;100m' 
+    $'\033[38;5;98m' 
+    $'\033[91m' 
+    $'\033[38;5;80m' 
+    $'\033[92m'
+    $'\033[38;5;214m' 
+    $'\033[38;5;165m' 
+    $'\033[38;5;124m' 
+    $'\033[38;5;120m'
+)
+zstyle :fzf-tab:* group-colors $FZF_TAB_GROUP_COLORS    # Color for different groups and their descriptions.
+zstyle :fzf-tab:* fzf-command fzf                       # Specify the fuzzy search program, ( fzf | ftb-tmux-popup )
+zstyle :fzf-tab:* fzf-pad 4                             # Set how many lines does fzf's prompt occupied
+zstyle :fzf-tab:* show-group full                       # Set `full` for show all group-descriptions.
+zstyle :fzf-tab:* popup-pad 20 10                       # Set the right and bottom padding of the popup window
+zstyle :fzf-tab:* switch-group ',' '.'                  # Specify the key that switch over group to `,` and `.`
+zstyle :fzf-tab:* print-query ';'                       # Press this will use current user fzf-prompt input as the result.
+zstyle :fzf-tab:* accept-line alt-space                 # Specify the key to accept and run a suggestion in one keystroke.
+zstyle :fzf-tab:* continuous-trigger '/'                # Specify the key that trigger continuous completion (accept the result and start another completion immediately), it's useful when completing a long path.
+zstyle :fzf-tab:* single-group color header             # What to show when there is only one group.
+zstyle :fzf-tab:* query-string prefix input first       # The strategy for generating query string.
+zstyle :fzf-tab:* default-color $'\033[38;5;9m'         # Set colors when there is no group, use ansi escape code for the color.
+zstyle :fzf-tab:* fzf-flags '--height=70%' '--preview-window=bottom,50%'                            # Set extra fzf flags for fzf-tab
+zstyle :fzf-tab:complete:man:* fzf-flags '--height=80%' '--preview-window=right,75%,wrap'           # Set extra fzf flags for fzf-tab `man *`
+zstyle :fzf-tab:complete:man:* fzf-preview 'man $word | bat -p -l man --color=always'               # Set previewer that show contents of man page
+zstyle :fzf-tab:complete:(cd|ls|exa):* fzf-preview 'exa -G --all --icons --color=always $realpath'  # Set previewer that show contents of the folder
+zstyle :fzf-tab:complete:pacman:* fzf-flags '--preview-window=right:70%:wrap'                       # Set extra fzf flags for pacman command
+zstyle :fzf-tab:complete:pacman:* fzf-preview 'pacman -Si $word 2>/dev/null'                        # Set previewer that show information of package
+zstyle :fzf-tab:complete:systemctl-*:* fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'        # Defines previewer service status for systemctl command
+zstyle :fzf-tab:complete:(kill|ps):argument-rest fzf-flags --preview-window=down:3:wrap             # Set extra fzf flags for kill or ps command
+zstyle :fzf-tab:complete:(kill|ps):argument-rest fzf-preview '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+zstyle :fzf-tab:complete:(-complete-|-parameter-|-brace-parameter-|export|unset|expand):* fzf-preview 'for word in ${(P)word};do echo $word;done' # Set previewer that show environment-variable

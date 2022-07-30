@@ -1,0 +1,127 @@
+# vim:ft=conf
+colors.scheme=casper,spectre
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │            Available smoothing options are monstercat, sgs, none.            │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.spectrum.smoothing.mode=sgs
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │     The first option is controlling the number of smoothing passes done      │
+#  │    when rendering the bars. Increasing this number with make the spectrum    │
+#  │                                  smoother.                                   │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+#visualizer.sgs.smoothing.passes=100
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │    The second option is the number of neighbors to look at when smoothing    │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+#visualizer.sgs.smoothing.points=10
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │     This configures the falloff effect on the spectrum visualizer. This      │
+#  │   effect creates a slow fall in bar height. Available falloff options are    │
+#  │              fill,top,none. The default falloff option is fill.              │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.spectrum.falloff.mode=top
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │      The bar width can be controlled to make it wider or narrower. The       │
+#  │                                default is 2.                                 │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.spectrum.bar.width=2
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │     The spacing between bars can also be controlled to make it wider or      │
+#  │                         narrower. The default is 1.                          │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.spectrum.bar.spacing=1
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │     The margin widths of the spectrum visualizer can also be controlled.     │
+#  │   The margins are set in percent of total screen for spectrum visualizer.    │
+#  │                    All margin percentages default to 0.0.                    │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.spectrum.top.margin=0.0
+visualizer.spectrum.bottom.margin=0.0
+visualizer.spectrum.right.margin=0.0
+visualizer.spectrum.left.margin=0.0
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │              Turn stereo mode off to show only one set of bars.              │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# audio.stereo.enabled=false
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │       Normally the bars are ordered so that the lowest frequencies are       │
+#  │    handled by the left most bars and the highest frequencies by the right    │
+#  │   most bars. The reversed option gives the option to reverse this so that    │
+#  │                     the highest frequencies come first.                      │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.spectrum.reversed=false
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │    The spectrum visualizer should auto-scale, but for lorenz and ellipse     │
+#  │    visualizers scaling is based off volume. If your music volume is a lot    │
+#  │     lower than the system volume then you can scale the visualizers with     │
+#  │                                 the settings                                 │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# visualizer.scaling.multiplier=2
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │    Refresh rate of the visualizers. A really high refresh rate may cause     │
+#  │                        screen tearing. Default is 20.                        │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.fps=27
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │    Specifies how often the visualizer will change in seconds. 0 means do     │
+#  │                          not rotate. Default is 0.                           │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.rotation.secs=11
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │           Configures the samples rate and the cutoff frequencies.            │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+audio.sampling.frequency=44100
+audio.low.cutoff.frequency=30
+audio.high.cutoff.frequency=22050
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │       Configures the visualizers and the order they are in. Available        │
+#  │ visualizers are spectrum,lorenz,ellipse. Defaults to spectrum,ellipse,lorenz │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizers=spectrum,ellipse,lorenz
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │    Configures what character the spectrum visualizer will use. Specifying    │
+#  │    a space (e.g " ") means the background will be colored instead of the     │
+#  │                         character. Defaults to " ".                          │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# visualizer.spectrum.character=#
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │   Configures how fast the falloff character falls. This is an exponential    │
+#  │      falloff so values usually look best 0.9+ and small changes in this      │
+#  │               value can have a large effect. Defaults to 0.95                │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.spectrum.falloff.weight=0.95
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │    Sets the audio sources to use. Currently available ones are "mpd" and     │
+#  │      "alsa"Sets the audio sources to use. Currently available ones are       │
+#  │            "mpd", "pulse", "port", and "alsa". Defaults to "mpd".            │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# audio.sources=mpd
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │     vis tries to find the correct pulseaudio sink, however this will not     │
+#  │       work on all systems. If pulse audio is not working with vis try        │
+#  │    switching the audio source. A list can be found by running the command    │
+#  │               pacmd list-sinks  | grep -e 'name:'  -e 'index'                │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# audio.pulse.source=0
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │      vis tries to find the correct portaudio device (through portaudio       │
+#  │   default method), however its not for-sure. If port audio is not working    │
+#  │   with vis try switching the audio srouce. A list can be found by setting    │
+#  │    this value to "list" and checking the vis log file. Replace this value    │
+#  │                         with the device name desired                         │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# audio.port.source=auto
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │   Configures what character the ellipse visualizer will use. Specifying a    │
+#  │     space (e.g " ") means the background will be colored instead of the      │
+#  │                         character. Defaults to " ".                          │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# visualizer.ellipse.character=#
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │   The radius of each color ring in the ellipse visualizer. Defaults to 2.    │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+visualizer.ellipse.radius=1
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │               Turns off overriding the user's terminal colors                │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# colors.override.terminal=false

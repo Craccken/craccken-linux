@@ -1,0 +1,4 @@
+#!/bin/env zsh
+# vim:ft=sh
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)   # Specifies how suggestions should be generated, so it will search suggestions from history and then from completions.
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#303030'    # Set highlight auto-suggestions

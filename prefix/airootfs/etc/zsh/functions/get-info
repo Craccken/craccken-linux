@@ -1,0 +1,100 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                Collection of command that giving information                 │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed nc tlp-stat fzf ip grep iwconfig curl last w lsusb sensors stat usb-devices who nc # Check if command is installed || exit
+
+local -a available_options=( # Declare local array
+    "public_ip"                 # Get public ip address of this machine
+    "local_ip"                  # Get local ip address of this machine
+    "disk"                      # Get information about disk
+    "logged_user"               # Get information about current log-in user
+    "all_user"                  # List all user in this system
+    "battery"                   # Get information about battery
+    "usb"                       # Get information about usb devices
+    "permission"                # Get information about permission on specific directory or in this directory
+    "port"                      # Get information about port network in this system
+    "top_memory"                # Get information memory usage in this system
+    "metadata"                  # Get information file metadata
+    "hyprland_keybinding"       # Get keybinding of hyprland window-manager
+    "top_history"               # Get command that you used often in shell
+    "cpu_temperature"           # Get cpu temperature this machine
+    "interface_mode"            # Get wireless device interface status mode
+) 
+# NOTE: ${(o)list} <- Sort the resulting words in ascending order; if this appears on its own the sorting is lexical and case-sensitive (unless the locale renders it case-insensitive).
+local option="${1:-$(print -l ${(o)available_options} | fzf --no-multi --header='Choose an option')}" # Declare local variable if argument-1 empty then pick option with fzf
+case ${option} in # Read option variable
+    "local_ip") 
+        ip address | grep -A 1 "enp|eth|wl" | grep inet | tr -s ' ' | cut -d ' ' -f 3 | cut -d '/' -f 1 
+        ;; 
+    "public_ip")
+        need_internet # Check if there is available connection || exit
+        curl api.ipify.org || curl ipinfo.io/ip || curl ipecho.net/plain || curl icanhazip.com 
+        ;;
+    "all_user") 
+        info_msg "All user in this system"  # Show info message
+        getent passwd | cut -d: -f1         # Print all user in this system
+        info_msg "Current user"             # Show info message
+        whoami                              # Print the user name associated with the current effective user ID.
+        ;;
+    "logged_user") 
+        info_msg "Current logged user on $TTY"          # Show info message
+        last -w -i -x -a | grep --color=never "still"   # Show current logged user
+        w --ip-addr                                     # Show who is logged on and what they are doing.
+        info_msg "Last reboot"                          # Show info message
+        who -b                                          # Find last reboot time
+        ;;
+    "disk")
+        info_msg "Current disk device information" # Show info message
+        sudo tlp-stat -d # View disk device information.
+        ;;
+    "battery")
+        local battery # Create local variable
+        for battery in /sys/class/power_supply/BAT?; do # Create for-loop with battery as value
+            info_msg "Current battery percent ${battery}"; /bin/cat ${battery}/capacity # Get info of battery capacity
+            info_msg "Battery status ${battery}"; /bin/cat ${battery}/status # Get info of battery status 
+        done # End for-loop statement
+        ;;
+    "port")
+        info_msg "All listening ports"                                                  # Show info message
+        ( lsof -i | grep LISTEN | tr -s ' ' ) || error_msg "No LISTENING ports open!"   # Show only LISTEN in 'lsof' command
+        info_msg "All UDP ports"                                                        # Show info message
+        ( lsof -nP | grep UDP | tr -s ' ' ) || error_msg "No UDP ports open!"           # Show only UDP in 'lsof' command
+        info_msg "All TCP ports"                                                        # Show info message
+        ( lsof -nP | grep TCP | tr -s ' ' ) || error_msg "No TCP ports open!"           # Show only TCP in 'lsof' command
+        ;;
+    "cpu_temperature")
+        echo "$(tlp-stat -t | grep CPU | tr -s " " | cut -d ' ' -f 4)°C"
+        ;;
+    "top_memory")
+        need_installed ps_mem ps # Check if command is installed || exit
+        ps --sort -pcpu -eo pid=,pcpu=,comm= | head -n ${2:-10} # Get top memory usage
+        ps_mem -p $(pgrep -d, -u $USER) | tail -n ${2:-10} # Get top core memory usage in user process
+        ;;
+    "permission")
+        info_msg "Permission in current directory"  # Show info message
+        stat --printf="%a %n \n" ${2:-./*}          # Show all permission in current directory or argument-2
+        ;;
+    "interface_mode")
+        iwconfig ${2:-wlan0} | grep --color=never Mode | tr -s " " | cut -d ' ' -f 2 # Show only interface mode in 'iwconfig' command
+        ;;
+    "usb")
+        info_msg "All the connected USB devices"    # Show info message
+        lsusb; lsusb --tree                         # List USB device
+        usb-devices                                 # Print USB device details
+        ;;
+    "metadata")
+        need_installed exiftool && man exiftool # Check if command is installed && open manual page for exiftool
+        ;;
+    "top_history")
+        print -l ${(o)history%% *} | uniq -c | sort -nr | head -n ${2:-10} # Print top command that often on your history.
+        ;;
+    "hyprland_keybinding")
+        grep -e "bind=" -e "submap=" ${2:-~/.config/hypr/hyprland.conf} | grep -v '^# ' | sed -e 's/bind=//' -e 's/submap=/\n/' -e 's/# /-- /' # Get keybinding from hyprland config
+        ;;
+    *)
+        : # Do nothing
+        ;;
+esac # End switch-case statement

@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+must_have_argument $* # Must have argument passed || exit
+
+echo "[35m${*}[0m" > ./.rune_stone

@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed grim # Check if command is installed || exit with error exit-code
+
+local output_file="${1:-$HOME/Pictures/Screenshots/$(print -P '%D{%F-%T-%Z}').png}" # Get current date and time and store it to variable
+mkdir -p "$HOME/Pictures/Screenshots/" # Create Screenshots directory at home when not creeated
+LC_ALL=C grim -t 'png' -g "$(select-region-on-screen)" "${output_file}" # Select region and screenshot it to output_file
+< "${output_file}" | wl-copy # Copy the output from grim

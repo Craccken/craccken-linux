@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                          As the title of this file                           │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed curl wl-paste # Check if command is installed || exit
+need_internet # Need internet to run
+need_normal_user # Need normal user to run || exit
+
+local word="$(wl-paste)" # Get data from clipboard to local variable
+if [[ -n "${word}" ]]; then # If word is not empty then:
+    local definitions=$(curl -s "https://api.dictionaryapi.dev/api/v2/entries/en_US/${word}" | /bin/grep -Po '"definition":"\K(.*?)(?=")')
+    local separatedDefinition=$(sed ':a;N;$!ba;s/\n/\n\n/g' <<< "${definitions}")
+    notify-send -a "word-definition" "${word}" "${separatedDefinition}"
+fi # End if-else statement 

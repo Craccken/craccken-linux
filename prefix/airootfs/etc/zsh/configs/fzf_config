@@ -1,0 +1,75 @@
+#!/bin/env zsh
+# vim:ft=sh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                 FZF OPTIONS                                  ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+local -a fzf_keybinding=( # Create local array for store fzf keybindings
+    "--bind='ctrl-/:toggle-preview'"    # Toggle preview window
+    "--bind='ctrl-space:toggle'"        # Toggle selection
+    "--bind='ctrl-a:toggle-all'"        # Toggle all selection
+    "--bind='ctrl-f:toggle-search'"     # Toggle search functionality
+)
+local -a fzf_options=( # Create local array for store fzf options
+    "--multi"                       # Enable multi-select with tab/shift-tab.
+    #'--black'                        # Use black background
+    #'--exact'                        # Enable exact-match
+    #'--disabled'                     # Do not perform search, only selector.
+    #'--ansi'                         # Enable processing of ANSI color codes.
+    #'--tac'                          # Reverse the order of the input
+    '--no-bold'                     # Do not use bold text
+    #'--no-clear'                     # Do not clear finder interface on exit.
+    #'--filepath-word'                # Make word-wise movements and actions respect path separators.
+    #'--no-mouse'                     # Disable mouse
+    #'--no-multi'                     # Disable multi-select
+    #'--jump-labels='                 # Label characters for jump and jump-accept
+    "--cycle"                       # Enable cyclic scroll
+    "--marker='>'"                  # Multi-select marker (default: '>')
+    "--prompt=' '"                 # Input prompt (default: '> ')
+    "--pointer='>'"                 # Pointer to the current line (default: '>')
+    '--tabstop=4'                   # Number of spaces for a tab character (default: 8)
+    '--ellipsis=…'                  # Ellipsis to show when line is truncated (default: '..')
+    # '--keep-right'                  # Keep the right end of the line visible when it's too long. Effective only when the query string is empty.
+    '--min-height=10'               # Minimum height when --height is given in percent (default: 10). Ignored when --height is not specified.
+    '--info=inline'                 # Determines the display style of finder info. inline : Display on the same line, hidden : Do not display finder info.
+    "--scroll-off=7"                # Number of screen lines to keep above or below when scrolling to the top or to the bottom (default: 0).
+    "--border=rounded"              # Draw border around the finder ( rounded | sharp | horizontal | vertical | top | bottom | left | right | none )
+    '--select-1'                      # If there is only one match for the initial query, do not start interactive finder and automatically select the only match
+    #'--sync'                       # Synchronous search for multi-staged filtering. If specified, fzf will launch ncurses finder only after the input stream is complete.
+    '--padding=0,1,0,1'             # Comma-separated expression for padding inside the border. Padding is distinguishable from margin only when --border option is used. (T,R,B,L :: Top, right, bottom, left)
+    '--algo=v2'                     # Fuzzy matching algorithm, v2 : Optiomal scoring algorithm (quality), v1 : Faster but not guaranteed to find the optimal result (performance)
+    '--header-first'                # Print header before the prompt line.
+    '--exit-0'                      # IF there is no match for the initial query, do not start interactive finder adn exit immediately.
+    '--height=67%'                  # Display fzf window below the cursor with the given height instead of using the full screen.
+    #'--no-hscroll'                   # Disable horizontal scroll
+    #'--no-unicode'                   # Use ASCII characters instead of Unicode box drawing characters to draw border
+    '--layout=reverse'              # Choose the layout (default: default). (reverse : Display from the top of the screen | reverse-list : Display from the top of the screen, prompt at the bottom)
+    '--hscroll-off=10'              # Number of screen columns to keep to the right of the highlighted substring (default: 10). Setting it to a large value will cause the text to be positioned on the center of the screen.
+    '--margin=1,2,1,2'              # Comma-separated expression for margins around the finder. (T,R,B,L :: Top, right, bottom, left)
+    '--preview-window=right,60%'    # Determines the layout of the preview window. If the argument contains :hidden, the preview window will be hidden by default until 'toggle-preview' action is triggered.
+)
+local -a fzf_style=( # Create local array for store color configuration
+   "--color='fg+:#dadada'"                 # Text (current line)
+   "--color='bg+:#171717'"                 # Background (current line)
+   "--color='fg:#d0d0d0'"                  # Text color
+   "--color='bg:#000000'"                  # Background color
+   "--color='preview-fg:#dadada'"          # Preview window text
+   "--color='preview-bg:#020202'"          # Preview window background
+   "--color='hl:#eeeeee:bold'"             # Highlighted substrings
+   "--color='hl+:#ffffff:bold:italic'"     # Highlighted substrings (current line)
+   "--color='gutter:#101010'"              # Gutter on the left (default to bg+)
+   "--color='query:#d0d0d0'"               # Query string
+   "--color='disabled:#252525'"            # Query string when search is disabled
+   "--color='info:#4d4d4d'"                # Info line (match counters)
+   "--color='border:#212121'"              # Border arround the window
+   "--color='prompt:#ff6e33'"              # Prompt search
+   "--color='pointer:#4e4e4e'"             # Pointer to the current line
+   "--color='marker:#4e4e4e:italic'"       # Multi-select marker
+   "--color='spinner:#ff6e33'"             # Streaming input indicator
+   "--color='header:#4e4e4e'"              # Header text
+)
+export FZF_COMPLETION_TRIGGER=';;'                                                                                      # Use ;; as the trigger sequence, default is: **
+export FZF_ALT_C_OPTS='--no-height --header="Jump into directory."'                                                     # Set FZF_ALT_C_OPTS to pass additional options .
+export FZF_CTRL_R_OPTS='--no-height --header="Search history."'                                                         # Set FZF_CTRL_R_OPTS to pass additional options.
+export FZF_CTRL_T_OPTS='--no-height --header="Pick up some file!" --preview="bat --style=numbers --color=always {}"'    # Set FZF_CTRL_T_OPTS to pass additional options.
+export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"                                                         # Set default command to use when input is tty
+export FZF_DEFAULT_OPTS="${fzf_options[@]} ${fzf_keybinding[@]} ${fzf_style[@]}" # Set default options/parameter fzf, read fzf(1).

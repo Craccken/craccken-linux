@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+local -a colors # Declare local array
+local color # Declare local variable
+for color in {000..255}; do # Create for-loop with number 000-255 as color
+    colors+=("%K{$color}%F{#000000}$color%k%f") # Append color value to list
+done # End for-loop
+print -cP $colors # Print colors value as column

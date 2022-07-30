@@ -1,0 +1,22 @@
+#!/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                       Add some useful alias for pacman                       │
+# │               https://wiki.archlinux.org/index.php/Pacman_Tips               │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+alias install_package='sudo pacman -S --needed'
+alias update_n_upgrade='speak "Upgrading entire system."; sudo pacman -Syu'
+alias update_repository='speak "Updating repository"; sudo pacman -Sy'
+alias remove_package='sudo pacman -Rs'
+alias remove_package_n_configuration='sudo pacman -Rns'
+alias search_package='pacman -Ss'
+alias update_files_database='sudo pacman -Fy'
+alias search_files_database='pacman -F'
+alias info_package='pacman -Si'
+alias search_installed_package='pacman -Qs'
+alias info_installed_package='pacman -Qi'
+alias list_installed_packages_from_aur='pacman -Qm'
+alias list_installed_packages_from_repository='pacman -Qn'
+alias list_installed_packages_explicitly='pacman -Qe'
+alias list_installed_packages_no_longer_needed='pacman -Qdtq'
+alias clear_pacman_log='rm -v /var/log/pacman.log 2> /dev/null'

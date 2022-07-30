@@ -1,0 +1,46 @@
+#!/bin/env zsh
+# vim:ft=sh
+#  ███████╗██╗   ██╗███████╗████████╗███████╗███╗   ███╗       █████╗ ██╗     ██╗ █████╗ ███████╗
+#  ██╔════╝╚██╗ ██╔╝██╔════╝╚══██╔══╝██╔════╝████╗ ████║      ██╔══██╗██║     ██║██╔══██╗██╔════╝
+#  ███████╗ ╚████╔╝ ███████╗   ██║   █████╗  ██╔████╔██║█████╗███████║██║     ██║███████║███████╗
+#  ╚════██║  ╚██╔╝  ╚════██║   ██║   ██╔══╝  ██║╚██╔╝██║╚════╝██╔══██║██║     ██║██╔══██║╚════██║
+#  ███████║   ██║   ███████║   ██║   ███████╗██║ ╚═╝ ██║      ██║  ██║███████╗██║██║  ██║███████║
+#  ╚══════╝   ╚═╝   ╚══════╝   ╚═╝   ╚══════╝╚═╝     ╚═╝      ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═╝╚══════╝
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │     THIS FILE CONTAIN SYSTEM COMMAND ALIASES WITH ADDITIONAL PARAMETER.      │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │       NOTE: If you want to bypass all aliases \command, ex: \ls || \du       │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+alias bc="bc -ql"
+alias history='history -i 0'            # Better history formatting with date & time.
+alias ip='ip --color=always'            # `ip` command with color output.
+alias dir='dir --color=always'
+alias fgrep='fgrep --color=always'
+alias diff='diff --color=always'        # `diff` command with color output
+alias egrep='egrep --color=always'
+alias curl='curl --user-agent "noleak"'
+alias wget='wget --continue --timestamping --hsts-file="$XDG_DATA_HOME"/wget-hsts --progress=bar --user-agent "noleak"'
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                              Better replacement                              │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[vim] ))                       && alias vi='vim'                       # vi -> vim: Replace vi with the better one
+(( $+commands[nvim] ))                      && alias vim='nvim' vimdiff="nvim -d"   # vim -> neovim: Replace vim with neovim :)
+(( $+functions[doasedit] ))                 && alias sudoedit="doasedit"
+(( $+commands[duf] ))                       && alias df='duf'
+(( $+commands[dust] ))                      && alias du='dust'
+(( $+commands[dog] ))                       && alias dig='dog'
+(( $+commands[rg] ))                        && alias grep='rg --color=always'
+(( $+commands[gping] ))                     && alias ping='gping'
+(( $+commands[bat] ))                       && alias cat='bat'
+(( $+commands[neo-matrix] ))                && alias cmatrix='neo-matrix'
+(( $+commands[exa] ))                       && alias ls='exa --git --icons --group-directories-first --time-style=long-iso --group --color-scale' 
+(( $+commands[viddy] ))                     && alias watch='viddy'
+[[ -n $DISPLAY && -z $WAYLAND_DISPLAY ]]    && alias sudo="sudo -A" # Check if DISPLAY environment-variable is not empty
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                           Replacement for wayland                            │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[wev] )) && alias xev='wev'                # xev -> wev: This tool for debugging events on a wayland window, analogous to X11 tool xev.
+(( $+commands[wofi] )) && alias rofi='wofi'             # rofi -> wofi: Launcher for wlroots-based wayland compositors.
+(( $+commands[xdotool] )) && alias xdotool='ydotool'    # xdotool -> ydotool: Generic command-line automation tool (no X!)
+(( $+commands[wlr-randr] )) && alias xrandr='wlr-randr' # xrandr -> wlr-randr: Utility to manage outputs of a wayland compositor

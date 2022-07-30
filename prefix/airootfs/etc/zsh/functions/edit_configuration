@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │     Edit configurations file with this tool,i do not want remember this.     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed fzf seq nvim find # Check if command is installed || exit
+
+# TIPS: use `print -l $array` instead `echo $array | tr " " "\n"`. It much faster than piping into 'tr' command
+local -a file_configurations # Declare local array
+local -A available_options # Declare local associative array
+available_options[hosts]="/etc/hosts"
+available_options[sddm]="/etc/sddm.conf.d"
+available_options[tmux]="/etc/tmux.conf"
+available_options[river]="$HOME/.config/river"
+available_options[hypr]="$HOME/.config/hypr"
+available_options[git]="/etc/gitconfig"
+available_options[dunst]="/etc/dunst"
+available_options[nano]="/etc/nanorc"
+available_options[zathura]="/etc/zathurarc"
+available_options[foot]="$HOME/.config/foot"
+available_options[nwg-bar]="$HOME/.config/nwg-bar"
+available_options[mpd]="$HOME/.config/mpd"
+available_options[vis]="$HOME/.config/vis"
+available_options[ncmpcpp]="$HOME/.config/ncmpcpp"
+available_options[nwg-drawer]="$HOME/.config/nwg-drawer"
+available_options[grub]="/etc/default/grub"
+available_options[alias]="/etc/zsh/alias"
+available_options[sysctl]="/etc/sysctl.d /etc/sysctl.conf"
+available_options[xinit]="/etc/X11/xinit"
+available_options[pacman]="/etc/pacman.conf"
+available_options[vconsole]="/etc/vconsole.conf"
+available_options[release]="/etc/lsb-release /usr/lib/os-release"
+available_options[zsh]="/etc/zsh /etc/zsh/zshrc.d /etc/zsh/zprofile.d"
+available_options[neovim]="/etc/xdg/nvim /etc/xdg/nvim/colors /etc/xdg/nvim/lua /etc/xdg/nvim/plugin"
+
+local option="${1:-$(print -l ${(ko)available_options} | fzf --no-multi --header='Choose an option')}" # Declare local variable if argument-1 empty then pick available_options keys value and sorted with fzf
+[[ -z "${option}" ]] && send_return EINVAL # If option variable is empty && exit
+[[ -z "${available_options[$option]}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
+file_configurations=( $(find $(print ${available_options[$option]}) -maxdepth 1 -writable -type f 2>/dev/null) ) # Search available_options(option) value type file and store it to array
+file_configurations=( ${file_configurations[@]/*.rune_stone/} ) # Delete file from array if file_configurations has name .rune_stone in it
+[[ -n "${file_configurations[*]}" ]] && nvim -p "${file_configurations[@]}" # Check if there is file in variable && open up file_configurations with neovim in tab

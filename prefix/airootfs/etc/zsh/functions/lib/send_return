@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
+
+[[ -n "$1" ]] && { # Check if argument-1 is not empty && execute this below
+    # ╭──────────────────────────────────────────────────────────────────────────────╮
+    # │           See `errno -l` if you want errno names and descriptions            │
+    # ╰──────────────────────────────────────────────────────────────────────────────╯
+    local EXIT_CODE="$(errno $1 | cut -d ' ' -f 2 )"
+    local ERRNO_NAME="$(errno $1 | cut -d ' ' -f 1)"
+    local ERRNO_DESCRIPTION="$(errno $1 | cut -d ' ' -f 3-)"
+    error_msg "$ERRNO_NAME : $ERRNO_DESCRIPTION"
+    return $EXIT_CODE
+}

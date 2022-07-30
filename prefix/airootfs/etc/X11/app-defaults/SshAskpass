@@ -1,0 +1,88 @@
+! x11-ssh-askpass -- an X11-based pass-phrase dialog for use with OpenSSH or Sudo, x11-ssh-askpass(1).
+
+! Set the foreground and background color of the widget.
+*?.background: #030303
+*?.foreground: #e4e4e4
+*Button.foreground: #000000
+*Button.background: #e4e4e4
+*Indicator.background: #000000
+*Indicator.foreground: #e4e4e4
+
+! Set the color used by the sides of the widget exposed to the light (top and left).
+*topShadowColor: #000000
+*Button.topShadowColor: #e4e4e4
+*Indicator.topShadowColor: #e4e4e4
+
+! Set the color used by the sides of the widget in the shadow (right and bottom).
+*bottomShadowColor: #000000
+*Button.bottomShadowColor: #e4e4e4
+*Indicator.bottomShadowColor: #e4e4e4
+
+! Set the color of the border around the widget.
+*borderColor: #000000
+*Button.borderColor: #e4e4e4
+
+! Set thickness of the 3D border of the widget
+*shadowThickness: 1
+*Button.shadowThickness: 1
+*Indicator.shadowThickness: 1
+
+! Set the spaces to leave on left and right sides of the widget.
+*horizontalSpacing: 9
+*Button.horizontalSpacing: 5
+*Indicator.horizontalSpacing: 2
+
+! Set the spaces to leave on top and bottom sides of the widget.
+*verticalSpacing: 5
+*Button.verticalSpacing: 2
+*Indicator.verticalSpacing: 4
+
+! Set the width of the border around the widget.
+*borderWidth: 1
+*Button.borderWidth: 1
+*Indicator.borderWidth: 0
+
+! Set the minimum and maximum number of Indicators to display in the dialog
+*Indicator.width: 17
+*Indicator.height: 9
+*Indicator.maximumCount: 10
+*Indicator.minimumCount: 10
+
+! X11 does a miserable job of providing resolution-independent drawing facilities---it expects everything to be done in pixels.  
+! So if you happen to run your X server at a resolution of 100 pixels per inch (or some other strange value) instead of the widely used default of 75, 
+! x11-ssh-askpass looks might tiny.  [Sigh].
+! 
+! To get around this, umm, limitation, we declare the resolution that the spacing and width/height pixels values are "valid" for, along with a fuzz factor.  
+! If the current actual resolution is outside of the range of <DEFAULT - FUZZ>..<DEFAULT + FUZZ>, then we scale pixel measurements to fit the actual resolution.
+! 
+! (And if you think *this* is a horrid hack, then take a look at the actual code, which has to deal with conversion to [cheesy fanfare] that's right---millimeters!!!  
+! The right hand managed to slip that one in while the left hand was adding a '-dpi' switch to the sample server implementation.  
+! I think both left feet were adding the RESOLUTION_X and RESOLUTION_Y fields [in dots per inch, naturally] to the X Logical Font Description.  
+! The irony is underwhelming.)
+*defaultXResolution: 40/in
+*defaultYResolution: 50/in
+*xResolutionFuzz: 20/in
+*yResolutionFuzz: 20/in
+
+! Number of seconds to wait for a key- or button-press
+! before giving up.  '0' means wait forever.
+*inputTimeout: 0
+
+! Ssh-askpass grabs the keyboard by default, to stop it from grabbing the keyboard, use:
+!*grabKeyboard:	false
+
+! Ssh-askpass does not grab the pointer by default. to make it grab the pointer, use:
+!*grabPointer: true
+
+! Ssh-askpass does not grab the server by default. to make it grab the server, use:
+!*grabServer: true
+
+! Set Dialog widget title, label, and the font.
+*Dialog.title: Authentication Passphrase Request
+*Dialog.label: Please enter your authentication passphrase:
+*Dialog.font: -*-CozetteVector-*-*-*-*-*-120-*-*-*-*-*-*
+
+! Set Button widget label OK, Cancel and set the font
+*okButton.label: OK
+*cancelButton.label: Cancel
+*Button.font: -*-CozetteVector-*-*-*-*-*-120-*-*-*-*-*-*

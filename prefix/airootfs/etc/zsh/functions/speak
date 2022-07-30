@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │                              espeak-ng options:                              │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+#  ▲
+#  █   -a <integer>                                                               
+#  █       Amplitude, 0 to 200, default is 100                                    
+#  █   -g <integer>                                                               
+#  █       Word gap. Pause between words, units of 10mS at the default speed      
+#  █   -v <voice name>                                                            
+#  █       Use voice file of this name from espeak-ng-data/voices                 
+#  █   -s <integer>                                                               
+#  █       Speed in approximate words per minute. The default is 175              
+#  █   -p <integer>                                                               
+#  █       Pitch adjustment, 0 to 99, default is 50                               
+#  ▼                                                                               
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed espeak-ng # Check if command is installed || exit
+
+killall -q espeak-ng || : # Kill old process of speak
+[[ ! $EUID -eq 0 ]] && LC_ALL=C nohup espeak-ng -v en-us+f5 -s 151 -p 77 -g 10 -a 100 "$@" &>/dev/null &! # Check if not root-user && execute speak-ng for convert string to voice
+#[[ ! $EUID -eq 0 ]] && nohup espeak-ng -v ja+f5 -s 155 -p 77 -g 10 -a 100 "$@" &>/dev/null &! # Check if not root-user && execute speak-ng for convert string to voice

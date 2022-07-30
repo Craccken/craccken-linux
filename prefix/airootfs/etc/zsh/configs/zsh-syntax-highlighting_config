@@ -1,0 +1,51 @@
+#!/bin/env zsh
+# vim:ft=sh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+ZSH_HIGHLIGHT_STYLES[default]=#dadada                                   # Set highlight default text
+ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=#af0000                          # Set highlight unknown-token/errors
+ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=#ff7733,bold                     # Set highlight shell reserved-word (if, for, else)
+ZSH_HIGHLIGHT_STYLES[alias]=fg=#2c99ef,bold                             # Set highlight aliases
+ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=#00af00,underline                 # Set highlight for suffix aliases
+ZSH_HIGHLIGHT_STYLES[global-alias]=fg=#5f00d7                           # Set highlight global-alias
+ZSH_HIGHLIGHT_STYLES[builtin]=fg=#ffaa57                                # Set highlight shell builtin commands (pwd, shift, zstyle, echo)
+ZSH_HIGHLIGHT_STYLES[function]=fg=#ffb457,underline                     # Set highlight function names
+ZSH_HIGHLIGHT_STYLES[command]=fg=#00af00,bold                           # Set highlight command names
+ZSH_HIGHLIGHT_STYLES[precommand]=fg=#00af00,underline                   # Set highlight precommand modifiers (e.g., noglob, builtin)
+ZSH_HIGHLIGHT_STYLES[commandseparator]=fg=#e7c547                       # Set highlight command separator (;, &&, ||)
+ZSH_HIGHLIGHT_STYLES[autodirectory]=fg=#2c99ef,underline                # Set highlight a directory name in command position when the AUTO_CD option is set
+ZSH_HIGHLIGHT_STYLES[path]=bold,underline                               # Set highlight existing filenames
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]=none                           # Set highlight path separators in filenames (/); if none it will use path highlight
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none                                  # Set highlight prefix of existing filenames
+ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]=none                    # Set highlight path separators in prefix of existing filenames (/); if none it will use path_prefix highlight
+ZSH_HIGHLIGHT_STYLES[globbing]=fg=#5f00d7,bold                          # Set highlight globbing expression (*.txt, *.sh, *.css)
+ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=#e6b673,bold                 # Set highlight history expansion expression (!!, ^foo^bar, !ls)
+ZSH_HIGHLIGHT_STYLES[command-substitution]=fg=#2c99ef                   # Set highlight command inside command-substitution ($(echo foo))
+ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=#9e9e9e         # Set highlight command-substitution delimiters ('$(' and ')')
+ZSH_HIGHLIGHT_STYLES[process-substitution]=fg=#2c99ef                   # Set highlight command inside process-substitution (<(echo foo))
+ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]=fg=#9e9e9e         # Set highlight process-substitution delimiters ('<(' and ')')
+ZSH_HIGHLIGHT_STYLES[arithmetic-expansion]=fg=#ffee99                   # Set highlight arithmetic expansion ($((1+1)))
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=#5f00d7                   # Set highlight single-hyphen options (-o, -f, -x)
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=#5f00d7                   # Set highlight double-hyphen options (--file, --tree, --help)
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=fg=#2c99ef                   # Set highlight backtick command substitution (`foo`)
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument-unclosed]=fg=#af0000          # Set highlight unclosed backtick command substitution (`foo)
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]=fg=#ff7733         # Set highlight backtick command substitution delimiters (`)
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=#b8cc52                 # Set highlight single-quoted arguments ('foo')
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument-unclosed]=fg=#af0000        # Set highlight unclosed single-quoted arguments ('foo)
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=#b8cc52                 # Set highlight double-quoted arguments ("foo")
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument-unclosed]=fg=#af0000        # Set highlight unclosed double-quoted arguments ("foo)
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]=fg=#b8cc52                 # Set highlight dollar-quoted arguments ($'foo')
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument-unclosed]=fg=#af0000        # Set highlight unclosed dollar-quoted arguments ($'foo)
+ZSH_HIGHLIGHT_STYLES[rc-quote]=fg=#5f00d7                               # Set highlight two single quotes inside single quotes when the 'rc-quotes' option is set ('foo''bar')
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=#5f00d7          # Set highlight parameter expansion inside double quotes ($foo in "$foo")
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=#5f00d7            # Set highlight backslash escape sequences inside double-quoted arguments (\" in "hello \"world\"")
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]=fg=#5f00d7            # Set highlight backslash escape sequences inside dollar-quoted arguments (\n in $'abc\ndef')
+ZSH_HIGHLIGHT_STYLES[assign]=fg=#36a3d9                                 # Set highlight parameter assignments ('x=foo' and 'x=()')
+ZSH_HIGHLIGHT_STYLES[redirection]=fg=#e7c547                            # Set highlight redirection operators (<, >, 2>, etc)
+ZSH_HIGHLIGHT_STYLES[comment]=fg=#4e4e4e                                # Set highlight comments, when 'setopt interactivecomments' is in effect (#foo bar)
+ZSH_HIGHLIGHT_STYLES[named-fd]=bold                                     # Set highlight named file descriptor (fd in 'echo foo {fd}>&2')
+ZSH_HIGHLIGHT_STYLES[numeric-fd]=fg=#ffee99                             # Set highlight numeric file descriptor (2 in 'echo foo {fd}>&2')
+ZSH_HIGHLIGHT_STYLES[arg0]=fg=#00af00                                   # Set highlight a command word other than one of those enumrated above (other than a command, precommand, alias, function, or shell builtin command)
+ZSH_HIGHLIGHT_STYLES[bracket-error]=fg=#af0000                          # Set highlight unmatched brackets 
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]=fg=#9e9e9e                        # Set highlight brackets with nest level-1
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]=fg=#9e9e9e                        # Set highlight brackets with nest level-2
+ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=fg=#dadada,bold,underline  # Set highlight the matching brackets, if cursor on brackets

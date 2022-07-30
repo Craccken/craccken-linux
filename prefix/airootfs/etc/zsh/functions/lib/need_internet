@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
+need_installed nc || return $? # Check if command is installed || exit
+
+nc -z 8.8.8.8 53 &>/dev/null # Check internet connection
+[[ $? -eq 0 ]] || (send_return ENONET || return $?) # If command succesful meaning that there is available internet connection || exit

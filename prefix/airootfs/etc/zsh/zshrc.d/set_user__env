@@ -1,0 +1,123 @@
+#!/bin/env zsh
+# vim:ft=sh
+export YAD_OPTIONS="
+    --title=Unknown 
+    --borders=5 
+    --fixed
+    --center
+    --on-top
+    --tabnum=4
+    --no-button --buttons-layout=end
+    --uri-handler='xdg-open %s'
+    --undecorated 
+    --text-align=center
+    --height=900 --width=1000
+    --hscroll-policy=auto --vscroll-policy=auto
+    --response=0"                                                               # Set default options for yad. See yad(1)
+export SAVEHIST=7000                                                            # Set the maximum number of history events to save in the history file.
+export HISTSIZE=7000                                                            # Set the maximum number of commands that are stored in memory in a history events while the shell session is on going.
+export HISTFILE="$XDG_STATE_HOME/zsh/history"                                   # Set directory where is histfile is saved
+export TERMINAL="foot"                                                          # Set default terminal
+[[ ! $TTY == /dev/tty* ]] && export TERM="xterm-256color"                       # Check if TTY is not /dev/tty  && set terminal capabilities
+export EDITOR="nvim"                                                            # Set default text-editor
+export BROWSER="firefox"                                                        # Set default browser 
+export PROMPT_EOL_MARK=""                                                       # Set PROMPT_EOL_MARK to blank
+export MANPAGER="nvim +Man!"                                                    # Set better manpager
+# export MANWIDTH=999                                                             # If $MANWIDTH is set, its value is used as the line length for which manual pages should be formatted.
+export SSH_ASKPASS="/usr/lib/ssh/ssh-askpass"                                   # Set default askpass program for ssh
+export SUDO_ASKPASS="/usr/lib/ssh/x11-ssh-askpass"                              # Set default askpass program for sudo with -A flag
+export NNN_TRASH=1                                                              # Use trash-cli (instead of rm -rf) files to desktop Trash
+export MOZ_USE_XINPUT2="1"                                                      # Enable macOS-like smooth scrolling on firefox
+export GIT_EDITOR="nvim"                                                        # This environment variable overrides $EDITOR and $VISUAL.It is used by several Git commands when, on interactive mode, an editor is to be launched.
+export SYSTEMD_COLORS=1                                                         # When true, systemd and related utilities will use colors in their output
+export SYSTEMD_PAGER=less                                                       # Pager that systemd use when --no-pager is not given
+export TERMINAL_WIDTH="$(tput cols)"                                            # Store terminal width size
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bin:$GOPATH/bin"    # Add additional executable path
+export XCURSOR_SIZE=24                                                          # This variable sets the desired cursor size, in pixels.
+export FPATH="$FPATH:${$(find /etc/zsh/functions -type d -printf %p:)%%:}"      # Add additional functions autoload path
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                     LESS                                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+export LESS="-R"                                    # Options which are passed to less automatically.
+export LESSHISTFILE="-"                             # Name of the history file used to remember search commands and shell commands between invocations of less. If set to "-" or "/dev/null", a history file is not used.
+export LESS_TERMCAP_mb=$(tput blink)                # Set terminal_capability of "less" : Start blink
+export LESS_TERMCAP_so=$(tput smso)                 # Set terminal_capability of "less" : Start standout
+export LESS_TERMCAP_se=$(tput rmso)                 # Set terminal_capability of "less" : Reset standout
+export LESS_TERMCAP_us=$(tput smul)                 # Set terminal_capability of "less" : Start underline
+export LESS_TERMCAP_ue=$(tput rmul)                 # Set terminal_capability of "less" : Reset underline
+export LESS_TERMCAP_me=$(tput sgr0)                 # Set terminal_capability of "less" : Reset all attributes
+export LESS_TERMCAP_md=$(tput setaf 240 bold)       # Set terminal_capability of "less" : Start bold
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                     EXA                                      │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+local -a LIST_OF_CODES=( # Create local array for store color configurations
+    "di=38;5;220;5;4:"                      # Set highlight style directories 
+    "fi=38;5;251;3:"                        # Set highlight style regular files
+    "ex=38;2;0;200;151;48;2;0;36;27;5;3:"   # Set highlight style for executable files
+    "ln=38;2;95;0;215;48;2;16;0;36;4:"      # Set highlight style for symlinks
+    "or=38;2;95;0;215;48;2;16;0;36;9;2:"    # Set highlight style for broken symlinks
+    "*.zip=38;2;214;0;39;48;2;36;0;7;5;3:"  # Set highlight style for zip
+    "*.tar=38;2;214;0;39;48;2;36;0;7;5;3:"  # Set highlight style for tar
+    "*.gz=38;2;214;0;39;48;2;36;0;7;5;3:"   # Set highlight style for gz
+    "*.vim=38;2;1;152;51:"                  # Set highlight style for vim file
+    "*.zsh=38;2;137;224;81;3:"              # Set highlight style for zsh
+    "*.bash=38;2;137;224;81;3:"             # Set highlight style for bash
+    "zshrc=38;2;137;224;81;3:"              # Set highlight style for zshrc
+    "zshenv=38;2;137;224;81;3:"             # Set highlight style for zshenv
+    "zprofile=38;2;137;224;81;3:"           # Set highlight style for zprofile
+    "*.pdf=38;2;179;11;0;3:"                # Set highlight style for pdf
+    "*.rb=38;2;112;21;22;3:"                # Set highlight style for ruby
+    "*.xls=38;2;32;114;69;3:"               # Set highlight style for xls
+    "*.xlsx=38;2;32;114;69;3:"              # Set highlight style for xls
+    "*.csv=38;2;137;224;81;3:"              # Set highlight style for csv
+    "*.css=38;2;66;165;245;3:"              # Set highlight style for css
+    "*.html=38;2;228;77;38;3:"              # Set highlight style for html
+    "*.js=38;2;203;203;65;3:"               # Set highlight style for js
+    "*.json=38;2;203;203;65;3:"             # Set highlight style for json
+    "*.ico=38;2;203;203;65;3:"              # Set highlight style for ico
+    "*.go=38;2;81;154;186;3:"               # Set highlight style for go
+    "*.torrent=38;2;81;154;186;3:"          # Set highlight style for torrent
+    "*.cpp=38;2;243;75;125;3:"              # Set highlight style for cpp
+    "*.lua=38;2;81;160;207;3:"              # Set highlight style for lua
+    "*.tex=38;2;61;97;23;3:"                # Set highlight style for LaTex
+    "*.Tex=38;2;61;97;23;3:"                # Set highlight style for LaTex
+    "*.c=38;2;89;158;255;3:"                # Set highlight style for c
+    "*.md=38;2;81;154;186;3:"               # Set highlight style for md
+    "*.toml=38;2;109;128;134;3:"            # Set highlight style for toml
+    "*.conf=38;2;109;128;134;3:"            # Set highlight style for conf
+    "*.ini=38;2;109;128;134;3:"             # Set highlight style for ini
+    "*.desktop=38;2;109;128;134;3:"         # Set highlight style for desktop
+    "*.yaml=38;2;109;128;134;3:"            # Set highlight style for yaml
+    "*.yml=38;2;109;128;134;3:"             # Set highlight style for yml
+    "Makefile=38;2;109;128;134;3:"          # Set highlight style for makefile
+    "cmake=38;2;109;128;134;3:"             # Set highlight style for cmake
+    "*.jpeg=38;2;160;116;196;3:"            # Set highlight style for jpeg
+    "*.jpg=38;2;160;116;196;3:"             # Set highlight style for jpeg
+    "*.png=38;2;160;116;196;3:"             # Set highlight style for png
+    "*.bmp=38;2;160;116;196;3:"             # Set highlight style for bmp
+    "*.gif=38;2;160;116;196;3:"             # Set highlight style for gif
+    "*.webp=38;2;160;116;196;3:"            # Set highlight style for webp
+    "*.hpp=38;2;160;116;196;3:"             # Set highlight style for hpp
+    "*.h=38;2;160;116;196;3:"               # Set highlight style for h
+    "*.php=38;2;160;116;196;3:"             # Set highlight style for php
+    "*.txt=38;2;137;224;81;3:"              # Set highlight style for txt
+    "*.db=38;2;218;216;216;3:"              # Set highlight style for db
+    "*.py=38;2;255;188;3;3:"                # Set highlight style for py
+    "*.ipynb=38;2;255;188;3;3:"             # Set highlight style for py
+    "*.pyc=38;2;255;226;145;3:"             # Set highlight style for pyc
+    "*.svg=38;2;255;177;59;3:"              # Set highlight style for svg
+    "*.xml=38;2;227;121;51;3:"              # Set highlight style for xml
+    "*.sh=38;2;77;94;90;3:"                 # Set highlight style for sh
+    "*.nix=38;2;126;186;228;3:"             # Set highlight style for nix
+    "*.vue=38;2;141;193;73;3:"              # Set highlight style for vue
+    "*.hbs=38;2;240;119;43;3:"              # Set highlight style for hbs
+    "*.R=38;2;53;138;91;3:"                 # Set highlight style for R
+    "*.rs=38;2;222;165;132;3:"              # Set highlight style for rust
+    "*.java=38;2;204;62;68;3:"              # Set highlight style for java
+)
+export EXA_COLORS="${(j..)LIST_OF_CODES}" # This environment variable can be used to customise the colours that exa uses to highlight file names, file metadata, and parts of the UI.
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                     MPD                                      │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+export MPD_HOST="127.0.0.1" # The MPD server to connect to.
+export MPD_PORT="7777"      # The TCP port of the MPD server to connect to.

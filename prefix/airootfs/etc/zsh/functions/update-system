@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                      Updating system in the background                       │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+need_root_user || return $? # Need root user to run || exit
+chronic nohup pacman -Syyu --noconfirm & # Update & upgrade package in the background
+disown # Remove background jobs from shell and set it to background task

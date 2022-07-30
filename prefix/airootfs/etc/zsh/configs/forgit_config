@@ -1,0 +1,28 @@
+#!/bin/env zsh
+# vim:ft=sh
+forgit_add=ga               # Set default alias for interactive `git add` viewer
+forgit_log=glo              # Set default alias for interactive `git log` viewer
+forgit_ignore=gi            # Set default alias for interactive `.gitignore` generator
+forgit_diff=gd              # Set default alias for interactive `git diff` viewer
+forgit_reset_head=grh       # Set default alias for interactive `git reset HEAD <file>` selector
+forgit_checkout_file=gcf    # Set default alias for interactive `git checkout <file>` selector
+forgit_checkout_branch=gcb  # Set default alias for interactive `git checkout <branch>` selector
+forgit_checkout_commit=gco  # Set default alias for interactive `git checkout <commit>` selector
+forgit_stash_show=gss       # Set default alias for interactive `git stash` viewer
+forgit_clean=gclean         # Set default alias for interactive `git clean` selector
+forgit_rebase=grb           # Set default alias for interactive `git rebase -i` selector
+forgit_fixup=gfu            # Set default alias for interactive `git commit --fixup && git rebase -i --autosquash` selector
+forgit_cherry_pick=gcp      # Set default alias for interactive `git cherry-pick` selector
+export FORGIT_FZF_DEFAULT_OPTS="--exact --no-height --no-cycle --preview-window=top,70% --header-first" # Set default fzf options for `forgit`
+export FORGIT_ADD_FZF_OPTS="--header='Select file you want to add to the index'"                        # Set fzf options for specific command `git add`
+export FORGIT_LOG_FZF_OPTS="--header='Show commit logs'"                                                # Set fzf options for specific command `git log`
+export FORGIT_IGNORE_FZF_OPTS="--header='Generate .gitignore file'"                                     # Set fzf options for specific `.gitignore` generator
+export FORGIT_DIFF_FZF_OPTS=""                                                                          # Set fzf options for specific `git diff`
+export FORGIT_RESET_HEAD_FZF_OPTS=""                                                                    # Set fzf options for specific `git reset HEAD <file>`
+export FORGIT_CHECKOUT_FILE_FZF_OPTS=""                                                                 # Set fzf options for specific `git checkout <file>`
+export FORGIT_CHECKOUT_BRANCH_FZF_OPTS=""                                                               # Set fzf options for specific `git checkout <branch>`
+export FORGIT_CHECKOUT_COMMIT_FZF_OPTS=""                                                               # Set fzf options for specific `git checkout <commit>`
+export FORGIT_STASH_FZF_OPTS=""                                                                         # Set fzf options for specific `git stash`
+export FORGIT_CLEAN_FZF_OPTS=""                                                                         # Set fzf options for specific `git clean`
+export FORGIT_REBASE_FZF_OPTS=""                                                                        # Set fzf options for specific `git rebase -i`
+export FORGIT_FIXUP_FZF_OPTS=""                                                                         # Set fzf options for specific `git commit --fixup && git rebase -i --autosquash`

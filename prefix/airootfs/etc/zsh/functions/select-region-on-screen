@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed slurp # Check if command is installed || exit with error exit-code
+
+LC_ALL=C slurp -b "#000000af" -c "#c0e4dcff" -s "#00000000" -B "#000000af" -o -w 2 -f "${1:-%x,%y %wx%h}" # Check if command is available && select region with argument-1 as format

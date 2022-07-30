@@ -1,0 +1,27 @@
+#!/bin/env zsh
+# vim:ft=sh
+#  ███████╗███████╗██╗  ██╗        ██╗  ██╗███████╗██╗   ██╗██████╗ ██╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗ 
+#  ╚══███╔╝██╔════╝██║  ██║        ██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔══██╗██║████╗  ██║██╔══██╗██║████╗  ██║██╔════╝ 
+#    ███╔╝ ███████╗███████║        █████╔╝ █████╗   ╚████╔╝ ██████╔╝██║██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗
+#   ███╔╝  ╚════██║██╔══██║        ██╔═██╗ ██╔══╝    ╚██╔╝  ██╔══██╗██║██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║
+#  ███████╗███████║██║  ██║███████╗██║  ██╗███████╗   ██║   ██████╔╝██║██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝
+#  ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ 
+# ▲
+# █  INFO: Use 'wev' command to print the key codes, e.g: home-key, end-key, up-arrow-key, down-arrow-key, etc.                                                                            
+# █  TNFO: Use CTRL+s to freeze output and use CTRL+q to resume it, it is default from zsh, to       
+# █  disable it add `setopt noflowcontrol` in your zshrc                                             
+# ▼                                                                                                   
+zvm_after_init(){ # Define function that executed after initialiaze zsh-vi-mode plugins, the zvm will overwrite the previous keybindings this cause the keybindings to fail, you can solve the compatibility issue with this function. 
+    bindkey -M menuselect 'h' vi-backward-char          # Set keybinding for move-left in tab-complete-menu: h
+    bindkey -M menuselect 'j' vi-down-line-or-history   # Set keybinding for move-down in tab-complete-menu: j
+    bindkey -M menuselect 'k' vi-up-line-or-history     # Set keybinding for move-up in tab-complete-menu: k
+    bindkey -M menuselect 'l' vi-forward-char           # Set keybinding for move-right in tab-complete-menu: l
+
+    bindkey '^ ' autosuggest-accept                     # Set keybinding for accepts the current suggestion: Ctrl+space
+    bindkey -M viins "Alt_C" fzf-cd-widget              # Set keybinding for cd into the selected directory: ALT+c
+    bindkey -M viins "Control_T" fzf-file-widget        # Set keybinding for paste the selected file path into the command line: CTRL+T
+    bindkey -M viins "Alt_f" fzf-history-widget         # Set keybinding for paste the selected command from history into command line: CTRL+R
+    bindkey -M main 'Control_L' clear-screen            # Set keybinding for clean terminal screen: CTRL+l
+    bindkey -M main 'End' end-of-line                   # Set keybinding for move cursor to end-of-line: END
+    bindkey -M main 'Home' beginning-of-line            # Set keybinding for move cursor to beginning-of-line: HOME
+}

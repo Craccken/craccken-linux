@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  COMPONENT                                   │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+local -A RESET # Declare local associative array (dictionary)
+local -A GRADIENT # Declare local associative array (dictionary)
+local -a GRADIENT__USER=( # Create local array that contain greadient hex color
+    "#00EE6E"
+    "#01E27A"
+    "#02D686"
+    "#04CA92"
+    "#05BE9E"
+    "#06B2AA"
+    "#07A5B6"
+    "#0899C2"
+    "#0A8DCE"
+)
+local -a GRADIENT__ROOT=( # Create local array that contain greadient hex color
+    "#07C8F9"
+    "#11CEE6"
+    "#1AD3D2"
+    "#24D9BF"
+    "#2DDEAB"
+    "#37E498"
+    "#40E985"
+    "#4AEF71"
+    "#53F45E"
+)
+if (( ${#GRADIENT__USER[@]} == ${#GRADIENT__ROOT[@]} )); then # Check if GRADIENT__USER list and GRADIENT__ROOT list number of elements is same
+    for IndexArray in {1..${#GRADIENT__USER[@]}}; do # Create for-loop with number of GRADIENT__USER item as IndexArray
+        GRADIENT[${IndexArray}__BG]="%K{%(#.${GRADIENT__ROOT[$IndexArray]}.${GRADIENT__USER[$IndexArray]})}"
+        GRADIENT[${IndexArray}__FG]="%F{%(#.${GRADIENT__ROOT[$IndexArray]}.${GRADIENT__USER[$IndexArray]})}"
+    done # End for-loop statement
+fi # End if-else statement
+RESET[BG]="%K{reset}"
+RESET[FG]="%F{reset}"
+RESET[ALL]="${RESET[BG]}${RESET[FG]}"
+local PROMPT_COMPONENT_1="${GRADIENT[1__BG]}%F{#000000} ${GRADIENT[2__BG]}%(#..)${GRADIENT[3__BG]} %n${GRADIENT[4__BG]}%m${GRADIENT[5__BG]} ${GRADIENT[5__FG]}${RESET[BG]}"
+local PROMPT_COMPONENT_2="%F{#030303}%K{#030303}${GRADIENT[6__FG]} %~ ${GRADIENT[7__FG]}${GRADIENT[8__FG]} %T ${GRADIENT[9__FG]} ${RESET[BG]}%F{#030303}${RESET[ALL]}"
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    SETUP                                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+export RPROMPT2="%F{#00241b}%F{#00c897}%K{#00241b} %^  %L  %! " # Right PROMPT2
+export PROMPT2="%K{#00241b}%F{#00c897} %U%y%u  %_ %F{#00241b}${RESET[BG]}${RESET[ALL]} " # PROMPT2 is used to continuation in interactive prompt
+export PROMPT4="%K{#20040d}%F{#ba174e} %x  %N %I  %e %_%F{#20040d}${RESET[BG]}${RESET[ALL]} " # The PROMP4/PS4 shell variable defines the prompt that gets displayed, when you execute a shell script in debug mode(setopt xtrace).
+export PROMPT_ZSH="${PROMPT_COMPONENT_1}${PROMPT_COMPONENT_2}"

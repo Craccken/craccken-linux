@@ -1,0 +1,156 @@
+#!/bin/env sh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                             River Configurations                             ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ▲
+# █ This is the example configuration file for river.                          
+# █ If you wish to edit this, you will probably want to copy it to $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.              
+# █ See the river(1), riverctl(1), and rivertile(1) man pages for complete documentation.                                                     
+# █ Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc. 
+# ▼                                                                               
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                Configurations                                │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+riverctl set-repeat 50 300                  # Set keyboard repeat rate to `50` key repeats per second and repeat delay to `300` delay milliseconds.
+riverctl attach-mode bottom                 # Configure where new application should attach to the view stack
+riverctl background-color 0x010101          # Set background color
+riverctl border-color-urgent 0xaf0000       # Set urgent application border color
+riverctl border-color-unfocused 0x000000    # Set normal application border color
+riverctl border-color-focused 0xC0E4DC      # Set focused application border color
+riverctl border-width 2                     # Set the border width to pixels
+riverctl xcursor-theme adwaita 20           # Set the xcursor theme to theme_name and optionally set the size.
+riverctl focus-follows-cursor disabled      # Configure the focus behavior when moving cursor, (disabled ? normal) disabled mean Moving the cursor does not affect focus application.
+riverctl set-cursor-warp on-output-change   # Set the cursor warp mode. on-output-change mean when a different application from different monitor is focused, the cursor will be moved to the application that focused from different monitor
+riverctl declare-mode passthrough           # Declare a passthrough mode, This makes it useful for testing a nested wayland compositor
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                   Mappings                                   │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+riverctl map normal Super+Control Return spawn "foot"                               # Super+Shift+Enter: Spawn terminal
+riverctl map normal Super P spawn "wofi --gtk-dark --show=drun"                     # Super+P: Spawn application launcher(wofi)
+riverctl map normal Super C close                                                   # Super+c: Close the focused application
+riverctl map normal Super+Shift E exit                                              # Super+Shift+e: Exit window manager
+riverctl map normal Super J focus-view next                                         # Super+j: Change focus to the next application in the layout stack
+riverctl map normal Super K focus-view previous                                     # Super+k: Change focus to the previous application in the layout stack
+riverctl map normal Super+Shift J swap next                                         # Super+Shift+j: Swap the focused application to the next application in the layout stack
+riverctl map normal Super+Shift K swap previous                                     # Super+Shift+k: Swap the focused application to the previous application in the layout stack
+riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"            # Super+h: Decrease the main ratio of the main area(to left)
+riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"            # Super+l: Increase the main ratio of the main area(to right)
+riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"         # Super+Shift+h: Increment the number of application in the main area of the layout.
+riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"         # Super+Shift+l: Decrement the number of application in the main area of the layout.
+riverctl map normal Super Return zoom                                               # Super+Return: Switch the focused application to the top of the layout stack
+riverctl map normal Super Space toggle-float                                        # Super+Space: Toggle float
+riverctl map normal Super F toggle-fullscreen                                       # Super+F: toggle fullscreen
+riverctl map normal Super+Alt H move left 100                                       # Super+Alt+h: Move focused application left                    (application will be float)
+riverctl map normal Super+Alt J move down 100                                       # Super+Alt+j: Move focused application down                    (application will be float)
+riverctl map normal Super+Alt K move up 100                                         # Super+Alt+k: Move focused application up                      (application will be float)
+riverctl map normal Super+Alt L move right 100                                      # Super+Alt+l: Move focused application right                   (application will be float)
+riverctl map-pointer normal Super BTN_LEFT move-view                                # Super+Left-Mouse-Button: Move application                     (application will be float)
+riverctl map-pointer normal Super BTN_RIGHT resize-view                             # Super+Right-Mouse-Button: Resize application                  (application will be float)
+riverctl map normal Super+Alt+Shift H resize horizontal -100                        # Super+Alt+Shift+h: Resize application horizontally by -100    (application will be float)
+riverctl map normal Super+Alt+Shift J resize vertical 100                           # Super+Alt+Shift+j: Resize application vertically by +100      (application will be float)
+riverctl map normal Super+Alt+Shift K resize vertical -100                          # Super+Alt+Shift+j: Resize application vertically by -100      (application will be float)
+riverctl map normal Super+Alt+Shift L resize horizontal 100                         # Super+Alt+Shift+j: Resize application horizontally by +100    (application will be float)
+riverctl map normal Super+Alt+Control H snap left                                   # Super+Alt+Control+h: Snap views to left screen edge           (application will be float)
+riverctl map normal Super+Alt+Control J snap down                                   # Super+ALt+Control+j; Snap application to down screen edge     (application will be float)
+riverctl map normal Super+Alt+Control K snap up                                     # Super+ALt+Control+k; Snap application to up screen edge       (application will be float)
+riverctl map normal Super+Alt+Control L snap right                                  # Super+ALt+Control+l; Snap application to right screen edge    (application will be float)
+riverctl map normal Super Period focus-output next                                  # Super+.: Move to the next monitor
+riverctl map normal Super Comma focus-output previous                               # Super+,: Move to the previous monitor
+riverctl map normal Super+Shift Period send-to-output next                          # Super+Shift+,: Send focused application to the next monitor
+riverctl map normal Super+Shift Comma send-to-output previous                       # Super+Shift+.: Send focused application to the previous monitor
+riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"       # Super+Up-arrow: Change the initial location of the main area in the layout to TOP
+riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"      # Super+Left-arrow: Change the initial location of the main area in the layout to LEFT
+riverctl map normal Super Right send-layout-cmd rivertile "main-location right"     # Super+Right-arrow: Change the initial location of the main area in the layout to RIGHT
+riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"    # Super+Down-arrow: Change the initial location of the main area in the layout to BOTTOM
+riverctl map normal Super R spawn $HOME/.config/river/init                          # Super+R: Reload river configuration, now you do not need to exit&start to reload stuff.
+riverctl map normal Super F11 enter-mode passthrough                                # Super+F11: enter passthrough mode
+riverctl map passthrough Super F11 enter-mode normal                                # Super+F11: return to normal mode
+riverctl map normal Super Print spawn 'zsh -ic "scan_qr 2>/dev/null | wl-copy"'     # Super+Printscreen: Scan QR
+riverctl map normal None Print spawn 'mkdir -p ~/Pictures/Screenshots; grim -g "$(slurp)" ~/Pictures/Screenshots/$(date | tr -s " " "-").png && /bin/cat ~/Pictures/Screenshots/$(date | tr -s " " "-").png | wl-copy' # Printscreen: Screenshot
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                              Autostart command                               │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+zsh $HOME/.config/river/autostart
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                               Tags management                                │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+all_tags=$(((1 << 32) - 1))
+riverctl map normal Super 0 set-focused-tags $all_tags                      # Super+0: Toggle focus application from all tags
+riverctl map normal Super+Shift 0 toggle-view-tags $all_tags                # Super+Shift+0: To toggle sticky focused application with all tags, so it will stick every you move between tags
+for number in $(seq 1 5); do
+    tags=$((1 << ($number - 1)))
+    riverctl map normal Super $number set-focused-tags $tags                # Super+[1-9]: Focus tag [0-8]
+    riverctl map normal Super+Shift $number set-view-tags $tags             # Super+Shift+[1-9]: Tag focused view with tag [0-8]
+    riverctl map normal Super+Control $number toggle-focused-tags $tags     # Super+Ctrl+[1-9]: Toggle focus of tag [0-8]
+    riverctl map normal Super+Shift+Control $number toggle-view-tags $tags  # Super+Shift+Ctrl+[1-9]: Toggle tag [0-8] of focused view
+done # End for-loop statement
+
+# Various media key mapping examples for both normal and locked mode which do not have a modifier
+for mode in normal locked; do
+    riverctl map $mode None XF86Eject spawn 'eject -T'                          # Eject the optical drive (well if you still have one that is)
+    riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'          # Volume_up: Increase volume by 5
+    riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5'          # Volume_down: Decrease volume by 5
+    riverctl map $mode None XF86AudioMute         spawn 'pamixer --toggle-mute' # Volume_mute: Mute audio
+
+    # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
+    riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
+    riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
+    riverctl map $mode None XF86AudioPrev  spawn 'playerctl previous'
+    riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
+
+    # Control screen backlight brighness with light (https://github.com/haikarainen/light)
+    riverctl map $mode None XF86MonBrightnessUp   spawn 'light -A 5'
+    riverctl map $mode None XF86MonBrightnessDown spawn 'light -U 5'
+done # End for-loop statement
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                             Filter configuration                             │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+riverctl float-filter-add app-id "float"                    # Add pattern to the float filter list, Note this affect only new views, not already existing ones.
+riverctl float-filter-add app-id "pcmanfm"                  # Add pattern to the float filter list, Note this affect only new views, not already existing ones.
+riverctl float-filter-add app-id "launcher"                 # Add pattern to the float filter list, Note this affect only new views, not already existing ones.
+riverctl float-filter-add app-id "librewolf"                # Add pattern to the float filter list, Note this affect only new views, not already existing ones.
+riverctl float-filter-add app-id "gucharmap"                # Add pattern to the float filter list, Note this affect only new views, not already existing ones.
+riverctl float-filter-add app-id "waydroid"                 # Add pattern to the float filter list, Note this affect only new views, not already existing ones.
+riverctl float-filter-add title "popup title with spaces"   # Add pattern to the float filter list, Note this affect only new views, not already existing ones.
+riverctl csd-filter-add app-id "gedit"                      # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "swappy"                     # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "firefox"                    # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "pcmanfm"                    # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "librewolf"                  # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "gucharmap"                  # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "easyeffects"                # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "wdisplays"                  # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "gnome-calculator"           # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "kooha"                      # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "gnome-calculator"           # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+riverctl csd-filter-add app-id "virt-manager"               # Add pattern to the CSD(client side decoration) filter list, Views with this pattern are told to use client side decoration instead of default server side decoration.
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                             Input configuration                              │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+TOUCHPAD=$(riverctl list-inputs | grep "Touchpad") # Grab all Touchpad device
+if [ -n "$TOUCHPAD" ]; then # Check if TOUCHPAD is not empty string
+    riverctl input $TOUCHPAD events disabled-on-external-mouse  # Disable touchpad if external-mouse available
+	riverctl input $TOUCHPAD accel-profile adaptive             # Set the pointer acceleration profile of the input device.
+	riverctl input $TOUCHPAD pointer-accel 0.7                  # Set the pointer acceleration factor of the input device. Needs a float between -1.0 and 1.0
+    riverctl input $TOUCHPAD drag enabled                       # Enable the tap-and-drag functionality of the input device.
+    riverctl input $TOUCHPAD drag-lock enabled                  # Enable the drag lock functionality of the input device.
+    riverctl input $TOUCHPAD disable-while-typing enabled       # Enable the disable-while-typing while typing functionality  of the input device.
+    riverctl input $TOUCHPAD middle-emulation enabled           # Enable the middle click emulation functionality of the input device.
+	riverctl input $TOUCHPAD natural-scroll enabled             # Enable or disable the natural scroll functionality of the input device.
+    riverctl input $TOUCHPAD left-handed disabled               # Disable the left handed mode of the input device.
+    riverctl input $TOUCHPAD tap enabled                        # Enable the tap functionality of the input device.
+    riverctl input $TOUCHPAD tap-button-map left-right-middle   # Configure the button mapping for tapping, left-right-middle: 1 finger tap equals left click; 2 finger tap equals right click; 3 finger tap equals middle click.
+    riverctl input $TOUCHPAD scroll-method two-finger           # Set the scroll method of the input device, two-finger: Scroll by swiping with two fingers simultaneously
+fi # End if-else statement
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                             Layout configuration                             │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+riverctl default-layout rivertile # Set the layout namespac to be used by all outputs by default.
+exec rivertile -view-padding 9 -outer-padding 9 -main-count 1 -main-location left -main-ratio 0.5 # Exec into the default layout generator, rivertile.
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                 Gtk settings                                 │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+gsettings set org.gnome.desktop.interface gtk-theme "Default"
+gsettings set org.gnome.desktop.interface font-name "Cozette Vector"
+gsettings set org.gnome.desktop.interface cursor-theme "Adwaita"
+gsettings set org.gnome.desktop.default-applications.terminal exec foot.desktop

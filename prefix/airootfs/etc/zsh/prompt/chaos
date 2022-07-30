@@ -1,0 +1,72 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  COMPONENT                                   │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+# NOTE: if you want more information about prompt sequence see zshmisc(1)
+local SPACE="$(printf %$(( ( COLUMNS / 2) - 20 ))s)" # Get terminal width and then divide it by 2 then subtract it with prompt size and then printf will repeat the number with space
+local -A RESET # Declare local associative array (dictionary)
+local -A GRADIENT # Declare local associative array (dictionary)
+local -a GRADIENT__USER=( # Create local array that contain greadient hex color
+    "#EC0000"
+    "#E60000"
+    "#E00000"
+    "#DB0000"
+    "#D50000"
+    "#CF0000"
+    "#C90000"
+    "#C30000"
+    "#BE0000"
+    "#B80000"
+    "#B20000"
+    "#AC0000"
+    "#A70000"
+    "#A10000"
+    "#9B0000"
+    "#950000"
+    "#8F0000"
+    "#8A0000"
+    "#840000"
+    "#7E0000"
+)
+local -a GRADIENT__ROOT=( # Create local array that contain greadient hex color
+    "#EC0000"
+    "#E60000"
+    "#E00000"
+    "#DB0000"
+    "#D50000"
+    "#CF0000"
+    "#C90000"
+    "#C30000"
+    "#BE0000"
+    "#B80000"
+    "#B20000"
+    "#AC0000"
+    "#A70000"
+    "#A10000"
+    "#9B0000"
+    "#950000"
+    "#8F0000"
+    "#8A0000"
+    "#840000"
+    "#7E0000"
+)
+if (( ${#GRADIENT__USER[@]} == ${#GRADIENT__ROOT[@]} )); then # Check if GRADIENT__USER list and GRADIENT__ROOT list number of elements is same
+    for IndexArray in {1..${#GRADIENT__USER[@]}}; do # Create for-loop with number of GRADIENT__USER item as IndexArray
+        GRADIENT[${IndexArray}__BG]="%K{%(#.${GRADIENT__ROOT[$IndexArray]}.${GRADIENT__USER[$IndexArray]})}"
+        GRADIENT[${IndexArray}__FG]="%F{%(#.${GRADIENT__ROOT[$IndexArray]}.${GRADIENT__USER[$IndexArray]})}"
+    done # End for-loop statement
+fi # End if-else statement
+RESET[BG]="%K{reset}"
+RESET[FG]="%F{reset}"
+RESET[ALL]="${RESET[BG]}${RESET[FG]}"
+local PROMPT_COMPONENT_1="${SPACE}${GRADIENT[1__FG]}${GRADIENT[1__BG]}%F{#000000}${GRADIENT[2__BG]} %B${GRADIENT[3__BG]} Chaos%b${GRADIENT[4__BG]}%m${GRADIENT[5__BG]} ${GRADIENT[5__FG]}${RESET[BG]}${GRADIENT[6__BG]}%F{#000000}  %h ${GRADIENT[7__BG]}  %L %y ${RESET[BG]}${GRADIENT[7__FG]}${RESET[ALL]}"
+local PROMPT_COMPONENT_2="${GRADIENT[1__FG]} ${RESET[ALL]} "
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    SETUP                                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+export NO_RPROMPT=1 # Disable right prompt
+export NO_VIM_INDICATOR=1 # Disable vim mode indicator
+export PROMPT_ZSH="${PROMPT_COMPONENT_1}
+
+${PROMPT_COMPONENT_2}" # Set style prompt

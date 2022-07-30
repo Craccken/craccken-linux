@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │       Edit file that does not have permissions to write. It will edit        │
+# │            temporary_file and then overwrite it to original_file.            │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+need_normal_user || return $? # Only normal-user can run || exit with error exit-code
+must_have_argument $1 || return $? # Must have argument-1 passed || exit 
+
+local source_file="$(doas realpath $1)" # Print resolved path of argument-1 and store it to local variable
+if [[ -f "${source_file}" ]]; then # Check if source_file is file
+    mkdir -p /tmp/doasedit; local temporary_directory="$(mktemp -d --tmpdir=/tmp/doasedit)" # Create local variable
+    doas cp $source_file $temporary_directory/edit      # Copy original source_file to temporary_file without permissions same as original file (edit)
+    doas cp -p $source_file $temporary_directory/file   # Copy original source_file to temporary_file with permissions same as original file (original)
+    doas chown -R $USER:$USER $temporary_directory/edit # Change owner to the current user of the temporary_file (edit)
+    doas chmod 700 $temporary_directory/edit            # Change permissions of the temporary_file (edit)
+    ${EDITOR:-nvim} $temporary_directory/edit           # Edit temporary_file (edit) with $EDITOR environment variable
+    cat $temporary_directory/edit | doas tee $temporary_directory/file 1>/dev/null # Change the content temporary_file (original)
+    if ! cmp -s "$temporary_directory/file" "$source_file"; then # Compare temporary_file (original) to source_file if there change then:
+        doas mv -f $temporary_directory/file $source_file # Overwrite source_file to temporary_file (original)
+    else
+        warn_msg "No change, skipped ..."
+    fi # End if-else statement
+else
+    [[ -d "${source_file}" ]] && { # Check if source_file is directory && run this below
+        send_return EISDIR || return $? # Exit with error exit-code
+    }
+    send_return ENOENT || return $? # Exit with error exit-code
+fi # End if-else statement

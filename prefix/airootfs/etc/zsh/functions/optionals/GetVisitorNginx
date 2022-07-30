@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+need_internet || return $? # Check if there is available connection || exit
+
+mkdir -p /tmp/$0 # Create cache folder
+local TMPFILE_CITY="$(mktemp /tmp/$0/XXXXXXXXXX)"       # Create local variable with temporary file as value
+local TMPFILE_REGION="$(mktemp /tmp/$0/XXXXXXXXXX)"     # Create local variable with temporary file as value
+local TMPFILE_COUNTRY="$(mktemp /tmp/$0/XXXXXXXXXX)"    # Create local variable with temporary file as value
+local -a IpAddresses=( $(< ${1:-/var/log/nginx/access.log} | cut -d ' ' -f1 | uniq) ) # Create array with ip addresses as value from nginx log
+local Ip # Create local variable for storing ip in loop
+for Ip in ${IpAddresses[@]}; do # Create for-loop with IpAddresses as value
+    { # Create anonymous function
+        local CacheFile="$(mktemp /tmp/$0/XXXXXXXXXXXXX)" # Create local variable with temporary file as value
+        /bin/curl -s http://ip-api.com/json/${Ip} -o "${CacheFile}" # Get response from api and output it to cachefile
+        < "${CacheFile}" | jq -r '.city' >> "$TMPFILE_CITY"         # Get output city from json and output it to cachefile
+        < "${CacheFile}" | jq -r '.region' >> "$TMPFILE_REGION"     # Get output region from json and output it to cachefile
+        < "${CacheFile}" | jq -r '.country' >> "$TMPFILE_COUNTRY"   # Get output country from json and output it to cachefile
+    } & # Run the function in background
+done # End for-loop statement
+wait # Wait background process to complete
+local -a City=( $(< "$TMPFILE_CITY") ) # Get city value from cachefile
+local -a Region=( $(< "$TMPFILE_REGION") ) # Get region value from cachefile
+local -a Country=( $(< "$TMPFILE_COUNTRY") ) # Get country value from cachefile
+rm -rf "/tmp/$0" # Clean up cache folder
+# ╾────────────────────────────────────────────────────────╼
+# print -l ${(o)City} | uniq -c | sort -nr # Get City
+# print -l ${(o)Region} | uniq -c | sort -nr # Get Region
+print -l "${(o)Country[*]}" | uniq -c | sort -nr # Get Country

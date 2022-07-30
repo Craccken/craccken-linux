@@ -1,0 +1,11 @@
+#!/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                          Add useful alias for chmod                          │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+alias chmod_000='chmod 000' # Change permission to ---------- (nobody)
+alias chmod_640='chmod 640' # Change permission to -rw-r----- (user: rw, group: r, other: -)
+alias chmod_644='chmod 644' # Change permission to -rw-r--r-- (user: rw, group: r, other: -)
+alias chmod_755='chmod 755' # Change permission to -rwxr-xr-x (user: rwx, group: rx, other: x)
+alias chmod_775='chmod 775' # Change permission to -rwxrwxr-x (user: rwx, group: rwx, other: rx)
+alias chmod_ux='chmod u+x'  # Add permission ---x------ (user: --x, group: -, other: -)

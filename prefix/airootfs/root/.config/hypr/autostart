@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                               Clean up process                               │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+killall -q activate-linux swayidle mpDris2 polkit-gnome-authentication-agent-1 waybar dunst VBoxClient swaybg entr nm-applet nwg-drawer mpvpaper # Kill old proccess, so it will not overlaping process
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    Audio                                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[pipewire] )) && [[ -z "$(pidof pipewire)" ]] && pipewire &!                   # Check command if it available && check if process program not running && start pipewire
+(( $+commands[pipewire-pulse] )) && [[ -z "$(pidof pipewire-pulse)" ]] && pipewire-pulse &! # Check command if it available && check if process program not running && start pipewire-pulse
+(( $+commands[wireplumber] )) && [[ -z "$(pidof wireplumber)" ]] && wireplumber &!          # Check command if it available && check if process program not running && start wireplumber
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  Wallpaper                                   │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[swaybg] )) && swaybg -m fill -i $(find /opt/craccken/wallpaper -maxdepth 1 -type f | shuf -n 1) &! # Check command if it available && set the random wallpaper from directory /opt/craccken/wallpaper
+# (( $+functions[LiveWallpaperHandler] )) && LiveWallpaperHandler noLoopTop /opt/craccken/live-wallpaper/craccken-live-wallpaper.mp4 # Check function if it available && run live-wallpaper :D
+(( $+functions[play_audio_random] )) && play_audio_random /opt/craccken/sound/glitch # Check function if it available && play random audio from directory
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                Screencasting                                 │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+[[ -f /usr/lib/xdg-desktop-portal ]] && /usr/lib/xdg-desktop-portal -r &!
+[[ -f /usr/lib/xdg-desktop-portal-wlr ]] && /usr/lib/xdg-desktop-portal-wlr -r &!
+[[ -f /usr/lib/xdg-desktop-portal-gtk ]] && /usr/lib/xdg-desktop-portal-gtk -r &!
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    Polkit                                    │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+[[ -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ]] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &! # Enable polkit-gnome for run root-application with normal user like gparted.
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  Statusbar                                   │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config &! # Check command if it available && start waybar
+(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config &! # Check command if it available && start waybar
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    Music                                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[mpd] )) && mpd &!
+(( $+commands[mpDris2] )) && mpDris2 &!
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                 Notification                                 │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[dunst] )) && dunst &! # Check command if it available && start notification-daemon
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  VirtualBox                                  │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[VBoxClient] )) && VBoxClient-all &! # Start all vbox service(drag_and_drop, shared_clipboard, seamless)
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                  Brightness                                  │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+functions[BrightnessHandler] )) && BrightnessHandler set_minimum_brightness &! # Check function if it available && set minimum capacity of brightness
+# (( $+functions[ThisWillSaveYourEyes] )) && ThisWillSaveYourEyes &! # Check function if it available && start wlsunset
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                                    Other                                     │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+# (( $+commands[activate-linux] )) && activate-linux &!   # Start activate-linux :D
+(( $+commands[xhost] )) && xhost +si:localuser:root &!  # This will fix trouble with program that required root access like gparted, since we use wayland as display server.
+(( $+commands[foot] )) && foot --server &!              # Check command if it available && start terminal foot server
+(( $+commands[swayidle] )) && swayidle -w timeout 300 'zsh -ic "lock_screen"' timeout 600 'zsh -ic "BrightnessHandler save_current_brightness && BrightnessHandler set_value 7"' timeout 700 'zsh -ic "BrightnessHandler set_value 0"' resume 'BrightnessHandler restore_brightness' &! # Check command if it available && start idle manager

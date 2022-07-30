@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │    /etc/fstab - The file fstab contains descriptive information about the    │
+# │                      filesystems the system can mount.                       │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │     Genfstab helps fill in an fsab file by autodetecting all the current     │
+# │    mmouns below a given mountpount and printing them in fstab-compatible     │
+# │                          format to standard output.                          │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+AskPassword # Ask password || exit
+if [[ -d /sys/firmware/efi ]]; then # Check if system is UEFI
+    genfstab -t PARTUUID -p / | sudo tee /etc/fstab # Generate output suitable for addition to an fstab file, -t ? use tag for source identifiers (should be one of: LABEL, UUID, PARTLABEL, PARTUUID), -p ? Exclude pseudofs mounts.
+else
+    genfstab -U -p / | sudo tee /etc/fstab # Generate output suitable for addition  to an fstab file, -U ? use UUIDs for source identifiers (shortcut for -t UUID), -p ? Exclude pseudofs mounts.
+fi # End if-else statement

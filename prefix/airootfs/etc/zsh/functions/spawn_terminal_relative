@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+# TIPS: Use `LC_ALL=C LANG=C` to improve perfomance
+need_installed footclient && LC_ALL=C LANG=C footclient --window-size-pixels=$(select-region-on-screen "%wx%h") # Check if command available && select region and spawn terminal with region size
