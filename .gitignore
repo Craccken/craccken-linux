@@ -1,6 +1,6 @@
 # Ignore neovim plugins
-./prefix/airootfs/etc/xdg/nvim/pack/*
+prefix/airootfs/etc/xdg/nvim/pack/
 
-./prefix/airootfs/etc/skel/.local/share/zinit
+prefix/airootfs/etc/skel/.local/share/zinit
 .error.log
-./output
+output
