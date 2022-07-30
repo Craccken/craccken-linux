@@ -2,6 +2,6 @@
 prefix/airootfs/etc/xdg/nvim/pack/packer/
 
 prefix/airootfs/etc/skel/.local/share/zinit/
-prefix/airootfs/root/.local/share/zinit
+prefix/airootfs/root/.local/share/zinit/
 .error.log
 output
