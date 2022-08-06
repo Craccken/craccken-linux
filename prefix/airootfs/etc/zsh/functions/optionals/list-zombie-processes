@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 # vim:ft=sh
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃              Generate password and then copy to your clipboard               ┃
+#          ┃                            List zombie processes                             ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed pwgen # Check if command is installed
+need_installed ps awk # Check if command is installed || exit
 
-{pwgen -s -y -n -c -1 "${1:-77}" | wl-copy;} && notify-send -u critical "$0" "Random password coppied to the clipboard!" # Generate random password and notify it & copy to clipboard 
+ps -eal | awk '{ if ($2 == "Z") {print $4}}'

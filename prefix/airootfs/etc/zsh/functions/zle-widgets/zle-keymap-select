@@ -1,0 +1,21 @@
+# vim:ft=sh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃      Executed every time the keymap changes, i.e. the special parameter      ┃
+#          ┃     KEYMAP is set to a different value, while the line editor is active.     ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
+
+case "${KEYMAP}" in # Read the name of currently selected keymap
+    vicmd)
+        echo -ne '\e[1 q' # Change cursor shape to block
+        ;;
+    viins|main)
+        echo -ne '\e[5 q' # Change cursor shape to beam
+        ;;
+    visual)
+        echo -ne '\e[1 q' # Change cursor shape to block
+        ;;
+    viopp)
+        echo -ne '\e[3 q' # Change cursor shape to underline
+        ;;
+esac # End switch-case statement

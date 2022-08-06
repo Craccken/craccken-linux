@@ -1,9 +1,8 @@
-#!/usr/bin/env zsh
 # vim:ft=sh
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃              Generate password and then copy to your clipboard               ┃
+#          ┃ Executed every time the line editor is started to read a new line of input.  ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed pwgen # Check if command is installed
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
 
-{pwgen -s -y -n -c -1 "${1:-77}" | wl-copy;} && notify-send -u critical "$0" "Random password coppied to the clipboard!" # Generate random password and notify it & copy to clipboard 
+zle -K viins  # Initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+echo -ne '\e[5 q' # Change cursor shape to beam

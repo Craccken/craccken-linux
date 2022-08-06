@@ -1,0 +1,13 @@
+# vim:ft=sh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                           Toggles background shell                           ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
+
+if [[ ${#BUFFER} -eq 0 ]]; then # Check if character contents of the edit buffer is zero (empty line)
+    BUFFER="fg" # The entire contents of the edit buffer.
+    zle accept-line # Finish editing the buffer.
+else
+    zle push-input # Push the entire current multiline construct onto the buffer stack and returnto the top-level (PS1) prompt.
+    zle clear-screen # Clear the screen, remaining in incremental search mode.
+fi # End if-else statement

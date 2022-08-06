@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
+need_installed jq curl wl-copy dunstify # Check if command is installed || exit
+need_internet # Need internet to run
+
+mkdir -p /tmp/$0 # Create cache folder
+local output_file="${1:-$(mktemp /tmp/$0/XXXXXXXXXX)}" # Create local variable for storing output file
+curl -s "$(curl -s 'https://xkcd.com/info.0.json' | jq -r .img)" -o "${output_file}" # Get current comic number & download the comic
+< "${output_file}" | wl-copy # Copy the output file from generated image
+dunstify --raw_icon="${output_file}" "$0" "Downloaded comic has been coppied to the clipboard\n${output_file}" # Send-notification

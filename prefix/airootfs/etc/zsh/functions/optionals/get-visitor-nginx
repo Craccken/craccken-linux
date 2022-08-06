@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 # vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+need_installed jq || return $? # Check if command is installed || exit
 need_internet || return $? # Check if there is available connection || exit
 
 mkdir -p /tmp/$0 # Create cache folder

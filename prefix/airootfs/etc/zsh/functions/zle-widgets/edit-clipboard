@@ -1,9 +1,8 @@
-#!/usr/bin/env zsh
 # vim:ft=sh
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃              Generate password and then copy to your clipboard               ┃
+#          ┃                            Edit clipboard buffer                             ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed pwgen # Check if command is installed
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
+need_installed wl-paste vipe wl-copy # Need installed this to run
 
-{pwgen -s -y -n -c -1 "${1:-77}" | wl-copy;} && notify-send -u critical "$0" "Random password coppied to the clipboard!" # Generate random password and notify it & copy to clipboard 
+wl-paste --no-newline | vipe | wl-copy

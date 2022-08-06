@@ -7,17 +7,14 @@ must_have_argument $1 || return $? # Must have argument-1 passed || exit
 killall -q mpvpaper # Kill old process of mpvpaper, if exist
 
 case ${1} in # Read file value
-    noLoop)
+    noLoop|noloop)
         mpvpaper -v -s -f --mpv-options "--no-osd-bar --quiet --no-audio --no-input-default-bindings" "${3:-eDP-1}" "${2}"
         ;;
-    noLoopTop)
+    noLoopTop|nolooptop)
         mpvpaper --layer top -v -s -f --mpv-options "--no-osd-bar --quiet --no-audio --no-input-default-bindings" "${3:-eDP-1}" "${2}"
         ;;
-    Loop)
+    Loop|loop)
         mpvpaper -v -p -f --mpv-options "--no-osd-bar --loop --quiet --no-audio --no-input-default-bindings" "${3:-eDP-1}" "${2}"
-        ;;
-    LoopTop)
-        mpvpaper --layer top -v -p -f --mpv-options "--no-osd-bar --loop --quiet --no-audio --no-input-default-bindings" "${3:-eDP-1}" "${2}"
         ;;
     *)
         : # Do nothing

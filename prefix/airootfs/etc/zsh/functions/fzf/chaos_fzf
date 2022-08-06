@@ -3,7 +3,7 @@
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed fzf # Check if command is installed
 
-local fzf_header="$1" # Get argument-1 value and store it into variable
+local fzf_header="${1:-}" # Get argument-1 value and store it into variable
 shift 1 # Remove argument-1 value
 local -a fzf_style=( # Create local array for store color configurations
     "--color='fg+:#da0000'"             # Text (current line)
@@ -25,4 +25,4 @@ local -a fzf_style=( # Create local array for store color configurations
     "--color='spinner:#c00000'"         # Streaming input indicator
     "--color='header:#4e0000'"          # Header text
 )
-FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${fzf_style[@]} --preview-window '0%'" fzf --no-multi --header="$fzf_header" "$@" --preview="killall -q ffplay; ffplay -nodisp -autoexit /opt/craccken/sound/move/kpcrgsigf098q2v5gelb.wav 2>/dev/null" 
+FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${fzf_style[@]} --preview-window '0%'" fzf --height=100% --prompt="ﯟ " --pointer="" --no-multi --header="${fzf_header}" "$@" --preview="killall -q ffplay; ffplay -nodisp -autoexit /opt/craccken/sound/move/kpcrgsigf098q2v5gelb.wav 2>/dev/null" 

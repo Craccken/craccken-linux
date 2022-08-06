@@ -1,9 +1,14 @@
 #!/usr/bin/env zsh
 # vim:ft=sh
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃              Generate password and then copy to your clipboard               ┃
+#          ┃                     Share any file and output it as link                     ┃
+#          ┃                            it works like pastebin                            ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed pwgen # Check if command is installed
+need_installed curl wl-copy # Check if command is installed
+need_internet # Check if there is available connection
+must_have_argument $1 # Must have argument-1 passed to this function
 
-{pwgen -s -y -n -c -1 "${1:-77}" | wl-copy;} && notify-send -u critical "$0" "Random password coppied to the clipboard!" # Generate random password and notify it & copy to clipboard 
+local link=$(curl -s -F "file=@${1}" 0x0.st) # Upload file to website and it will response with link
+wl-copy "${link}" # Copy link to the clipboard
+notify-send "$0" "Link has been coppied to the clipboard\n${link}" # Send-notification

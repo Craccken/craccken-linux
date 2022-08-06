@@ -3,6 +3,7 @@
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  COMPONENT                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
+autoload git-current-branch
 local -A RESET # Declare local associative array (dictionary)
 local -A GRADIENT # Declare local associative array (dictionary)
 local -a GRADIENT__USER=( # Create local array that contain greadient hex color
@@ -37,7 +38,7 @@ RESET[BG]="%K{reset}"
 RESET[FG]="%F{reset}"
 RESET[ALL]="${RESET[BG]}${RESET[FG]}"
 local PROMPT_COMPONENT_1="${GRADIENT[1__BG]}%F{#000000} ${GRADIENT[2__BG]}%(#..)${GRADIENT[3__BG]} %n${GRADIENT[4__BG]}%m${GRADIENT[5__BG]} ${GRADIENT[5__FG]}${RESET[BG]}"
-local PROMPT_COMPONENT_2="%F{#030303}%K{#030303}${GRADIENT[6__FG]} %~ ${GRADIENT[7__FG]}${GRADIENT[8__FG]} %T ${GRADIENT[9__FG]} ${RESET[BG]}%F{#030303}${RESET[ALL]}"
+local PROMPT_COMPONENT_2="%F{#030303}%K{#030303}${GRADIENT[6__FG]} %~ ${GRADIENT[7__FG]}$(git-current-branch)${GRADIENT[8__FG]} %T ${GRADIENT[9__FG]} ${RESET[BG]}%F{#030303}${RESET[ALL]}"
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    SETUP                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯

@@ -24,7 +24,7 @@ local -a available_options=( # Declare local array
     "interface_mode"            # Get wireless device interface status mode
 ) 
 # NOTE: ${(o)list} <- Sort the resulting words in ascending order; if this appears on its own the sorting is lexical and case-sensitive (unless the locale renders it case-insensitive).
-local option="${1:-$(print -l ${(o)available_options} | fzf --no-multi --header='Choose an option')}" # Declare local variable if argument-1 empty then pick option with fzf
+local option="${1:-$(print -l ${(o)available_options} | spectre_fzf 'Choose an option')}" # Declare local variable if argument-1 empty then pick option with fzf
 case ${option} in # Read option variable
     "local_ip") 
         ip address | grep -A 1 "enp|eth|wl" | grep inet | tr -s ' ' | cut -d ' ' -f 3 | cut -d '/' -f 1 

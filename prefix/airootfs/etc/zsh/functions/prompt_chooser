@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 # vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+autoload chaos_fzf # Load chaos fzf
 
 local -a available_options=( 
     /etc/zsh/prompt/*(.) # Get all file in directory /etc/zsh/prompt and store it as list

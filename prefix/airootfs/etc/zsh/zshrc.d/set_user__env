@@ -18,7 +18,7 @@ export SAVEHIST=7000                                                            
 export HISTSIZE=7000                                                            # Set the maximum number of commands that are stored in memory in a history events while the shell session is on going.
 export HISTFILE="$XDG_STATE_HOME/zsh/history"                                   # Set directory where is histfile is saved
 export TERMINAL="foot"                                                          # Set default terminal
-[[ ! $TTY == /dev/tty* ]] && export TERM="xterm-256color"                       # Check if TTY is not /dev/tty  && set terminal capabilities
+export TERM="xterm-256color"                                                    # Set terminal capabilities
 export EDITOR="nvim"                                                            # Set default text-editor
 export BROWSER="firefox"                                                        # Set default browser 
 export PROMPT_EOL_MARK=""                                                       # Set PROMPT_EOL_MARK to blank
@@ -33,7 +33,7 @@ export SYSTEMD_COLORS=1                                                         
 export SYSTEMD_PAGER=less                                                       # Pager that systemd use when --no-pager is not given
 export TERMINAL_WIDTH="$(tput cols)"                                            # Store terminal width size
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bin:$GOPATH/bin"    # Add additional executable path
-export XCURSOR_SIZE=24                                                          # This variable sets the desired cursor size, in pixels.
+export XCURSOR_SIZE=17                                                          # This variable sets the desired cursor size, in pixels.
 export FPATH="$FPATH:${$(find /etc/zsh/functions -type d -printf %p:)%%:}"      # Add additional functions autoload path
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                     LESS                                     │
@@ -56,7 +56,11 @@ local -a LIST_OF_CODES=( # Create local array for store color configurations
     "ex=38;2;0;200;151;48;2;0;36;27;5;3:"   # Set highlight style for executable files
     "ln=38;2;95;0;215;48;2;16;0;36;4:"      # Set highlight style for symlinks
     "or=38;2;95;0;215;48;2;16;0;36;9;2:"    # Set highlight style for broken symlinks
+    "hd=38;2;17;206;230;48;2;2;30;33;2;5:"  # Set highlight style for the header row of a table
     "*.zip=38;2;214;0;39;48;2;36;0;7;5;3:"  # Set highlight style for zip
+    "*.gitignore=38;5;238;3;2:"             # Set highlight style for gitignore file
+    "*cache*=38;5;238;3;2:"                 # Set highlight style for cache file
+    "*history*=38;5;238;3;2:"               # Set highlight style for history file
     "*.tar=38;2;214;0;39;48;2;36;0;7;5;3:"  # Set highlight style for tar
     "*.gz=38;2;214;0;39;48;2;36;0;7;5;3:"   # Set highlight style for gz
     "*.vim=38;2;1;152;51:"                  # Set highlight style for vim file

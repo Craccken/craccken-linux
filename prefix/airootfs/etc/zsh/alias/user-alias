@@ -32,8 +32,10 @@ alias clear_nvim_history='speak "Clearing;neovim history.";rm -v ~/.local/share/
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                           'OPEN WITH':suffix-alias                           │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-alias -s jpg='feh'
-alias -s png='feh'
+alias -s jpg='imv'
+alias -s jpeg='imv'
+alias -s png='imv'
+alias -s svg='imv'
 alias -s mkv='mpv'
 alias -s mp4='mpv'
 alias -s mp3='mpv'

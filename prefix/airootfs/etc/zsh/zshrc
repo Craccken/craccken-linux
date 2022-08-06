@@ -29,14 +29,15 @@ ZINIT[COMPINIT_OPTS]="-C -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"     # Se
 ZINIT[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"          # Set directory for dumped completion file, this will speed compinit.
 . /etc/zsh/zinit/zinit.zsh                                                  # Enable zsh-plugins-manager(zinit)
 zicompinit                                                                  # Initialiaze completion for the current session when called directly.
+_comp_options+=(globdots) # Include hidden files for compinit
 zstyle :completion:* menu select                                            # Enable autocompletion with an arrow-key driven interactive.
 zstyle :completion:* use-cache true                                         # Enable cache, it will optimize completion
 zstyle :completion:* cache-path ~/.cache/zsh_completion_cache               # Defines the path where any cache files containing dumped completion data are stored
 zstyle :completion:* verbose yes                                            # Verbose completion
-zstyle :completion:* matcher-list 'm:{a-zA-Z}={A-Za-z}'                     # Case insensitive tab completion
 zstyle :completion:*:descriptions format '⟨%d⟩'                             # Set group descriptor
-_comp_options+=(globdots)                                                   # Include hidden files for compinit
+zstyle :completion::complete:* gain-privileges 1                            # If the line has sudo or doas in it, then it tries to gain more access while completing command options (-/--)
 zstyle :completion:*:*:*:*:processes command "ps -u $USER -o pid,user,comm -w -w" # Run command if completion processes
+zstyle :completion:* matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # Case insensitive auto-completion
 zmodload zsh/zpty
 zmodload zsh/complist
 zmodload zsh/datetime
@@ -107,7 +108,7 @@ done; unset file # End for-loop; Clearing variable so it will not polute the she
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                                  Functions                                   ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-for function in /etc/zsh/functions/*(.) /etc/zsh/functions/lib/*(.) tetriscurses run-help run-help-ip; do # Create for-loop with list of functions from /etc/zsh/functions directory that will be loaded
+for function in /etc/zsh/functions/*(.) /etc/zsh/functions/libs/*(.) tetriscurses run-help run-help-ip; do # Create for-loop with list of functions from /etc/zsh/functions directory that will be loaded
     autoload ${function} 
 done; unset function # End for-loop; Clearing variable so it will not polute the shell.
 (( $+aliases[run-help] )) && unalias run-help # Check if specify alias available && remove alias
@@ -121,6 +122,7 @@ update_prompt # Call update prompt function
 chpwd(){ # Define a hook function that executed whenever the current directory is changed.
     (commandcache exa --all --git --icons --group-directories-first --time-style=long-iso --group --color-scale) 2>/dev/null # Same like `la`
     [[ -r ./.rune_stone ]] && (<./.rune_stone 2>/dev/null) # Check if .rune_stone is readable file && read .rune_stone file
+    [[ -d ./.git ]] && update_prompt # Update prompt if there is .git directory in current path
 }
 preexec(){ # Define a hook function that executed just after a command has been read and is about executed.
     start_time_execution=${EPOCHREALTIME} # Store current_time into variable start_time_execution

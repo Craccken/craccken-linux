@@ -4,7 +4,8 @@
 # │     Edit configurations file with this tool,i do not want remember this.     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed fzf seq nvim find # Check if command is installed || exit
+need_installed seq nvim find # Check if command is installed || exit
+autoload spectre_fzf
 
 # TIPS: use `print -l $array` instead `echo $array | tr " " "\n"`. It much faster than piping into 'tr' command
 local -a file_configurations # Declare local array
@@ -30,11 +31,13 @@ available_options[sysctl]="/etc/sysctl.d /etc/sysctl.conf"
 available_options[xinit]="/etc/X11/xinit"
 available_options[pacman]="/etc/pacman.conf"
 available_options[vconsole]="/etc/vconsole.conf"
+available_options[lf]="/etc/lf"
 available_options[release]="/etc/lsb-release /usr/lib/os-release"
 available_options[zsh]="/etc/zsh /etc/zsh/zshrc.d /etc/zsh/zprofile.d"
 available_options[neovim]="/etc/xdg/nvim /etc/xdg/nvim/colors /etc/xdg/nvim/lua /etc/xdg/nvim/plugin"
 
-local option="${1:-$(print -l ${(ko)available_options} | fzf --no-multi --header='Choose an option')}" # Declare local variable if argument-1 empty then pick available_options keys value and sorted with fzf
+local option="${1:-$(print -l ${(ko)available_options} | spectre_fzf 'Choose an option')}" # Declare local variable if argument-1 empty then pick available_options keys value and sorted with fzf
+play_audio_random /opt/craccken/sound/click # Play random audio in directory
 [[ -z "${option}" ]] && send_return EINVAL # If option variable is empty && exit
 [[ -z "${available_options[$option]}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
 file_configurations=( $(find $(print ${available_options[$option]}) -maxdepth 1 -writable -type f 2>/dev/null) ) # Search available_options(option) value type file and store it to array

@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 # vim:ft=sh
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃              Generate password and then copy to your clipboard               ┃
+#          ┃                       Delete 0 byte file (unused file)                       ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed pwgen # Check if command is installed
+need_installed find # Check if command is installed
 
-{pwgen -s -y -n -c -1 "${1:-77}" | wl-copy;} && notify-send -u critical "$0" "Random password coppied to the clipboard!" # Generate random password and notify it & copy to clipboard 
+find "${1:-.}" -type f -size 0 -exec rm -rf {} \; # Find files with size 0 byte in argument-1 <- (default to current directory) and delete it

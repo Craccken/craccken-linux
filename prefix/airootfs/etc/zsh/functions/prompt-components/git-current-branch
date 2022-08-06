@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                        Get name of current git branch                        ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed git # Check if command is installed
+
+local current_branch="$(git branch --show-current 2>/dev/null || :)" # Get current_branch name
+local branch_truncated="${current_branch:0:27}" # Truncate current_branch name if 27+ characters
+if (( ${#current_branch} > ${#branch_truncated} )); then # Check if current_branch length is longer than branch_truncated then:
+    current_branch="${branch_truncated}…" # Change current_branch value to branch_truncated
+fi # End if-else statement
+[[ -n "${current_branch}" ]] && echo " ${current_branch}  " # Check if current_branch variable is not empty && print current_branch

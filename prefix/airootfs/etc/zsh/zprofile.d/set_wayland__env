@@ -12,7 +12,5 @@ if [[ -n "$WAYLAND_DISPLAY" ]] || [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then #
     export SDL_VIDEODRIVER=wayland                  # Run native game on wayland, It may break most games and other(older) binary applications might not work with wayland SDL video driver.
     export _JAVA_AWT_WM_NONREPARENTING=1            # This will fix some java awt applications not display properly
     export MOZ_ENABLE_WAYLAND=1                     # Experimental wayland support in firefox
-    [[ "$(systemd-detect-virt)" == "oracle" ]] && {
-        export WLR_NO_HARDWARE_CURSORS=1        # Fix cursor not visible in VM(virtual machine)
-    }
+    # export WLR_NO_HARDWARE_CURSORS=1              # Fix cursor not visible in VM(virtual machine) and NVIDIA
 fi # End if-else statement
