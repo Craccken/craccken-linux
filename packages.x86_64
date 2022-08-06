@@ -217,6 +217,8 @@ mesa
 # xorg-xinit
 # sddm
 grim
+imv
+# sxiv
 slurp
 egl-wayland
 qt5-wayland
