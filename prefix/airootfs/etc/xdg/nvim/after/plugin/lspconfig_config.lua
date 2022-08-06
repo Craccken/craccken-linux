@@ -16,6 +16,7 @@ local servers = {  -- List of lsp server
     'jsonls', 
     'cssls', 
     'emmet_ls', 
+    'eslint',
     'html',
     'jdtls',
 } 

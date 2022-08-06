@@ -28,8 +28,8 @@ killall -q activate-linux swayidle mpDris2 polkit-gnome-authentication-agent-1 w
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Statusbar                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config &! # Check command if it available && start waybar
-(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config &! # Check command if it available && start waybar
+(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config -s /etc/xdg/waybar/bar.css &! # Check command if it available && start waybar
+(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config -s /etc/xdg/waybar/bar.css &! # Check command if it available && start waybar
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Music                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -47,7 +47,7 @@ killall -q activate-linux swayidle mpDris2 polkit-gnome-authentication-agent-1 w
 # │                                  Brightness                                  │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+functions[BrightnessHandler] )) && BrightnessHandler set_minimum_brightness 5 &! # Check function if it available && set minimum capacity of brightness
-(( $+functions[ThisWillSaveYourEyes] )) && ThisWillSaveYourEyes &! # Check function if it available && start wlsunset
+# (( $+functions[ThisWillSaveYourEyes] )) && ThisWillSaveYourEyes &! # Check function if it available && start wlsunset
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Other                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯

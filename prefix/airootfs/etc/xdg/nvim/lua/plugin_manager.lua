@@ -86,6 +86,7 @@ return require("packer").startup(function(use)
     use "nvim-telescope/telescope-fzy-native.nvim"                          -- Fzy style sorter that is compiled
     use "numToStr/Comment.nvim"                                             -- Smart powerful plugin for neovim.
     use "goolord/alpha-nvim"                                                -- Fancy-startscreen :)
+    -- use 'sunjon/shade.nvim'                                                 -- An Nvim lua plugin that dims your inactive windows
     use "kyazdani42/nvim-web-devicons"                                      -- lua `fork` of vim-web-devicons for neovim
     use "lewis6991/gitsigns.nvim"                                           -- Git intergration for buffers
     use "nvim-lua/plenary.nvim"                                             -- All the lua functions i don't want to write twice, it used by other plugins.
@@ -93,6 +94,7 @@ return require("packer").startup(function(use)
     use "lukas-reineke/indent-blankline.nvim"                               -- Indent guides for neovim.
     use { "nvim-treesitter/nvim-treesitter", run = ':TSUpdate' }            -- Nvim treesitter configurations and abstraction layer
     use "norcalli/nvim-colorizer.lua"                                       -- The fastest neovim colorizer
+    -- use "ziontee113/syntax-tree-surfer"                                     -- A plugin for Neovim that helps you surf through your document and move elements around using the nvim-treesitter API. 
     use "petertriho/nvim-scrollbar"                                         -- Extensible neovim scrollbar
     use "rebelot/heirline.nvim"                                             -- no-nonsense Neovim statusline plugin designed arround recursive inheritance to be exceptionally fast and versatile
     use "williamboman/nvim-lsp-installer"                                   -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall.
@@ -107,6 +109,7 @@ return require("packer").startup(function(use)
     use "L3MON4D3/LuaSnip"                                                  -- Snippet Engine for Neovim written in Lua. 
     use {'edluffy/specs.nvim'}                                              -- A fast and lightweight Neovim lua plugin to keep an eye on where your cursor has jumped. 
     use 'lewis6991/impatient.nvim'                                          -- Improve startup time for Neovim 
+    use 'TornaxO7/tree-setter'                                              -- A treesitter-module which will place commas, semicolons and double points automatically for you! 
     use "rafamadriz/friendly-snippets"                                      -- Set of preconfigured snippets for different languages. 
     use "windwp/nvim-ts-autotag"                                            -- Use treesitter to auto close and auto rename html tag
     -- use "jubnzv/virtual-types.nvim"                                         -- Neovim plugin that shows type annotations as virtual text.
@@ -122,7 +125,7 @@ return require("packer").startup(function(use)
     use "chentoast/marks.nvim"                                              -- A better user experience for viewing and interacting with Vim marks.
     -- use "ziontee113/syntax-tree-surfer"                                     -- Plugin for Neovim that helps you surf through your document and move elements around using the nvim-treesitter API.
     use "RRethy/nvim-treesitter-endwise"                                    -- Wisely add "end" in Ruby, Vimscript, Lua, etc. Tree-sitter aware alternative to tpope's vim-endwise
-    use "p00f/nvim-ts-rainbow"                                              -- Rainbow parentheses for neovim using tree-sitter.
+    -- use "p00f/nvim-ts-rainbow"                                              -- Rainbow parentheses for neovim using tree-sitter.
     -- use "lukas-reineke/virt-column.nvim"                                    -- Display a character as the colorcolumn
     use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"                      -- Simple neovim plugin that renders diagnostics using virtual lines on top of the real line of code.
     use "monaqa/dial.nvim"                                                  -- Enhanced increment/decrement plugin for Neovim.

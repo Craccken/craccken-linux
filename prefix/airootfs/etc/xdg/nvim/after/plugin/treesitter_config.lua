@@ -18,7 +18,7 @@ require('nvim-treesitter.configs').setup { -- Call setup function
     },
     rainbow = {                                 -- Rainbow parentheses using tree-sitter.
         enable = true,                              -- When enable is true this will enable the module
-        extended_mode = false,                       -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        extended_mode = false,                      -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil,                       -- Do not enable for files with more than n lines, int
         colors = {                                  -- Table of hex color strings
             "#9e9e9e",
@@ -33,6 +33,9 @@ require('nvim-treesitter.configs').setup { -- Call setup function
             "html",
             "lua",
         },
+    },
+    tree_setter = {                             -- Use treesitter to autoinsert semicolons
+        enable = true,                              -- When enable is true this will enable the module
     },
     autotag = {                                 -- Use treesitter to autoclose and autorename html tag
         enable = true,                              -- When enable is true this will enable the module

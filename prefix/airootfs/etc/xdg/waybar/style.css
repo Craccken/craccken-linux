@@ -1,12 +1,63 @@
 * {
-    font-size: 19px; /* Indicates the desired height of glyphs from the font */
-    font-family: CozetteVector, FontAwesome, Roboto, Helvetica, Arial, sans-serif; /* Specifies a prioritized list of font family names or generic family names. */
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0.0);
+    background-color: rgba(43, 48, 59, 0.5);
+    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: #ffffff;
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each workspace name */
+    border: none;
+    border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces button.focused {
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
 }
 
 #mode {
@@ -14,642 +65,190 @@ window#waybar {
     border-bottom: 3px solid #ffffff;
 }
 
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#mpd {
+    padding: 0 10px;
+    color: #ffffff;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 /* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
-    margin-right: 0px;
+    margin-right: 0;
 }
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                    CUSTOM                                    │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#custom-launcher { /* Style for launcher module */
-    color: rgba(0, 0, 0, 1); /* Sets the color of an element's text */
-    background-color: rgba(0, 0, 0, 0); /* Sets the background color of an element. */
-    font-size: 27px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 8px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 8px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 30%; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 0px 0px 5px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 2px 2.9px 0.1px rgba(0, 0, 0, 0.3); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #a4c6b8 0%, #5e435d 100%); /* Sets the background image(s) of an element. */
+
+#clock {
+    background-color: #64727D;
 }
-#custom-power { /* Style for power module */
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 23px; /* Indicates the desired height of glyphs from the font. */
-    font-weight: normal; /* Specifies weight of glyphs in the font, their degree of blackness or stroke thickness. */
-    background-image: linear-gradient(120deg, #c3e1fc 0%, #ea72ad 100%); /* Sets the background image(s) of an element. */
-    padding-top: 5px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 11px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    margin-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-color: #010101; /* Sets the background color of an element. */
-    border-top-width: 1px; /* Sets the thickness of the top border. */
-    border-bottom-left-radius: 1em; /* Defines the radii of the top left outer border edge. */
-    border-bottom-right-radius: 1em; /* Defines the radii of the top right outer border edge. */
-    text-shadow: 0px 0px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 2px 2.9px 0.1px rgba(234, 114, 174, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                     DISK                                     │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#disk { /* Style for disk module (base) */
-    color: #e9d022; /* Sets the color of an element's text */
-    font-size: 20px; /* Indicates the desired height of glyphs from the font. */
-    font-weight: normal; /* Specifies weight of glyphs in the font, their degree of blackness or stroke thickness. */
-    background-color: rgba(0, 0, 0, 1); /* Sets the background color of an element. */
-    padding-top: 10px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 10px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-top-width: 0px; /* Sets the thickness of the top border. */
-    border-right-width: 0px; /* Sets the thickness of the right border. */
-    border-bottom-width: 0px; /* Sets the thickness of the bottom border. */
-    border-left-width: 0.09em; /* Sets the thickness of the left border. */
-    text-shadow: 0px 0px 9px #e9d022; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-}
-#disk.highest { /* Style for disk when usage at highest */
-    border-image: linear-gradient(0deg, #e9d022 100%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#disk.veryHigh { /* Style for disk when usage at veryHigh */
-    border-image: linear-gradient(0deg, #e9d022 50%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#disk.high { /* Style for disk when usage at high */
-    border-image: linear-gradient(0deg, #e9d022 10%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#disk.medium { /* Style for disk when usage at medium */
-    border-image: linear-gradient(0deg, #e9d022 50%, #000000 50%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#disk.low { /* Style for disk when usage at low */
-    border-image: linear-gradient(0deg, #e9d022 0%, #000000 50%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#disk.veryLow { /* Style for disk when usage at veryLow */
-    border-image: linear-gradient(0deg, #e9d022 0%, #000000 30%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#disk.lowest { /* Style for disk when usage at lowest */
-    border-image: linear-gradient(0deg, #e9d022 0%, #000000 0%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                    MEMORY                                    │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#memory { /* Style for memory module (base) */
-    color: #5c03bc; /* Sets the color of an element's text */
-    font-size: 20px; /* Indicates the desired height of glyphs from the font. */
-    font-weight: normal; /* Specifies weight of glyphs in the font, their degree of blackness or stroke thickness. */
-    background-color: rgba(0, 0, 0, 1); /* Sets the background color of an element. */
-    padding-top: 10px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 10px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-top-width: 0px; /* Sets the thickness of the top border. */
-    border-right-width: 0px; /* Sets the thickness of the right border. */
-    border-bottom-width: 0px; /* Sets the thickness of the bottom border. */
-    border-left-width: 0.09em; /* Sets the thickness of the left border. */
-    text-shadow: 0px 0px 9px #5c03bc; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-}
-#memory.highest { /* Style for memory when usage at highest */
-    border-image: linear-gradient(0deg, #5c03bc 100%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#memory.veryHigh { /* Style for memory when usage at veryHigh */
-    border-image: linear-gradient(0deg, #5c03bc 50%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#memory.high { /* Style for memory when usage at high */
-    border-image: linear-gradient(0deg, #5c03bc 10%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#memory.medium { /* Style for memory when usage at medium */
-    border-image: linear-gradient(0deg, #5c03bc 50%, #000000 50%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#memory.low { /* Style for memory when usage at low */
-    border-image: linear-gradient(0deg, #5c03bc 0%, #000000 50%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#memory.veryLow { /* Style for memory when usage at veryLow */
-    border-image: linear-gradient(0deg, #5c03bc 0%, #000000 30%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#memory.lowest { /* Style for memory when usage at lowest */
-    border-image: linear-gradient(0deg, #5c03bc 0%, #000000 0%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                 TEMPERATURE                                  │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#temperature {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #0d41e1; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #07c8f9 0%, #0d41e1 100%); /* Sets the background image(s) of an element. */
-}
-#temperature.critical {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #f74c06; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #cf0000 0%, #f73906 100%); /* Sets the background image(s) of an element. */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                    AUDIO                                     │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#pulseaudio { /* Style for pulseaudio module (base) */
-    color: #11d3f3; /* Sets the color of an element's text */
-    font-size: 20px; /* Indicates the desired height of glyphs from the font. */
-    font-weight: normal; /* Specifies weight of glyphs in the font, their degree of blackness or stroke thickness. */
-    background-color: rgba(0, 0, 0, 1); /* Sets the background color of an element. */
-    padding-top: 10px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 10px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-top-width: 0px; /* Sets the thickness of the top border. */
-    border-right-width: 0px; /* Sets the thickness of the right border. */
-    border-bottom-width: 0px; /* Sets the thickness of the bottom border. */
-    border-left-width: 0.09em; /* Sets the thickness of the left border. */
-    text-shadow: 0px 0px 9px #11d3f3; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-}
-#pulseaudio.highest { /* Style for pulseaudio when volume at highest */
-    border-image: linear-gradient(0deg, #11d3f3 100%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.veryHigh { /* Style for pulseaudio when volume at veryHigh */
-    border-image: linear-gradient(0deg, #11d3f3 50%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.high { /* Style for pulseaudio when volume at high */
-    border-image: linear-gradient(0deg, #11d3f3 10%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.medium { /* Style for pulseaudio when volume at medium */
-    border-image: linear-gradient(0deg, #11d3f3 50%, #000000 50%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.low { /* Style for pulseaudio when volume at low */
-    border-image: linear-gradient(0deg, #11d3f3 0%, #000000 50%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.veryLow { /* Style for pulseaudio when volume at veryLow */
-    border-image: linear-gradient(0deg, #11d3f3 0%, #000000 30%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.lowest { /* Style for pulseaudio when volume at lowest */
-    border-image: linear-gradient(0deg, #11d3f3 0%, #000000 0%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.muted { /* Style for pulseaudio when muted */
-    color: #e60b09; /* Sets the color of an element's text */
-    font-size: 20px; /* Indicates the desired height of glyphs from the font. */
-    font-weight: normal; /* Specifies weight of glyphs in the font, their degree of blackness or stroke thickness. */
-    background-color: rgba(0, 0, 0, 1); /* Sets the background color of an element. */
-    padding-top: 10px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 10px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-top-width: 0px; /* Sets the thickness of the top border. */
-    border-right-width: 0px; /* Sets the thickness of the right border. */
-    border-bottom-width: 0px; /* Sets the thickness of the bottom border. */
-    border-left-width: 0.09em; /* Sets the thickness of the left border. */
-    text-shadow: 0px 0px 9px #e60b09; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-}
-#pulseaudio.muted.highest { /* Style for pulseaudio when muted and volume at highest */
-    border-image: linear-gradient(0deg, #e60b09 100%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.muted.veryHigh { /* Style for pulseaudio when muted and volume at veryHigh */
-    border-image: linear-gradient(0deg, #e60b09 50%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.muted.high { /* Style for pulseaudio when muted and volume at high */
-    border-image: linear-gradient(0deg, #e60b09 10%, #000000 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.muted.medium { /* Style for pulseaudio when muted and volume at medium */
-    border-image: linear-gradient(0deg, #e60b09 50%, #000000 50%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.muted.low { /* Style for pulseaudio when muted and volume at low */
-    border-image: linear-gradient(0deg, #e60b09 0%, #000000 50%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.muted.veryLow { /* Style for pulseaudio when muted and volume at veryLow */
-    border-image: linear-gradient(0deg, #e60b09 0%, #000000 30%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#pulseaudio.muted.lowest { /* Style for pulseaudio when muted and volume at lowest */
-    border-image: linear-gradient(0deg, #e60b09 0%, #000000 0%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                   NETWORK                                    │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#network { /* Style for network module (base) */
-    font-size: 22px; /* Indicates the desired height of glyphs from the font. */
-    font-weight: normal; /* Specifies weight of glyphs in the font, their degree of blackness or stroke thickness. */
-    background-color: rgba(0, 0, 0, 1); /* Sets the background color of an element. */
-    margin-top: 0.3rem; /* Shorthand property to set values for the thickness of the margin area top. */
-    padding-top: 10px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 10px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-color: #010101; /* Sets the background color of an element. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-top-width: 0.2em; /* Sets the thickness of the top border. */
-    border-left-width: 0.2em; /* Sets the thickness of the left border. */
-    border-right-width: 0.2em; /* Sets the thickness of the right border. */
-    border-bottom-width: 0px; /* Sets the thickness of the bottom border\. */
-    border-top-left-radius: 1em; /* Defines the radii of the top left outer border edge. */
-    border-top-right-radius: 1em; /* Defines the radii of the top right outer border edge. */
-    box-shadow: 0px 1px 2.9px 0.1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-}
-#network.wifi { /* Style used when wireless interface is displayed */
-    color: #00ff87; /* Sets the color of an element's text */
-    text-shadow: 0px 0px 5px #00ff87; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-}
-#network.ethernet { /* Style used when ethernet interface is displayed */
-    color: #439cfb; /* Sets the color of an element's text */
-    text-shadow: 0px 0px 5px #439cfb; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-}
-#network.disabled { /* Style used when the displayed interface is disabled. */
-    color: #e60b09; /* Sets the color of an element's text */
-    text-shadow: 0px 0px 5px #e60b09; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-}
-#network.disconnected { /* Style used when the displayed interface is disconnected. */
-    color: #e60b09; /* Sets the color of an element's text */
-    text-shadow: 0px 0px 5px #e60b09; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-}
-#network.linked { /* Style used when linked interface with no ip address is displayed. */
-    color: #5c03bc; /* Sets the color of an element's text */
-    text-shadow: 0px 0px 5px #5c03bc; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                     CPU                                      │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#cpu.high { /* Style for cpu at high usage */
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #e60b09; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #f74c06 0%, #e60b09 100%); /* Sets the background image(s) of an element. */
-}
-#cpu.medium { /* Style for cpu at medium usage */
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #ff930f; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #ff930f 0%, #fff95b 100%); /* Sets the background image(s) of an element. */
-}
-#cpu.low { /* Style for cpu at low usage */
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #2feaa8; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #2feaa8 0%, #028cf3 100%); /* Sets the background image(s) of an element. */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                     TAGS                                     │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#tags { /* The tags module displays the current tag state of river. */
-    color: rgba(0, 0, 0, 0); /* Sets the color of an element's text */
-    background-color: rgba(0, 0, 0, 1); /* Sets the background color of an element. */
-    border-radius: 0.8rem; /* Defines the radii of the outer border edge. */
-    border-color: #010101; /* Sets the background color of an element. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-top-width: 0.7em; /* Sets the thickness of the top border. */
-    border-bottom-width: 0.7em; /* Sets the thickness of the bottom border. */
-    border-left-width: 0.09rem; /* Sets the thickness of the left border. */
-    border-right-width: 0.09rem; /* Sets the thickness of the left border. */
-}
-#tags button { /* Style for button on tags */
-    color: rgba(0, 0, 0, 0); /* Sets the color of an element's text */
-    text-shadow: 1px 2px 5px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    background-color: rgba(0, 0, 0, 0); /* Sets the background color of an element. */
-    transition-delay: 0ms; /* Defines when the transition will start. */
-    transition-duration: 87ms; /* Defines when the transition will start. */
-    transition-property: all; /* Specifies the name of the CSS property to which the transition is applied. */
-    transition-timing-function: ease; /* Describes how the intermediate values used during a transition will be calculated. */
-}
-#tags button:hover { /* Style for button on hover in tags */
-    color: #000000; /* Sets the color of an element's text */
-    margin-top: 0.4rem; /* Shorthand property to set values for the thickness of the margin area top. */
-    margin-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    background-image: linear-gradient(120deg, #aed1ef 0%, #f0b9ef 100%); /* Sets the background image(s) of an element. */
-}
-#tags button.occupied { /* Style for button on tags when there is an application active */
-    color: #ffffff; /* Sets the color of an element's text */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-top-width: 0px; /* Sets the thickness of the top border. */
-    border-right-width: 0px; /* Sets the thickness of the right border. */
-    border-bottom-width: 0px; /* Sets the thickness of the bottom border. */
-    border-left-width: 0.2em; /* Sets the thickness of the left border. */
-    border-image: linear-gradient(120deg, #aed1ef 0%, #f0b9ef 100%) 1; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-#tags button.focused { /* Style for button on tags focused */
-    color: rgba(0, 0, 0, 1); /* Sets the color of an element's text */
-    padding-top: 10px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 10px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 35%; /* Defines the radii of the outer border edge. */
-    margin-top: 0.3rem; /* Shorthand property to set values for the thickness of the margin area top. */
-    margin-bottom: 0.3rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    background-image: linear-gradient(120deg, #aed1ef 0%, #f0b9ef 100%); /* Sets the background image(s) of an element. */
-    border-top-width: 0px; /* Sets the thickness of the top border. */
-    border-left-width: 1px; /* Sets the thickness of the left border. */
-    border-right-width: 1px; /* Sets the thickness of the right border. */
-    border-bottom-width: 0px; /* Sets the thickness of the bottom border. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-color: #000000; /* Sets the background color of an element. */
-    border-image: unset; /* Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                  BACKLIGHT                                   │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#backlight.light {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #ebf4f5; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #ebf4f5 0%, #b5c6e0 100%); /* Sets the background image(s) of an element. */
-    animation-name: backlight_light; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: normal; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: linear; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
-}
-#backlight.veryBright {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #ebf4f5; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #ebf4f5 0%, #b5c6e0 100%); /* Sets the background image(s) of an element. */
-    animation-name: backlight_light; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: normal; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: linear; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
-}
-#backlight.bright {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #ebf4f5; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #ebf4f5 0%, #b5c6e0 100%); /* Sets the background image(s) of an element. */
-    animation-name: backlight_light; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: normal; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: linear; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
-}
-#backlight.medium {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #0e0725; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(0deg, #ebf4f5 0%, #0e0725 90%, #000000 100%); /* Sets the background image(s) of an element. */
-    animation-name: backlight_medium; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: normal; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: linear; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
-}
-#backlight.dim {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #4c029b; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(0deg, #0e0725 10%, #5c03bc 90%, #4c029b 100%); /* Sets the background image(s) of an element. */
-    animation-name: backlight_dark; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: normal; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: linear; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
-}
-#backlight.veryDim {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #4c029b; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(0deg, #0e0725 10%, #5c03bc 90%, #4c029b 100%); /* Sets the background image(s) of an element. */
-    animation-name: backlight_dark; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: normal; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: linear; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
-}
-#backlight.dark {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    padding-top: 0.4rem; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 0.4rem; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    border-radius: 1rem; /* Defines the radii of the outer border edge. */
-    margin-bottom: 0.5rem; /* Shorthand property to set values for the thickness of the margin area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px #4c029b; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(0deg, #0e0725 10%, #5c03bc 90%, #4c029b 100%); /* Sets the background image(s) of an element. */
-    animation-name: backlight_dark; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: normal; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: linear; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
-}
-@keyframes backlight_light {
-99% {
-    background-image: linear-gradient(120deg, #ffffff 0%, #b5c6e0 100%); /* Sets the background image(s) of an element. */
-}
-100% {
-    background-image: linear-gradient(120deg, #ebf4f5 0%, #b5c6e0 100%); /* Sets the background image(s) of an element. */
-}
-}
-@keyframes backlight_dark {
-99% {
-    background-image: linear-gradient(360deg, #0e0725 10%, #5c03bc 80%, #4c029b 100%); /* Sets the background image(s) of an element. */
-}
-100% {
-    background-image: linear-gradient(360deg, #0e0725 10%, #5c03bc 90%, #4c029b 100%); /* Sets the background image(s) of an element. */
-}
-}
-@keyframes backlight_medium {
-99% {
-    background-image: linear-gradient(360deg, #ffffff 0%, #0e0725 80%, #000000 100%); /* Sets the background image(s) of an element. */
-}
-100% {
-    background-image: linear-gradient(360deg, #ebf4f5 0%, #0e0725 90%, #000000 100%); /* Sets the background image(s) of an element. */
-}
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                    CLOCK                                     │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#clock.hour { /* Set style for clock hour. */
-    color: #ffffff; /* Sets the color of an element's text */
-    background-color: rgba(0, 0, 0, 1); /* Sets the background color of an element. */
-    font-family: BebasKai, CozetteVector, FontAwesome, Roboto, Helvetica, Arial, sans-serif; /* Specifies a prioritized list of font family names or generic family names. */
-    border-color: #010101; /* Sets the background color of an element. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-top-width: 0.2em; /* Sets the thickness of the top border. */
-    border-left-width: 0.2em; /* Sets the thickness of the left border. */
-    border-right-width: 0.2em; /* Sets the thickness of the right border. */
-    border-bottom-width: 0px; /* Sets the thickness of the bottom border\. */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    font-weight: normal; /* Specifies weight of glyphs in the font, their degree of blackness or stroke thickness. */
-    padding-top: 10px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 3px; /* Shorthand property to set values for the thickness of the padding area top. */
-    letter-spacing: 0.3em; /* Specifies the minimum, maximum, and optimal spacing between grapheme clusters. */
-    border-top-left-radius: 1em; /* Defines the radii of the top left outer border edge. */
-    border-top-right-radius: 1em; /* Defines the radii of the top right outer border edge. */
-    text-shadow: 0px 0px 2px #ffffff; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-}
-#clock.minute { /* Set style for clock minute. */
-    color: #ffffff; /* Sets the color of an element's text */
-    background-color: rgba(0, 0, 0, 1); /* Sets the background color of an element\. */
-    font-family: BebasKai, CozetteVector, FontAwesome, Roboto, Helvetica, Arial, sans-serif; /* Specifies a prioritized list of font family names or generic family names. */
-    border-color: #010101; /* Sets the background color of an element. */
-    border-style: solid; /* The style of the border around edges of an element. */
-    border-top-width: 0px; /* Sets the thickness of the top border. */
-    border-left-width: 0.2em; /* Sets the thickness of the left border. */
-    border-right-width: 0.2em; /* Sets the thickness of the right border. */
-    border-bottom-width: 0.2em; /* Sets the thickness of the bottom border. */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    font-weight: normal; /* Specifies weight of glyphs in the font, their degree of blackness or stroke thickness. */
-    padding-top: 3px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 10px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    letter-spacing: 0.3em; /* Specifies the minimum, maximum, and optimal spacing between grapheme clusters. */
-    border-bottom-left-radius: 1em; /* Defines the radii of the bottom left outer border edge. */
-    border-bottom-right-radius: 1em; /* Defines the radii of the bottom right outer border edge. */
-    text-shadow: 0px 0px 2px #ffffff; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    box-shadow: 0px 1px 2.9px 0.1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                   TOOLTIP                                    │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-tooltip {
-    border-width: 0px; /* Shorthand that sets the four 'border-*-width' properties. */
-    border-radius: 1em; /* Defines the radii of the outer border edge. */
-    box-shadow: 0px 1px 2.9px 1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(130deg, #0f68a9 0%, #ab2aed 100%); /* Sets the background image(s) of an element. */
-}
-tooltip label {
-    color: #000000; /* Sets the color of an element's text */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                   SYSTRAY                                    │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
-#tray * { /* Set style for systray all elements */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    font-weight: bold; /* Specifies weight of glyphs in the font, their degree of blackness or stroke thickness. */
-    letter-spacing: 0.1em; /* Specifies the minimum, maximum, and optimal spacing between grapheme clusters. */
-    font-family: Zector, CozetteVector, FontAwesome, Roboto, Helvetica, Arial, sans-serif; /* Specifies a prioritized list of font family names or generic family names. */
-}
-#tray { /* Set style for systray */
-    padding-top: 3px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-right: 3px; /* Shorthand property to set values for the thickness of the padding area right. */
-}
-#tray menu { /* Set style for context menu */
-    box-shadow: 0px 0px 2.9px 1px rgba(73, 0, 25, 0.7); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-color: rgba(73, 0, 25, 0.89); /* Sets the background color of an element\. */
-}
-#tray menuitem { /* Set style for item in systray */
-    color: rgba(255, 0, 87, 0.77); /* Sets the color of an element's text */
-    text-shadow: 0px 0px 7px rgba(255, 0, 87, 0.77); /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-}
-#tray menuitem:hover { /* Set style for hovering item in systray */
-    color: #ff0057; /* Sets the color of an element's text */
-    text-shadow: 0px 0px 5px #ff0057; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-    background-color: rgba(78, 0, 27, 0.2); /* Sets the background color of an element\. */
-}
-#tray *:disabled { /* Set style for item in systray disabled */
-    color: rgba(255, 0, 87, 0.2); /* Sets the color of an element's text */
-    text-shadow: 0px 0px 7px rgba(255, 0, 87, 0.2); /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
-}
-/* ╭──────────────────────────────────────────────────────────────────────────────╮
-   │                                   BATTERY                                    │
-   ╰──────────────────────────────────────────────────────────────────────────────╯ */
+
 #battery {
-    color: #000000; /* Sets the color of an element's text */
-    font-size: 17px; /* Indicates the desired height of glyphs from the font. */
-    border-radius: 50%; /* Defines the radii of the outer border edge. */
-    padding-top: 15px; /* Shorthand property to set values for the thickness of the padding area top. */
-    padding-bottom: 15px; /* Shorthand property to set values for the thickness of the padding area bottom. */
-    text-shadow: 1px 2px 9px #000000; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
+    background-color: #ffffff;
+    color: #000000;
 }
-#battery.full { /* Set style for battery when full states. */
-    box-shadow: 0px 0px 2.9px 0.1px #ebf4f5; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #ebf4f5 0%, #b5c6e0 100%); /* Sets the background image(s) of an element. */
+
+#battery.charging, #battery.plugged {
+    color: #ffffff;
+    background-color: #26A65B;
 }
-#battery.good { /* Set style for battery when good states. */
-    box-shadow: 0px 0px 2.9px 0.1px #439cfb; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #439cfb 0%, #60efff 100%); /* Sets the background image(s) of an element. */
-    animation-name: battery_good; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: alternate; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: ease; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
 }
-#battery.warning { /* Set style for battery when charging. */
-    box-shadow: 0px 0px 2.9px 0.1px #f8a902; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #f8a902 0%, #d3321d 100%); /* Sets the background image(s) of an element. */
-}
-#battery.charging { /* Set style for battery when charging. */
-    /* margin-bottom: 0.4rem; Shorthand property to set values for the thickness of the margin area bottom. */
-    box-shadow: 0px 0px 2.9px 0.1px #60efff; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #00ff87 0%, #60efff 100%); /* Sets the background image(s) of an element. */
-    animation-name: battery_charging; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: alternate; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: ease; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
-}
-#battery.plugged { /* Set style for battery when plugged. */
-    box-shadow: 0px 1px 2.9px 0.1px rgba(0, 0, 0, 0.5); /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #8364e8 0%, #60efff 100%); /* Sets the background image(s) of an element. */
-}
+
 #battery.critical:not(.charging) {
-    box-shadow: 0px 0px 2.9px 0.1px #e60b09; /* Adds shadow effects around an element's frame 'offset-x | offset-y | blur-radius | spread-radius | color' */
-    background-image: linear-gradient(120deg, #650000 0%, #e60b09 80%,  #FF0000 100%); /* Sets the background image(s) of an element. */
-    animation-name: battery_critical; /* Defines a list of animations that apply. */
-    animation-duration: 10s; /* Defines the length of time that an animation takes to complete one cycle. */
-    animation-direction: alternate; /* Defines whether or not the animation should play in reverse on alternate cycles. */
-    animation-timing-function: ease; /* Describes how the animation will progress over one cycle of its duration. */
-    animation-iteration-count: infinite; /* Defines the number of times an animation cycle is played.*/
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
-@keyframes battery_critical { /* The @keyframes CSS at-rule controls the intermediate steps in a CSS animation sequence by defining styles for keyframes (or waypoints) along the animation sequence. */
-    100% {
-        background-image: linear-gradient(125deg, #650000 0%, #e60b09 77%,  #FF0000 100%); /* Sets the background image(s) of an element. */
-    }
+
+label:focus {
+    background-color: #000000;
 }
-@keyframes battery_charging { /* The @keyframes CSS at-rule controls the intermediate steps in a CSS animation sequence by defining styles for keyframes (or waypoints) along the animation sequence. */
-    100% {
-        background-image: linear-gradient(360deg, #00ff87 0%, #60efff 100%); /* Sets the background image(s) of an element. */
-    }
+
+#cpu {
+    background-color: #2ecc71;
+    color: #000000;
 }
-@keyframes battery_good { /* The @keyframes CSS at-rule controls the intermediate steps in a CSS animation sequence by defining styles for keyframes (or waypoints) along the animation sequence. */
-    100% {
-        background-image: linear-gradient(360deg, #439cfb 0%, #60efff 100%); /* Sets the background image(s) of an element. */
-    }
+
+#memory {
+    background-color: #9b59b6;
+}
+
+#disk {
+    background-color: #964B00;
+}
+
+#backlight {
+    background-color: #90b1b1;
+}
+
+#network {
+    background-color: #2980b9;
+}
+
+#network.disconnected {
+    background-color: #f53c3c;
+}
+
+#pulseaudio {
+    background-color: #f1c40f;
+    color: #000000;
+}
+
+#pulseaudio.muted {
+    background-color: #90b1b1;
+    color: #2a5c45;
+}
+
+#custom-media {
+    background-color: #66cc99;
+    color: #2a5c45;
+    min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+    background-color: #66cc99;
+}
+
+#custom-media.custom-vlc {
+    background-color: #ffa000;
+}
+
+#temperature {
+    background-color: #f0932b;
+}
+
+#temperature.critical {
+    background-color: #eb4d4b;
+}
+
+#tray {
+    background-color: #2980b9;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+#idle_inhibitor {
+    background-color: #2d3436;
+}
+
+#idle_inhibitor.activated {
+    background-color: #ecf0f1;
+    color: #2d3436;
+}
+
+#mpd {
+    background-color: #66cc99;
+    color: #2a5c45;
+}
+
+#mpd.disconnected {
+    background-color: #f53c3c;
+}
+
+#mpd.stopped {
+    background-color: #90b1b1;
+}
+
+#mpd.paused {
+    background-color: #51a37a;
+}
+
+#language {
+    background: #00b093;
+    color: #740864;
+    padding: 0 5px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state {
+    background: #97e1ad;
+    color: #000000;
+    padding: 0 0px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
 }

@@ -1,24 +1,25 @@
 // vim:ft=jsonc
 {
     "layer": "top",                 // Decide if the bar is displayed in front (top) of the windows or behind (bottom) them.
+    // "output": ["eDP-1", "VGA-1"],   // Specified the output for the bar, You can also exclude specific output(s) by using exclamation mark
     "position": "top",              // Bar position, can be top,bottom,left,right.
     "height": 0,                    // Height to be used by the bar if possible, leave blank for a dynamic value.
-    "ipc": false,                   // Option to subscribe to the Sway IPC bar configuration and visibility events and control waybar with swaymsg bar commands.
     "width": 0,                     // Width to be used by the bar if possible, leave blank for a dynamic value.
-    "spacing": 0,                   // Size of gaps in between of the different modules.
-    "mode": "dock",                 // Selects one of the preconfigured display modes.
-    "output": ["eDP-1", "VGA-1"],   // Specified the output for the bar, You can also exclude specific output(s) by using exclamation mark
-    "exclusive": true,              // Option to request an exclusive zone from the compositor. Disable this to allow drawing application windows underneath or on top of the bar.
-    "gtk-layer-shell": false,       // Option to disable the use of gtk-layer-shell for popups. Only functional if compiled with gtk-layer-shell support.
-    "passthrough": false,           // Option to pass any pointer events to the window under the bar.
-    "fixed-center": true,           // Prefer fixed center position for the modules-center block. The center block will stay in the middle of the bar whenever possible.
-    "margin-top": 0,                // Top margins of the bar
-    "margin-bottom": 0,             // Bottom margins of the bar 
-    "margin-left": 0,               // Left margins of the bar
-    "margin-right": 0,              // Right margins of the bar
-    "modules-right": [              // Modules that will be displayed on the left.
+    "modules-left": [               // Modules that will be displayed on the left.
         "tray"
     ],
+    "margin-top": 5,                // Top margins of the bar
+    "margin-bottom": 0,             // Bottom margins of the bar 
+    "margin-left": 5,               // Left margins of the bar
+    "margin-right": 5,              // Right margins of the bar
+    "spacing": 0,                   // Size of gaps in between of the different modules.
+    "mode": "top",                  // Selects one of the preconfigured display modes.
+    "modifier-reset": "press",      // Defines the timing of modifier key to reset the bar visibility.
+    "exclusive": false,              // Option to request an exclusive zone from the compositor. Disable this to allow drawing application windows underneath or on top of the bar.
+    "fixed-center": true,           // Prefer fixed center position for the modules-center block. The center block will stay in the middle of the bar whenever possible.
+    "passthrough": false,           // Option to pass any pointer events to the window under the bar.
+    "gtk-layer-shell": true,        // Option to disable the use of gtk-layer-shell for popups. Only functional if compiled with gtk-layer-shell support.
+    "ipc": false,                   // Option to subscribe to the Sway IPC bar configuration and visibility events and control waybar with swaymsg bar commands.
     // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
     // ┃                                   MODULES                                    ┃
     // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛

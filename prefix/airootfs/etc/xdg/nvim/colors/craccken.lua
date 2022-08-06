@@ -54,9 +54,9 @@ vim.cmd("hi link IndentBlankLineChar Conceal") -- IndentBlanklineChar: Highlight
 vim.cmd("hi MatchParen  guifg=NONE     ctermfg=NONE  guibg=NONE     ctermbg=NONE  gui=bold,italic    cterm=bold,italic") -- MatchParen: The character under the cursor or just before it, if it is a paired bracket, and its match.
 vim.cmd("hi Directory   guifg=#e6b673  ctermfg=144   guibg=NONE     ctermbg=NONE  gui=NONE           cterm=NONE")        -- Directory: directory names (and other special names in listings)
 
+vim.api.nvim_set_hl(0, 'CursorLine', {bg = '#101010', nocombine = true}) -- CursorLine: Screen-line at the cursor, when 'cursorline' is set.
 vim.api.nvim_set_hl(0, 'CursorColumn', {bg = '#101010', nocombine = true}) -- CursorColumn: Screen-column at the cursor, when 'cursorcolumn' is set.
 vim.cmd("hi Cursor          guifg=bg       ctermfg=bg    guibg=fg       ctermbg=fg    gui=NONE       cterm=NONE") -- Cursor: character under the cursor.
-vim.cmd("hi CursorLine      guifg=NONE     ctermfg=NONE  guibg=#101010  ctermbg=234   gui=NONE       cterm=NONE") -- CursorLine: Screen-line at the cursor, when 'cursorline' is set.
 vim.cmd("hi LineNr          guifg=#262626  ctermfg=235   guibg=NONE     ctermbg=NONE  gui=NONE       cterm=NONE") -- LineNr: Line number for ':number', and when 'number' or 'relativenumber' option is set.
 vim.cmd("hi CursorLineNr    guifg=#ffffff  ctermfg=253   guibg=NONE     ctermbg=NONE  gui=NONE       cterm=NONE") -- CursorLineNr: Like LineNR when 'cursorline' or 'relativenumber' is set for the cursor line.
 vim.cmd("hi ColorColumn     guifg=NONE     ctermfg=NONE  guibg=#151515  ctermbg=234   gui=NONE       cterm=NONE") -- ColorColumn: used for the column set with 'colorcolumn'.
@@ -208,11 +208,6 @@ vim.cmd("hi TabLine             guifg=#dadada  ctermfg=253   guibg=#040404  cter
 vim.cmd("hi TabLineFill         guifg=#dadada  ctermfg=253   guibg=#040404  ctermbg=232   gui=NONE           cterm=NONE")          -- TabLineFill: tab pages line, where there are no labels.
 vim.cmd("hi TabLineSel          guifg=#dadada  ctermfg=253   guibg=NONE     ctermbg=NONE  gui=bold,reverse   cterm=bold,reverse")  -- TabLineSel: tab pages line, active tab page label.
 vim.cmd("hi VertSplit           guifg=#050505  ctermfg=232   guibg=NONE     ctermbg=NONE  gui=NONE           cterm=NONE")          -- VertSplit: The column separating vertically split windows
-
-vim.cmd("hi link dashboardFooter Comment")      -- dashboardFooter: Custom dashboard footer highlight
-vim.cmd("hi link dashboardHeader Comment")      -- dashboardHeader: Custom dashboard header highlight
-vim.cmd("hi link dashboardCenter Comment")      -- dashboardCenter: Custom dashboard section describe highlight
-vim.cmd("hi link dashboardShortcut Comment")    -- dashboardShortcut: Custom dashboard shortcut highlight
 
 -- TODO: TSTypeQualifier TSTypeDefinition
 vim.cmd("hi TSConstructor       guifg=#e7c547  ctermfg=133   guibg=NONE     ctermbg=NONE  gui=NONE       cterm=NONE") -- TSConstructor: Constructor calls and definitions: '{}' in lua, and java constructors.
