@@ -8,20 +8,17 @@ refresh_directory(){ # Create a function
     fi # End if-else statement
 }
 refresh_file(){ # Create a function
-    if [[ -f $1 ]]; then # Check if argument-1 is file then
-        [[ -n "$2" ]] && mkdir -p ${PREFIX_PATH}$2
-        cp -f $1 ${PREFIX_PATH}$1
-    fi # End if-else statement
+    install -D "$1" "${PREFIX_PATH}${2:-$1}"
 }
 
-function main { 
+main(){ 
     # ╭──────────────────────────────────────────────────────────────────────────────╮
     # │                                  Initialize                                  │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
-    need_normal_user || return $? # Need normal user || exit
-    need_installed parallel-moreutils mkarchiso || return $? # Check if command is installed || exit 
-    AskPassword || return $? # Ask password || exit
+    need_normal_user # Need normal user || exit
+    need_installed parallel-moreutils mkarchiso # Check if command is installed || exit 
+    AskPassword # Ask password || exit
     local file # Declare local variable
     local directory # Declare local variable
     local PREFIX_PATH="./prefix/airootfs" # Declare local variable
@@ -29,7 +26,7 @@ function main {
         return 1 # Exit 
     else
         doas rm -rf ./prefix/airootfs && cp -rf /usr/share/archiso/configs/releng/airootfs ./prefix/
-        doas rm -rf ./prefix/efiboot ./prefix/syslinux ./prefix/grub ./prefix/pacman.conf &>/dev/null
+        # doas rm -rf ./prefix/efiboot ./prefix/syslinux ./prefix/grub ./prefix/pacman.conf &>/dev/null
     fi # End if-else statement
     # ╭──────────────────────────────────────────────────────────────────────────────╮
     # │                               Refresh airootfs                               │
@@ -192,22 +189,45 @@ function main {
     refresh_directory /usr/local/src
     refresh_file /etc/zathurarc
     refresh_file /etc/hostname
+    refresh_file /etc/securetty
     refresh_file /etc/sysctl.conf
-    refresh_file /etc/X11/xinit/xinitrc /etc/X11/xinit
-    refresh_file /etc/X11/xinit/Xprofile /etc/X11/xinit
-    refresh_file /usr/share/qtcreator/themes/craccken.creatortheme /usr/share/qtcreator/themes
-    refresh_file /etc/X11/xinit/Xresources /etc/X11/xinit
+    refresh_file /etc/tmux.conf
+    refresh_file /etc/vconsole.conf
+    refresh_file /etc/gitconfig
+    refresh_file /etc/pacman.conf
+    refresh_file /etc/dialogrc
+    refresh_file /etc/nanorc
+    refresh_file /etc/locale.gen
+    refresh_file /etc/X11/xinit/xinitrc
+    refresh_file /etc/X11/xinit/Xprofile
+    refresh_file /etc/X11/xinit/Xresources
+    refresh_file /usr/share/qtcreator/themes/craccken.creatortheme
+    refresh_file "$HOME/.config/GIMP/2.10/splashes/gimp.png" /etc/skel/.config/GIMP/2.10/splashes/gimp.png
     # refresh_file /etc/mkinitcpio.d/linux-xanmod-edge.preset /etc/mkinitcpio.d
     cp -rf /etc/ly ${PREFIX_PATH}/etc/ly_conf
-    for directory in ${PREFIX_PATH}{/root,/etc/skel}; do
-        cp -rf $HOME/.config/{neofetch,nwg-bar,nwg-drawer,bat,river,hypr,wldash,cod,foot,fsh,npmrc,wget,mpd,ncmpcpp,vis} $directory/.config/
-        cp -rf $HOME/.local/share/zinit $directory/.local/share/
-        cp -f $HOME/.config/electron-flags.conf $directory/.config/
-    done # End for-loop statement
-    for file in /etc/htoprc /etc/tmux.conf /etc/securetty /etc/vconsole.conf /etc/gitconfig /etc/locale.gen /etc/pacman.conf /etc/dialogrc /etc/doas.conf /etc/nanorc; do
-        doas cp -f $file --target-directory=${PREFIX_PATH}/etc
-        doas chmod 777 ${PREFIX_PATH}$file
-    done # End for-loop statement
+
+    local -a CONFIGURATIONS=( # Home configurations
+        "$HOME/.config/river"
+        "$HOME/.config/hypr"
+        "$HOME/.config/foot"
+        "$HOME/.config/mpd"
+        "$HOME/.config/ncmpcpp"
+        "$HOME/.config/vis"
+        "$HOME/.config/neofetch"
+        "$HOME/.config/nwg-bar"
+        "$HOME/.config/nwg-drawer"
+        "$HOME/.config/bat"
+        "$HOME/.config/electron-flags.conf"
+        "$HOME/.config/fsh"
+        "$HOME/.config/wget"
+        "$HOME/.config/npmrc"
+    )
+    local -a SYSTEM_CONFIGURATIONS=( # System configurations
+        "/etc/doas.conf"
+    )
+    cp -rf "${CONFIGURATIONS[@]}" --target-directory=${PREFIX_PATH}/etc/skel/.config # Copy home configurations to skeleton directory
+    echo "${PREFIX_PATH}/root/.local/share ${PREFIX_PATH}/etc/skel/.local/share" | xargs -n 1 -- cp -rf "$HOME/.local/share/zinit" 
+    doas cp -f "${SYSTEM_CONFIGURATIONS[@]}" --target-directory=${PREFIX_PATH}/etc # Copy from /etc/ directory needs run as root
     # ╭──────────────────────────────────────────────────────────────────────────────╮
     # │                               Other operations                               │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -220,3 +240,4 @@ function main {
     info_msg "Done!" # Show info message
 }
 main # Call main function
+unset -f refresh_file refresh_directory
