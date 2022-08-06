@@ -10,5 +10,7 @@ prefix/airootfs/usr/local/src/Hyprland/
 
 # Ignore build log and directory
 .error.log
+*.log
 output/
+release/
 work/
