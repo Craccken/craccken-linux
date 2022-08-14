@@ -1,6 +1,10 @@
 # Craccken GNU/Linux
 > Functional linux distribution
 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Craccken/artworks/main/craccken-linux-banner.png">
+</p>
+
 `username: user`
 `pass: root`
 
