@@ -161,9 +161,6 @@ require('cokeline').setup({ -- Call setup function
             bg = function(buffer)
                 return buffer.is_focused and focused.gradient_8 or unfocused.gradient_8
             end,
-            style = function(buffer)
-                return buffer.is_modified and 'bold' or nil
-            end, -- End function statement
             delete_buffer_on_left_click = true, -- If `true` the buffer will be deleted when this component is left-clicked (useful to implement close buttons).
             truncation = { priority = 1 },
         },

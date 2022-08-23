@@ -3,7 +3,7 @@
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                    Collection of configuration directory                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 autoload spectre_fzf
 
 local -A available_options # Declare local associative array
@@ -11,6 +11,7 @@ available_options[xinit]="/etc/X11/xinit"
 available_options[dunst]="/etc/dunst"
 available_options[sddm]="/etc/sddm.conf.d"
 available_options[waybar]="/etc/xdg/waybar"
+available_options[eww]="$HOME/.config/eww"
 
 available_options[home]="$HOME"
 available_options[home__documents]="$HOME/Documents"
@@ -21,14 +22,19 @@ available_options[log]="/var/log"
 available_options[log__nginx]="/var/log/nginx"
 
 available_options[zsh]="/etc/zsh"
+available_options[zsh__zshrc]="/etc/zsh/zshrc.d"
+available_options[zsh__zprofile]="/etc/zsh/zprofile.d"
 available_options[zsh__alias]="/etc/zsh/alias"
 available_options[zsh__prompt]="/etc/zsh/prompt"
 available_options[zsh__functions]="/etc/zsh/functions"
+available_options[zsh__functions_optionals]="/etc/zsh/functions/optionals"
+available_options[zsh__functions_libs]="/etc/zsh/functions/libs"
 available_options[zsh__plugin-config]="/etc/zsh/configs"
 
 available_options[neovim]="/etc/xdg/nvim"
 available_options[neovim__lua]="/etc/xdg/nvim/lua"
 available_options[neovim__colors]="/etc/xdg/nvim/colors"
+available_options[neovim__autogroup]="/etc/xdg/nvim/plugin/autogroup"
 available_options[neovim__syntax]="/etc/xdg/nvim/syntax"
 available_options[neovim__plugin-config]="/etc/xdg/nvim/after/plugin"
 available_options[neovim__filetype-config]="/etc/xdg/nvim/ftplugin"

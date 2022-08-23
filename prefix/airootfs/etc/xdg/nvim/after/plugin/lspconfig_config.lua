@@ -14,6 +14,7 @@ local servers = {  -- List of lsp server
     'bashls', 
     'clangd', 
     'jsonls', 
+    'intelephense',
     'cssls', 
     'emmet_ls', 
     'eslint',
@@ -21,7 +22,7 @@ local servers = {  -- List of lsp server
     'jdtls',
 } 
 for index, lsp in pairs(servers) do -- Use a loop to conveniently call 'setup' on multiple servers and map buffer local keybindings when the language server attaches
-    require('lspconfig')[lsp].setup { -- Call setup function
+    require('lspconfig')[lsp].setup({ -- Call setup function
         on_attach = function(client, bufnr) -- Execute this function after the language server attaches to current buffer
             -- ╭──────────────────────────────────────────────────────────────────────────────╮
             -- │                                    NAVIC                                     │
@@ -46,5 +47,5 @@ for index, lsp in pairs(servers) do -- Use a loop to conveniently call 'setup' o
             vim.api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', {noremap = true, silent = true, desc = 'Formats the current buffer.'})
         end, 
         capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()), -- Add autocompletetion
-    }
+    })
 end -- End for-loop options

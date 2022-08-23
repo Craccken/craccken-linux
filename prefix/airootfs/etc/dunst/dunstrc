@@ -166,6 +166,10 @@ text_icon_padding = 0
 #  │                                0 to disable.                                 │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
 frame_width = 1
+;  ╭──────────────────────────────────────────────────────────────────────────────╮
+;  │                Size of gap to display between notifications.                 │
+;  ╰──────────────────────────────────────────────────────────────────────────────╯
+gap_size = 8
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │          Defines color of the frame around the notification window.          │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -259,7 +263,7 @@ show_indicators = false
 #  │          e.g. small files or high-dpi screens. In case of conflict,          │
 #  │                  max_icon_size takes precedence over this.                   │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-min_icon_size = 1
+min_icon_size = 30
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │          Scale larger icons down to this size, set to 0 to disable           │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -267,7 +271,18 @@ max_icon_size = 100
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                           Paths to default icons.                            │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-icon_path = "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/"
+# icon_path = "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/"
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │   Comma-separated of names of the the themes to use for looking up icons.    │
+#  │   This has to be the name of the directory in which the theme is located,    │
+#  │                  not the human-friendly name of the theme.                   │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+icon_theme = "Adwaita"
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │    This setting enables the new icon lookup method. This new system will     │
+#  │                      eventually be the old icon lookup.                      │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+enable_recursive_icon_lookup = true
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │   Should a notification popped up from history be sticky or timeout as if    │
 #  │                            it would normally do.                             │
@@ -315,7 +330,7 @@ force_xinerama = false
 #  │      The radius will be automatically lowered if it exceeds half of the      │
 #  │           notification height to avoid clipping text and/or icons.           │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-corner_radius = 7
+corner_radius = 8
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                 Defines list of actions for each mouse event                 │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -452,6 +467,8 @@ foreground = "#ff0057"
 frame_color = "#ff0057"
 highlight = "#ff0057"
 fullscreen = "show"
+min_icon_size = 49
+icon = "/opt/craccken/icon/notification/critical.svg"
 format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' foreground='#ff0057'>%s</span>\n%b"
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃    Every section that isn't one of the above is interpreted as a rules to    ┃

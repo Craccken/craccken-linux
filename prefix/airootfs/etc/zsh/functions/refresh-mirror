@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 # vim:ft=sh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                   Refresh pacman mirrorlist with reflector                   ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed reflector # Need install this in order to run
 
 AskPassword # Ask password
-sudo reflector --latest 50 --country ${1:-us} --fastest 10 --protocol http,https --age 12 --sort delay --save /etc/pacman.d/mirrorlist
+sudo reflector --latest 50 --country ${1:-us} --fastest 10 --protocol http,https --age 12 --sort rate --save /etc/pacman.d/mirrorlist

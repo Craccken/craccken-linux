@@ -14,12 +14,13 @@ end -- End if-else statement
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃         Autocommand that run PackerSync whenever you save this file.         ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.cmd([[
-    augroup plugin_manager__auto_update
-        autocmd!
-        autocmd BufWritePost plugin_manager.lua source <afile> | PackerSync
-    augroup end
-]])
+local autocommand_group = vim.api.nvim_create_augroup("plugin_manager_auto_update", {clear = true}) -- Create an autocommand group that will use to store autocommand
+vim.api.nvim_create_autocmd("BufWritePost", { -- Create autocommand
+    pattern = "plugin_manager.lua", -- patterns to match against autocmd-pattern
+    command = "source <afile> | PackerSync", -- Vim command to execute on event.
+    group = autocommand_group, -- Store this autocommand to autocommand group
+    desc = "Run PackerSync whenever you save plugin_manager.lua",  -- description of the autocommand
+})
 
 if not pcall(require, "packer") then -- Check if nvim not have packer plugin-manager
     return -- Stop sourcing this file.
@@ -81,7 +82,7 @@ vim.api.nvim_set_hl(0, 'packerProgress', {fg = '#ff7733'})                      
 --         ┃                             Install plugin here                              ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 return require("packer").startup(function(use)
-    use { "wbthomason/packer.nvim", event = "VimEnter" }                    -- Plugin manager itself.
+    use "wbthomason/packer.nvim"                                            -- Plugin manager itself.
     use "nvim-telescope/telescope.nvim"                                     -- Great fuzzy finder with preview.
     use "nvim-telescope/telescope-fzy-native.nvim"                          -- Fzy style sorter that is compiled
     use "numToStr/Comment.nvim"                                             -- Smart powerful plugin for neovim.
@@ -97,7 +98,9 @@ return require("packer").startup(function(use)
     -- use "ziontee113/syntax-tree-surfer"                                     -- A plugin for Neovim that helps you surf through your document and move elements around using the nvim-treesitter API. 
     use "petertriho/nvim-scrollbar"                                         -- Extensible neovim scrollbar
     use "rebelot/heirline.nvim"                                             -- no-nonsense Neovim statusline plugin designed arround recursive inheritance to be exceptionally fast and versatile
-    use "williamboman/nvim-lsp-installer"                                   -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall.
+    -- use "williamboman/nvim-lsp-installer"                                   -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall.
+    use "williamboman/mason.nvim"                                           -- Portable package manager for Neovim that runs everywhere Neovim runs.
+    use "williamboman/mason-lspconfig.nvim"                                 -- Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim 
     use "akinsho/toggleterm.nvim"                                           -- A neovim plugin to help easily manage multiple terminal windows
     use "rcarriga/nvim-notify"                                              -- A fancy, configurable, notification manager for neovim
     -- use "folke/twilight.nvim"                                               -- Twilight is a Lua plugin for Neovim 0.5 that dims inactive portions of the code you're editing using TreeSitter. 
@@ -109,12 +112,14 @@ return require("packer").startup(function(use)
     use "L3MON4D3/LuaSnip"                                                  -- Snippet Engine for Neovim written in Lua. 
     use {'edluffy/specs.nvim'}                                              -- A fast and lightweight Neovim lua plugin to keep an eye on where your cursor has jumped. 
     use 'lewis6991/impatient.nvim'                                          -- Improve startup time for Neovim 
+    use 'dstein64/vim-startuptime'                                          -- A Vim plugin for profiling Vim's startup time.
     use 'TornaxO7/tree-setter'                                              -- A treesitter-module which will place commas, semicolons and double points automatically for you! 
     use "rafamadriz/friendly-snippets"                                      -- Set of preconfigured snippets for different languages. 
     use "windwp/nvim-ts-autotag"                                            -- Use treesitter to auto close and auto rename html tag
     -- use "jubnzv/virtual-types.nvim"                                         -- Neovim plugin that shows type annotations as virtual text.
     use "j-hui/fidget.nvim"                                                 -- Standalone UI for nvim-lsp progress 
     use "jghauser/fold-cycle.nvim"                                          -- This neovim plugin allows you to cycle folds open or closed 
+    use "elkowar/yuck.vim"                                                  -- Vim filetype support for the new eww configuration language yuck.
     -- use "abecodes/tabout.nvim"                                              -- Supercharge your workflow and start tabbing out from parentheses, quotes, and similar contexts today.
     -- use "henriquehbr/nvim-startup.lua"                                      -- Displays neovim startup time
     -- use "mvllow/modes.nvim"                                                 -- Prismatic line decorations for the adventurous vim user

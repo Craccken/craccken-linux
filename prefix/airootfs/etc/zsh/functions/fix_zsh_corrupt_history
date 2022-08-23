@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-# vim:ft=sh
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed strings # Check if command is installed || exit with error exit-code
-must_have_argument $1 # Must have argument-1 passed || exit 
-
-mv ${HISTFILE:-~/.zsh_history} ~/.cache/zsh_history_corrupted # Move corrupted history into another path
-strings ~/.cache/zsh_history_corrupted > ${HISTFILE:-~/.zsh_history} # Fix corrupted history and output it into $HISTFILE path
-fc -R ${HISTFILE:-~/.zsh_history} # Reads the history from the given file

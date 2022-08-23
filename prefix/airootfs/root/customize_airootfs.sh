@@ -1,8 +1,8 @@
 #!/bin/env bash
-for package_to_compile in Hyprland; do # Create for-loop with list of package_to_compile
-    cd /usr/local/src/${package_to_compile}/ && make install 1>/dev/null
-done # End for-loop statement
-mkdir -p /usr/share/wayland-sessions; cp /usr/local/src/Hyprland/example/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
+# for package_to_compile in Hyprland; do # Create for-loop with list of package_to_compile
+#     cd /usr/local/src/${package_to_compile}/ && make install 1>/dev/null
+# done # End for-loop statement
+# mkdir -p /usr/share/wayland-sessions; cp /usr/local/src/Hyprland/example/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
 sed -i "s/#en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen &>/dev/null # Generate the chosen locale
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                Managing user                                 │

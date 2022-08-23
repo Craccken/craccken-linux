@@ -244,6 +244,7 @@ xorg-xwayland
 qt5-wayland
 wev
 # wofi
+hyprland-git
 rofi-lbonn-wayland
 pango
 xdg-desktop-portal-wlr-git
@@ -317,6 +318,7 @@ tldr
 meson
 gdb
 less
+gum
 tmux
 distrobox
 dunst
@@ -341,23 +343,3 @@ zsh-completions
 wl-clipboard-x11
 zsh-autosuggestions
 paru
-#  ╭──────────────────────────────────────────────────────────────────────────────╮
-#  │                                    NEEDED                                    │
-#  ╰──────────────────────────────────────────────────────────────────────────────╯
-gdb
-ninja
-gcc
-cmake
-libxcb
-xcb-proto
-xcb-util
-xcb-util-keysyms
-libxfixes
-libx11
-libxcomposite
-xorg-xinput
-libxrender
-pixman
-wayland-protocols
-cairo
-pango

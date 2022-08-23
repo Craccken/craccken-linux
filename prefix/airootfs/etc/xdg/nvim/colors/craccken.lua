@@ -142,32 +142,35 @@ vim.cmd("hi link TSUnderline Underlined")   -- TSUnderline: Text to be represent
 
 vim.cmd("hi Error                       guifg=#af0000   ctermfg=124     guibg=NONE      ctermbg=NONE    gui=bold            cterm=bold")                    -- Error: any erroneous construct.
 vim.cmd("hi Todo                        guifg=#5f00d7   ctermfg=133     guibg=#100024   ctermbg=NONE    gui=bold            cterm=bold")                    -- Todo: anything that needs extre attention, mostly the keywords TODO, FIXME, and XXX
-vim.api.nvim_set_hl(0, 'MoreMsg', { fg = "#058ab3", bg = "#011b23" }) -- MoreMsg: more-prompt
-vim.cmd("hi ErrorMsg                    guifg=#af0000   ctermfg=124     guibg=#240000   ctermbg=NONE    gui=bold            cterm=bold")                    -- ErrorMsg: error messages
-vim.cmd("hi WarningMsg                  guifg=#d4d104   ctermfg=130     guibg=#232201   ctermbg=NONE    gui=bold            cterm=NONE")                    -- WarningMsg: warning messages 
-vim.cmd("hi healthSuccess               guifg=#aad94c   ctermfg=108     guibg=NONE      ctermbg=NONE    gui=bold            cterm=bold")                    -- healthSuccess: checkhealth level severity OK
-vim.cmd("hi link healthError ErrorMsg")     -- healthError: checkhealth level severity error
-vim.cmd("hi link healthWarning WarningMsg") -- healthWarning: checkhealth level severity warning
+vim.api.nvim_set_hl(0, 'MoreMsg', {fg = "#058ab3", bg = "#011b23"})                   -- MoreMsg: more-prompt
+vim.api.nvim_set_hl(0, 'ErrorMsg', {fg = "#af0000", bg = "#240000", bold = true})      -- ErrorMsg: error messages
+vim.api.nvim_set_hl(0, 'WarningMsg', {fg = "#d4d104", bg = "#232201", bold = true})    -- WarningMsg: warning messages 
 vim.cmd("hi link TSError Error")            -- TSError: Syntax/parser errors.
 vim.cmd("hi link TSDanger ErrorMsg")        -- TSDanger: Text representation of a danger note.
 vim.cmd("hi link TSWarning WarningMsg")     -- TSWarning: Text representation of a warning note.
 vim.cmd("hi link TSNote Todo")              -- TSNote: Text representation of an informational note.
 vim.cmd("hi link TSTodo Todo")              -- TSTodo: Anything that needs extra attention, such as keywords like TODO or FIXME.
 
+-- ╭──────────────────────────────────────────────────────────────────────────────╮
+-- │                                 Checkhealth                                  │
+-- ╰──────────────────────────────────────────────────────────────────────────────╯
+vim.api.nvim_set_hl(0, 'healthError', {fg = '#af0000', bg = '#240000', underline = true})   -- healthError: checkhealth level severity error
+vim.api.nvim_set_hl(0, 'healthSuccess', {fg = '#00c897', bg = '#00241b', underline = true}) -- healthSuccess: checkhealth level severity ok
+vim.api.nvim_set_hl(0, 'healthWarning', {fg = '#d4d104', bg = '#232201', underline = true}) -- healthWarning: checkhealth level severity warning
+
 vim.cmd("hi Pmenu       guifg=#d0d0d0   ctermfg=252   guibg=#040404  ctermbg=232   gui=NONE         cterm=NONE")    -- PMenu: Popup menu: normal item.
 vim.cmd("hi PmenuSel    guifg=#c0e4dc   ctermfg=253   guibg=NONE     ctermbg=NONE  gui=reverse,bold cterm=reverse") -- PmenuSel: Popup menu: selected item.
-vim.cmd("hi PmenuSbar   guifg=NONE      ctermfg=NONE  guibg=#040404  ctermbg=232   gui=NONE         cterm=NONE")    -- PmenuSbar: Popup menu: scrollbar.
-vim.cmd("hi PmenuThumb  guifg=NONE      ctermfg=NONE  guibg=#121212  ctermbg=233   gui=NONE         cterm=NONE")    -- PmenuThumb: Popup menu: Thumb of the scrollbar.
+vim.cmd("hi PmenuSbar   guifg=NONE      ctermfg=NONE  guibg=#06161e  ctermbg=232   gui=NONE         cterm=NONE")    -- PmenuSbar: Popup menu: scrollbar.
+vim.api.nvim_set_hl(0, 'PmenuThumb', {bg = '#35a3d9'}) -- PmenuThumb: Popup menu: Thumb of the scrollbar.
 vim.cmd("hi WildMenu    guifg=#d0d0d0   ctermfg=252   guibg=#040404  ctermbg=232   gui=NONE         cterm=NONE")    -- WildMenu: current match in 'wildmenu' completion.
 
 vim.api.nvim_set_hl(0, 'TrailingWhiteSpace', {bg = "#240000"})  -- TrailingWhiteSpace: Highlight for showing trailing whitespace(blank character)
-vim.api.nvim_set_hl(0, 'CursorWord', {underline = true})        -- CursorWord: Highlight the word under the cursor. 
 vim.cmd("hi Search          guifg=NONE      ctermfg=NONE    guibg=NONE  ctermbg=NONE    gui=underline,bold  cterm=underline,bold    guisp=#5f00d7") -- Search: Last search pattern highlighting (see 'hlsearch').
-vim.cmd("hi HighlightedYank guifg=NONE      ctermfg=NONE    guibg=NONE  ctermbg=NONE    gui=underline,bold  cterm=underline,bold    guisp=#e7c547") -- HighlightedYank: The highlight group to make yank region noticeable.
 vim.cmd("hi link IncSearch Search")             -- IncSearch: Incremental search highlighting
 
 vim.cmd("hi Title       guifg=#dadada   ctermfg=253   guibg=NONE     ctermbg=NONE  gui=bold     cterm=bold") -- Title: titles for output ':set all', ':autocmd' etc.
 vim.cmd("hi SpecialKey  guifg=#5f00d7   ctermfg=133   guibg=NONE     ctermbg=NONE  gui=NONE     cterm=NONE") -- SpecialKey: unprintable characters: text displayed differently from what it really is.
+vim.api.nvim_set_hl(0, 'SpecialKeyWin', {fg = "#4e00ad"}) -- SpecialKeyWin: unprintable characters: text displayed differently from what it really is. (buffer)
 vim.cmd("hi Question    guifg=#dadada   ctermfg=253   guibg=NONE     ctermbg=NONE  gui=bold     cterm=bold") -- Question: hit-enter prompt and yes/no questions
 vim.cmd("hi TSTitle     guifg=#5f00d7   ctermfg=133   guibg=NONE     ctermbg=NONE  gui=bold     cterm=bold") -- TSTitle: Text that is part of a title: '<h1>,<h2>,<h3> and <title>'.
 
@@ -179,18 +182,18 @@ vim.api.nvim_set_hl(0, 'SpellLocal', {bg = "#191801"}) -- SpellLocal: wrong spel
 -- ╭──────────────────────────────────────────────────────────────────────────────╮
 -- │                                     DIFF                                     │
 -- ╰──────────────────────────────────────────────────────────────────────────────╯
-vim.api.nvim_set_hl(0, 'DiffChange', {bg = "#021c22"})  -- DiffChange: changed line in diff mode
-vim.api.nvim_set_hl(0, 'DIffDelete', {fg = "#111111"})  -- DiffDelete: deleted line in diff mode
-vim.api.nvim_set_hl(0, 'DiffAdd', {bg = "#081109"})     -- DiffAdd: added line in diff mode
-vim.api.nvim_set_hl(0, 'DiffText', {bg = "#032c35", italic = true})     -- DiffText: Changed text within a changed line in diff mode
+vim.api.nvim_set_hl(0, 'DiffChange', {bg = "#021c22"})              -- DiffChange: changed line in diff mode
+vim.api.nvim_set_hl(0, 'DIffDelete', {fg = "#111111"})              -- DiffDelete: deleted line in diff mode
+vim.api.nvim_set_hl(0, 'DiffAdd', {bg = "#081109"})                 -- DiffAdd: added line in diff mode
+vim.api.nvim_set_hl(0, 'DiffText', {bg = "#032c35", italic = true}) -- DiffText: Changed text within a changed line in diff mode
 
 vim.cmd("hi QuickFixLine    guifg=#000000   ctermfg=146     guibg=#ff7733   ctermbg=61      gui=bold                cterm=bold")    -- QuickFixLine: current quickfix item in the quickfix window.
 vim.cmd("hi EndOfBuffer     guifg=#000000   ctermfg=0       guibg=NONE      ctermbg=NONE    gui=NONE                cterm=NONE")    -- EndOfBuffer: filler lines(~) after the end of the buffer, by default this is highlighted like hl-NonText.
-vim.cmd("hi NonText         guifg=#313131   ctermfg=124     guibg=NONE      ctermbg=NONE    gui=italic              cterm=italic")  -- NonText: '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g, '>' displayed when double-wide character doesn't fit at the end of the line).
+vim.api.nvim_set_hl(0, 'NonText', {fg = '#121212', nocombine = true}) -- NonText: character from listchars, for example try `:set list` to see nontext.
 -- ╭──────────────────────────────────────────────────────────────────────────────╮
 -- │                                   GITSIGN                                    │
 -- ╰──────────────────────────────────────────────────────────────────────────────╯
-vim.api.nvim_set_hl(0, 'GitSignsAdd', {fg = "#00c897"})      -- GitSignsAdd: Highlight for signs_add
+vim.api.nvim_set_hl(0, 'GitSignsAdd', {fg = "#00c897"})     -- GitSignsAdd: Highlight for signs_add
 vim.api.nvim_set_hl(0, 'GitSignsChange', {fg = "#36a3d9"})  -- GitSignsChange: Highlight for signs_change
 vim.api.nvim_set_hl(0, 'GitSignsDelete', {fg = "#ba174e"})  -- GitSignsDelete: Highlight for signs_delete
 vim.cmd("hi link GitSignsAddNr GitSignsAdd")                -- GitSignsAddNr: Highlight for signs_add number_column
@@ -207,7 +210,7 @@ vim.cmd("hi StatusLineTermNC    guifg=#d0d0d0  ctermfg=252   guibg=#040404  cter
 vim.cmd("hi TabLine             guifg=#dadada  ctermfg=253   guibg=#040404  ctermbg=232   gui=NONE           cterm=NONE")          -- TabLine: tab pages line, not active tab page label.
 vim.cmd("hi TabLineFill         guifg=#dadada  ctermfg=253   guibg=#040404  ctermbg=232   gui=NONE           cterm=NONE")          -- TabLineFill: tab pages line, where there are no labels.
 vim.cmd("hi TabLineSel          guifg=#dadada  ctermfg=253   guibg=NONE     ctermbg=NONE  gui=bold,reverse   cterm=bold,reverse")  -- TabLineSel: tab pages line, active tab page label.
-vim.cmd("hi VertSplit           guifg=#050505  ctermfg=232   guibg=NONE     ctermbg=NONE  gui=NONE           cterm=NONE")          -- VertSplit: The column separating vertically split windows
+vim.api.nvim_set_hl(0, 'WinSeparator', {fg = '#070707'})  -- WinSeparator: separators between window splits
 
 -- TODO: TSTypeQualifier TSTypeDefinition
 vim.cmd("hi TSConstructor       guifg=#e7c547  ctermfg=133   guibg=NONE     ctermbg=NONE  gui=NONE       cterm=NONE") -- TSConstructor: Constructor calls and definitions: '{}' in lua, and java constructors.
@@ -222,7 +225,7 @@ vim.cmd("hi link TSSymbol Identifier")              -- TSSymbol: Identifiers ref
 vim.cmd("hi link TSText String")                    -- TSText: Non-structured text, Like text in a markup language.
 vim.cmd("hi link TSLiteral String")                 -- TSLiteral: Literal or verbatim text.
 vim.cmd("hi link TSMath Special")                   -- TSMath: Math environments like LaTeX's '$ ... $'
-vim.cmd("hi link TSTextReference Constant")         -- TSTextRefrence: Footnotes, text refrences, citations, etc.
+vim.cmd("hi link TSTextReference Constant")         -- TSTextReference: Footnotes, text refrences, citations, etc.
 vim.cmd("hi link TSEnvironment Macro")              -- TSEnvironment: Text environments of markup languages.
 vim.cmd("hi link TSEnvironmentName Type")           -- TSEnvironmentName: Text/String indicating the type of text environment, Like the name of  a '\begin' block in LaTeX.
 vim.cmd("hi link TSTypeBuiltin Type")               -- TSTypeBuiltin: Built-in types: 'i32' in Rust.

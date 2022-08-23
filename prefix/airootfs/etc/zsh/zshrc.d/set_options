@@ -1,8 +1,7 @@
 #!/bin/env zsh
-# vim:ft=sh
-#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃                                   Options                                    ┃
-#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃                                   Options                                    ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                             Changing Directories                             │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -10,7 +9,7 @@ setopt autocd                   # Enable change directory just by typing its nam
 setopt auto_pushd               # Make 'cd' push the old directory onto the directory stack
 setopt cd_silent                # Never print the working directory after a 'cd' (whether explicit or implied with the AUTO_CD option set).
 setopt pushd_to_home            # If run 'pushd' with no arguments act like 'pushd $HOME'
-#setopt posix_cd                 # Modifies the behaviour of cd, chdir and pushd commands to make them more compatible with the POSIX standard.
+# setopt posix_cd                 # Modifies the behaviour of cd, chdir and pushd commands to make them more compatible with the POSIX standard.
 setopt pushd_silent             # Do not print the directory stack after 'pushd' or 'popd'
 setopt pushd_minus              # Exchanges the meanings of `+' and `-' when used with a number to specify a directory in the stack.
 setopt pushd_ignore_dups        # Don't push multiple copies of the same directory onto the directory stack
@@ -53,7 +52,7 @@ setopt numericglobsort          # If numeric filenames are matched by a filename
 # │                                 Input/Ouput                                  │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 setopt interactivecomments      # Enable comments in interactive mode
-#setopt noclobber                # Prevents you from accidentally overwriting an existing file, If you really do want to clobber a file, you can use the >! operator.
-#setopt cshjunkiequotes          # Ignore `'` example type this without enabling this option you will see the difference: ls 'foo
-#setopt notify                   # Report the status of background jobs immediately
-#setopt ksh_arrays               # Set array elements numbered from zero
+# setopt noclobber                # Prevents you from accidentally overwriting an existing file, If you really do want to clobber a file, you can use the >! operator.
+# setopt cshjunkiequotes          # Ignore `'` example type this without enabling this option you will see the difference: ls 'foo
+# setopt notify                   # Report the status of background jobs immediately
+# setopt ksh_arrays               # Set array elements numbered from zero

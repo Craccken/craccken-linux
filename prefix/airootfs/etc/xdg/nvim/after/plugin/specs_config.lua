@@ -26,7 +26,7 @@ require('specs').setup{ -- Call setup function
         nofile = true,
     },
 }
-vim.api.nvim_set_hl(0, 'SpecsEffect', {bg = '#5f00d7'}) -- SpecsEffect: Highlight to be used by this plugin
+vim.api.nvim_set_hl(0, 'SpecsEffect', {bg = '#c4c4c4'}) -- SpecsEffect: Highlight to be used by this plugin
 vim.api.nvim_set_keymap('n', 'n', 'n:lua require("specs").show_specs()<CR>', { noremap = true, silent = true, desc = "Search with effects"})
 -- vim.api.nvim_set_keymap('n', 'w', 'w:lua require("specs").show_specs()<CR>', { noremap = true, silent = true, desc = "Jump word with effects"})
 -- vim.api.nvim_set_keymap('n', 'e', 'b:lua require("specs").show_specs()<CR>', { noremap = true, silent = true, desc = "Jump end word with effects"})

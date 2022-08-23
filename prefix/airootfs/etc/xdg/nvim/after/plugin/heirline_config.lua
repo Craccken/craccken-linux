@@ -82,7 +82,6 @@ local Default__Statusline = { -- Create component
             end, -- End function statement
             hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
                 return { -- Return table
-                    bold = true, -- Enable bold style
                     fg = "#000000", -- The foreground color.
                     bg = mode_colors[self.vimode_base].gradient_3, -- The background color.
                 }
@@ -441,7 +440,7 @@ local Default__Statusline = { -- Create component
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
     { -- Create sub-component that store ruler information
         { -- Create sub-component of sub-component that store separator icon
-            provider = " ", -- This is the string that gets printed in the statusline.
+            provider = " ", -- This is the string that gets printed in the statusline.
             hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
                 return { -- Return table
                     fg = mode_colors[self.vimode_base].gradient_9, -- The foreground color.
@@ -610,7 +609,7 @@ local Special__Statusline = { -- Create component
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
     { -- Create sub-component that store ruler information
         { -- Create sub-component of sub-component that store separator icon
-            provider = " ", -- This is the string that gets printed in the statusline.
+            provider = " ", -- This is the string that gets printed in the statusline.
             hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
                 return { -- Return table
                     fg = mode_colors['special'].gradient_9, -- The foreground color.

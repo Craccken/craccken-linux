@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+export YAD_OPTIONS="
+    --title=Unknown 
+    --borders=5 
+    --fixed
+    --center
+    --on-top
+    --tabnum=4
+    --no-button --buttons-layout=end
+    --uri-handler='xdg-open %s'
+    --undecorated 
+    --text-align=center
+    --height=900 --width=1000
+    --hscroll-policy=auto --vscroll-policy=auto
+    --response=0"                                                               # Set default options for yad. See yad(1)
+export SAVEHIST=7000                                                            # Set the maximum number of history events to save in the history file.
+export HISTSIZE=7000                                                            # Set the maximum number of commands that are stored in memory in a history events while the shell session is on going.
+export HISTFILE="$XDG_STATE_HOME/zsh/history"                                   # Set directory where is histfile is saved
+export TERMINAL="foot"                                                          # Set default terminal
+export TERM="xterm-256color"                                                    # Set terminal capabilities
+export EDITOR="nvim"                                                            # Set default text-editor
+export BROWSER="firefox"                                                        # Set default browser 
+export PROMPT_EOL_MARK=""                                                       # Set PROMPT_EOL_MARK to blank
+export MANPAGER="nvim +Man!"                                                    # Set better manpager
+# export MANWIDTH=999                                                             # If $MANWIDTH is set, its value is used as the line length for which manual pages should be formatted.
+export SSH_ASKPASS="/usr/lib/ssh/ssh-askpass"                                   # Set default askpass program for ssh
+export SUDO_ASKPASS="/usr/lib/ssh/x11-ssh-askpass"                              # Set default askpass program for sudo with -A flag
+export TERMINAL_WIDTH="$(tput cols)"                                            # Store terminal width size
+export XCURSOR_SIZE=24                                                          # This variable sets the desired cursor size, in pixels.
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bin:$GOPATH/bin"    # Add additional executable path
+export FPATH="$FPATH:${$(find /etc/zsh/functions -type d -printf %p:)%%:}"      # Add additional functions autoload path

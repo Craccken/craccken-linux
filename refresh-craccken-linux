@@ -186,7 +186,7 @@ main(){
     refresh_directory /etc/sddm.conf.d
     refresh_directory /usr/share/fonts/OTF /usr/share/fonts
     refresh_directory /usr/share/fonts/TTF /usr/share/fonts
-    refresh_directory /usr/local/src
+    # refresh_directory /usr/local/src
     refresh_file /etc/zathurarc
     refresh_file /etc/hostname
     refresh_file /etc/securetty
@@ -232,8 +232,8 @@ main(){
     # │                               Other operations                               │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     warn_msg "Running some other operations..." # Show warning message
-    pushd /usr/local/src/Hyprland && sudo git pull && sudo git pull --recurse-submodules
-    popd
+    # pushd /usr/local/src/Hyprland && sudo git pull && sudo git pull --recurse-submodules && popd
+    sudo chmod 755 ${PREFIX_PATH}/etc/doas.conf
     sed -i "s/GRUB_DISABLE_LINUX_PARTUUID=false/#GRUB_DISABLE_LINUX_PARTUUID=false/" ./prefix/airootfs/etc/default/grub
     sed -i "s/GRUB_DISABLE_LINUX_UUID=true/#GRUB_DISABLE_LINUX_UUID=true/" ./prefix/airootfs/etc/default/grub
     sed 's/#HoldPkg/HoldPkg/g' /etc/pacman.conf > ./prefix/pacman.conf

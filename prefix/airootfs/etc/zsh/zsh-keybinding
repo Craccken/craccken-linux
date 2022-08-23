@@ -30,16 +30,16 @@ zle -N select-bracketed
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 zle -N zle-keymap-select
 zle -N zle-line-init
-#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃                                  COMPLETION                                  ┃
-#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃                                  COMPLETION                                  ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 bindkey -M menuselect 'h' vi-backward-char          # Set keybinding for move-left in tab-complete-menu: h
 bindkey -M menuselect 'j' vi-down-line-or-history   # Set keybinding for move-down in tab-complete-menu: j
 bindkey -M menuselect 'k' vi-up-line-or-history     # Set keybinding for move-up in tab-complete-menu: k
 bindkey -M menuselect 'l' vi-forward-char           # Set keybinding for move-right in tab-complete-menu: l
-#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃                                     CORE                                     ┃
-#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃                                     CORE                                     ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 bindkey -M main '^ ' autosuggest-accept     # Set keybinding for accepts the current suggestion: CTRL + SPACE
 bindkey -M viins '^[c' fzf-cd-widget        # Set keybinding for cd into the selected directory: ALT + c
 bindkey -M viins '^[t' fzf-file-widget      # Set keybinding for paste the selected file path into the command line: ALT + t
@@ -57,16 +57,16 @@ for mode in visual viopp; do # Create for loop with mode as value
 		bindkey -M "${mode}" "${key}" select-bracketed # Set keybinding for being able to ci{, ci(, ci<, di{, etc like in vim
 	done # End for-loop statement
 done # End for-loop statement
-#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃                                  FUNCTIONS                                   ┃
-#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃                                  FUNCTIONS                                   ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 bindkey -M main '^e' teleport           # Set keybinding for call teleport functions: CTRL + e
 bindkey -M main '^Z' fancy-ctrl-z       # Set keybinding for call fancy-ctrl-z functions: CTRL + z
 bindkey -M vicmd '^v' edit-command-line # Set keybinding for call edit-command-line: CTRL + V
 bindkey -M main '^x^v' edit-clipboard   # Set keybinding for call edit-clipboard functions: CTRL + x + CTRL + v
 bindkey -M main '^e^r' edit-configuration # Set keybinding for call teleport functions: CTRL + e + CTRL + r
 bindkey -M main '^x^f' i-want-to-look-busy # Set keybinding for call i-want-to-look-busy: CTRL + x CTRL + c
-#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃                                    UNBIND                                    ┃
-#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃                                    UNBIND                                    ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 bindkey -r '^R' # Unbind Ctrl+R

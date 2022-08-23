@@ -2,12 +2,10 @@ if not pcall(require, "alpha") then -- Check if nvim not have alpha plugin
     return -- Stop sourcing this file.
 end -- End if-else statement
 
--- ╭──────────────────────────────────────────────────────────────────────────────╮
--- │                                  HIGHLIGHT                                   │
--- ╰──────────────────────────────────────────────────────────────────────────────╯
 vim.api.nvim_set_hl(0, 'AlphaText',                 {fg = "#cc0022"})
 vim.api.nvim_set_hl(0, 'AlphaCreateNewFile',        {fg = "#0cbddf"})
 vim.api.nvim_set_hl(0, 'AlphaChangeColorscheme',    {fg = "#00c897"})
+vim.api.nvim_set_hl(0, 'AlphaFind',                 {fg = "#f5f105"})
 -- ╭──────────────────────────────────────────────────────────────────────────────╮
 -- │                                    SETUP                                     │
 -- ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -68,10 +66,10 @@ require("alpha").setup({ -- Call setup function
             val = {         -- Define table element
                 button("q", " Quit", ":qa<CR>", "AlphaText", "AlphaText"),
                 button("e", " New file", ":ene <BAR> startinsert<CR>", "AlphaCreateNewFile"),
-                button("SPC ff", " Find file", ":Telescope find_files<CR>"),
+                button("SPC ff", " Find file", ":Telescope find_files<CR>", 'AlphaFind'),
                 button("SPC fh", " Recently opened files", ":Telescope oldfiles<CR>"),
                 button("SPC fb", " Jump to bookmarks", ":Telescope marks<CR>"),
-                button("SPC fw", " Find word", ":Telescope live_grep<CR>"),
+                button("SPC fw", " Find word", ":Telescope live_grep<CR>", 'AlphaFind'),
                 button("SPC fc", " Change colorscheme", ":Telescope colorscheme<CR>", "AlphaChangeColorscheme"),
             },
             opts = { -- More options

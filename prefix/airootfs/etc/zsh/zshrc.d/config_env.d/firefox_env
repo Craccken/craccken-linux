@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+export MOZ_USE_XINPUT2=1 # Enable macOS-like smooth scrolling on firefox

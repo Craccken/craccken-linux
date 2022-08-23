@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃          This will tell you random quotes from breaking bad series           ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed curl jq # Check if command is installed
+need_internet # Check if there is available connection
+
+local response=$(curl -s 'https://api.breakingbadquotes.xyz/v1/quotes' | jq -r '.[]') # Get request to web api and store it to response variable
+local quote=$(echo "${response}" | jq -r '.quote') # Get qoute value from response json
+local author=$(echo "${response}" | jq -r '.author') # Get character value from response json
+
+echo "${quote}" # Print the quote
+print -P "%F{#ba174e}%K{#2f0714}${author}%K{reset}%F{reset}" >&2

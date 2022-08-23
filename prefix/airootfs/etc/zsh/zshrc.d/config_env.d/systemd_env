@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+export SYSTEMD_COLORS=1 # When true, systemd and related utilities will use colors in their output
+export SYSTEMD_PAGER=less # Pager that systemd use when --no-pager is not given
+export SYSTEMD_LOG_TIME=1 # A boolean. If true, console log messages will be prefixed with a timestamp
+export SYSTEMD_LOG_COLOR=1 # A boolean. If true, messages written to the tty will be colored according to priority.
+export SYSTEMD_EMOJI=1 # A boolean. if false, tools such as systemd-analyze security will not output graphical smiley emojis, but ASCII alternatives instead.

@@ -22,16 +22,16 @@ local data = {
         gradient_10 = "#1f1f1f",
     },
     focused = { -- Create table to map color of focused tab
-        gradient_1 = "#EBF9F7", 
-        gradient_2 = "#EDF8F7", 
-        gradient_3 = "#EFF8F6", 
-        gradient_4 = "#F1F7F6", 
-        gradient_5 = "#F3F6F5", 
-        gradient_6 = "#F4F6F5", 
-        gradient_7 = "#F6F5F4", 
-        gradient_8 = "#F8F4F4", 
-        gradient_9 = "#FAF4F3", 
-        gradient_10 = "#FCF3F3"
+        gradient_1 = "#12B3EB", 
+        gradient_2 = "#19AAED", 
+        gradient_3 = "#21A1EE", 
+        gradient_4 = "#2897F0", 
+        gradient_5 = "#2F8EF1", 
+        gradient_6 = "#3785F3", 
+        gradient_7 = "#3E7CF4", 
+        gradient_8 = "#4572F6", 
+        gradient_9 = "#4D69F7", 
+        gradient_10 = "#5460F9"
     },
 }
 return data -- If this module loaded will return value of data(table)

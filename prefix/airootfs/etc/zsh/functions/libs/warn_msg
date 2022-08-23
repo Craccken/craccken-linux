@@ -2,15 +2,4 @@
 # vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
 
-local -a GRADIENT=( # Declare local array
-    "#FF8800"
-    "#FF8A00"
-    "#FF8D00"
-    "#FF8F00"
-    "#FF9200"
-    "#FF9400"
-    "#FF9700"
-    "#FF9900"
-    "#FF9C00"
-)
-(>&2 print -P '\n%F{#000000}%K{$GRADIENT[1]} %K{$GRADIENT[2]} %K{$GRADIENT[3]}%* %K{$GRADIENT[4]}%D{%d-}%K{$GRADIENT[5]}%D{%m-}%K{$GRADIENT[6]}%D{%Y} %K{$GRADIENT[7]}┆ %K{$GRADIENT[8]}$1 %K{$GRADIENT[9]}%F{$GRADIENT[9]} %K{reset}%F{reset}') # Perform prompt expansion (see EXPANSION OF PROMPT SEQUENCES in zshmisc(1)).
+(>&2 print -P "\n%F{#d4d104}%K{#232201}  %* %D{%d-%m-%Y} ┆ $1 %F{#232201}%K{reset}%F{reset}") # Perform prompt expansion (see EXPANSION OF PROMPT SEQUENCES in zshmisc(1)).

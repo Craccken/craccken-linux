@@ -35,14 +35,14 @@ vim.api.nvim_set_keymap('n', '<leader>o', ':call append(line("."), repeat([""], 
 vim.api.nvim_set_keymap('n', '<leader>r', '#yiw:%s/<C-r>+//g<Left><Left>', {noremap = true})                                        -- Keybinding for Search and replace all for word under cursor: Space+r @(normal-mode)
 vim.api.nvim_set_keymap('n', '<C-h>', ':noh<CR>', {noremap = true, silent = true})                                                  -- Keybinding for quickly clean up searching: Ctrl+h @(normal-mode) 
 vim.api.nvim_set_keymap('i', '<C-f>', '<Esc>gUiw`]a', {noremap = true})                                                             -- Keybinding for uppercase word undercursor: Ctrl+f @(insert-mode)
-vim.api.nvim_set_keymap('', 'X', '"xx', {noremap = true, desc='Prevent X key from overriding item in the clipboard'})
-vim.api.nvim_set_keymap('', 'x', '"xx', {noremap = true, desc='Prevent x key from overriding item in the clipboard'})
+vim.api.nvim_set_keymap('', 'X', '"xx', {noremap = true, desc='Prevent key from overriding item in the clipboard'})
+vim.api.nvim_set_keymap('', 'x', '"xx', {noremap = true, desc='Prevent key from overriding item in the clipboard'})
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                                Tab navigation                                ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('n', '<F5>', ':tabn<CR>', {noremap = true, silent = true, desc='Go to the next tab page.'})
-vim.api.nvim_set_keymap('n', '<F6>', ':tabp<CR>', {noremap = true, silent = true, desc='Go to the previous tab page.'})
-vim.api.nvim_set_keymap('n', '<F7>', ':tabclose<CR>', {noremap = true, silent = true, desc='Close current tab page'})
+vim.api.nvim_set_keymap('n', '<F5>', ':tabn<CR>', {noremap = true, silent = true, desc='Go to the next tab'})
+vim.api.nvim_set_keymap('n', '<F6>', ':tabp<CR>', {noremap = true, silent = true, desc='Go to the previous tab'})
+vim.api.nvim_set_keymap('n', '<F7>', ':tabclose<CR>', {noremap = true, silent = true, desc='Close current tab'})
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                                  Diagnostic                                  ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -52,18 +52,18 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, {desc = 'Add buffer 
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                            Quoting arround visual                            ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('v', '"', '<Esc>`>a"<Esc>`<i"<Esc>', {noremap = true})                  -- Keybinding for add quotes " arround visual selection: " @(visual-mode)
-vim.api.nvim_set_keymap('v', '(', '<Esc>`>a)<Esc>`<i(<Esc>', {noremap = true})                  -- Keybinding for add ( and ) arround visual selection: ( @(visual-mode)
-vim.api.nvim_set_keymap('v', '{', '<Esc>`>a}<Esc>`<i{<Esc>', {noremap = true})                  -- Keybinding for add { and } arround visual selection: { @(visual-mode)
-vim.api.nvim_set_keymap('v', '\'', '<Esc>`>a\'<Esc>`<i\'<Esc>', {noremap = true})               -- Keybinding for add quotes ' arround visual selection: ' @(visual-mode)
+vim.api.nvim_set_keymap('v', '"', '<Esc>`>a"<Esc>`<i"<Esc>', {noremap = true})      -- Keybinding for add quotes " arround visual selection: " @(visual-mode)
+vim.api.nvim_set_keymap('v', '(', '<Esc>`>a)<Esc>`<i(<Esc>', {noremap = true})      -- Keybinding for add ( and ) arround visual selection: ( @(visual-mode)
+vim.api.nvim_set_keymap('v', '{', '<Esc>`>a}<Esc>`<i{<Esc>', {noremap = true})      -- Keybinding for add { and } arround visual selection: { @(visual-mode)
+vim.api.nvim_set_keymap('v', '\'', '<Esc>`>a\'<Esc>`<i\'<Esc>', {noremap = true})   -- Keybinding for add quotes ' arround visual selection: ' @(visual-mode)
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                                  Undo break                                  ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('i', ',', ',<c-g>u', {noremap = true}) -- Keybinding for set undo break point: , @(insert-mode)
-vim.api.nvim_set_keymap('i', '.', '.<c-g>u', {noremap = true}) -- Keybinding for set unde break point: . @(insert-mode)
-vim.api.nvim_set_keymap('i', '!', '!<c-g>u', {noremap = true}) -- Keybinding for set undo break point: ! @(insert-mode)
-vim.api.nvim_set_keymap('i', '?', '?<c-g>u', {noremap = true}) -- Keybinding for set undo break point: ? @(insert-mode)
-vim.api.nvim_set_keymap('i', '#', '#<c-g>u', {noremap = true}) -- Keybinding for set undo break point: # @(insert-mode)
+vim.api.nvim_set_keymap('i', ',', ',<c-g>u', {noremap = true, desc = 'Set undo break-point'})
+vim.api.nvim_set_keymap('i', '.', '.<c-g>u', {noremap = true, desc = 'Set undo break-point'})
+vim.api.nvim_set_keymap('i', '!', '!<c-g>u', {noremap = true, desc = 'Set undo break-point'})
+vim.api.nvim_set_keymap('i', '?', '?<c-g>u', {noremap = true, desc = 'Set undo break-point'})
+vim.api.nvim_set_keymap('i', '#', '#<c-g>u', {noremap = true, desc = 'Set undo break-point'})
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃              Set arrow_keys to do nothing, use hjkl instead :)               ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛

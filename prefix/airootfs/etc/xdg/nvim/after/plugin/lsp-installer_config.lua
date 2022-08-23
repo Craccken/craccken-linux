@@ -16,8 +16,8 @@ require("nvim-lsp-installer").setup({ -- Call setup function
     -- ▼                                                                               
     automatic_installation = false,
     ui = { -- User interface options
-        border = "none", -- The border to use for the UI window. Accepts same border values as nvim_open_win().
         check_outdated_servers_on_open = true, -- Whether to automatically check for outdated servers when opening the UI window.
+        border = "none", -- The border to use for the UI window. Accepts same border values as nvim_open_win().
         icons = { -- Icons options
             server_pending = "",       -- The list icon to use for servers that are pending installation.
             server_installed = "",     -- The list icon to use for installed servers.

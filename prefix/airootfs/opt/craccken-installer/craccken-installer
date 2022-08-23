@@ -487,6 +487,7 @@ mount_partitions(){
         if [[ $(fsck -N $PARTITION | grep fat) ]]; then # If it is already a fat/vfat partition and then
             # DANGEROUS FUNCTION
             # dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart " --yesno "$_FormUefiBody $PARTITION $_FormUefiBody2" 0 0 && mkfs.vfat -F32 ${PARTITION} >/dev/null 2>/tmp/.errlog
+            :
         else 
             mkfs.vfat -F32 ${PARTITION} >/dev/null 2>/tmp/.errlog
         fi
@@ -727,8 +728,7 @@ read_answer(){
 }
 
 ExitHandler(){
-    zsh -ic "ask_msg 'Close Installer? (y/n)'; read -q"
-    [[ ! $? -eq 0 ]] && main_menu || umount_partitions && exit
+    gum confirm || main_menu && umount_partitions && exit
 }
 
 # Execution

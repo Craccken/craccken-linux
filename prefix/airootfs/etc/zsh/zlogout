@@ -15,4 +15,3 @@
 # █  However, if the shell terminates due to executing another process this      
 # █  files will not be executed.                                                 
 # ▼                                                                               
-#[[ $EUID -eq 0 ]] && clear_cache &>/dev/null # Check if root-user && execute file that will clear cache

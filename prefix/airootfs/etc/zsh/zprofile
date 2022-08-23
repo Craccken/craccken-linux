@@ -24,13 +24,3 @@ emulate sh -c 'source /etc/profile' # Source global initialization script, don't
         eval "$(<${file})" # Check if file is readable && source the file
     done; unset file # End for-loop statement; Clearing variable so that will not polute the shell.
 }
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │            Auto startx, since we use wayland we do not need this             │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-# if [[ $TTY == /dev/tty* ]]; then # Check if tty is /dev/tty
-#     if [[ ! $EUID -eq 0 ]]; then # Check if user not root-user.
-#         if [[ -z $DISPLAY ]]; then # Check if DISPLAY environment-variable is empty
-#             startx &> /dev/null # Run xorg for displaying WM
-#         fi # End if-else statement
-#     fi # End if-else statement 
-# fi # End if-else statement

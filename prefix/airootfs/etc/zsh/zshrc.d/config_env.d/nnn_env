@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+export NNN_TRASH=1 # Use trash-cli (instead of rm -rf) files to desktop Trash

@@ -10,7 +10,7 @@
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 print -v ZSH_INIT_TIME -P '%D{%s%N}' # Get info time start
 [[ -d "/etc/zsh/zshrc.d" ]] && { # Check if has /etc/zsh/zshrc.d directory && execute function below
-    for file in /etc/zsh/zshrc.d/*(.); do # Create for-loop with file in /etc/zsh/zshrc.d/ directory
+    for file in /etc/zsh/zshrc.d/**/*(.); do # Create for-loop with file in /etc/zsh/zshrc.d/ directory
         eval "$(<${file})" # Check if file is readable && source the file
     done; unset file # End for-loop statement; Clearing variable so that will not polute the shell.
 }

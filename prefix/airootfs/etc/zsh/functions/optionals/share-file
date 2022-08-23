@@ -10,5 +10,6 @@ need_internet # Check if there is available connection
 must_have_argument $1 # Must have argument-1 passed to this function
 
 local link=$(curl -s -F "file=@${1}" 0x0.st) # Upload file to website and it will response with link
+# local link=$(curl -s -F "f:1=@${1}" ix.io) # Upload file to website and it will response with link
 wl-copy "${link}" # Copy link to the clipboard
 notify-send "$0" "Link has been coppied to the clipboard\n${link}" # Send-notification

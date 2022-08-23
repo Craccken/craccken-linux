@@ -54,14 +54,14 @@ require("cmp").setup{ -- Call setup function
             zindex = 777, -- The completion window's zindex.
             border = nil, -- Border characters used for the completion popup menu when 'experimental.native_menu' is disabled.
             side_padding = 0, -- The ammount of padding to add on the completion window's sides
-            winhighlight = "Normal:Pmenu,FloatBorder:CmpDocumentationBorder,Search:None", -- Specify the window's winhighlight option.
+            winhighlight = "Normal:Pmenu,FloatBorder:CmpCompletionBorder,Search:None,CursorLine:CmpCompletionSelect", -- Specify the window's winhighlight option.
         },
         documentation = {
             zindex = 777, -- The completion window's zindex.
             max_width = 80, -- The documentation window's max width.
             max_height = 12, -- The documentation window's max height.
             border = "rounded", -- Border characters used for the completion popup menu when 'experimental.native_menu' is disabled.
-            winhighlight = "FloatBorder:CmpDocumentationBorder,Search:None", -- Specify the window's winhighlight option.
+            winhighlight = "Normal:CmpDocumentationNormal,FloatBorder:CmpDocumentationBorder,Search:None", -- Specify the window's winhighlight option.
         },
     },
     mapping = require("cmp").mapping.preset.insert({ -- Define mapping for nvim-cmp
@@ -110,30 +110,30 @@ require("cmp").setup{ -- Call setup function
         { name = 'treesitter' },
     }, {
         { name = 'spell', keyword_length = 2 },
-        { name = 'buffer', keyword_length = 4 },
+        { name = 'buffer', option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end }, keyword_length = 3 },
     }),
     formatting = { -- Define formatting nvim-cmp
         fields = { "kind", "abbr", "menu" }, -- Specify order of completion-item
         format = function(entry, item) -- A function to customize completion menu appearance.
             -- ▲
-            -- █  Each list item can either be a string or a Dictionary.                                          
-            -- █  When it is a string it is used as the completion.                                               
-            -- █  When it is a Dictionary it can contain these items:                                             
-            -- █  	word		the text that will be inserted, mandatory                                        
-            -- █  	abbr		abbreviation of "word"; when not empty it is used in the menu instead of "word"  
-            -- █  	menu		extra text for the popup menu, displayed after "word" or "abbr"                  
-            -- █  	info		more information about the item, can be displayed in a preview window            
-            -- █  	kind		single letter indicating the type of completion                                  
-            -- █  	icase		when non-zero case is to be ignored when comparing items to be equal; when omitted zero is used, thus items that only differ in case are added                                     
-            -- █  	equal		when non-zero, always treat this item to be equal when comparing. Which means, "equal=1" disables filtering of this item.                                                      
-            -- █  	dup		    when non-zero this match will be added even when an item with the same word is already present.                                                                                
-            -- █  	empty		when non-zero this match will be added even when it is an empty string           
-            -- █  	user_data 	custom data which is associated with the item and available in v:completed_item; it can be any type; defaults to an empty string                               
+            -- █  Each list item can either be a string or a Dictionary.
+            -- █  When it is a string it is used as the completion.
+            -- █  When it is a Dictionary it can contain these items:
+            -- █  	word		the text that will be inserted, mandatory
+            -- █  	abbr		abbreviation of "word"; when not empty it is used in the menu instead of "word"
+            -- █  	menu		extra text for the popup menu, displayed after "word" or "abbr"
+            -- █  	info		more information about the item, can be displayed in a preview window
+            -- █  	kind		single letter indicating the type of completion
+            -- █  	icase		when non-zero case is to be ignored when comparing items to be equal; when omitted zero is used, thus items that only differ in case are added
+            -- █  	equal		when non-zero, always treat this item to be equal when comparing. Which means, "equal=1" disables filtering of this item.
+            -- █  	dup		    when non-zero this match will be added even when an item with the same word is already present.
+            -- █  	empty		when non-zero this match will be added even when it is an empty string
+            -- █  	user_data 	custom data which is associated with the item and available in v:completed_item; it can be any type; defaults to an empty string
             -- █
-            -- █  All of these except "icase", "equal", "dup" and "empty" must be a string.                       
+            -- █  All of these except "icase", "equal", "dup" and "empty" must be a string.
             -- █  If an item does not meet these requirements then an error message is given and further items in the list are not used.
-            -- █  You can mix string and Dictionary items in the returned list.                                   
-            -- ▼                                                                                                   
+            -- █  You can mix string and Dictionary items in the returned list.
+            -- ▼
             item.dup = 0 -- Remove duplicate from completion-menu
             local highlight_group = ("CmpItemKind%s"):format(item.kind)
             item.menu = item.kind -- Extra text for the popup menu, displayed after "word" or "abbr"
@@ -186,21 +186,22 @@ end
 require("cmp").setup.cmdline(':',{ -- Call setup function for command mode
     mapping = require("cmp").mapping.preset.cmdline(),
     sources = { -- Define sources for completion
-        { name = "cmdline", group_index = 1 },
-        { name = 'cmdline_history', group_index = 1 },
+        { name = "cmdline", group_index = 1, priority = 100 },
+        { name = 'cmdline_history', group_index = 2 },
         { name = "path", group_index = 2 },
     },
     window = { -- Completion-menu configuration
         completion = {
-            side_padding = 1, -- The ammount of padding to add on the completion window's sides
+            side_padding = 0, -- The ammount of padding to add on the completion window's sides
         },
     },
 })
--- ╭──────────────────────────────────────────────────────────────────────────────╮
--- │                                  HIGHLIGHT                                   │
--- ╰──────────────────────────────────────────────────────────────────────────────╯
 vim.cmd("hi CmpItemKind             guifg=#252525   ctermfg=242     guibg=NONE      ctermbg=NONE    gui=NONE    cterm=NONE") -- CmpItemKind: The kind field highlight nvim-cmp
 vim.cmd("hi CmpItemMenu             guifg=#101010   ctermfg=233     guibg=NONE      ctermbg=NONE    gui=NONE    cterm=NONE") -- CmpItemMenu: The menu field highlight nvim-cmp
+vim.api.nvim_set_hl(0, 'CmpCompletionBorder', {fg = "#36a3d9", bg = "#040404"})                 -- CmpCompletionBorder: Border color in completion menu
+vim.api.nvim_set_hl(0, 'CmpCompletionSelect', {fg = "#36a3d9", bg = "#06161e"})                 -- CmpCompletionSelect: Selected item color in completion menu
+vim.api.nvim_set_hl(0, 'CmpDocumentationNormal', {fg = "#36a3d9", bg = "#06161e"})              -- CmpDocumentationNormal: Base color in documentation menu
+vim.api.nvim_set_hl(0, 'CmpDocumentationBorder', {fg = "#35a3d9", bg = "#06161e"})              -- CmpDocumentationBorder: Border color in documentation menu
 vim.api.nvim_set_hl(0, 'CmpItemAbbr', {fg = "#383838"})                                         -- CmpItemAbbr: Item in completion menu
 vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', {fg = "#24828c", bg = "#071a1c", underline = true})  -- CmpItemAbbrMatch: The search matching highlight nvim-cmp
 vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', {fg = "#24828c", bg = "#071a1c", bold = true})  -- CmpItemAbbrMatchFuzzy: The fuzzy matching highlight nvim-cmp
