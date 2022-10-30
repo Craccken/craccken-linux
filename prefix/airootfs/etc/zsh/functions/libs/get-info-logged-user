@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed last grep w # Check if command is installed : exit
+
+w --ip-addr # Show who is logged on and what they are doing.
+last --fullnames --ip --system --hostlast | grep --color=never "still" # Show current logged user
+who --boot  # Find last reboot time

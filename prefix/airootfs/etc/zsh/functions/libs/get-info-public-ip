@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed ip grep # Check if command is installed : exit
+need_internet # Check if there is available connection : exit
+
+curl api.ipify.org || curl ipinfo.io/ip || curl ipecho.net/plain || curl icanhazip.com  # Get public-ip from website with api

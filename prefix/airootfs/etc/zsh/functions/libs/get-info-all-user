@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed getent cut # Check if command is installed : exit
+
+getent passwd | cut -d ':' -f1 # Print all user in this system

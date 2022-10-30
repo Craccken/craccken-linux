@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed uniq sort head # Check if command is installed : exit
+
+print -l ${(o)history%% *} | uniq -c | sort -nr | head -n ${2:-10} # Print top command that often on your history.

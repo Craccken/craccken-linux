@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed ffprobe jq # Check if command is installed || exit
+need_normal_user # Only normal user can run || exit
+
+[[ -f "${1:-}" ]] && ffprobe -v quiet -print_format json -show_format "${1:-}" | jq -r '"\(.format.duration) Second"' || : # Check if argument-1 is file && Get duration of the file

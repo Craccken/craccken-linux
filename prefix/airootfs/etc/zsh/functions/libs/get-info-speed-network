@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob  pipefail nounset errreturn
+need_installed numfmt # Check if command is installed : exit
+
+read_value_from_file_and_summarize() { # Create function for read value and summarize it
+    local DATA_FROM_ARGUMENT=0 # Create variable for storing value from argument later
+    local DATA_FROM_CACHE_FILE=0 # Create variable for storing value from cache-file later
+	local cache_file="${XDG_CACHE_HOME:-$HOME/.cache}/${1##*/}" # Create variable for storing cache-file path
+    [[ -f "${1}" ]] && DATA_FROM_ARGUMENT=$(< "${1}") || return # Check if argument-1 is file && Read argument-1 variable and store it into variable || close
+    [[ -f "${cache_file}" ]] && DATA_FROM_CACHE=$(< "${cache_file}") || : # Check if cache-file variable is file && Read cache_file store it into variable || Set old_data to 0
+    
+    printf %d\\n "${DATA_FROM_ARGUMENT}" > "${cache_file}" # Output data variable into cache-file
+	printf %d\\n $(($DATA_FROM_ARGUMENT - $DATA_FROM_CACHE)) # Sumarize value from subraction data with old_data and print out
+}
+
+local receive_bytes=$(read_value_from_file_and_summarize /sys/class/net/wlan0/statistics/rx_bytes) # Call function and store it into variable
+local transmit_bytes=$(read_value_from_file_and_summarize /sys/class/net/wlan0/statistics/tx_bytes) # Call function and store it into variable
+case "${1:-}" in # Read argument-1 variable
+    up) 
+        printf "%4sB" $(numfmt --to=iec $transmit_bytes) # Convert transmit_bytes into human readable 1K = 1024 and print out
+        ;;
+    down)
+        printf "%4sB" $(numfmt --to=iec $receive_bytes) # Convert receive_bytes into human readable 1K = 1024 and print out
+        ;;
+    *)
+        : # Do nothing
+        ;;
+esac # End switch-case statement
+unfunction read_value_from_file_and_summarize # Delete function : prevent from function polution

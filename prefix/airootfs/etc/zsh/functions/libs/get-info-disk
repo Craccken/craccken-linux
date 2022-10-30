@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed tlp-stat # Check if command is installed : exit
+
+sudo tlp-stat -d # View disk device information.
