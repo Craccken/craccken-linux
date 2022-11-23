@@ -9,8 +9,6 @@ intel-ucode
 brltty
 ethtool
 # nvidia
-ipw2100-fw
-ipw2200-fw
 # broadcom-wl
 # nvidia-utils
 xf86-video-ati
@@ -236,16 +234,16 @@ glfw-wayland
 nwg-bar
 light
 nwg-drawer
-ly
+# ly
 swaylock
 waybar
 xorg-xhost
 xorg-xwayland
 qt5-wayland
 wev
-# wofi
+wofi
 hyprland-git
-rofi-lbonn-wayland
+# rofi-lbonn-wayland
 pango
 xdg-desktop-portal-wlr-git
 xdg-desktop-portal

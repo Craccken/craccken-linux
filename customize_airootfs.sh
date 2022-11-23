@@ -13,7 +13,8 @@ echo "root" | chsh -s /usr/bin/zsh 1>/dev/null
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 {
     local enable_services=(
-        'ly.service'
+        # 'ly.service'
+        'sddm.service'
         'NetworkManager.service'
         'systemd-resolved.service' 
         'systemd-networkd.service'
@@ -64,11 +65,11 @@ rm -rf /etc/ly && mv -f /etc/ly_conf /etc/ly
 # │                             Create release file                              │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 {
-    echo 'PRETTY_NAME="Craccken GNU/Linux 0.0 (veronica)"'
+    echo 'PRETTY_NAME="Craccken GNU/Linux 1.0.1"'
     echo 'NAME=Craccken'
     echo 'BUILD_ID=rolling'
-    echo 'VERSION="0.0 Veronica"'
-    echo 'VERSION_ID="0.0"'
+    echo 'VERSION="1.0.1 Veronica"'
+    echo 'VERSION_ID="1.0.1"'
     echo 'VERSION_CODENAME=veronica'
     echo 'ID=Craccken'
     echo 'ID_LIKE=arch'
@@ -80,7 +81,7 @@ rm -rf /etc/ly && mv -f /etc/ly_conf /etc/ly
 {
     echo "DISTRIB_CODENAME=veronica"
     echo "DISTRIB_ID=Craccken"
-    echo "DISTRIB_RELEASE=0.0"
+    echo "DISTRIB_RELEASE=1.0.1"
     echo "DISTRIB_DESCRIPTION='Craccken Linux'"
 } > /etc/lsb-release
 echo "Craccken Linux" > /etc/arch-release
