@@ -1,0 +1,8 @@
+(defwidget temperature []
+  (box ; the main layout container
+    :class "temperature" ; string css class name
+    :tooltip "Temperature CPU ${EWW_TEMPS.CPU}°C" ; tooltip text (on hover)
+    :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+    :space-evenly false ; bool space the widgets evenly.
+    (label ; A text widget giving you more control over how the text is displayed
+      :text "${EWW_TEMPS.CPU}"))) ; string the text to display

@@ -1,0 +1,59 @@
+(defpoll gateway :interval "12h" "/usr/bin/zsh -ic 'get-info-gateway'")
+(defpoll local-ip :interval "12h" "/usr/bin/zsh -ic 'get-info-local-ip wlan0'")
+(defpoll speed-upstream :interval "1s" "/usr/bin/zsh -ic 'get-info-speed-network up'")
+(defpoll speed-downstream :interval "1s" "/usr/bin/zsh -ic 'get-info-speed-network down'")
+
+(defwidget popup-network [] ; Create new widget
+  (box ; the main layout container
+    :class "popup-network"  ; string css class name
+    :spacing 5              ; spacing between elements
+    :orientation "v"        ; orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+    :space-evenly false     ; space the widgets evenly
+    (label                  ; A text widget giving you more control over how the text is displayed
+      :class "ssid"           ; string css class name
+      :limit-width 9          ; maximum count of characters to display
+      :wrap false             ; Wrap the text. This mainly makes sense if you set the width of this widget.
+      :show-truncated false   ; show whether the text was truncated
+      :text ssid)             ; the text to display
+    (box                    ; the main layout container
+      :spacing 20             ; spacing between elements
+      :halign "start"         ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
+      :orientation "h"        ; orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+      :space-evenly false     ; space the widgets evenly
+      (label                  ; A text widget giving you more control over how the text is displayed
+        :class "icon"           ; string css class name
+        :text "")              ; the text to display
+      (label                  ; A text widget giving you more control over how the text is displayed
+        :class "text-value"     ; string css class name
+        :text gateway))         ; the text to display
+    (box                    ; the main layout container
+      :spacing 20             ; spacing between elements
+      :orientation "h"        ; orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+      :space-evenly false     ; space the widgets evenly
+      :halign "start"         ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
+      (label                  ; A text widget giving you more control over how the text is displayed
+        :class "icon"           ; string css class name
+        :text "")              ; the text to display
+      (label                  ; A text widget giving you more control over how the text is displayed
+        :class "text-value"     ; string css class name
+        :text local-ip))        ; the text to display
+    (box                    ; the main layout container
+      :spacing 30             ; spacing between elements
+      :halign "start"         ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
+      :orientation "h"        ; orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+      :space-evenly false     ; space the widgets evenly
+      (label                  ; A text widget giving you more control over how the text is displayed
+        :class "upstream"       ; string css class name
+        :text "  ${speed-upstream}") ; the text to display
+      (label                  ; A text widget giving you more control over how the text is displayed
+        :class "downstream"     ; string css class name
+        :text "  ${speed-downstream}")))) ; the text to display
+
+(defwindow popup-network ; Create new window
+  :monitor 0 ; Which monitor this window should be displayed on.
+  :geometry (geometry ; Geometry of the window.
+    :x "10px" :y "10px" ; Position of the window. Values may be provided in px or %. Will be relative to anchor.
+    :height "100px" :width "200px" ; Width and height of the window. Values may be provided in px or %.
+    :anchor "top right") ; Anchor-point of the window. Either center or combinations of top, center, bottom and left, center, right.
+  :stacking "overlay" ; Where the window should appear in the stack. Possible values: fg, bg, overlay, bottom.
+  (popup-network))

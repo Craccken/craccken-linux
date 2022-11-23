@@ -1,0 +1,32 @@
+(include "./bar/layout.yuck")
+(include "./popup/network/main.yuck")
+;  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+;  ┃                                    WINDOW                                    ┃
+;  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+(defwindow statusbar ; Create new window
+  :monitor 0 ; Which monitor this window should be displayed on.
+  :geometry (geometry ; Geometry of the window.
+    :x "0" :y "0"                 ; Position of the window. Values may be provided in px or %. Will be relative to anchor.
+    :height "100%" :width "50px"  ; Width and height of the window. Values may be provided in px or %.
+    :anchor "center right")       ; Anchor-point of the window. Either center or combinations of top, center, bottom and left, center, right.
+  :stacking "bottom"  ; Where the window should appear in the stack. Possible values: fg, bg, overlay, bottom.
+  :exclusive true     ; Whether the compositor should reserve space for the window automatically.
+  :focusable false    ; Whether the window should be able to be focused. This is necessary for any widgets that use the keyboard to work.
+  :wm-ignore false    ; Whether the window manager should ignore this window. This is useful for dashboard-style widgets that don't need to interact with other windows at all. Note that this makes some of the other properties not have any effect. Either true or false.
+  :windowtype "dock"  ; Specify what type of window this is. This will be used by your window manager to determine how it should handle your window. Possible values: normal, dock, toolbar, dialog, desktop. Default: dock if reserve is specified, normal otherwise.
+  :reserve (struts :distance "35px" :side "right") ; Specify how the window manager should make space for your window. This is useful for bars, which should not overlap any other windows.
+  :hexpand false ; bool should this container expand vertically. Default: false.
+  :vexpand false ; bool should this widget expand horizontally. Default: false.
+  (statusbar))
+;  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+;  ┃                                   WIDGETS                                    ┃
+;  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+(defwidget statusbar [] ; Create new widget
+  (centerbox ; a box that must contain exactly three children, which will be layed out at the start, center and end of the container.
+    :class "statusbar" ; string css class name
+    :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+    :hexpand false ; bool should this container expand vertically. Default: false.
+    :vexpand false ; bool should this widget expand horizontally. Default: false.
+    (top)
+    (center)
+    (bottom)))

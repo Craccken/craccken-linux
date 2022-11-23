@@ -1,0 +1,27 @@
+.workspaces {
+    font-family: $font-text-1; // Specifies a prioritized list of font family names or generic family names.
+    font-size: 15px; // Indicates the desired height of glyphs from the font.
+    button {
+        @include background-fill; // Use function
+        color: #f5f5f5; // Sets the color of an element's text
+        padding-top: 1.1rem; // Shorthand property to set values for the thickness of the padding area top
+        padding-bottom: 1.0rem; // Shorthand property to set values for the thickness of the padding area bottom
+        transition-delay: 0ms; // Defines when the transition will start.
+        transition-duration: 0.07s; // Defines when the transition will start.
+        transition-timing-function: ease; // Describes how the intermediate values used during a transition will be calculated.
+        transition-property: text-shadow, background-image; // Specifies the name of the CSS property to which the transition is applied.
+    }
+    .workspace-focused {
+        background-image: url("./bar/assets/background-9.svg"); // Set the background image of an element
+        color: #000000; // Sets the color of an element's text
+    }
+    .workspace-unfocused {
+        background-image: url("./bar/assets/background-10.svg"); // Set the background image of an element
+        &:hover {
+            text-shadow: 0px 0px 2px #f5f5f5; // Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color'
+        }
+        &:active {
+            text-shadow: 0px 0px 2px #f5f5f5, -8 -4 0px #cc0022, -4 -4 0px #00ff87, 4px 10px 1px #cc0022, 8px 10px 1px #00ff87 ; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
+        }
+    }
+}

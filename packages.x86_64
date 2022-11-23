@@ -326,7 +326,7 @@ dialog
 neovim
 noto-fonts-emoji
 scdoc
-ttf-iosevka-nerd
+# ttf-iosevka-nerd
 # nnn
 espeakup
 neofetch

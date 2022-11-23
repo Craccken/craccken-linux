@@ -1,0 +1,5 @@
+(defwidget workspaces []
+  (literal ; A widget that allows you to render arbitrary yuck.
+    :content workspaces-widget)) ; inline yuck that will be rendered as a widget.
+
+(deflisten workspaces-widget `/usr/bin/tail -F /tmp/workspaces-widget`) ; A listening variable runs a script once, and reads its output continously. Whenever the script outputs a new line, the value will be updated to that new line

@@ -1,0 +1,89 @@
+.battery {
+    &-Discharging, &-Charging {
+        @for $battery-percent from 1 through 100 {
+            &--#{$battery-percent} {
+                @include background-fill;
+                color: #f5f5f5; // Sets the color of an element's text
+                text-shadow: 0px 0px 1.7px #f5f5f5; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
+                font-family: $font-text-2; // Specifies a prioritized list of font family names or generic family names.
+                font-size: 17px; // Indicates the desired height of glyphs from the font.
+                padding-top: 1.32rem; // Shorthand property to set values for the thickness of the padding area top
+                padding-bottom: 1.33rem; // Shorthand property to set values for the thickness of the padding area bottom
+            }
+        }
+    }
+    &-Discharging {
+        @for $battery-percent from 90 through 100 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-full-discharging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 80 through 89 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-half-full-discharging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 70 through 79 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-good-discharging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 40 through 69 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-medium-discharging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 30 through 39 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-bad-discharging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 20 through 29 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-half-low-discharging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 0 through 19 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-low-discharging.svg"); // Set the background image of an element
+            }
+        }
+    }
+    &-Charging {
+        @for $battery-percent from 90 through 100 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-full-charging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 80 through 89 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-half-full-charging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 70 through 79 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-good-charging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 40 through 69 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-medium-charging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 30 through 39 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-bad-charging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 20 through 29 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-half-low-charging.svg"); // Set the background image of an element
+            }
+        }
+        @for $battery-percent from 0 through 19 {
+            &--#{$battery-percent} {
+                background-image: url("./bar/assets/battery-low-charging.svg"); // Set the background image of an element
+            }
+        }
+    }
+}

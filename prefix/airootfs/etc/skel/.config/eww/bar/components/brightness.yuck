@@ -1,0 +1,13 @@
+(defwidget brightness []
+  (box ; the main layout container
+    :class "brightness" ; string css class name
+    :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+    :space-evenly false ; bool space the widgets evenly.
+    :tooltip "Brightness at ${brightness}%" ; tooltip text (on hover)
+    (box ; the main layout container
+      :class "brightness-layer-2" ; string css class name
+      (label ; A text widget giving you more control over how the text is displayed
+        :halign "center" ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
+        :text brightness)))) ; the text to display
+
+(defpoll brightness :interval "2s" :initial 0 "light -G | cut -d '.' -f 1")

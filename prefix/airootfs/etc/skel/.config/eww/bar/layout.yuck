@@ -1,0 +1,41 @@
+(include "./bar/components/network.yuck")
+(include "./bar/components/battery.yuck")
+(include "./bar/components/brightness.yuck")
+(include "./bar/components/memory.yuck")
+(include "./bar/components/disk.yuck")
+(include "./bar/components/temperature.yuck")
+(include "./bar/components/time.yuck")
+(include "./bar/components/audio.yuck")
+(include "./bar/components/cpu.yuck")
+(include "./bar/components/workspaces.yuck")
+
+(defwidget top []
+  (box ; the main layout container
+    :class "top-section" ; string css class name
+    :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+    :space-evenly false ; bool space the widgets evenly.
+    :valign "start" ; string how to align this vertically. possible values: "fill", "baseline", "center", "start", "end"
+    (battery)
+    (network)
+    (temperature)
+    (audio)
+    (brightness)))
+
+(defwidget center []
+  (box ; the main layout container
+    :class "center-section" ; string css class name
+    :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+    :space-evenly false ; bool space the widgets evenly.
+    :valign "center" ; string how to align this vertically. possible values: "fill", "baseline", "center", "start", "end"
+    (workspaces)))
+
+(defwidget bottom []
+  (box ; the main layout container
+    :class "bottom-section" ; string css class name
+    :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+    :space-evenly false ; bool space the widgets evenly.
+    :valign "end" ; string how to align this vertically. possible values: "fill", "baseline", "center", "start", "end"
+    (cpu)
+    (disk)
+    (memory)
+    (time)))

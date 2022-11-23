@@ -1,0 +1,34 @@
+* {
+    all: unset; // Unsets everything so you can style everything from scratch
+}
+//  ╭──────────────────────────────────────────────────────────────────────────────╮
+//  │                                  Functions                                   │
+//  ╰──────────────────────────────────────────────────────────────────────────────╯
+@mixin background-fill() {
+    background-origin: border-box; // The background is positioned relative to the border box.
+    background-size: contain; // Specifies the size of the background images.
+    background-clip: padding-box; // Determines the background painting area.
+    background-repeat: no-repeat; // Specifies how background images are tiled after they have been sized and positioned.
+    background-position: initial; // Specifies the initial position of the background image(s) (after any resizing) within their corresponding background positioning area.
+}
+//  ╭──────────────────────────────────────────────────────────────────────────────╮
+//  │                                   Variable                                   │
+//  ╰──────────────────────────────────────────────────────────────────────────────╯
+$font-text-1: "Iosevka Nerd Font";
+$font-text-2: "CozetteVector";
+$font-text-3: "Zector";
+//  ╭──────────────────────────────────────────────────────────────────────────────╮
+//  │                                    Module                                    │
+//  ╰──────────────────────────────────────────────────────────────────────────────╯
+@import './bar/style/tooltip.scss';
+@import './bar/style/time.scss';
+@import './bar/style/cpu.scss';
+@import './bar/style/battery.scss';
+@import './bar/style/network.scss';
+@import './bar/style/memory.scss';
+@import './bar/style/disk.scss';
+@import './bar/style/audio.scss';
+@import './bar/style/temperature.scss';
+@import './bar/style/brightness.scss';
+@import './bar/style/workspaces.scss';
+@import "./popup/network/style.scss";

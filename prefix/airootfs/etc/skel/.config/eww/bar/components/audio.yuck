@@ -1,0 +1,12 @@
+(defwidget audio []
+  (eventbox ; a container which can receive events and must contain exactly one child. Supports :hover css selectors.
+    :tooltip "Audio at ${volume}% : ${volume-mute ? 'mute' : 'unmute' }" ; tooltip text (on hover)
+    (box ; the main layout container
+      :class "audio" ; string css class name
+      :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+      :space-evenly false ; bool space the widgets evenly.
+      (label ; A text widget giving you more control over how the text is displayed
+        :text {volume-mute ? "" : ""})))) ; the text to display
+
+(defpoll volume-mute :interval "1s" "pamixer --get-mute; true")
+(defpoll volume :interval "1s" "pamixer --get-volume; true")

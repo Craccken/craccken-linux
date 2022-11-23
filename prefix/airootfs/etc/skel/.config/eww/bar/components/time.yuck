@@ -1,0 +1,20 @@
+(defwidget time []
+  (eventbox ; a container which can receive events and must contain exactly one child. Supports :hover css selectors.
+    :cursor "hand" ; Cursor to show while hovering (see gtk3-cursors for possible names)
+    :tooltip "${current_date}" ; tooltip text (on hover)
+    (box ; the main layout container
+      :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+      :class "time" ; string css class name
+      :valign "end" ; string how to align this vertically. possible values: "fill", "baseline", "center", "start", "end"
+      (button 
+        :class "time-hour" ; string css class name
+        :onclick "" ; a command that get's run when the button is clicked
+        "${hour}")
+      (button	
+        :class "time-minute" ; string css class name
+        :onclick "" ; a command that get's run when the button is clicked
+        "${minute}"))))
+
+(defpoll hour :interval "5s" "date '+%H'") ; Create a polling variable which runs a provided shell-script repeatedly, in a given interval.
+(defpoll minute	:interval "1s" "date '+%M'") ; Create a polling variable which runs a provided shell-script repeatedly, in a given interval.
+(defpoll current_date :interval "600s" "date '+%A %d.%m.%y'") ; Create a polling variable which runs a provided shell-script repeatedly, in a given interval.
