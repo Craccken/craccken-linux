@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+
 refresh_directory(){ # Create a function
     if [[ -d $1 ]]; then # Check if argument-1 is directory then
         [[ -n "$2" ]] && mkdir -p ${PREFIX_PATH}$2
@@ -8,6 +9,7 @@ refresh_directory(){ # Create a function
 refresh_file(){ # Create a function
     install -D "$1" "${PREFIX_PATH}${2:-$1}"
 }
+
 main(){ 
     # ╭──────────────────────────────────────────────────────────────────────────────╮
     # │                                  Initialize                                  │
@@ -54,9 +56,9 @@ main(){
     # │                              Set important file                              │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     warn_msg "Creating important file..." # Show warning message
-    echo "Craccken" > $PREFIX_PATH/etc/hostname
+    echo "Craccken" > $PREFIX_PATH/etc/hostname # Create hostname file
     echo "LANG=en_US.UTF-8" > $PREFIX_PATH/etc/locale.conf
-    echo "Welcome to Craccken linux" > $PREFIX_PATH/etc/motd
+    echo "Welcome to Craccken linux" > $PREFIX_PATH/etc/motd # Create (message of the day) file
     {
         echo "root:!*::root"
         echo "user:!*::"
@@ -99,50 +101,50 @@ main(){
     refresh_directory /etc/zathurarc
     refresh_directory /etc/xdg/waybar
     refresh_directory /etc/default
-    refresh_directory /etc/X11/xorg.conf.d
-    refresh_directory /etc/xdg/nvim /etc/xdg
-    refresh_directory /etc/sddm.conf.d
-    refresh_directory /usr/share/fonts/OTF /usr/share/fonts
-    refresh_directory /usr/share/fonts/TTF /usr/share/fonts
+    refresh_directory /etc/X11/xorg.conf.d                          # xorg config dir
+    refresh_directory /etc/xdg/nvim /etc/xdg                        # neovim config dir
+    refresh_directory /etc/sddm.conf.d                              # sddm config dir
+    refresh_directory /usr/share/fonts/OTF /usr/share/fonts         # Export OTF fonts into your linux fonts
+    refresh_directory /usr/share/fonts/TTF /usr/share/fonts         # Export TTF fonts into your linux fonts
     # refresh_directory /usr/local/src
-    refresh_file /etc/zathurarc
-    refresh_file /etc/sysctl.conf
-    refresh_file /etc/tmux.conf
-    refresh_file /etc/vconsole.conf
-    refresh_file /etc/gitconfig
-    refresh_file /etc/pacman.conf
-    refresh_file /etc/dialogrc
-    refresh_file /etc/nanorc
-    refresh_file /etc/locale.gen
-    refresh_file /etc/X11/xinit/xinitrc
-    refresh_file /etc/X11/xinit/Xprofile
-    refresh_file /etc/X11/xinit/Xresources
-    refresh_file /usr/share/qtcreator/themes/craccken.creatortheme
-    refresh_file "$HOME/.config/GIMP/2.10/splashes/gimp.png" /etc/skel/.config/GIMP/2.10/splashes/gimp.png
+    refresh_file /etc/zathurarc                                     # zathura file config
+    refresh_file /etc/sysctl.conf                                   # sysctl config file
+    refresh_file /etc/tmux.conf                                     # tmux config file
+    refresh_file /etc/vconsole.conf                                 # virtual console / tty config file
+    refresh_file /etc/gitconfig                                     # git config file (global)
+    refresh_file /etc/pacman.conf                                   # pacman config file
+    refresh_file /etc/dialogrc                                      # dialog command config file
+    refresh_file /etc/nanorc                                        # nano editor config file
+    refresh_file /etc/locale.gen                                    # configurations for locale settings
+    refresh_file /etc/X11/xinit/xinitrc                             # xinit config file
+    refresh_file /etc/X11/xinit/Xprofile                            # file that executed command at the beginning of the X user session
+    refresh_file /etc/X11/xinit/Xresources                          # file configuration parameters for X client applications.
+    refresh_file /usr/share/qtcreator/themes/craccken.creatortheme  # Sddm theme file
+    refresh_file "$HOME/.config/GIMP/2.10/splashes/gimp.png" /etc/skel/.config/GIMP/2.10/splashes/gimp.png # Gimp splash screen
     # refresh_file /etc/mkinitcpio.d/linux-xanmod-edge.preset /etc/mkinitcpio.d
     cp -rf /etc/ly ${PREFIX_PATH}/etc/ly_conf
 
-    local -a CONFIGURATIONS=( # Home configurations
-        "$HOME/.config/river"
-        "$HOME/.config/hypr"
-        "$HOME/.config/foot"
-        "$HOME/.config/mpd"
-        "$HOME/.config/ncmpcpp"
-        "$HOME/.config/vis"
-        "$HOME/.config/neofetch"
+    local -a HOME_CONFIGURATIONS=( # create list of config path in your home directory
+        "$HOME/.config/river"                   # River compositor config dir
+        "$HOME/.config/hypr"                    # hyprland compositor config dir
+        "$HOME/.config/foot"                    # Foot terminal config dir
+        "$HOME/.config/mpd"                     # Music player daemon config dir
+        "$HOME/.config/ncmpcpp"                 # ncurses music player cpp config dir
+        "$HOME/.config/vis"                     # audio visualizer config dir
+        "$HOME/.config/neofetch"                # Neofetch config dir
         "$HOME/.config/nwg-bar"
         "$HOME/.config/nwg-drawer"
         "$HOME/.config/bat"
         "$HOME/.config/electron-flags.conf"
         "$HOME/.config/fsh"
-        "$HOME/.config/wget"
-        "$HOME/.config/npmrc"
+        "$HOME/.config/wget"                    # wget config dir
+        "$HOME/.config/npmrc"                   # npm config dir
     )
     local -a SYSTEM_CONFIGURATIONS=( # System configurations
         "/etc/doas.conf"
     )
     
-    cp -rf "${CONFIGURATIONS[@]}" --target-directory=${PREFIX_PATH}/etc/skel/.config # Copy home configurations to skeleton directory
+    cp -rf "${HOME_CONFIGURATIONS[@]}" --target-directory=${PREFIX_PATH}/etc/skel/.config # Copy home configurations to skeleton directory
     echo "${PREFIX_PATH}/root/.local/share ${PREFIX_PATH}/etc/skel/.local/share" | xargs -n 1 -- cp -rf "$HOME/.local/share/zinit" 
     doas cp -f "${SYSTEM_CONFIGURATIONS[@]}" --target-directory=${PREFIX_PATH}/etc # Copy from /etc/ directory needs run as root
     # ╭──────────────────────────────────────────────────────────────────────────────╮
