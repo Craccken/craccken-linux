@@ -1,7 +1,7 @@
 if not pcall(require, "toggleterm") then -- Check if nvim not have toggleterm plugin
     return -- Stop sourcing this file.
 end -- End if-else statement
-require("toggleterm").setup{ -- Call setup function
+require("toggleterm").setup({ -- Call setup function
     size = function(self) -- Size can be a number or function which is passed the current terminal
         if self.direction == "horizontal" then -- If the direction value is 'horizontal'
             return 15 -- Return number of size
@@ -37,4 +37,6 @@ require("toggleterm").setup{ -- Call setup function
             background = "Normal",
         }
     }
-}
+})
+
+vim.keymap.set('i', '<F1>', '<Esc>:ToggleTerm<CR>', {noremap = true, desc = 'Open terminal'})

@@ -1,8 +1,8 @@
 local built_in = { -- Create list of builtin
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
+    -- "netrw",
+    -- "netrwPlugin",
+    -- "netrwSettings",
+    -- "netrwFileHandlers",
     "gzip",
     "zip",
     "zipPlugin",
@@ -16,7 +16,7 @@ local built_in = { -- Create list of builtin
     "logipat",
     "rrhelper",
     -- "spellfile_plugin",
-    "matchit"
+    -- "matchit"
 }
 for index, builtin in pairs(built_in) do -- Create for-loop with built_in variable as value
     vim.g["loaded_" .. builtin] = 1 -- Disable builtin, it will increase startup time

@@ -1,5 +1,4 @@
-#!/bin/env zsh
-# vim:ft=sh
+#!/usr/bin/env zsh
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │     Adds some useful aliases for Nmap similar to the profiles in zenmap.     │
 # │                   Some useful nmap aliases for scan modes                    │

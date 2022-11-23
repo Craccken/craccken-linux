@@ -12,15 +12,15 @@ require("fidget").setup { -- Call setup function
         bottom = true,            -- Whether to align fidgets along the bottom edge of each buffer.
         right = true,             -- Whether to align fidgets along the right edge of each buffer. Setting this to false is not recommended, since that will lead to the fidget text being regularly overlaid on top of buffer text (which is supported but unsightly).
     },
-    window = { 
-        relative = "win",         -- Whether to position the window relative to the current window, or the editor. Valid values are "win" or "editor".
-        blend = 100,              -- The value to use for &winblend for the window, to adjust transparency.
-        zindex = nil,             -- The value to use for zindex (see :h nvim_win_open) for the window.
-    },
     timer = {
         spinner_rate = 125,       -- Duration of each frame of the spinner animation, in ms. Set to 0 to only use the first frame of the spinner animation.
         fidget_decay = 2000,      -- How long to continue showing a fidget after all its tasks are completed, in ms. Set to 0 to clear each fidget as soon as all its tasks are completed; set to any negative number to keep it around indefinitely (not recommended).
         task_decay = 1000,        -- How long to continue showing a task after it is complete, in ms. Set to 0 to clear each task as soon as it is completed; set to any negative number to keep it around until its fidget is cleared.
+    },
+    window = {
+        relative = "win",         -- Whether to position the window relative to the current window, or the editor. Valid values are "win" or "editor".
+        blend = 10,               -- The value to use for &winblend for the window, to adjust transparency.
+        zindex = nil,             -- The value to use for zindex (see :h nvim_win_open) for the window.
     },
     fmt = {
         leftpad = true,           -- Whether to right-justify the text in a fidget box by left-padding it with spaces. Recommended when align.right is true.
@@ -52,3 +52,6 @@ require("fidget").setup { -- Call setup function
         strict = false,           -- Whether this plugin should follow a strict interpretation of the LSP protocol, e.g., notifications missing the kind field.
     },
 }
+
+vim.api.nvim_set_hl(0, 'FidgetTask', {fg = "#cc0022", bg = "#240006"}) -- FidgetTask: Highlight used for the task of a fidget.
+vim.api.nvim_set_hl(0, 'FidgetTitle', {fg = "#cc0022", bg = "#240006"}) -- FidgetTitle: Highlight used for the title of a fidget

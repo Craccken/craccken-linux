@@ -1,0 +1,1 @@
+INFO: You are entering '/etc/xdg/nvim/plugin/' directory, The plugin directory is for standard Neovim plugin scripts, All files here ending in .vim and .lua will be sourced by Neovim when it starts up.

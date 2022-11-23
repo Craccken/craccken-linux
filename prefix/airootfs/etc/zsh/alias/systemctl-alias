@@ -1,5 +1,4 @@
-#!/bin/env zsh
-# vim:ft=sh
+#!/usr/bin/env zsh
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                    Add some useful aliases for systemctl                     │
 # │        https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/systemd        │

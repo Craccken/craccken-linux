@@ -77,3 +77,13 @@ require('gitsigns').setup{ -- Call setup function
     word_diff = false,              -- Highlight intra-line word differences in the buffer. Requires `config.diff_opts.internal = true` .
     debug_mode = false,             -- Enables debug logging and makes the following functions available: `dump_cache`, `debug_messages`, `clear_debug`.
 }
+
+vim.api.nvim_set_hl(0, 'GitSignsAdd', {fg = "#00c897"})     -- GitSignsAdd: Highlight for signs_add
+vim.api.nvim_set_hl(0, 'GitSignsChange', {fg = "#36a3d9"})  -- GitSignsChange: Highlight for signs_change
+vim.api.nvim_set_hl(0, 'GitSignsDelete', {fg = "#ba174e"})  -- GitSignsDelete: Highlight for signs_delete
+vim.api.nvim_set_hl(0, 'GitSignsAddNr', {link = 'GitSignsAdd'}) -- GitSignsAddNr: Highlight for signs_add number_column
+vim.api.nvim_set_hl(0, 'GitSignsAddLn', {link = 'GitSignsAdd'}) -- GitSignsAddLn: Highlight for signs_add line
+vim.api.nvim_set_hl(0, 'GitSignsChangeNr', {link = 'GitSignsChange'}) -- GitSignsChangeNr: Highlight for signs_change number_column
+vim.api.nvim_set_hl(0, 'GitSignsChangeLn', {link = 'GitSignsChange'}) -- GitSignsChangeLn: Highlight for signs_change line
+vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', {link = 'GitSignsDelete'}) -- GitSignsDeleteNr: Highlight for signs_delete number_column
+vim.api.nvim_set_hl(0, 'GitSignsDeleteLn', {link = 'GitSignsDelete'}) -- GitSignsDeleteLn: Highlight for signs_delete line

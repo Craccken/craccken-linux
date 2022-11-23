@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed pacman sync # Check if command is installed || exit with error exit-code
 
@@ -14,6 +13,5 @@ rm -rf $XDG_CACHE_HOME/**/*(.) & # Remove cache home directory in the background
 # │                                    SYSTEM                                    │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 warn_msg " Clearing memory cache..."; sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches" || send_return EPERM # Clear memory cache
-warn_msg " Clearing package-manager cache..."; sudo pacman -Scc --noconfirm &>/dev/null || send_return EPERM # Clear package-manager cache
 warn_msg " Removing unneeded dependency..."; [[ -n "$(pacman -Qdt)" ]] && {sudo pacman -Rsnu $(pacman -Qdtq) || send_return EPERM;} || warn_msg "No orphans package to remove!"
 wait # Wait the background process done

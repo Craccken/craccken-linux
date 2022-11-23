@@ -1,10 +1,31 @@
 if not pcall(require, "heirline") then -- Check if nvim not have heirline plugin
     return -- Stop sourcing this file.
 end -- End if-else statement
+
+local utils = require("heirline.utils") -- Get all builtin utils functions
+local conditions = require("heirline.conditions") -- Get all builtin conditions functions
+
 local heirline_data = require("heirline-data") -- Import module
 local priority = heirline_data.priority -- Grab priority from data
 local mode_names = heirline_data.mode_names -- Get table from module
 local mode_colors = heirline_data.mode_colors -- Get table from module
+
+-- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+-- ┃                                  COMPONENT                                   ┃
+-- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+local Align = { provider = "%=", hl = { fg = '#000000', bg = 'NONE'} } -- Create component for aligning other components
+local None = { provider = "" } -- Create components for empty space
+
+-- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+-- ┃                                   INACTIVE                                   ┃
+-- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+local Inactive__Statusline = { -- Create component
+    condition = conditions.is_not_active, -- Check if buffer not active
+    None,
+}
+-- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+-- ┃                                     BASE                                     ┃
+-- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 local Default__Statusline = { -- Create component
     init = function(self) -- This function is called whenever a component is evaluated (right after condition but before hl and provider), and can be used to modify the state of the component itself via the self parameter. 
         self.vimode = vim.api.nvim_get_mode().mode      -- Get vim current mode, this information will be required by the provider and the highlight functions. 
@@ -24,6 +45,15 @@ local Default__Statusline = { -- Create component
     -- │                                   VIM MODE                                   │
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
     { -- Create sub-component that store vim mode
+        init = function(self) -- This function is called whenever a component is evaluated (right after condition but before hl and provider), and can be used to modify the state of the component itself via the self parameter. 
+            if not self.once then -- execute this only once, this is required if you want the ViMode component to be updated on operator pending mode
+                vim.api.nvim_create_autocmd("ModeChanged", {
+                    pattern = "*:*o",
+                    command = 'redrawstatus' -- Redraws the status line and window bar of the current window
+                })
+                self.once = true
+            end -- End if-else statement
+        end, -- End function statement
         provider = function(self) -- This is the string that gets printed in the statusline. 
             return mode_names[self.vimode] -- Return string
         end, -- End function statement
@@ -33,6 +63,9 @@ local Default__Statusline = { -- Create component
                 bg = mode_colors[self.vimode_base].gradient_1,  -- The background color.
             }
         end, -- End function statement
+        update = { -- Control when the component should be updated or return a per-window cached value.
+            "ModeChanged",
+        },
     },
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                   FILENAME                                   │
@@ -53,7 +86,7 @@ local Default__Statusline = { -- Create component
             if self.short_filename == "" then -- If there is no name then:
                 return "" -- Return string
             else
-                if not require("heirline.conditions").width_percent_below(#self.short_filename, 0.25) then -- If the filename would occupy more than 1/4th of the available space then:
+                if not conditions.width_percent_below(#self.short_filename, 0.25) then -- If the filename would occupy more than 1/4th of the available space then:
                     self.short_filename = vim.fn.pathshorten(self.short_filename) -- Trim the file path to its initials
                 end --  End if-else statement
                 return self.short_filename -- Return string
@@ -120,70 +153,68 @@ local Default__Statusline = { -- Create component
             self.query = query -- Export variable to outside of this function, so anyone can use
             self.count = search_count -- Export variable to outside of this function, so anyone can use
             return true
-        end,
-        require("heirline.utils").make_flexible_component(priority.low, -- This component will cycle between all the components passed as components until they fit in the available space for the statusline.
-            { -- Create flexible component normal
-                provider = function(self)
-                    return '  ' .. self.query .. ' ' .. self.count.current .. '/' .. self.count.total .. ' '
-                end,
+        end, -- End function statement
+        flexible = priority.low,
+        { -- Create flexible component normal
+            hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
+                return { -- Return table
+                    fg = "#000000",  -- The foreground color. 
+                    bg = mode_colors[self.vimode_base].gradient_3,  -- The background color.
+                }
+            end, -- End function statement
+            provider = function(self)
+                return '  ' .. self.query .. ' ' .. self.count.current .. '/' .. self.count.total .. ' '
+            end,
+            {
+                provider = "", -- This is the string that gets printed in the statusline.
                 hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
                     return { -- Return table
-                        fg = "#000000",  -- The foreground color. 
-                        bg = mode_colors[self.vimode_base].gradient_3,  -- The background color.
+                        fg = mode_colors[self.vimode_base].gradient_3, -- The foreground color.
+                        bg = 'NONE'
                     }
                 end, -- End function statement
-                {
-                    provider = "", -- This is the string that gets printed in the statusline.
-                    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
-                        return { -- Return table
-                            fg = mode_colors[self.vimode_base].gradient_3, -- The background color.
-                            bg = "#000000", -- The foreground color. 
-                        }
-                    end, -- End function statement
-                },
-                {
-                    provider = "%=", -- This is the string that gets printed in the statusline.
-                    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
-                        return { -- Return table
-                            fg = mode_colors[self.vimode_base].gradient_4, -- The background color.
-                            bg = "#000000", -- The foreground color. 
-                        }
-                    end, -- End function statement
-                },
             },
-            { -- Create flexible component shortened
-                provider = function(self)
-                    return '  ' .. self.count.current .. '/' .. self.count.total .. ' '
-                end,
+            Align,
+            {
+                provider = "", -- This is the string that gets printed in the statusline.
                 hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
                     return { -- Return table
-                        fg = "#000000",  -- The foreground color. 
-                        bg = mode_colors[self.vimode_base].gradient_3,  -- The background color.
+                        fg = mode_colors[self.vimode_base].gradient_4, -- The foreground color.
+                        bg = 'NONE'
                     }
                 end, -- End function statement
-                {
-                    provider = "", -- This is the string that gets printed in the statusline.
-                    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
-                        return { -- Return table
-                            fg = mode_colors[self.vimode_base].gradient_3, -- The background color.
-                            bg = "#000000", -- The foreground color. 
-                        }
-                    end, -- End function statement
-                },
-                {
-                    provider = "%=", -- This is the string that gets printed in the statusline.
-                    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
-                        return { -- Return table
-                            fg = mode_colors[self.vimode_base].gradient_4, -- The background color.
-                            bg = "#000000", -- The foreground color. 
-                        }
-                    end, -- End function statement
-                },
             },
-            { -- Create flexible component fallback
-                provider = "", -- If size not fit then hiding the component (fallback)
-            }
-        ),
+        },
+        { -- Create flexible component shortened
+            hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
+                return { -- Return table
+                    fg = "#000000",  -- The foreground color. 
+                    bg = mode_colors[self.vimode_base].gradient_3,  -- The background color.
+                }
+            end, -- End function statement
+            provider = function(self)
+                return '  ' .. self.count.current .. '/' .. self.count.total .. ' '
+            end,
+            {
+                provider = "", -- This is the string that gets printed in the statusline.
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
+                    return { -- Return table
+                        fg = mode_colors[self.vimode_base].gradient_3, -- The foreground color
+                        bg = 'NONE'
+                    }
+                end, -- End function statement
+            },
+            {
+                provider = "", -- This is the string that gets printed in the statusline.
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
+                    return { -- Return table
+                        fg = mode_colors[self.vimode_base].gradient_4, -- The foreground color.
+                        bg = 'NONE'
+                    }
+                end, -- End function statement
+            },
+        },
+        None, -- Fallback components
     },
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                  DIRECTORY                                   │
@@ -198,34 +229,25 @@ local Default__Statusline = { -- Create component
         end, -- End function statement
     },
     { -- Create sub-component that store name of current directory
-        require("heirline.utils").make_flexible_component(priority.medium, -- This component will cycle between all the components passed as components until they fit in the available space for the statusline.
-            { -- Create flexible component normal
-                provider = function(self) -- This is the string that gets printed in the statusline.
-                    return self.current_working_directory_short .. self.current_working_directory_trail .. " " -- Return string
-                end, -- End function statement
-                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                    return { -- Return table
-                        fg = "#000000",                     -- The foreground color.
-                        bg = mode_colors[self.vimode_base].gradient_5,  -- The background color.
-                    }
-                end, -- End function statement
-            },
-            { -- Create flexible component shortened
-                provider = function(self) -- This is the string that gets printed in the statusline.
-                    local shortnest_current_working_directory = vim.fn.pathshorten(self.current_working_directory_short) -- Shorten directory names in the path and store it to function variable
-                    return shortnest_current_working_directory .. self.current_working_directory_trail .. " " -- Return string
-                end, -- End function statement
-                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                    return { -- Return table
-                        fg = "#000000",                     -- The foreground color.
-                        bg = mode_colors[self.vimode_base].gradient_5,  -- The background color.
-                    }
-                end, -- End function statement
-            },
-            { -- Create flexible component fallback
-                provider = "", -- If size not fit then hiding the component (fallback)
+        hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+            return { -- Return table
+                fg = "#000000",                     -- The foreground color.
+                bg = mode_colors[self.vimode_base].gradient_5,  -- The background color.
             }
-        ),
+        end, -- End function statement
+        flexible = priority.medium,
+        { -- Create flexible component normal
+            provider = function(self) -- This is the string that gets printed in the statusline.
+                return self.current_working_directory_short .. self.current_working_directory_trail .. " " -- Return string
+            end, -- End function statement
+        },
+        { -- Create flexible component shortened
+            provider = function(self) -- This is the string that gets printed in the statusline.
+                local shortnest_current_working_directory = vim.fn.pathshorten(self.current_working_directory_short) -- Shorten directory names in the path and store it to function variable
+                return shortnest_current_working_directory .. self.current_working_directory_trail .. " " -- Return string
+            end, -- End function statement
+        },
+        None -- Fallback components
     },
     { -- Create sub-component that store separator icon
         provider = " ", -- This is the string that gets printed in the statusline.
@@ -233,38 +255,66 @@ local Default__Statusline = { -- Create component
             return { -- Return table
                 fg = mode_colors[self.vimode_base].gradient_6,  -- The foreground color.
             }
-         end, -- End function statement
+        end, -- End function statement
     },
+    -- ╭──────────────────────────────────────────────────────────────────────────────╮
+    -- │                                    SPELL                                     │
+    -- ╰──────────────────────────────────────────────────────────────────────────────╯
+    {
+        condition = function()
+            return vim.wo.spell
+        end,
+        {
+            provider = "", -- This is the string that gets printed in the statusline.
+            hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
+                return { -- Return table
+                    fg = mode_colors[self.vimode_base].gradient_6, -- The background color.
+                }
+            end, -- End function statement
+        },
+        {
+            provider = ' SPELL ACTIVATED ', -- This is the string that gets printed in the statusline.
+            hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
+                return { -- Return table
+                    bold = true,
+                    italic = true,
+                    fg = "#000000", -- The foreground color.
+                    bg = mode_colors[self.vimode_base].gradient_6, -- The background color.
+                }
+            end, -- End function statement
+        },
+        {
+            provider = " ", -- This is the string that gets printed in the statusline.
+            hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
+                return { -- Return table
+                    fg = mode_colors[self.vimode_base].gradient_7, -- The background color.
+                }
+            end, -- End function statement
+        },
+    },
+
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                  NVIM-NAVIC                                  │
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
     {
         condition = require("nvim-navic").is_available, -- If nvim-gps plugin is installed then
-        require("heirline.utils").make_flexible_component(priority.low, -- This component will cycle between all the components passed as components until they fit in the available space for the statusline.
-            { -- Create flexible component normal
-                provider = require("nvim-navic").get_location, -- This is the string that gets printed in the statusline
-                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                    return { -- Return table
-                        fg = mode_colors[self.vimode_base].gradient_7, -- The foreground color.
-                    }
-                end, -- End function statement
-            },
-            { -- Create flexible component fallback
-                provider = "", -- If size not fit then hiding the component (fallback)
+        hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+            return { -- Return table
+                fg = mode_colors[self.vimode_base].gradient_7, -- The foreground color.
             }
-        )
+        end, -- End function statement
+        flexible = priority.high,
+        { -- Create flexible component normal
+            provider = require("nvim-navic").get_location, -- This is the string that gets printed in the statusline
+        },
+        None -- Fallback components
     },
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                    ALIGN                                     │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    {  -- Create sub-component for align
-        provider = "%=" 
-    }, 
+    Align,
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                     GIT                                      │
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
     { -- Create sub-component that store about git information
-        condition = require("heirline.conditions").is_git_repo, -- If current directory is git repository then run this sub-component
+        condition = conditions.is_git_repo, -- If current directory is git repository then run this sub-component
         init = function(self) -- This function is called whenever a component is evaluated (right after condition but before hl and provider), and can be used to modify the state of the component itself via the self parameter. 
             self.git_status_dictionary = vim.b.gitsigns_status_dict -- Get git status information as dictionary from gitsigns
             self.current_branch = self.git_status_dictionary.head -- Get name of current branch with git_status_dictionary
@@ -272,60 +322,86 @@ local Default__Statusline = { -- Create component
             self.removed_lines = self.git_status_dictionary.removed or 0 -- Get number of removed lines with git_status_dictionary, If there is no removed lines then return 0
             self.changed_lines = self.git_status_dictionary.changed or 0 -- Get number of changed lines with git_status_dictionary, If there is no changed lines then return 0
         end, -- End function statement
-        { -- Create sub-component of sub-component that store separator icon
-            provider = "", -- This is the string that gets printed in the statusline.
-            hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                return { -- Return table
-                    fg = mode_colors[self.vimode_base].gradient_6,  -- The foreground color.
-                }
+        on_click = { -- Specify a function to be called when clicking on the component
+            callback = function() -- (vim/)lua function to be called on mouse click(s).
+                vim.defer_fn(function()
+                    local lazygit = require('toggleterm.terminal').Terminal:new({cmd = "lazygit", hidden = true})
+                    lazygit:toggle()
+                end, 100)
             end, -- End function statement
+            name = "heirline_git", -- the global name the function will be registered with. It is not required when callback is a string.
         },
-        require("heirline.utils").make_flexible_component(priority.high, -- This component will cycle between all the components passed as components until they fit in the available space for the statusline.
-            { -- Create flexible component normal
-                { -- Create sub-component of sub-component that store current branch git
-                    provider = function(self) -- This is the string that gets printed in the statusline.
-                        return "  " .. self.current_branch .. " " -- Return string with name of current HEAD (branch or short commit hash).
-                    end, -- End function statement
-                    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                        return { -- Return table
-                            fg = "#000000", -- The foreground color.
-                            bg = mode_colors[self.vimode_base].gradient_6, -- The background color.
-                        }
-                    end, -- End function statement
-                },
-                { -- Create sub-component of sub-component that store number added lines.
-                    provider = function(self) -- This is the string that gets printed in the statusline.
-                        return self.added_lines > 0 and (" " .. self.added_lines .. " ") -- If added lines is more than 0 then return count added lines
-                    end, -- End function statement
-                    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                        return { -- Return table
-                            fg = "#000000", -- The foreground color.
-                            bg = mode_colors[self.vimode_base].gradient_7, -- The background color.
-                        }
-                    end, -- End function statement
-                },
-                { -- Create sub-component of sub-component that store number removed lines
-                    provider = function(self) -- This is the string that gets printed in the statusline.
-                        return self.removed_lines > 0 and (" " .. self.removed_lines .. " ") -- If removed lines is more than 0 then return count removed lines
-                    end, -- End function statement
-                    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                        return { -- Return table
-                            fg = "#000000", -- The foreground color.
-                            bg = mode_colors[self.vimode_base].gradient_7, -- The background color.
-                        }
-                    end, -- End function statement
-                },
-                { -- Create sub-component of sub-component that store number changedlines
-                    provider = function(self) -- This is the string that gets printed in the statusline.
-                        return self.changed_lines > 0 and (" " .. self.changed_lines .. " ") -- If changed lines is more than 0 then return count changed lines
-                    end, -- End function statement
-                    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                        return { -- Return table
-                            fg = "#000000", -- The foreground color.
-                            bg = mode_colors[self.vimode_base].gradient_7, -- The background color.
-                        }
-                    end, -- End function statement
-                },
+        flexible = priority.high,
+        { -- Create flexible component normal
+            { -- Create sub-component of sub-component that store separator icon
+                provider = "", -- This is the string that gets printed in the statusline.
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = mode_colors[self.vimode_base].gradient_6,  -- The foreground color.
+                    }
+                end, -- End function statement
+            },
+            { -- Create sub-component of sub-component that store current branch git
+                provider = function(self) -- This is the string that gets printed in the statusline.
+                    return "  " .. self.current_branch .. " " -- Return string with name of current HEAD (branch or short commit hash).
+                end, -- End function statement
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = "#000000", -- The foreground color.
+                        bg = mode_colors[self.vimode_base].gradient_6, -- The background color.
+                    }
+                end, -- End function statement
+            },
+            { -- Create sub-component of sub-component that store number added lines.
+                provider = function(self) -- This is the string that gets printed in the statusline.
+                    return self.added_lines > 0 and (" " .. self.added_lines .. " ") -- If added lines is more than 0 then return count added lines
+                end, -- End function statement
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = "#000000", -- The foreground color.
+                        bg = mode_colors[self.vimode_base].gradient_7, -- The background color.
+                    }
+                end, -- End function statement
+            },
+            { -- Create sub-component of sub-component that store number removed lines
+                provider = function(self) -- This is the string that gets printed in the statusline.
+                    return self.removed_lines > 0 and (" " .. self.removed_lines .. " ") -- If removed lines is more than 0 then return count removed lines
+                end, -- End function statement
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = "#000000", -- The foreground color.
+                        bg = mode_colors[self.vimode_base].gradient_7, -- The background color.
+                    }
+                end, -- End function statement
+            },
+            { -- Create sub-component of sub-component that store number changedlines
+                provider = function(self) -- This is the string that gets printed in the statusline.
+                    return self.changed_lines > 0 and (" " .. self.changed_lines .. " ") -- If changed lines is more than 0 then return count changed lines
+                end, -- End function statement
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = "#000000", -- The foreground color.
+                        bg = mode_colors[self.vimode_base].gradient_7, -- The background color.
+                    }
+                end, -- End function statement
+            },
+            { -- Create sub-component of sub-component that store separator
+                provider = " ", -- This is the string that gets printed in the statusline.
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = mode_colors[self.vimode_base].gradient_7, -- The foreground color.
+                    }
+                end, -- End function statement
+            },
+        },
+        { -- Create flexible component shortened
+            { -- Create sub-component of sub-component that store separator icon
+                provider = "", -- This is the string that gets printed in the statusline.
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = mode_colors[self.vimode_base].gradient_6,  -- The foreground color.
+                    }
+                end, -- End function statement
             },
             {
                 provider = function(self) -- This is the string that gets printed in the statusline.
@@ -338,7 +414,25 @@ local Default__Statusline = { -- Create component
                     }
                 end, -- End function statement
             },
-            { -- Create flexible component fallback
+            { -- Create sub-component of sub-component that store separator
+                provider = " ", -- This is the string that gets printed in the statusline.
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = mode_colors[self.vimode_base].gradient_7, -- The foreground color.
+                    }
+                end, -- End function statement
+            },
+        },
+        { -- Create flexible component fallback
+            { -- Create sub-component of sub-component that store separator icon
+                provider = "", -- This is the string that gets printed in the statusline.
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = mode_colors[self.vimode_base].gradient_6,  -- The foreground color.
+                    }
+                end, -- End function statement
+            },
+            {
                 provider = " … ", -- If size not fit then hiding the component (fallback)
                 hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
                     return { -- Return table
@@ -346,22 +440,22 @@ local Default__Statusline = { -- Create component
                         bg = mode_colors[self.vimode_base].gradient_6, -- The background color.
                     }
                 end, -- End function statement
-            }
-        ),
-        { -- Create sub-component of sub-component that store separator
-            provider = " ", -- This is the string that gets printed in the statusline.
-            hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                return { -- Return table
-                    fg = mode_colors[self.vimode_base].gradient_7, -- The foreground color.
-                }
-            end, -- End function statement
-        },
+            },
+            { -- Create sub-component of sub-component that store separator
+                provider = " ", -- This is the string that gets printed in the statusline.
+                hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+                    return { -- Return table
+                        fg = mode_colors[self.vimode_base].gradient_7, -- The foreground color.
+                    }
+                end, -- End function statement
+            },
+        }
     },
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                 DIAGNOSTICS                                  │
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
     { -- Create sub-component that store information about diagnostic
-        condition = require("heirline.conditions").has_diagnostics, -- Check if there is any diagnostic for the buffer.
+        condition = conditions.has_diagnostics, -- Check if there is any diagnostic for the buffer.
         init = function(self) -- This function is called whenever a component is evaluated (right after condition but before hl and provider), and can be used to modify the state of the component itself via the self parameter.
             self.warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text or "" -- Set warning icon for diagnostic
             self.info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text or "" -- Set info icon for diagnostic
@@ -372,6 +466,15 @@ local Default__Statusline = { -- Create component
             self.number_of_errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }) -- Get number of error in diagnostic
             self.number_of_warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }) -- Get number of warning in diagnostic
         end, -- End function statement
+        on_click = { -- Specify a function to be called when clicking on the component
+            callback = function() -- (vim/)lua function to be called on mouse click(s).
+                -- require("trouble").toggle({ mode = "document_diagnostics" })
+                -- or
+                vim.diagnostic.setqflist()
+            end, -- End function statement
+            name = "heirline_diagnostics", -- the global name the function will be registered with. It is not required when callback is a string.
+        },
+        update = { "DiagnosticChanged", "BufEnter" },
         { -- Create sub-component of sub-component that store numbers of error
             provider = function(self) -- This is the string that gets printed in the statusline.
                 return self.number_of_errors > 0 and (self.error_icon .. self.number_of_errors .. " ") -- If number of error is more than zero then return the number
@@ -397,12 +500,7 @@ local Default__Statusline = { -- Create component
             hl = { fg = "#aad94c" }, -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
         },
     },
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                    ALIGN                                     │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component for align
-        provider = "%="
-    },
+    Align,
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                     LSP                                      │
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -415,9 +513,14 @@ local Default__Statusline = { -- Create component
             end -- End for-loop statement
             return " " .. table.concat(lsp_attached__names, "  ") .. "  " -- Return string
         end, -- End function statement
+        on_click = { -- Specify a function to be called when clicking on the component
+            callback = function() -- (vim/)lua function to be called on mouse click(s).
+                vim.defer_fn(function() vim.cmd("LspInfo") end, 100)
+            end, -- End function statement
+            name = "heirline_LSP", -- the global name the function will be registered with. It is not required when callback is a string.
+        },
         hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
             return { -- Return table
-                bg = "#000000", -- The background color.
                 fg = mode_colors[self.vimode_base].gradient_7, -- The foreground color.
             }
         end, -- End function statement
@@ -454,7 +557,7 @@ local Default__Statusline = { -- Create component
             -- █  %c = column number                               
             -- █  %P = percentage through file of displayed window 
             -- ▼                                                    
-            provider = " %P ", -- This is the string that gets printed in the statusline.
+            provider = " %l/%L:%c %P ", -- This is the string that gets printed in the statusline.
             hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
                 return { -- Return table
                     fg = "#000000", -- The foreground color.
@@ -475,36 +578,30 @@ local Default__Statusline = { -- Create component
         end, -- End function statement
         hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
             return { -- Return table
-                bg = "#000000", -- The background color.
                 fg = mode_colors[self.vimode_base].gradient_10, -- The foreground color.
             }
         end, -- End function statement
     },
 }
-
+-- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+-- ┃                                   TERMINAL                                   ┃
+-- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 local Terminal__Statusline = { -- Create component
-    condition = function() require("heirline.conditions").buffer_matches({ buftype = { "terminal", "toggleterm" } }) end, -- Check if the buffer is match
-    init = function(self) -- This function is called whenever a component is evaluated (right after condition but before hl and provider), and can be used to modify the state of the component itself via the self parameter. 
-        self.terminal_name = vim.api.nvim_buf_get_name(0):gsub(".*:", "") -- Get terminal name by subtition with regex
-    end, -- End function statement
+    condition = function() conditions.buffer_matches({ buftype = { "terminal", "toggleterm" } }) end, -- Check if the buffer is match
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                TERMINAL NAME                                 │
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
     { -- Create sub-component that store terminal name
-        provider = function(self) -- This is the string that gets printed in the statusline.
-            return " ".. self.terminal_name
+        provider = function() -- This is the string that gets printed in the statusline.
+            local terminal_name, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "") -- Get terminal name by subtition with regex
+            return " ".. terminal_name
         end, -- End function statement
         hl = { -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
             bold = true, -- Enable bold style
             fg = "#2c99ef", -- The foreground color
         },
     },
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                    ALIGN                                     │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component for align
-        provider = '%='
-    },
+    Align,
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                   FILETYPE                                   │
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -519,31 +616,20 @@ local Terminal__Statusline = { -- Create component
         end -- End function statement
     },
 }
-
+-- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+-- ┃                                   SPECIAL                                    ┃
+-- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 local Special__Statusline = { -- Create component
     condition = function() -- This function controls whether the component should be evaluated or not.
-        return require("heirline.conditions").buffer_matches({ -- Check if the buffer is match
-            buftype = {
-                "nofile", 
-                "help", 
-                "quickfix", 
-                "alpha"
-            },
-            filetype = {
-                "^git.*", 
-                "fugitive"
-            }
+        return conditions.buffer_matches({ -- Check if the buffer is match
+            buftype = { "nofile", "help", "quickfix", "alpha" },
+            filetype = { "^git.*", "fugitive" }
         })
     end, -- End function statement
     init = function(self) -- This function is called whenever a component is evaluated (right after condition but before hl and provider), and can be used to modify the state of the component itself via the self parameter. 
         self.scrollbar = { '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' } -- Set of string that will use in scrollbar
     end, -- End function statement
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                    ALIGN                                     │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component for align
-        provider = '%='
-    },
+    Align,
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                 HELP BUFFER                                  │
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -558,7 +644,7 @@ local Special__Statusline = { -- Create component
             provider = "", -- This is the string that gets printed in the statusline.
             hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
                 return { -- Return table
-                    fg = mode_colors['help'].gradient_1, -- The foreground color.
+                    fg = mode_colors['special'].gradient_1, -- The foreground color.
                 }
             end, -- End function statement
         },
@@ -566,7 +652,7 @@ local Special__Statusline = { -- Create component
             provider = "  ", -- This is the string that gets printed in the statusline.
             hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
                 return { -- Return table
-                    bg = mode_colors['help'].gradient_2,  -- The background color.
+                    bg = mode_colors['special'].gradient_2,  -- The background color.
                 }
             end, -- End function statement
         },
@@ -577,7 +663,7 @@ local Special__Statusline = { -- Create component
             hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
                 return { -- Return table
                     fg = "#000000", -- The foreground color. 
-                    bg = mode_colors['help'].gradient_3, -- The background color.
+                    bg = mode_colors['special'].gradient_3, -- The background color.
                 }
             end, -- End function statement
         },
@@ -585,7 +671,7 @@ local Special__Statusline = { -- Create component
             provider = "  ", -- This is the string that gets printed in the statusline.
             hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
                 return { -- Return table
-                    bg = mode_colors['help'].gradient_4,  -- The background color.
+                    bg = mode_colors['special'].gradient_4,  -- The background color.
                 }
             end, -- End function statement
         },
@@ -593,17 +679,12 @@ local Special__Statusline = { -- Create component
             provider = " ", -- This is the string that gets printed in the statusline.
             hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
                 return { -- Return table
-                    fg = mode_colors['help'].gradient_5, -- The foreground color.
+                    fg = mode_colors['special'].gradient_5, -- The foreground color.
                 }
             end, -- End function statement
         },
     },
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                    ALIGN                                     │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component for align
-        provider = '%='
-    },
+    Align,
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                    RULER                                     │
     -- ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -623,7 +704,7 @@ local Special__Statusline = { -- Create component
             -- █  %c = column number                               
             -- █  %P = percentage through file of displayed window 
             -- ▼                                                    
-            provider = " %P ", -- This is the string that gets printed in the statusline.
+            provider = " %l/%L:%c %P ", -- This is the string that gets printed in the statusline.
             hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
                 return { -- Return table
                     fg = "#000000", -- The foreground color.
@@ -644,29 +725,43 @@ local Special__Statusline = { -- Create component
         end, -- End function statement
         hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
             return { -- Return table
-                bg = "#000000", -- The background color.
                 fg = mode_colors['special'].gradient_10, -- The foreground color.
             }
         end, -- End function statement
     },
 }
 
+vim.api.nvim_create_autocmd("User", {
+    pattern = 'HeirlineInitWinbar',
+    callback = function(args)
+        local buf = args.buf
+        local buftype = vim.tbl_contains(
+            { "prompt", "nofile", "help", "quickfix" },
+            vim.bo[buf].buftype
+        )
+        local filetype = vim.tbl_contains({ "gitcommit", "fugitive" }, vim.bo[buf].filetype)
+        if buftype or filetype then
+            vim.opt_local.winbar = nil
+        end
+    end,
+})
+
 require("heirline").setup({ -- Call setup function
     hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
-        if require("heirline.conditions").is_active() then -- If the statusline's window is the active window, then
+        if conditions.is_active() then -- If the statusline's window is the active window, then
             return { -- Return table
-                fg = require("heirline.utils").get_highlight("StatusLine").fg,
-                bg = require("heirline.utils").get_highlight("StatusLine").bg,
+                fg = utils.get_highlight("StatusLine").fg,
+                bg = utils.get_highlight("StatusLine").bg,
                 force = false -- Control whether the parent's hl fields will override child's hl.
             }
         else
             return { -- Return table
-                fg = require("heirline.utils").get_highlight("StatusLineNC").fg,
-                bg = require("heirline.utils").get_highlight("StatusLineNC").bg,
+                fg = utils.get_highlight("StatusLineNC").fg,
+                bg = utils.get_highlight("StatusLineNC").bg,
                 force = false -- Control whether the parent's hl fields will override child's hl.
             }
         end -- End if-else statement
     end, -- End function statement
-    init = require("heirline.utils").pick_child_on_condition, -- It will dynamically set the pick_child field to the index of the first child whose condition evaluates to true. 
-    Special__Statusline, Terminal__Statusline, Default__Statusline, -- Call the statusline
+    fallthrough = false, -- the first statusline with no condition, or which condition returns true is used. think of it as a switch case with breaks to stop fallthrough.
+    Special__Statusline, Terminal__Statusline, Inactive__Statusline, Default__Statusline, -- Call the statusline
 })

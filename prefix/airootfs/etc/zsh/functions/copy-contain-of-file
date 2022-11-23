@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed wl-copy # Check if command is installed
+must_have_argument $1 # Must have argument-1 || exit
+
+[[ -f "$1" ]] && (< $1 | wl-copy) # Check if argument-1 is file && copy contain of file

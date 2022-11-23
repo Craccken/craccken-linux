@@ -1,8 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
-#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃                          This will motivate you :D                           ┃
-#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed curl jq # Check if command is installed
 need_internet # Check if there is available connection
@@ -12,5 +8,4 @@ local anime=$(echo "${response}" | jq -r '.anime') # Get anime value from respon
 local quote=$(echo "${response}" | jq -r '.quote') # Get qoute value from response json
 local character=$(echo "${response}" | jq -r '.character') # Get character value from response json
 
-echo "${quote}" # Print the qoute
-print -P "%F{#ba174e}%K{#2f0714}${character} ┆ ${anime}%K{reset}%F{reset}" >&2
+echo "${quote}\n-- ${character} - ${anime}" # Print the qoute

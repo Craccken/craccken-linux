@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 20 23"
+   version="1.1"
+   id="svg392"
+   sodipodi:docname="battery-charging.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   width="20"
+   height="23"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs396">
+    <filter
+       inkscape:label="Blur Double"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
+       style="color-interpolation-filters:sRGB"
+       id="filter6579"
+       x="-0.0020960705"
+       y="-0.0012576423"
+       width="1.0041921"
+       height="1.0025153">
+      <feGaussianBlur
+         stdDeviation="0.00048035259"
+         result="fbSourceGraphic"
+         id="feGaussianBlur6571" />
+      <feGaussianBlur
+         stdDeviation="0.01"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur6573" />
+      <feComposite
+         in2="result1"
+         operator="arithmetic"
+         in="fbSourceGraphic"
+         k2="0.5"
+         k3="0.5"
+         result="result2"
+         id="feComposite6575"
+         k1="0"
+         k4="0" />
+      <feBlend
+         in2="fbSourceGraphic"
+         mode="normal"
+         result="result3"
+         id="feBlend6577" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="namedview394"
+     pagecolor="#0d1117"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#0d1117"
+     showgrid="false"
+     inkscape:zoom="30.479329"
+     inkscape:cx="4.4456359"
+     inkscape:cy="10.613751"
+     inkscape:window-width="1870"
+     inkscape:window-height="1080"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg392" />
+  <path
+     d="M 14.67,3.4999995 H 13 v -2 H 7.0000003 v 2 h -1.67 a 1.33,1.33 0 0 0 -1.33,1.33 V 20.16 c 0,0.74 0.6,1.34 1.33,1.34 H 14.66 C 15.4,21.5 16,20.9 16,20.17 V 4.8299995 c 0,-0.73 -0.6,-1.33 -1.33,-1.33 M 9.0000003,19.5 V 14 h -2 L 11,6.4999995 V 12 h 2"
+     id="path390"
+     style="fill:#ff0057;fill-opacity:1;filter:url(#filter6579)" />
+</svg>

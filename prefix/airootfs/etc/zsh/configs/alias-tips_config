@@ -1,4 +1,3 @@
 #!/bin/env zsh
-# vim:ft=sh
 export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="l vim vi" # Set list of aliases separated by space to be excluded from being reminded of.
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="$(tput setaf 239) $(tput smul bold)$(tput setaf 252)Why you are not using your alias:$(tput sgr0) " # Set output help strings

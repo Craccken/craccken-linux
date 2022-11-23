@@ -1,27 +1,27 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed light # Check if command is installed || exit with error exit-code
 
 case "$1" in # Read argument-1 passed
     up)
-        LC_ALL=C brillo -A 5 -q -u 150000 || light -A 5 # Increase brightness by 5
+        LC_ALL=C brillo -A 5 -q -u 150000 || light -A 5 # Increase brightness by 5 value
         ;;
     down)
-        LC_ALL=C brillo -U 5 -q -u 150000 || light -U 5 # Decrease brightness by 5
+        LC_ALL=C brillo -U 5 -q -u 150000 || light -U 5 # Decrease brightness by 5 value
         ;;
     set_minimum_brightness)
         LC_ALL=C brillo -c -S ${2:-5} || light -N ${2:-5} # Set minimum capacity brightness
         ;;
     save_current_brightness)
-        LC_ALL=C brillo -O || light -O
+        LC_ALL=C brillo -O || light -O # Save current brightness into memory
         ;;
     restore_brightness)
-        LC_ALL=C brillo -I || light -I
+        LC_ALL=C brillo -I || light -I # Restore brightness from memory
         ;;
     set_value)
-        LC_ALL=C brillo -S ${2:-5} || light -S ${2:-5}
+        LC_ALL=C brillo -S ${2:-5} || light -S ${2:-5} # Set value of brightness with argument-2 passed
         ;;
     *)
         : # Do nothing
         ;;
-esac
+esac # End switch-case statement

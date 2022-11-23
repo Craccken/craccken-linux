@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                               Clean up process                               │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-killall -q activate-linux swayidle mpDris2 polkit-gnome-authentication-agent-1 waybar dunst VBoxClient swaybg entr nm-applet nwg-drawer mpvpaper # Kill old proccess, so it will not overlaping process
+killall -q activate-linux eww swayidle mpDris2 polkit-gnome-authentication-agent-1 waybar dunst VBoxClient swaybg entr nm-applet nwg-drawer mpvpaper # Kill old proccess, so it will not overlaping process
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Audio                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -12,9 +12,8 @@ killall -q activate-linux swayidle mpDris2 polkit-gnome-authentication-agent-1 w
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Wallpaper                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+commands[swaybg] )) && swaybg -m fill -i $(find /opt/craccken/wallpaper -maxdepth 1 -type f | shuf -n 1) &! # Check command if it available && set the random wallpaper from directory /opt/craccken/wallpaper
-# (( $+functions[LiveWallpaperHandler] )) && LiveWallpaperHandler noLoopTop /opt/craccken/live-wallpaper/craccken-live-wallpaper.mp4 # Check function if it available && run live-wallpaper :D
-(( $+functions[play_audio_random] )) && play_audio_random /opt/craccken/sound/glitch # Check function if it available && play random audio from directory
+(( $+functions[wallpaper-handler] )) && wallpaper-handler &! # Check function if it available && Call wallpaper-handler to set wallpaper
+# (( $+functions[live-wallpaper-handler] )) && live-wallpaper-handler noLoopTop /opt/craccken/live-wallpaper/craccken-live-wallpaper.mp4 # Check function if it available && run live-wallpaper :D
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                Screencasting                                 │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -28,9 +27,10 @@ killall -q activate-linux swayidle mpDris2 polkit-gnome-authentication-agent-1 w
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Statusbar                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config -s /etc/xdg/waybar/bar.css &! # Check command if it available && start waybar
+# (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config -s /etc/xdg/waybar/bar.css &! # Check command if it available && start waybar
 (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config -s /etc/xdg/waybar/bar.css &! # Check command if it available && start waybar
-(( $+commands[eww] )) && eww --config $HOME/.config/eww/bar --restart open statusbar
+(( $+commands[eww] )) && eww --restart open statusbar
+(( $+functions[generate-workspaces-component] )) && generate-workspaces-component &!
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Music                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -48,11 +48,11 @@ killall -q activate-linux swayidle mpDris2 polkit-gnome-authentication-agent-1 w
 # │                                  Brightness                                  │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+functions[BrightnessHandler] )) && BrightnessHandler set_minimum_brightness 5 &! # Check function if it available && set minimum capacity of brightness
-# (( $+functions[ThisWillSaveYourEyes] )) && ThisWillSaveYourEyes &! # Check function if it available && start wlsunset
+# (( $+functions[this-will-save-your-eyes] )) && this-will-save-your-eyes &! # Check function if it available && start wlsunset
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Other                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 # (( $+commands[activate-linux] )) && activate-linux &!   # Start activate-linux :D
 (( $+commands[xhost] )) && xhost +si:localuser:root &!  # This will fix trouble with program that required root access like gparted, since we use wayland as display server.
 (( $+commands[foot] )) && foot --server &!              # Check command if it available && start terminal foot server
-(( $+commands[swayidle] )) && swayidle -w timeout 300 '/bin/zsh -ic "lock_screen"' timeout 600 '/bin/zsh -ic "BrightnessHandler save_current_brightness && BrightnessHandler set_value 7"' resume '/bin/zsh -ic "BrightnessHandler restore_brightness"' &! # Check command if it available && start idle manager
+(( $+commands[swayidle] )) && swayidle -w timeout 300 '/bin/zsh -ic "lock-screen"' timeout 600 '/bin/zsh -ic "BrightnessHandler save_current_brightness && BrightnessHandler set_value 7"' resume '/bin/zsh -ic "BrightnessHandler restore_brightness"' &! # Check command if it available && start idle manager

@@ -1,9 +1,5 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
-#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃                       Delete 0 byte file (unused file)                       ┃
-#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed find # Check if command is installed
 
-find "${1:-.}" -type f -size 0 -exec rm -rf {} \; # Find files with size 0 byte in argument-1 <- (default to current directory) and delete it
+find "${1:-./}" -type f -size 0 -exec rm -rf {} \; # Find files with size 0 byte in argument-1 <- (default to current directory) and delete it

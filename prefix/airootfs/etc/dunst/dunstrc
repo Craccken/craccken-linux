@@ -93,7 +93,7 @@ notification_limit = 0
 #  █     center                                              
 #  █     right-center                                        
 #  ▼                                                          
-origin = top-center
+origin = top-left
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │      Respectively the horizontal and vertical offset in pixels from the      │
 #  │    corner of the screen specified by origin. A negative offset will lead     │
@@ -330,7 +330,7 @@ force_xinerama = false
 #  │      The radius will be automatically lowered if it exceeds half of the      │
 #  │           notification height to avoid clipping text and/or icons.           │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-corner_radius = 8
+corner_radius = 3
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                 Defines list of actions for each mouse event                 │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -514,6 +514,19 @@ format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' f
 #  █ In comparison to the appname, the desktop-entry won't get localized.             
 #  ▼                                                                                   
 
+[battery-charging-notify]
+appname = "battery-charging-notify"
+timeout = 500
+background = "#4900199f"
+foreground = "#ff0057"
+frame_color = "#ff0057"
+highlight = "#ff0057"
+min_icon_size = 49
+new_icon = "/opt/craccken/icon/notification/battery-charging.svg"
+format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' foreground='#ff0057'>%s</span>\n%b"
+urgency = "normal"
+history_ignore = yes
+
 # Disable the transient hint so that idle_threshold cannot be bypassed from the client
 #[transient_disable]
 #    match_transient = yes
@@ -530,18 +543,9 @@ format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' f
 #    msg_urgency = critical
 #    fullscreen = show
 
-#[espeak]
-#    summary = "*"
-#    script = dunst_espeak.sh
-
 #[script-test]
 #    summary = "*script*"
 #    script = dunst_test.sh
-
-#[ignore]
-#    # This notification will not be displayed
-#    summary = "foobar"
-#    skip_display = true
 
 #[history-ignore]
 #    # This notification will not be saved in history
@@ -552,29 +556,4 @@ format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' f
 #    # This notification will not be displayed, but will be included in the history
 #    summary = "foobar"
 #    skip_display = yes
-
-#[signed_on]
-#    appname = Pidgin
-#    summary = "*signed on*"
-#    urgency = low
-#
-#[signed_off]
-#    appname = Pidgin
-#    summary = *signed off*
-#    urgency = low
-#
-#[says]
-#    appname = Pidgin
-#    summary = *says*
-#    urgency = critical
-#
-#[twitter]
-#    appname = Pidgin
-#    summary = *twitter.com*
-#    urgency = normal
-#
-#[stack-volumes]
-#    appname = "some_volume_notifiers"
-#    set_stack_tag = "volume"
-#
 # vim: ft=dosini

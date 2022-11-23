@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob pipefail nounset
+
+start_time_execution=${EPOCHREALTIME} # Store current_time into variable start_time_execution

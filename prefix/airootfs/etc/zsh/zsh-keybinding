@@ -1,5 +1,4 @@
-#!/bin/env zsh
-# vim:ft=sh
+#!/usr/bin/env zsh
 #  ███████╗███████╗██╗  ██╗        ██╗  ██╗███████╗██╗   ██╗██████╗ ██╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗ 
 #  ╚══███╔╝██╔════╝██║  ██║        ██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔══██╗██║████╗  ██║██╔══██╗██║████╗  ██║██╔════╝ 
 #    ███╔╝ ███████╗███████║        █████╔╝ █████╗   ╚████╔╝ ██████╔╝██║██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗
@@ -13,7 +12,7 @@
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                            Load functions to zsh                             │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-autoload fancy-ctrl-z edit-clipboard edit-command-line zle-keymap-select zle-line-init i-want-to-look-busy select-quoted select-bracketed
+autoload fancy-ctrl-z edit-clipboard edit-command-line zle-keymap-select zle-line-init i-want-to-look-busy select-quoted select-bracketed fast-sudo
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │       Add functions to zsh-line-edit widget so we can bind it to a key       │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -25,6 +24,7 @@ zle -N select-quoted
 zle -N teleport
 zle -N edit-configuration
 zle -N select-bracketed
+zle -N fast-sudo
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                               Special widgets                                │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -64,6 +64,7 @@ bindkey -M main '^e' teleport           # Set keybinding for call teleport funct
 bindkey -M main '^Z' fancy-ctrl-z       # Set keybinding for call fancy-ctrl-z functions: CTRL + z
 bindkey -M vicmd '^v' edit-command-line # Set keybinding for call edit-command-line: CTRL + V
 bindkey -M main '^x^v' edit-clipboard   # Set keybinding for call edit-clipboard functions: CTRL + x + CTRL + v
+bindkey -M main '^[s' fast-sudo         # Set keybinding for call fast-sudo functions: Alt + s
 bindkey -M main '^e^r' edit-configuration # Set keybinding for call teleport functions: CTRL + e + CTRL + r
 bindkey -M main '^x^f' i-want-to-look-busy # Set keybinding for call i-want-to-look-busy: CTRL + x CTRL + c
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

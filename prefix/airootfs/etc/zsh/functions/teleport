@@ -1,8 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                    Collection of configuration directory                     │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 autoload spectre_fzf
 
@@ -12,10 +8,15 @@ available_options[dunst]="/etc/dunst"
 available_options[sddm]="/etc/sddm.conf.d"
 available_options[waybar]="/etc/xdg/waybar"
 available_options[eww]="$HOME/.config/eww"
+available_options[temporary]="/tmp"
+available_options[udev]="/etc/udev"
+available_options[temporary]="/tmp"
 
 available_options[home]="$HOME"
-available_options[home__documents]="$HOME/Documents"
+available_options[home__config]="$HOME/.config"
 available_options[home__pictures]="$HOME/Pictures"
+available_options[home__documents]="$HOME/Documents"
+available_options[home__documents]="$HOME/Downloads"
 available_options[home__screenshots]="$HOME/Pictures/Screenshots"
 
 available_options[log]="/var/log"
@@ -29,12 +30,13 @@ available_options[zsh__prompt]="/etc/zsh/prompt"
 available_options[zsh__functions]="/etc/zsh/functions"
 available_options[zsh__functions_optionals]="/etc/zsh/functions/optionals"
 available_options[zsh__functions_libs]="/etc/zsh/functions/libs"
+available_options[zsh__functions_hook]="/etc/zsh/functions/hook"
 available_options[zsh__plugin-config]="/etc/zsh/configs"
 
 available_options[neovim]="/etc/xdg/nvim"
 available_options[neovim__lua]="/etc/xdg/nvim/lua"
 available_options[neovim__colors]="/etc/xdg/nvim/colors"
-available_options[neovim__autogroup]="/etc/xdg/nvim/plugin/autogroup"
+available_options[neovim__autocommand]="/etc/xdg/nvim/plugin/autocmmand"
 available_options[neovim__syntax]="/etc/xdg/nvim/syntax"
 available_options[neovim__plugin-config]="/etc/xdg/nvim/after/plugin"
 available_options[neovim__filetype-config]="/etc/xdg/nvim/ftplugin"
@@ -42,6 +44,7 @@ available_options[neovim__filetype-config]="/etc/xdg/nvim/ftplugin"
 local option="${1:-$(print -l ${(ko)available_options} | spectre_fzf 'Choose your destination')}" # Declare local variable if argument-1 empty then pick available_options keys value and sorted with fzf
 [[ -z "${option}" ]] && send_return EINVAL # If option variable is empty && exit
 [[ -z "${available_options[$option]}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
-play_audio_random /opt/craccken/sound/click # Play random audio in directory
+play-audio-random /opt/craccken/sound/click || : # Play random audio in directory
+blink-led &! # Call function to blink-led effect
 speak "Moving, into ${option} directory." || : # Call function from /etc/zsh/functions to translate text to speak
-cd "${available_options[$option]}" 2> /dev/null || speak "Can not teleport into ${option} directory." || : # Moving into available_options(option) value || exit
+cd "${available_options[$option]}" 2> /dev/null || speak "Cannot teleport into ${option} directory." || : # Moving into available_options(option) value || exit

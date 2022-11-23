@@ -1,5 +1,4 @@
-#!/bin/env zsh
-# vim:ft=sh
+#!/usr/bin/env zsh
 #  ███████╗██╗   ██╗███████╗████████╗███████╗███╗   ███╗       █████╗ ██╗     ██╗ █████╗ ███████╗
 #  ██╔════╝╚██╗ ██╔╝██╔════╝╚══██╔══╝██╔════╝████╗ ████║      ██╔══██╗██║     ██║██╔══██╗██╔════╝
 #  ███████╗ ╚████╔╝ ███████╗   ██║   █████╗  ██╔████╔██║█████╗███████║██║     ██║███████║███████╗
@@ -41,6 +40,5 @@ alias wget='wget --continue --timestamping --hsts-file="$XDG_DATA_HOME"/wget-hst
 # │                           Replacement for wayland                            │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+commands[wev] )) && alias xev='wev'                # xev -> wev: This tool for debugging events on a wayland window, analogous to X11 tool xev.
-(( $+commands[wofi] )) && alias rofi='wofi'             # rofi -> wofi: Launcher for wlroots-based wayland compositors.
 (( $+commands[xdotool] )) && alias xdotool='ydotool'    # xdotool -> ydotool: Generic command-line automation tool (no X!)
 (( $+commands[wlr-randr] )) && alias xrandr='wlr-randr' # xrandr -> wlr-randr: Utility to manage outputs of a wayland compositor

@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
 
 local -a GRADIENT=( # Declare local array

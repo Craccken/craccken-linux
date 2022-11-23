@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
 need_installed jq curl wl-copy dunstify # Check if command is installed || exit
 need_internet # Need internet to run

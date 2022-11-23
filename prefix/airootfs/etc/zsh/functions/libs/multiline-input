@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+local input # Create local variable for storing input from user
+local line # Create local variable for storing input line from user
+while read line; do # Create while-loop with input from user as line variable
+    [[ -z "${line}" ]] && break # Check if line is empty && close this loop
+    input+="${line}\n" # Append line variable into input variable
+done # End while-loop statement
+echo "${input}" # Print back user input

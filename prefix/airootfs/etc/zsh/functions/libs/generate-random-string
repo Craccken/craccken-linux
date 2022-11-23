@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+# vim:ft=sh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed tr head # Check if command is installed || exit
+
+< /dev/urandom | tr -cd "a-z0-9A-Z" | head -c "${1:-17}" || : # Generate random name with length specified by argument-1 by default the length is 17

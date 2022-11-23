@@ -1,6 +1,4 @@
-#!/bin/env zsh
-# vim:ft=sh
-
+#!/usr/bin/env zsh
 refresh_directory(){ # Create a function
     if [[ -d $1 ]]; then # Check if argument-1 is directory then
         [[ -n "$2" ]] && mkdir -p ${PREFIX_PATH}$2
@@ -10,22 +8,23 @@ refresh_directory(){ # Create a function
 refresh_file(){ # Create a function
     install -D "$1" "${PREFIX_PATH}${2:-$1}"
 }
-
 main(){ 
     # ╭──────────────────────────────────────────────────────────────────────────────╮
     # │                                  Initialize                                  │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
-    need_normal_user # Need normal user || exit
     need_installed parallel-moreutils mkarchiso # Check if command is installed || exit 
+    need_normal_user # Need normal user || exit
     AskPassword # Ask password || exit
+    
     local file # Declare local variable
     local directory # Declare local variable
     local PREFIX_PATH="./prefix/airootfs" # Declare local variable
-    if [[ ! -d $PREFIX_PATH ]]; then # Check if prefix path is available
+    
+    if [[ ! -d $PREFIX_PATH ]]; then # Check if prefix path is directory
         return 1 # Exit 
     else
-        doas rm -rf ./prefix/airootfs && cp -rf /usr/share/archiso/configs/releng/airootfs ./prefix/
+        doas rm -rf $PREFIX_PATH && cp -rf /usr/share/archiso/configs/releng/airootfs ./prefix/
         # doas rm -rf ./prefix/efiboot ./prefix/syslinux ./prefix/grub ./prefix/pacman.conf &>/dev/null
     fi # End if-else statement
     # ╭──────────────────────────────────────────────────────────────────────────────╮
@@ -33,7 +32,7 @@ main(){
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     warn_msg "Refreshing..." # Show warning message
     ln -sf ../efiboot ../syslinux ../grub ../profiledef.sh ../packages.x86_64 --target-directory=./prefix/
-    cp -rf ./customize_airootfs.sh ./prefix/airootfs/root
+    cp -rf ./customize_airootfs.sh $PREFIX_PATH/root
     parallel-moreutils -j $(nproc --all) rm -rf -- \
         ./prefix/airootfs/etc/ssh \
         ./prefix/airootfs/etc/skel \
@@ -55,90 +54,9 @@ main(){
     # │                              Set important file                              │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     warn_msg "Creating important file..." # Show warning message
-    echo "LANG=en_US.UTF-8" > ./prefix/airootfs/etc/locale.conf
-    {
-        mkdir -p ./prefix/airootfs/etc/mkinitcpio.d &>/dev/null
-        echo "# mkinitcpio preset file for the 'linux' package on archiso"
-        echo ""
-        echo "PRESETS=('archiso')"
-        echo ""
-        echo "ALL_kver='/boot/vmlinuz-linux'"
-        echo "ALL_config='/etc/mkinitcpio.conf'"
-        echo ""
-        echo "archiso_image=\"/boot/initramfs-linux.img\""
-    } > ./prefix/airootfs/etc/mkinitcpio.d/linux.preset
-    {
-        echo "# vim:set ft=sh"
-        echo "# MODULES"
-        echo "# The following modules are loaded before any boot hooks are"
-        echo "# run.  Advanced users may wish to specify all system modules"
-        echo "# in this array.  For instance:"
-        echo "#     MODULES=(piix ide_disk reiserfs)"
-        echo "MODULES=()"
-        echo ""
-        echo "# BINARIES"
-        echo "# This setting includes any additional binaries a given user may"
-        echo "# wish into the CPIO image.  This is run last, so it may be used to"
-        echo "# override the actual binaries included by a given hook"
-        echo "# BINARIES are dependency parsed, so you may safely ignore libraries"
-        echo "BINARIES=()"
-        echo ""
-        echo "# FILES"
-        echo "# This setting is similar to BINARIES above, however, files are added"
-        echo "# as-is and are not parsed in any way.  This is useful for config files."
-        echo "FILES=()"
-        echo ""
-        echo "# HOOKS"
-        echo "# This is the most important setting in this file.  The HOOKS control the"
-        echo "# modules and scripts added to the image, and what happens at boot time."
-        echo "# Order is important, and it is recommended that you do not change the"
-        echo "# order in which HOOKS are added.  Run 'mkinitcpio -H <hook name>' for"
-        echo "# help on a given hook."
-        echo "# 'base' is _required_ unless you know precisely what you are doing."
-        echo "# 'udev' is _required_ in order to automatically load modules"
-        echo "# 'filesystems' is _required_ unless you specify your fs modules in MODULES"
-        echo "# Examples:"
-        echo "##   This setup specifies all modules in the MODULES setting above."
-        echo "##   No raid, lvm2, or encrypted root is needed."
-        echo "#    HOOKS=(base)"
-        echo "#"
-        echo "##   This setup will autodetect all modules for your system and should"
-        echo "##   work as a sane default"
-        echo "#    HOOKS=(base udev autodetect block filesystems)"
-        echo "#"
-        echo "##   This setup will generate a 'full' image which supports most systems."
-        echo "##   No autodetection is done."
-        echo "#    HOOKS=(base udev block filesystems)"
-        echo "#"
-        echo "##   This setup assembles a pata mdadm array with an encrypted root FS."
-        echo "##   Note: See 'mkinitcpio -H mdadm' for more information on raid devices."
-        echo "#    HOOKS=(base udev block mdadm encrypt filesystems)"
-        echo "#"
-        echo "##   This setup loads an lvm2 volume group on a usb device."
-        echo "#    HOOKS=(base udev block lvm2 filesystems)"
-        echo "#"
-        echo "##   NOTE: If you have /usr on a separate partition, you MUST include the"
-        echo "#    usr, fsck and shutdown hooks."
-        echo "HOOKS=(base udev modconf archiso archiso_loop_mnt archiso_kms block filesystems keyboard)"
-        echo ""
-        echo "# COMPRESSION"
-        echo "# Use this to compress the initramfs image. By default, gzip compression"
-        echo "# is used. Use 'cat' to create an uncompressed image."
-        echo "#COMPRESSION=\"gzip\""
-        echo "#COMPRESSION=\"bzip2\""
-        echo "#COMPRESSION=\"lzma\""
-        echo "#COMPRESSION=\"xz\""
-        echo "#COMPRESSION=\"lzop\""
-        echo "#COMPRESSION=\"lz4\""
-        echo "COMPRESSION=\"zstd\""
-        echo ""
-        echo "# COMPRESSION_OPTIONS"
-        echo "# Additional options for the compressor"
-        echo "#COMPRESSION_OPTIONS=()"
-    } > ./prefix/airootfs/etc/mkinitcpio.conf
-    {
-        echo "Welcome to Craccken linux"
-    } > ./prefix/airootfs/etc/motd
+    echo "Craccken" > $PREFIX_PATH/etc/hostname
+    echo "LANG=en_US.UTF-8" > $PREFIX_PATH/etc/locale.conf
+    echo "Welcome to Craccken linux" > $PREFIX_PATH/etc/motd
     {
         echo "root:!*::root"
         echo "user:!*::"
@@ -188,8 +106,6 @@ main(){
     refresh_directory /usr/share/fonts/TTF /usr/share/fonts
     # refresh_directory /usr/local/src
     refresh_file /etc/zathurarc
-    refresh_file /etc/hostname
-    refresh_file /etc/securetty
     refresh_file /etc/sysctl.conf
     refresh_file /etc/tmux.conf
     refresh_file /etc/vconsole.conf
@@ -225,6 +141,7 @@ main(){
     local -a SYSTEM_CONFIGURATIONS=( # System configurations
         "/etc/doas.conf"
     )
+    
     cp -rf "${CONFIGURATIONS[@]}" --target-directory=${PREFIX_PATH}/etc/skel/.config # Copy home configurations to skeleton directory
     echo "${PREFIX_PATH}/root/.local/share ${PREFIX_PATH}/etc/skel/.local/share" | xargs -n 1 -- cp -rf "$HOME/.local/share/zinit" 
     doas cp -f "${SYSTEM_CONFIGURATIONS[@]}" --target-directory=${PREFIX_PATH}/etc # Copy from /etc/ directory needs run as root
@@ -240,4 +157,4 @@ main(){
     info_msg "Done!" # Show info message
 }
 main # Call main function
-unset -f refresh_file refresh_directory
+unfunction refresh_file refresh_directory main

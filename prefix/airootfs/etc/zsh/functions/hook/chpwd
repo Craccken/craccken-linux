@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+
+(exa --all --git --icons --group-directories-first --time-style=long-iso --group --color-scale) 2>/dev/null # Same like `la`
+[[ -r ./.descriptor-fragment ]] && print -P "\n%F{#00c897}%K{#00241b}  %* %D{%d-%m-%Y} ┆ $(<./.descriptor-fragment 2>/dev/null) %F{#00241b}%K{reset}%F{reset}" # Check if .descriptor-fragment is readable file && read .descriptor-fragment file
+[[ -d ./.git ]] && update-prompt # Update prompt if there is .git directory in current path

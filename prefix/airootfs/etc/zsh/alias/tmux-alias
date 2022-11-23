@@ -1,5 +1,4 @@
-#!/bin/env zsh
-# vim:ft=sh
+#!/usr/bin/env zsh
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                         Add some useful aliases tmux                         │
 # │         https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux          │

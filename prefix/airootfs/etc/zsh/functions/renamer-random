@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 # ╭──────────────────────────────────────────────────────────────────────────────╮
-# │             Good tools that will renaming file with random word              │
+# │            Good tools that will renaming file with random string             │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
 need_installed basename sed head rename mktemp # Check if command is installed || exit
@@ -12,7 +11,7 @@ local file # Create local variable
 for file in $@; do # Create for-loop with list of passed argument
     if [[ -f "$file" ]]; then # Check if $file is file
         local temporary_file="$(mktemp)" # Create temporary file and store it location to local variable
-        generate_random_name 20 > "$temporary_file" # Generate random name with length 20 to temporary_file
+        generate-random-string 20 > "$temporary_file" # Generate random name with length 20 to temporary_file
         local filename_without_extension="$(basename "$file" | sed 's/\(.*\)\..*/\1/')" # Remove file extensions from filename
         rename "$filename_without_extension" "$(cat $temporary_file)" "$file" # Just rename the base filename not the extensions
     else

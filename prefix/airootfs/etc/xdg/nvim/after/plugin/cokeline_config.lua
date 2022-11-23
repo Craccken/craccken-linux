@@ -51,7 +51,7 @@ require('cokeline').setup({ -- Call setup function
         fg = function(buffer)
             return buffer.is_focused and require('cokeline/utils').get_hex('Normal', 'fg') or require('cokeline/utils').get_hex('Comment', 'fg')
         end, -- End function statement
-        bg = require('cokeline/utils').get_hex('ColorColumn', 'bg'),
+        bg = require('cokeline/utils').get_hex('Normal', 'bg'),
     },
     sidebar = { -- This is a table containing a `filetype` key and a list of `components` to be rendered in the sidebar.
         filetype = 'NvimTree',
@@ -113,12 +113,14 @@ require('cokeline').setup({ -- Call setup function
             text = function(buffer)
                 return (require('cokeline/mappings').is_picking_focus() or require('cokeline/mappings').is_picking_close()) and buffer.pick_letter .. " " or buffer.devicon.icon
             end, -- End function statement
-            fg = "#000000",
+            fg = function()
+                return (require("cokeline/mappings").is_picking_focus() or require("cokeline/mappings").is_picking_close()) and '#63D7CE' or '#000000'
+            end,
             bg = function(buffer)
                 return buffer.is_focused and focused.gradient_3 or unfocused.gradient_3
             end,
             style = function()
-                  return (require('cokeline/mappings').is_picking_focus() or require('cokeline/mappings').is_picking_close()) and 'italic,bold' or nil
+                  return (require('cokeline/mappings').is_picking_focus() or require('cokeline/mappings').is_picking_close()) and 'italic' or nil
             end, -- End function statement
         },
         {
@@ -161,7 +163,7 @@ require('cokeline').setup({ -- Call setup function
             bg = function(buffer)
                 return buffer.is_focused and focused.gradient_8 or unfocused.gradient_8
             end,
-            delete_buffer_on_left_click = true, -- If `true` the buffer will be deleted when this component is left-clicked (useful to implement close buttons).
+            delete_buffer_on_left_click = true, -- If `true` the buffer will be deleted when this component is left-clicked (useful to implement close buttons)
             truncation = { priority = 1 },
         },
         {
@@ -184,13 +186,13 @@ require('cokeline').setup({ -- Call setup function
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                                 KEYBINDINGS                                  ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('n', '<leader><Tab>', '<Plug>(cokeline-focus-next)',  {silent = true, desc = "Focus the next buffer"})
-vim.api.nvim_set_keymap('n', '<leader><S-Tab>', '<Plug>(cokeline-focus-prev)',  {silent = true, desc = "Focus the previous buffer"})
-vim.api.nvim_set_keymap('n', '<leader>;', '<Plug>(cokeline-pick-focus)', {silent = true, desc = 'Focus a buffer by its `pick_letter`'}) 
-vim.api.nvim_set_keymap('n', '<leader><leader>;', '<Plug>(cokeline-pick-close)', {silent = true, desc = 'Close a buffer by its `pick_letter`'}) 
-vim.api.nvim_set_keymap('n', '<leader>p', '<Plug>(cokeline-switch-prev)', {silent = true, desc = 'Switch the position of the current buffer with the previous buffer.'})
-vim.api.nvim_set_keymap('n', '<leader>n', '<Plug>(cokeline-switch-next)', {silent = true, desc = 'Switch the position of the current buffer with the next buffer.'})
+vim.keymap.set('n', '<leader><Tab>', '<Plug>(cokeline-focus-next)',  {silent = true, desc = "Focus the next buffer"})
+vim.keymap.set('n', '<leader><S-Tab>', '<Plug>(cokeline-focus-prev)',  {silent = true, desc = "Focus the previous buffer"})
+vim.keymap.set('n', '<leader>;', '<Plug>(cokeline-pick-focus)', {silent = true, desc = 'Focus a buffer with picker'}) 
+vim.keymap.set('n', '<leader><leader>;', '<Plug>(cokeline-pick-close)', {silent = true, desc = 'Close a buffer with picker'}) 
+vim.keymap.set('n', '<leader>p', '<Plug>(cokeline-switch-prev)', {silent = true, desc = 'Switch the position of the current buffer with the previous buffer.'})
+vim.keymap.set('n', '<leader>n', '<Plug>(cokeline-switch-next)', {silent = true, desc = 'Switch the position of the current buffer with the next buffer.'})
 for tab_index = 1,9 do -- Create for-loop with value interger 1-9 as tab_index
-    vim.api.nvim_set_keymap('n', ('<F%s>'):format(tab_index), ('<Plug>(cokeline-focus-%s)'):format(tab_index), {silent = true, desc = 'Focuses the buffer with tab_index'})
-    vim.api.nvim_set_keymap('n', ('<leader><leader>%s'):format(tab_index), ('<Plug>(cokeline-switch-%s)'):format(tab_index), {silent = true, desc = 'Switches the position  of the current buffer with the buffer of tab_index'})
+    vim.keymap.set('n', ('<F%s>'):format(tab_index), ('<Plug>(cokeline-focus-%s)'):format(tab_index), {silent = true, desc = 'Focuses the buffer with tab_index'})
+    vim.keymap.set('n', ('<leader><leader>%s'):format(tab_index), ('<Plug>(cokeline-switch-%s)'):format(tab_index), {silent = true, desc = 'Switches the position of the current buffer with the buffer of tab_index'})
 end -- End for-loop statement.

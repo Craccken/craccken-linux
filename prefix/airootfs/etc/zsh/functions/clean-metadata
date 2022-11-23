@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+local file # Create local variable
+for file in ${@:-}; do # Create for-loop with list of passed argument
+    if [[ ! -w "${file}" ]]; then # Check if file is not writable
+        error_msg "$0: file is unwritable: '${file}'"
+        continue # Resumes the next iteration of the enclosing FOR, WHILE or UNTIL loop.
+    fi # End if-else statement
+    case ${file} in # Read file value
+        *.mp4|*.jpg|*.png)
+            need_installed exiftool || continue # Check if command is installed || Resumes the next iteration of the enclosing FOR, WHILE or UNTIL loop.
+            parallel-moreutils -j $(nproc --all) exiftool -all= -- ${file}
+            ;;
+        *.mp3)
+            need_installed id3convert || continue # Check if command is installed || Resumes the next iteration of the enclosing FOR, WHILE or UNTIL loop.
+            parallel-moreutils -j $(nproc --all) id3convert --strip -- ${file}
+            ;;
+        *.wav)
+            need_installed mat2 || continue # Check if command is installed || Resumes the next iteration of the enclosing FOR, WHILE or UNTIL loop.
+            parallel-moreutils -j $(nproc --all) mat2 -- ${file}
+            ;;
+        *)
+            error_msg "$0: unrecognized file extension: '${file}'"
+            continue # Resumes the next iteration of the enclosing FOR, WHILE or UNTIL loop.
+            ;;
+    esac # End switch-case statement
+done # End for-loop

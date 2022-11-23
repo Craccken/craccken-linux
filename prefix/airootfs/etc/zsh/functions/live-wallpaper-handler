@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+need_normal_user || return $? # Only normal user can run || exit
+need_installed mpvpaper mpv || return $? # Check if command is installed || exit with error exit-code
+must_have_argument $1 || return $? # Must have argument-1 passed || exit
+killall -q mpvpaper # Kill old process of mpvpaper, if exist
+
+case ${1} in # Read argument-1 passed
+    noLoop|noloop)
+        mpvpaper -v -s -f --mpv-options "--no-osd-bar --quiet --no-audio --no-input-default-bindings" "${3:-eDP-1}" "${2}"
+        ;;
+    noLoopTop|nolooptop)
+        mpvpaper --layer top -v -s -f --mpv-options "--no-osd-bar --quiet --no-audio --no-input-default-bindings" "${3:-eDP-1}" "${2}"
+        ;;
+    Loop|loop)
+        mpvpaper -v -p -f --mpv-options "--no-osd-bar --loop --quiet --no-audio --no-input-default-bindings" "${3:-eDP-1}" "${2}"
+        ;;
+    *)
+        : # Do nothing
+        ;;
+esac # End switch-case statement

@@ -20,7 +20,3 @@ file_permissions=(
     ["/etc/doas.conf"]="0:0:0400"
     # ["/etc/sudoers"]="0:0:0440"
 )
-
-for file in /etc/{htoprc,tmux.conf,securetty,locale.*,vconsole.conf,gitconfig,nanorc}; do # ONE FILE
-    file_permissions+=(["$file"]="0:0:755")
-done

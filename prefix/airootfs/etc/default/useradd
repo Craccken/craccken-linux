@@ -4,6 +4,15 @@
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃             This file contain useradd configuration, useradd(8)              ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#                              ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#                              ┃ [The name of the user's login shell] ┃
+#                              ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#  ▲
+#  █ The default login shell specified by the SHELL 
+#  █ variable in /etc/default/useradd, or an        
+#  █ empty string by default.                       
+#  ▼                                                 
+SHELL=/bin/zsh
 #                  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #                  ┃ [The group name or number of the user's initial login group.] ┃
 #                  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -42,15 +51,6 @@ INACTIVE=-1
 #  █ by default.                                                                 
 #  ▼                                                                              
 EXPIRE=
-#                              ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#                              ┃ [The name of the user's login shell] ┃
-#                              ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-#  ▲
-#  █ The default login shell specified by the SHELL 
-#  █ variable in /etc/default/useradd, or an        
-#  █ empty string by default.                       
-#  ▼                                                 
-SHELL=/bin/zsh
 #                                    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #                                    ┃ [The skeleton directory] ┃
 #                                    ┗━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -60,4 +60,7 @@ SHELL=/bin/zsh
 #  █ when the home directory by useradd.        
 #  ▼                                             
 SKEL_DIR=/etc/skel
+
+# Defines whether the mail spool should be created while
+# creating the account
 CREATE_MAIL_SPOOL=no

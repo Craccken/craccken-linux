@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+handler(){ # Create function
+    local widget_buffer="" # Create variable for storing widget syntax eww
+    local -a workspaces=( $(get-list-workspace-id) ) # Get list of used workspace id and store it to array
+    local focused_workspace="${1:-1}" # Get current workspace id (focused workspace) and store it to variable
+    local workspace # Create variable for storing value from for-loop
+    for workspace in ${workspaces[@]}; do # Create for-loop with workspaces variable as workspace
+        [[ "${focused_workspace}" -eq "${workspace}" ]] && local class="workspace-focused" || local class="workspace-unfocused" # Check if focused_workspace is same as workspace variable
+        widget_buffer="${widget_buffer} (eventbox :cursor \"pointer\" :tooltip \"Workspace ${workspace}\" (button :class \"${class}\" :onclick \"hyprctl dispatch workspace ${workspace}\" \"${workspace}\"))"
+    done # End for-loop statement
+    
+    [[ -f "/tmp/workspaces-widget" ]] && rm -f /tmp/workspaces-widget # Check if workspace widget in temporary directory already exist && remove workspace-widget
+    echo "(box :class \"workspaces\" :valign \"center\" :orientation \"v\" :vexpand true :hexpand true ${widget_buffer})" > /tmp/workspaces-widget # Print out widget_buffer to a file in temporary directory, this will rendered as a widget
+}
+
+local event # Create variable for storing event from hyprland
+socat - UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read event; do # Create while-loop for read event from hyprland socket
+    local event_name=$(echo ${event} | cut -d '>' -f 1) # Get event name from hyprland socket event
+    local event_data=$(echo ${event} | cut -d '>' -f 3) # Get event data from hyprland socket event
+    [[ "${event_name}" == "workspace" ]] && handler "${event_data}" # Call handler function for every workspace event <--(emitted on workspace change. Is emitted ONLY when a user requests a workspace change, and is not emitted on mouse movements )
+done # End while-loop statement

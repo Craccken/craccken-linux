@@ -20,7 +20,6 @@ require("indent_blankline").setup { -- Call setup function
         'TelescopePrompt',
         'TelescopeResults',
     },    
-    use_treesitter = false,                     -- Use treesitter to calculate indentation when possible.
     use_treesitter_scope = false,               -- Instead of using context_patterns, use the current scope defined by nvim-treesitter as the context.
     show_current_context = true,                -- Highlight of indent character when base of current context.
     show_current_context_start = false,         -- Highlight of the first line of the current context.
@@ -28,3 +27,6 @@ require("indent_blankline").setup { -- Call setup function
     show_trailing_blankline_indent = false,     -- Displays a trailing indentation guide on blank lines, to match the indentation of surrounding code.
     char_highlight_list = {}                    -- Specifies the list or character highlights for each indentation level.
 }
+vim.api.nvim_set_hl(0, 'IndentBlankLineChar', {link = 'Conceal'})       -- IndentBlanklineChar: Highlight of indent character.
+vim.api.nvim_set_hl(0, 'IndentBlanklineSpaceChar', {nocombine = true})  -- IndentBlanklineSpaceChar: Highlight of space character.
+vim.api.nvim_set_hl(0, 'IndentBlanKlineContextChar', {fg = '#181f2a', nocombine = true}) -- IndentBlanKlineContextChar: Highlight of indent character when base of current context.

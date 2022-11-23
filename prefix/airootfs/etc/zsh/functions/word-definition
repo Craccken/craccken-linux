@@ -1,8 +1,7 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
-#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃                     Get word definitions from clipboard                      ┃
-#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ╭──────────────────────────────────────────────────────────────────────────────╮
+# │                     Get word definitions from clipboard                      │
+# ╰──────────────────────────────────────────────────────────────────────────────╯
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed curl wl-paste # Check if command is installed || exit
 need_internet # Need internet to run

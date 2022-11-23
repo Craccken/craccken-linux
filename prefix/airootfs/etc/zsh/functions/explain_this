@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-# vim:ft=sh
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed chronic yad xdg-open tr # Check if command is installed || exit
-need_normal_user # Only normal user can run || exit
-
-must_have_argument $* || {yad --fixed --title "Help" --buttons-layout=center --text "Open https://explainshell.com with given command.\nExample: explain_this 'echo hello'" --text-width=25; return;} # Must have argument-1 passed || exit 
-chronic nohup xdg-open "https://explainshell.com/explain?cmd=$(echo "$*" | tr ' ' '+')" & disown # Open url with xdg-open

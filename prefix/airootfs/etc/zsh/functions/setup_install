@@ -19,7 +19,7 @@ local -a available_options=( # Declare local array
 local option="${1:-$(print -l ${available_options} | fzf --no-multi --header='Choose your setup')}" # Declare local variable if argument-1 empty then pick option with fzf
 case ${option} in # Read option variable
     "haxor"|"leet") # If option is haxor then:
-        play_audio_random /opt/craccken/sound/glitch # Play audio random in directory
+        play-audio-random /opt/craccken/sound/glitch # Play audio random in directory
         local -a haxor_options=( # Create local array with list of package related hacking
             nmap 
             sqlmap 

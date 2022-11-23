@@ -37,7 +37,7 @@ require("cmp").setup{ -- Call setup function
     preselect = require("cmp").PreselectMode.None,  -- Disable preselect feature for completion
     enabled = true,                                 -- You can control nvim-cmp should work or not via this option.
     snippet = { -- Snippet completion configuration
-        expand = function(args)             -- The snippet expansion function. You must integrate your snippet engine plugin via this.
+        expand = function(args) -- The snippet expansion function. You must integrate your snippet engine plugin via this.
             require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
         end, -- End function statement
     },
@@ -46,13 +46,18 @@ require("cmp").setup{ -- Call setup function
         disallow_partial_matching = false,  -- Specify disallow or allow partial matching.
         disallow_prefix_unmatching = true,  -- Specify disallow or allow prefix unmatching.
     },
+    completion = {
+        completeopt = 'menu,menuone,noselect', -- Like vim's completeopt setting. See 'completeopt'. In general, you don't need to change this.
+        keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]], -- The default keyword pattern.
+        keyword_length = 1, -- The number of characters needed to trigger auto-completion.
+    },
     experimental = { -- Experimental function
         ghost_text = true,  -- Specify whether to display ghost_text
     },
     window = { -- Completion-menu configuration
         completion = {
             zindex = 777, -- The completion window's zindex.
-            border = nil, -- Border characters used for the completion popup menu when 'experimental.native_menu' is disabled.
+            border = { '', '', '', '▏', '', '', '', '' }, -- Border characters used for the completion popup menu when 'experimental.native_menu' is disabled.
             side_padding = 0, -- The ammount of padding to add on the completion window's sides
             winhighlight = "Normal:Pmenu,FloatBorder:CmpCompletionBorder,Search:None,CursorLine:CmpCompletionSelect", -- Specify the window's winhighlight option.
         },
@@ -60,7 +65,7 @@ require("cmp").setup{ -- Call setup function
             zindex = 777, -- The completion window's zindex.
             max_width = 80, -- The documentation window's max width.
             max_height = 12, -- The documentation window's max height.
-            border = "rounded", -- Border characters used for the completion popup menu when 'experimental.native_menu' is disabled.
+            border = { '', '', '', '', '', '', '', '▎' }, -- Border characters used for the completion popup menu when 'experimental.native_menu' is disabled.
             winhighlight = "Normal:CmpDocumentationNormal,FloatBorder:CmpDocumentationBorder,Search:None", -- Specify the window's winhighlight option.
         },
     },
@@ -69,7 +74,8 @@ require("cmp").setup{ -- Call setup function
         ['<C-f>'] = require("cmp").mapping.scroll_docs(4),              -- Set mapping for scroll docs if it visible up: Ctrl+f 
         ['<C-d>'] = require("cmp").mapping.scroll_docs(-4),             -- Set mapping for scroll docs if it visible down: Ctrl+d
         ['<C-Space>'] = require("cmp").mapping.complete(),              -- Set mapping for open completion-menu: Ctrl+Space
-        ['<CR>'] = require("cmp").mapping.confirm({ select = true }),   -- Set mapping for select item in completion: Enter
+        ['<C-CR>'] = require("cmp").mapping.confirm({ select = true }), -- Set mapping for select item in completion: Ctrl+Enter
+        ['<S-CR>'] = require("cmp").mapping.confirm({ select = true }), -- Set mapping for select item in completion: Shift+Enter
         ["<Tab>"] = require("cmp").mapping(function(fallback)           -- Set mapping function: Tab
             if require("cmp").visible() then                                                            -- If completion menu is visible then:
                 require("cmp").select_next_item({ behaviour = require("cmp").SelectBehavior.Insert })   -- Set mapping for select_next_item in completion: Tab
@@ -113,7 +119,7 @@ require("cmp").setup{ -- Call setup function
         { name = 'buffer', option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end }, keyword_length = 3 },
     }),
     formatting = { -- Define formatting nvim-cmp
-        fields = { "kind", "abbr", "menu" }, -- Specify order of completion-item
+        fields = { "kind", "abbr", "menu"}, -- Specify order of completion-item
         format = function(entry, item) -- A function to customize completion menu appearance.
             -- ▲
             -- █  Each list item can either be a string or a Dictionary.
@@ -137,9 +143,10 @@ require("cmp").setup{ -- Call setup function
             item.dup = 0 -- Remove duplicate from completion-menu
             local highlight_group = ("CmpItemKind%s"):format(item.kind)
             item.menu = item.kind -- Extra text for the popup menu, displayed after "word" or "abbr"
-            item.menu_hl_group = highlight_group -- Set item.menu highlight to highlight_group variable
+            -- item.menu_hl_group = highlight_group -- Set item.menu highlight to highlight_group variable
             item.kind = string.format(' %s ', kind_icons[item.kind]) -- This concatnates the icons with the name of the item kind -> single letter indicating the type of completion
-            item.kind_hl_group = ("%sIcon"):format(highlight_group) -- Set item.kind highlight to highlight_group variable
+            item.kind_hl_group = highlight_group -- Set item.kind highlight to highlight_group variable
+            -- item.kind_hl_group = ("%sIcon"):format(highlight_group) -- Set item.kind highlight to highlight_group variable
             local half_win_width = math.floor(vim.api.nvim_win_get_width(0) / 2) -- Get completion-menu width and divide by 2 -> store it to local variable
             if vim.api.nvim_strwidth(item.abbr) > half_win_width then -- If item.abbr greater than half_win_width variable then:
                 item.abbr = ("%s…"):format(item.abbr:sub(1, half_win_width)) -- Cut item.abbr to half, this preventing long item.abbr
@@ -190,50 +197,40 @@ require("cmp").setup.cmdline(':',{ -- Call setup function for command mode
         { name = 'cmdline_history', group_index = 2 },
         { name = "path", group_index = 2 },
     },
-    window = { -- Completion-menu configuration
-        completion = {
-            side_padding = 0, -- The ammount of padding to add on the completion window's sides
-        },
-    },
 })
-vim.cmd("hi CmpItemKind             guifg=#252525   ctermfg=242     guibg=NONE      ctermbg=NONE    gui=NONE    cterm=NONE") -- CmpItemKind: The kind field highlight nvim-cmp
-vim.cmd("hi CmpItemMenu             guifg=#101010   ctermfg=233     guibg=NONE      ctermbg=NONE    gui=NONE    cterm=NONE") -- CmpItemMenu: The menu field highlight nvim-cmp
-vim.api.nvim_set_hl(0, 'CmpCompletionBorder', {fg = "#36a3d9", bg = "#040404"})                 -- CmpCompletionBorder: Border color in completion menu
-vim.api.nvim_set_hl(0, 'CmpCompletionSelect', {fg = "#36a3d9", bg = "#06161e"})                 -- CmpCompletionSelect: Selected item color in completion menu
-vim.api.nvim_set_hl(0, 'CmpDocumentationNormal', {fg = "#36a3d9", bg = "#06161e"})              -- CmpDocumentationNormal: Base color in documentation menu
-vim.api.nvim_set_hl(0, 'CmpDocumentationBorder', {fg = "#35a3d9", bg = "#06161e"})              -- CmpDocumentationBorder: Border color in documentation menu
-vim.api.nvim_set_hl(0, 'CmpItemAbbr', {fg = "#383838"})                                         -- CmpItemAbbr: Item in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', {fg = "#24828c", bg = "#071a1c", underline = true})  -- CmpItemAbbrMatch: The search matching highlight nvim-cmp
-vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', {fg = "#24828c", bg = "#071a1c", bold = true})  -- CmpItemAbbrMatchFuzzy: The fuzzy matching highlight nvim-cmp
-vim.api.nvim_set_hl(0, 'CmpItemKindText', {fg = "#aad94c"})                                     -- CmpItemKindText: Item text in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindTextIcon', {fg = "#aad94c", bg = "#161d06"})                 -- CmpItemKindTextIcon: Icon item text in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindFolder', {fg = "#076678"})                                   -- CmpItemKindFolder: Item folder in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindFolderIcon', {fg = "#076678", bg = "#021c22"})               -- CmpItemKindFolderIcon: Icon item folder in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindMethod', {fg = "#cc0022"})                                   -- CmpItemKindMethod: Item method in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindMethodIcon', {fg = "#cc0022", bg = "#240006"})               -- CmpItemKindMethodIcon: Icon item method in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindSnippet', {fg = "#ba174e"})                                  -- CmpItemKindSnippet: Item snippet in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindSnippetIcon', {fg = "#ba174e", bg = "#20040d"})              -- CmpItemKindSnippetIcon: Icon item snippet in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindKeyword', {fg = "#ff6e33"})                                  -- CmpItemKindKeyword: Item keyword in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindKeywordIcon', {fg = "#ff6e33", bg = '#240a00'})              -- CmpItemKindKeywordIcon: Icon item keyword in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindVariable', {fg = "#36a3d9"})                                 -- CmpItemKindVariable: Item variable in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindVariableIcon', {fg = "#36a3d9", bg = "#06161e"})             -- CmpItemKindVariableIcon: Icon item variable in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindFunction', {fg = "#ffb457"})                                 -- CmpItemKindFunction: Item function in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindFunctionIcon', {fg = "#ffb457", bg = "#241400"})             -- CmpItemKindFunctionIcon: Icon item function in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindColor', {fg = "#739c3e"})                                    -- CmpItemKindColor: Item color in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindColorIcon', {fg = "#739c3e", bg = "#131a0a"})                -- CmpItemKindColorIcon: Icon item color in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindValue', {fg = "#efd345"})                                    -- CmpItemKindValue: Item value in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindValueIcon', {fg = "#efd345", bg = "#211c03"})                -- CmpItemKindValueIcon: Icon item value in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindProperty', {fg = "#8d7bbc"})                                 -- CmpItemKindProperty: Item property in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindPropertyIcon', {fg = "#8d7bbc", bg = "#0f0c18"})             -- CmpItemKindPropertyIcon: Icon item property in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindClass', {fg = "#7fcef7"})                                    -- CmpItemKindClass: Item class in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindClassIcon', {fg = "#7fcef7", bg = "#021722"})                -- CmpItemKindClassIcon: Icon item class in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindModule', {fg = "#00c897"})                                   -- CmpItemKindModule: Item module in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindModuleIcon', {fg = "#00c897", bg = "#00241b"})               -- CmpItemKindModuleIcon: Icon item module in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindConstant', {fg = "#ffee99"})                                 -- CmpItemKindConstant: Item constant in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindConstantIcon', {fg = "#ffee99", bg = "#241e00"})             -- CmpItemKindConstantIcon: Icon item constant in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindFile', {fg = "#8ec07c"})                                     -- CmpItemKindFile: Item file in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindFileIcon', {fg = "#8ec07c", bg = "#0f180c"})                 -- CmpItemKindFileIcon: Icon item file in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindField', {fg = "#ff99c8"})                                    -- CmpItemKindField: Item field in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindFieldIcon', {fg = "#ff99c8", bg = "#240011"})                -- CmpItemKindFieldIcon: Icon item field in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindInterface', {fg = "#fcf6bd"})                                -- CmpItemKindInterface: Item interface in completion menu
-vim.api.nvim_set_hl(0, 'CmpItemKindInterfaceIcon', {fg = "#fcf6bd", bg = "#221f02"})            -- CmpItemKindInterfaceIcon: Icon item interface in completion menu
+
+vim.api.nvim_set_hl(0, 'CmpItemKind', {fg = '#242c3d'})                                         -- CmpItemKind: The kind field highlight nvim-cmp
+vim.api.nvim_set_hl(0, 'CmpItemMenu', {fg = '#0b0e13'})                                         -- CmpItemKind: The menu field's highlight group.
+vim.api.nvim_set_hl(0, 'CmpCompletionBorder', {fg = "#e6b450", bg = "#08090d"})                 -- CmpCompletionBorder: Border color in completion menu
+vim.api.nvim_set_hl(0, 'CmpCompletionSelect', {fg = "#e6b450", bg = "#08090d", reverse = true, italic = true})  -- CmpCompletionSelect: Selected item color in completion menu
+vim.api.nvim_set_hl(0, 'CmpDocumentationNormal', {fg = "#242c3d", bg = "#08090d"})              -- CmpDocumentationNormal: Base color in documentation menu
+vim.api.nvim_set_hl(0, 'CmpDocumentationBorder', {fg = "#e6b450", bg = "#08090d"})              -- CmpDocumentationBorder: Border color in documentation menu
+vim.api.nvim_set_hl(0, 'CmpItemAbbr', {fg = "#1b202d"})                                         -- CmpItemAbbr: Item in completion menu
+vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', {fg = "#ff8f40", underline = true})                  -- CmpItemAbbrMatch: The search matching highlight nvim-cmp
+vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', {fg = "#ff7832"})                               -- CmpItemAbbrMatchFuzzy: The fuzzy matching highlight nvim-cmp
+
+vim.api.nvim_set_hl(0, 'CmpItemKindEvent', {fg = "#5f00d7", bg = "#090014"})
+vim.api.nvim_set_hl(0, 'CmpItemKindEnum', {link = 'CmpItemKindEvent'})
+vim.api.nvim_set_hl(0, 'CmpItemKindEnumMember', {link = 'CmpItemKindEvent'})
+vim.api.nvim_set_hl(0, 'CmpItemKindText', {fg = "#afdb57", bg = "#0c1104"})
+vim.api.nvim_set_hl(0, 'CmpItemKindFolder', {link = 'CmpItemKindFunction'})
+vim.api.nvim_set_hl(0, 'CmpItemKindFile', {link = 'CmpItemKindFunction'})
+vim.api.nvim_set_hl(0, 'CmpItemKindMethod', {fg = "#cc0022", bg = "#140003"})
+vim.api.nvim_set_hl(0, 'CmpItemKindUnit', {link = 'CmpItemKindMethod'})
+vim.api.nvim_set_hl(0, 'CmpItemKindSnippet', {link = 'CmpItemKindMethod'})
+vim.api.nvim_set_hl(0, 'CmpItemKindKeyword', {fg = "#ff6e33", bg = '#140600'})
+vim.api.nvim_set_hl(0, 'CmpItemKindInterface', {link = 'CmpItemKindKeyword'})
+vim.api.nvim_set_hl(0, 'CmpItemKindVariable', {fg = "#36a3d9", bg = "#030d11"})
+vim.api.nvim_set_hl(0, 'CmpItemKindFunction', {fg = "#ffb457", bg = "#140b00"})
+vim.api.nvim_set_hl(0, 'CmpItemKindColor', {link = 'CmpItemKindValue'})
+vim.api.nvim_set_hl(0, 'CmpItemKindValue', {fg = "#e7c547", bg = "#120f02"})
+vim.api.nvim_set_hl(0, 'CmpItemKindClass', {link = 'CmpItemKindFunction'})
+vim.api.nvim_set_hl(0, 'CmpItemKindModule', {fg = "#e6b450", bg = "#120d03"})
+vim.api.nvim_set_hl(0, 'CmpItemKindConstant', {fg = "#ffee99", bg = "#141100"})
+vim.api.nvim_set_hl(0, 'CmpItemKindReference', {link = 'CmpItemKindConstant'})
+vim.api.nvim_set_hl(0, 'CmpItemKindField', {fg = "#59c2ff", bg = "#000d14"})
+vim.api.nvim_set_hl(0, 'CmpItemKindStruct', {link = 'CmpItemKindField'})
+vim.api.nvim_set_hl(0, 'CmpItemKindProperty', {link = 'CmpItemKindField'})
+vim.api.nvim_set_hl(0, 'CmpItemKindTypeParameter', {link = 'CmpItemKindField'})
+vim.api.nvim_set_hl(0, 'CmpItemKindConstructor', {link = 'CmpItemKindValue'})
+vim.api.nvim_set_hl(0, 'CmpItemKindOperator', {link = 'CmpItemKindValue'})

@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+tput smcup # Save current terminal screen to memory
+tput civis # Make cursor invisible
+
+local width=$(tput cols)    # Get terminal columns <- width
+local height=$(tput lines)  # Get terminal rows <- height
+local message="Width = $width Height = $height" # Create variable for storing message we want
+local length_of_message=${#message} # Get length of the message
+
+tput cup $((height / 2)) $(( (width / 2) - (length_of_message / 2) )) # Move the cursor into center by dividing the height and width by 2
+echo "$message" # Print out the message
+
+sleep 0.2 # Delay restore terminal
+tput cvvis # Make cursor visible
+tput rmcup # Restore terminal screen from memory

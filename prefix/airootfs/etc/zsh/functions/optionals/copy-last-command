@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed wl-copy tail tr cut # Check if command is installed
+
+\history | tail -n1 | tr -s ' ' | cut -d ' ' -f3- | wl-copy --trim-newline # Copy last command from history get the command only not the entry with cut

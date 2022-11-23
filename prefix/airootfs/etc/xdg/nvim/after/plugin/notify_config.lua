@@ -30,10 +30,10 @@ require("notify").setup({ -- Call setup function
 -- ╭──────────────────────────────────────────────────────────────────────────────╮
 -- │                               ERROR HIGHLIGHT                                │
 -- ╰──────────────────────────────────────────────────────────────────────────────╯
-vim.api.nvim_set_hl(0, 'NotifyERRORIcon',   {fg = '#ff0057'})
-vim.api.nvim_set_hl(0, 'NotifyERRORTitle',  {fg = '#ff0057'})
-vim.api.nvim_set_hl(0, 'NotifyERRORBody',   {fg = '#ff0057', bg = '#24000c'})
-vim.api.nvim_set_hl(0, 'NotifyERRORBorder', {fg = '#ff0057', bg = '#24000c'})
+vim.api.nvim_set_hl(0, 'NotifyERRORIcon',   {fg = '#cc0022'})
+vim.api.nvim_set_hl(0, 'NotifyERRORTitle',  {fg = '#cc0022'})
+vim.api.nvim_set_hl(0, 'NotifyERRORBody',   {fg = "#cc0022", bg = "#140003", blend = 5})
+vim.api.nvim_set_hl(0, 'NotifyERRORBorder', {fg = "#cc0022", bg = "#140003", blend = 5})
 -- ╭──────────────────────────────────────────────────────────────────────────────╮
 -- │                              WARNING HIGHLIGHT                               │
 -- ╰──────────────────────────────────────────────────────────────────────────────╯

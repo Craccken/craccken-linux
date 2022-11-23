@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
 
-(>&2 print -P "\n%F{#af0000}%K{#240000} ✖ %* %D{%d-%m-%Y} ┆ $1 %F{#240000}%K{reset}%F{reset}") # Perform prompt expansion (see EXPANSION OF PROMPT SEQUENCES in zshmisc(1)).
+tput blink # Start blinking text
+(>&2 print -P "\n%F{#af0000}%K{#240000} ◈ %* %D{%d-%m-%Y} ┆ ${1} %F{#240000}%K{reset}%F{reset}") # Perform prompt expansion (see EXPANSION OF PROMPT SEQUENCES in zshmisc(1)).
+tput sgr0 # Turn off all attributes

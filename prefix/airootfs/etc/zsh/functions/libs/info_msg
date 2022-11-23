@@ -1,16 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
-emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
 
-local -a GRADIENT=( # Declare local array
-    "#007200"
-    "#0B7903"
-    "#158105"
-    "#208808"
-    "#2B900B"
-    "#36970D"
-    "#409F10"
-    "#4BA613"
-    "#56AD15"
-)
-print -P '%F{#000000}%K{$GRADIENT[1]} %K{$GRADIENT[2]} %K{$GRADIENT[3]}%* %K{$GRADIENT[4]}%D{%d-}%K{$GRADIENT[5]}%D{%m-}%K{$GRADIENT[6]}%D{%Y} %K{$GRADIENT[7]}┆ %K{$GRADIENT[8]}$1 %K{$GRADIENT[9]}%F{$GRADIENT[9]} %K{reset}%F{reset}' # Perform prompt expansion (see EXPANSION OF PROMPT SEQUENCES in zshmisc(1)).
+print -P "\n%F{#00c897}%K{#00241b} ◉ %* %D{%d-%m-%Y} ┆ ${1:-} %F{#00241b}%K{reset}%F{reset}" # Perform prompt expansion (see EXPANSION OF PROMPT SEQUENCES in zshmisc(1)).

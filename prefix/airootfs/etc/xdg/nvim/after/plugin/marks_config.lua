@@ -1,7 +1,7 @@
 if not pcall(require, "marks") then -- Check if nvim has marks plugin
     return -- Stop sourcing this file.
 end -- End if-else statement
-require'marks'.setup { -- Call setup function
+require('marks').setup { -- Call setup function
     default_mappings = true, -- whether to map keybinds or not. default true
     builtin_marks = { ".", "<", ">", "^" }, -- Which builtin marks to show. default {}
     cyclic = true, -- whether movements cycle back to the beginning/end of buffer. default true
@@ -60,3 +60,6 @@ require'marks'.setup { -- Call setup function
         delete_bookmark = "dm=", -- Delete the bookmark under the cursor
     },
 }
+vim.api.nvim_set_hl(0, 'MarkSignHL', {fg = "#c0e4dc"})      -- MarkSignHL: The highlight group for displayed mark signs.
+vim.api.nvim_set_hl(0, 'MarkSignNumHL', {fg = "#c0e4dc"})   -- MarkSignNumHL: The highlight group for the number line in a signcolumn.
+vim.api.nvim_set_hl(0, 'MarkVirtTextHL', {fg = "#1c1c1c", nocombine = true}) -- MarkVirtTextHL: The highlight group for bookmark virtual text annotations.

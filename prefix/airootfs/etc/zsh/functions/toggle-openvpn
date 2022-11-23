@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                          Connect/Disconnect openvpn                          │
 # │                  Usage: toggle_openvpn yourconfigfile.ovpn                   │

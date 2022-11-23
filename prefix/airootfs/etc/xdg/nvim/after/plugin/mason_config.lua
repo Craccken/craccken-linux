@@ -38,3 +38,10 @@ require("mason").setup({ -- Call setup function
         download_url_template = "https://github.com/%s/releases/download/%s/%s",
     },
 })
+vim.api.nvim_set_hl(0, 'MasonHeader', {fg = '#36a3d9', bg = '#131620', blend = 0, italic = true})
+vim.api.nvim_set_hl(0, 'MasonHeaderSecondary', {fg = '#36a3d9', bg = '#131620', blend = 0, italic = true})
+vim.api.nvim_set_hl(0, 'MasonMutedBlock', {fg = '#08090d', bg = '#101119'})
+vim.api.nvim_set_hl(0, 'MasonHighlightBlockBold', {fg = '#131620', bg = '#36a3d9'})
+vim.api.nvim_set_hl(0, 'MasonHighlightBlockBoldSecondary', {fg = '#131620', bg = '#36a3d9'})
+vim.api.nvim_set_hl(0, 'MasonError', {link = 'ErrorMsg'})
+vim.api.nvim_set_hl(0, 'MasonHighlight', {fg = '#36a3d9'})

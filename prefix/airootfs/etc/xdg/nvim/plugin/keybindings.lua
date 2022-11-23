@@ -5,76 +5,64 @@
 --  ██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║███████╗██║  ██╗███████╗   ██║   ██████╔╝██║██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝███████║
 --  ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
---         ┃                                Map leader-key                                ┃
+--         ┃                                    Remap                                     ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.g.mapleader = " "                                               -- Set Space_<leader>
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', {noremap = true})   -- Set Space to do nothing, since we use space as leader-key
+vim.g.mapleader = " " -- Set Space as <leader> key
+vim.keymap.set('n', ';', ':', {noremap = true})
+vim.keymap.set('', '<Up>', '<Nop>', {noremap = true})
+vim.keymap.set('', '<Down>', '<Nop>', {noremap = true})
+vim.keymap.set('', '<Left>', '<Nop>', {noremap = true})
+vim.keymap.set('', '<Right>', '<Nop>', {noremap = true})
+vim.keymap.set('', 'X', '"xx', {noremap = true, desc='Prevent key from overriding item in the clipboard'})
+vim.keymap.set('', 'x', '"xx', {noremap = true, desc='Prevent key from overriding item in the clipboard'})
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                                 Moving line                                  ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('v', 'K', ":move '<-2<CR>gv=gv", {noremap = true, silent = true, desc = 'Moving text up 1 line visual-mode'})
-vim.api.nvim_set_keymap('v', 'J', ":move '>+1<CR>gv=gv", {noremap = true, silent = true, desc = 'Moving text down 1 line visual-mode'})
-vim.api.nvim_set_keymap('n', '<leader>k', ':move .-2<CR>==', {noremap = true, silent = true, desc = 'Moving text up 1 line normal-mode'})
-vim.api.nvim_set_keymap('n', '<leader>j', ':move .+1<CR>==', {noremap = true, silent = true, desc = 'Moving text down 1 line normal-mode'})
+vim.keymap.set('x', 'K', ":move '<-2<CR>gv=gv", {noremap = true, silent = false, desc = 'Moving text up 1 line visual-mode & select-mode'})
+vim.keymap.set('x', 'J', ":move '>+1<CR>gv=gv", {noremap = true, silent = false, desc = 'Moving text down 1 line visual-mode & select-mode'})
+vim.keymap.set('n', '<leader>k', ':move .-2<CR>==', {noremap = true, silent = true, desc = 'Moving text up 1 line normal-mode'})
+vim.keymap.set('n', '<leader>j', ':move .+1<CR>==', {noremap = true, silent = true, desc = 'Moving text down 1 line normal-mode'})
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                                    Other                                     ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('n', 'zH', '10zh', {noremap = true, desc = 'Move the current view port 10 characters to left'})
-vim.api.nvim_set_keymap('n', 'zL', '10zl', {noremap = true, desc = 'Move the current view port 10 characters to right'})
-vim.api.nvim_set_keymap('n', ';', ':', {noremap = true, desc='Set : -> ;'})
-vim.api.nvim_set_keymap('n', 'Y', "y$", {noremap = true, desc='Yanking to end of the line'})
-vim.api.nvim_set_keymap('n', 'n', "nzzzv", {noremap = true})                                                                        -- Keybinding for centering cursor when search: n @(normal-mode)
-vim.api.nvim_set_keymap('n', 'N', "Nzzzv", {noremap = true})                                                                        -- Keybinding for centering cursor when search backward: n @(normal-mode)
-vim.api.nvim_set_keymap('n', '<leader>w', '<cmd>up<cr>', {noremap = true})                                                          -- Keybinding for update changes of the file: Space+w @(normal-mode)
-vim.api.nvim_set_keymap('n', '<leader>n', '<cmd>set invrelativenumber invnumber<CR>', {noremap = true})                             -- Keybinding for toggle relative_number&number: Space+n @(normal-mode)
-vim.api.nvim_set_keymap('i', '<F1>', '<Esc>:ToggleTerm<CR>', {noremap = true})                                                      -- Keybinding for open terminal: F1 @(insert-mode)
-vim.api.nvim_set_keymap('n', 'J', 'mzJ`z', {noremap = true})                                                                        -- Keybinding for centering cursor when join line: J @(normal-mode)
-vim.api.nvim_set_keymap('n', '<C-q>', ':qall<CR>', {noremap = true})                                                                -- Keybinding for force-quit: Ctrl+q @(insert-mode)
-vim.api.nvim_set_keymap('n', '<leader><leader>a', ':%y+<CR>', {noremap = true, silent = true})                                      -- Keybinding for copy file: Space+Space+a @(normal-mode)
-vim.api.nvim_set_keymap('n', '<leader>o', ':call append(line("."), repeat([""], v:count1))<CR>', {noremap = true, silent = true})   -- Keybinding for add newline without enter insert-mode: Space+o @(normal-mode)
-vim.api.nvim_set_keymap('n', '<leader>r', '#yiw:%s/<C-r>+//g<Left><Left>', {noremap = true})                                        -- Keybinding for Search and replace all for word under cursor: Space+r @(normal-mode)
-vim.api.nvim_set_keymap('n', '<C-h>', ':noh<CR>', {noremap = true, silent = true})                                                  -- Keybinding for quickly clean up searching: Ctrl+h @(normal-mode) 
-vim.api.nvim_set_keymap('i', '<C-f>', '<Esc>gUiw`]a', {noremap = true})                                                             -- Keybinding for uppercase word undercursor: Ctrl+f @(insert-mode)
-vim.api.nvim_set_keymap('', 'X', '"xx', {noremap = true, desc='Prevent key from overriding item in the clipboard'})
-vim.api.nvim_set_keymap('', 'x', '"xx', {noremap = true, desc='Prevent key from overriding item in the clipboard'})
---         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
---         ┃                                Tab navigation                                ┃
---         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('n', '<F5>', ':tabn<CR>', {noremap = true, silent = true, desc='Go to the next tab'})
-vim.api.nvim_set_keymap('n', '<F6>', ':tabp<CR>', {noremap = true, silent = true, desc='Go to the previous tab'})
-vim.api.nvim_set_keymap('n', '<F7>', ':tabclose<CR>', {noremap = true, silent = true, desc='Close current tab'})
---         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
---         ┃                                  Diagnostic                                  ┃
---         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, {desc = 'Move to the next diagnostic'})
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, {desc = 'Move to the previous diagnostic in the current buffer'})
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, {desc = 'Add buffer diagnostics to the location list'})
+-- vim.keymap.set('n', '<', '<<CR>gv', {noremap = true})
+vim.keymap.set('n', 'zH', '10zh', {noremap = true, desc = 'Move the current view port 10 characters to left'})
+vim.keymap.set('n', 'zL', '10zl', {noremap = true, desc = 'Move the current view port 10 characters to right'})
+vim.keymap.set('n', 'Y', "y$", {noremap = true, desc='Yanking to end of the line'})
+vim.keymap.set('n', 'n', "nzzzv", {noremap = true})                                                                        -- Keybinding for centering cursor when search: n @(normal-mode)
+vim.keymap.set('n', 'N', "Nzzzv", {noremap = true})                                                                        -- Keybinding for centering cursor when search backward: n @(normal-mode)
+vim.keymap.set('n', '<leader>w', '<cmd>up<cr>', {noremap = true, desc = 'Save File'})
+vim.keymap.set('n', '<leader><leader>n', '<cmd>set invrelativenumber invnumber cmdheight=0 laststatus=0<CR>', {noremap = true, desc = 'Quiet Mode'})
+vim.keymap.set('n', 'J', 'mzJ`z', {noremap = true})                                                                        -- Keybinding for centering cursor when join line: J @(normal-mode)
+vim.keymap.set('n', '<C-q>', ':qall<CR>', {noremap = true, desc = 'Force Quit'})
+vim.keymap.set('n', '<leader><leader>a', ':%y+<CR>', {noremap = true, silent = true, desc = 'Copy this file'})
+vim.keymap.set('n', '<leader>o', ':call append(line("."), repeat([""], v:count1))<CR>', {noremap = true, silent = true, desc = 'Add newline without enter insert-mode'})
+vim.keymap.set('n', '<leader>r', '#yiw:%s/<C-r>+//g<Left><Left>', {noremap = true, desc = 'Replace all word under cursor'})
+vim.keymap.set('n', '<C-h>', ':noh<CR>', {noremap = true, silent = true})                                                  -- Keybinding for quickly clean up searching: Ctrl+h @(normal-mode) 
+vim.keymap.set('i', '<C-f>', '<Esc>gUiw`]a', {noremap = true})                                                             -- Keybinding for uppercase word undercursor: Ctrl+f @(insert-mode)
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                            Quoting arround visual                            ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('v', '"', '<Esc>`>a"<Esc>`<i"<Esc>', {noremap = true})      -- Keybinding for add quotes " arround visual selection: " @(visual-mode)
-vim.api.nvim_set_keymap('v', '(', '<Esc>`>a)<Esc>`<i(<Esc>', {noremap = true})      -- Keybinding for add ( and ) arround visual selection: ( @(visual-mode)
-vim.api.nvim_set_keymap('v', '{', '<Esc>`>a}<Esc>`<i{<Esc>', {noremap = true})      -- Keybinding for add { and } arround visual selection: { @(visual-mode)
-vim.api.nvim_set_keymap('v', '\'', '<Esc>`>a\'<Esc>`<i\'<Esc>', {noremap = true})   -- Keybinding for add quotes ' arround visual selection: ' @(visual-mode)
+vim.keymap.set('v', '"', '<Esc>`>a"<Esc>`<i"<Esc>', {noremap = true})      -- Keybinding for add quotes " arround visual selection: " @(visual-mode)
+vim.keymap.set('v', '(', '<Esc>`>a)<Esc>`<i(<Esc>', {noremap = true})      -- Keybinding for add ( and ) arround visual selection: ( @(visual-mode)
+vim.keymap.set('v', '{', '<Esc>`>a}<Esc>`<i{<Esc>', {noremap = true})      -- Keybinding for add { and } arround visual selection: { @(visual-mode)
+vim.keymap.set('v', '\'', '<Esc>`>a\'<Esc>`<i\'<Esc>', {noremap = true})   -- Keybinding for add quotes ' arround visual selection: ' @(visual-mode)
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                                  Undo break                                  ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('i', ',', ',<c-g>u', {noremap = true, desc = 'Set undo break-point'})
-vim.api.nvim_set_keymap('i', '.', '.<c-g>u', {noremap = true, desc = 'Set undo break-point'})
-vim.api.nvim_set_keymap('i', '!', '!<c-g>u', {noremap = true, desc = 'Set undo break-point'})
-vim.api.nvim_set_keymap('i', '?', '?<c-g>u', {noremap = true, desc = 'Set undo break-point'})
-vim.api.nvim_set_keymap('i', '#', '#<c-g>u', {noremap = true, desc = 'Set undo break-point'})
+vim.keymap.set('i', ',', ',<c-g>u', {noremap = true, desc = 'Set undo break-point'})
+vim.keymap.set('i', '.', '.<c-g>u', {noremap = true, desc = 'Set undo break-point'})
+vim.keymap.set('i', '!', '!<c-g>u', {noremap = true, desc = 'Set undo break-point'})
+vim.keymap.set('i', '?', '?<c-g>u', {noremap = true, desc = 'Set undo break-point'})
+vim.keymap.set('i', '#', '#<c-g>u', {noremap = true, desc = 'Set undo break-point'})
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
---         ┃              Set arrow_keys to do nothing, use hjkl instead :)               ┃
+--         ┃                             Moving arround pane                              ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('', '<Up>', '<Nop>', {noremap = true})
-vim.api.nvim_set_keymap('', '<Down>', '<Nop>', {noremap = true})
-vim.api.nvim_set_keymap('', '<Left>', '<Nop>', {noremap = true})
-vim.api.nvim_set_keymap('', '<Right>', '<Nop>', {noremap = true})
---         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
---         ┃                            Move beetween windows                             ┃
---         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-vim.api.nvim_set_keymap('n', '<Up>', '<C-w><up>', {noremap = true, silent = true})         -- Keybinding for move to up pane: Arrow-Up @(normal-mode)
-vim.api.nvim_set_keymap('n', '<Down>', '<C-w><down>', {noremap = true, silent = true})     -- Keybinding for move to down pane: Arrow-Down @(normal-mode)
-vim.api.nvim_set_keymap('n', '<Left>', '<C-w><left>', {noremap = true, silent = true})     -- Keybinding for move to left pane: Arrow-Left @(normal-mode)
-vim.api.nvim_set_keymap('n', '<Right>', '<C-w><right>', {noremap = true, silent = true})   -- Keybinding for move to right pane: Arrow-Right @(normal-mode)
+vim.keymap.set('n', '<Left>', '<C-w>h', {noremap = true, silent = true, desc = 'Move to left pane'})
+vim.keymap.set('n', '<Down>', '<C-w>j', {noremap = true, silent = true, desc = 'Move to down pane'})
+vim.keymap.set('n', '<Up>', '<C-w>k', {noremap = true, silent = true, desc = 'Move to up pane'})
+vim.keymap.set('n', '<Right>', '<C-w>l', {noremap = true, silent = true, desc = 'Move to right pane'})
+vim.keymap.set('n', 'sh', '<C-w>h', {noremap = true, silent = true, desc = 'Move to left pane'})
+vim.keymap.set('n', 'sj', '<C-w>j', {noremap = true, silent = true, desc = 'Move to down pane'})
+vim.keymap.set('n', 'sk', '<C-w>k', {noremap = true, silent = true, desc = 'Move to up pane'})
+vim.keymap.set('n', 'sl', '<C-w>l', {noremap = true, silent = true, desc = 'Move to right pane'})

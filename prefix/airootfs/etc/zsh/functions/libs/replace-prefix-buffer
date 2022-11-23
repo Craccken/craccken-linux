@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+
+local space="${2:+ }" # Declare this variable if argument-2 is not empty
+local word_will_be_replace="$1" # Declare variable, argument-1 as value
+local replace_with_this_word="$2" # Declare variable, argument-2 as value
+LBUFFER="${replace_with_this_word}${space}${LBUFFER#${word_will_be_replace} }"

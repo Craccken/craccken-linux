@@ -1,4 +1,3 @@
-# vim:ft=sh
 #  ███████╗███████╗██╗  ██╗
 #  ╚══███╔╝██╔════╝██║  ██║
 #    ███╔╝ ███████╗███████║
@@ -28,16 +27,19 @@ ZINIT[HOME_DIR]=~/.local/share/zinit                                        # Se
 ZINIT[COMPINIT_OPTS]="-C -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"     # Set options for compinit call(i.e done by `zicompinit`), use to pass -C to speed up loading
 ZINIT[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"          # Set directory for dumped completion file, this will speed compinit.
 . /etc/zsh/zinit/zinit.zsh                                                  # Enable zsh-plugins-manager(zinit)
+
 zicompinit                                                                  # Initialiaze completion for the current session when called directly.
-_comp_options+=(globdots) # Include hidden files for compinit
+_comp_options+=(globdots)                                                   # Include hidden files for compinit
 zstyle :completion:* menu select                                            # Enable autocompletion with an arrow-key driven interactive.
 zstyle :completion:* use-cache true                                         # Enable cache, it will optimize completion
 zstyle :completion:* cache-path ~/.cache/zsh_completion_cache               # Defines the path where any cache files containing dumped completion data are stored
 zstyle :completion:* verbose yes                                            # Verbose completion
 zstyle :completion:*:descriptions format '⟨%d⟩'                             # Set group descriptor
 zstyle :completion::complete:* gain-privileges 1                            # If the line has sudo or doas in it, then it tries to gain more access while completing command options (-/--)
+zstyle :completion:* list-colors ${(s.:.)LS_COLORS}                         # set list-colors to enable filename colorizing
 zstyle :completion:*:*:*:*:processes command "ps -u $USER -o pid,user,comm -w -w" # Run command if completion processes
 zstyle :completion:* matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # Case insensitive auto-completion
+
 zmodload zsh/zpty
 zmodload zsh/complist
 zmodload zsh/datetime
@@ -65,9 +67,6 @@ zinit light mafredri/zsh-async  # Enable zsh-async plugin -- https://github.com/
 zinit ice --wait --silent --from="github" --depth="1" \
     --id-as="zsh-autopair"          # Specify ice modifiers, read https://github.com/zdharma-continuum/zinit#ice-modifiers
 zinit light hlissner/zsh-autopair   # Enable zsh-autopair plugin -- https://github.com/hlissner/zsh-autopair
-
-zinit ice --wait --silent           # Specify ice modifiers, read https://github.com/zdharma-continuum/zinit#ice-modifiers
-zinit snippet OMZ::plugins/urltools # Enable ohmyzsh urltools plugin
 
 # zinit ice --wait --silent --id-as="bash-insulter" \
 #     --if="[[ -f /etc/bash.command-not-found ]]" # Specify ice modifiers, read https://github.com/zdharma-continuum/zinit#ice-modifiers
@@ -115,52 +114,18 @@ done; unset function # End for-loop; Clearing variable so it will not polute the
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                                    PROMPT                                    ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-update_prompt # Call update prompt function
+update-prompt # Call update prompt function
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                                Hook functions                                ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-chpwd(){ # Define a hook function that executed whenever the current directory is changed.
-    (commandcache exa --all --git --icons --group-directories-first --time-style=long-iso --group --color-scale) 2>/dev/null # Same like `la`
-    [[ -r ./.rune_stone ]] && (<./.rune_stone 2>/dev/null) # Check if .rune_stone is readable file && read .rune_stone file
-    [[ -d ./.git ]] && update_prompt # Update prompt if there is .git directory in current path
-}
-preexec(){ # Define a hook function that executed just after a command has been read and is about executed.
-    start_time_execution=${EPOCHREALTIME} # Store current_time into variable start_time_execution
-}
-zshexit(){ # Define a hook function that executed at the point where the main shell is about exit normally.
-    #echo "$(tput setaf 3)Good bye!$(tput sgr0)" # Print string
-}
-precmd(){ # Define a hook function that executed before each prompt.
-    echo "" # Print string
-    if [[ -z $NO_RPROMPT ]] || (( $NO_RPROMPT == 0 )); then # If no_prompt variable empty or 0 then:
-        if [[ ! $TTY == /dev/tty* ]]; then # Check if TTY is not /dev/tty 
-            if [[ $start_time_execution ]]; then # Check if variable start_time_execution is available
-                readonly -F elapsed_time=$(( EPOCHREALTIME - start_time_execution )) # Current_time-start_time_execution -> store into variable elapsed_time
-                readonly -F second=$(( elapsed_time%60 )) # Get second from elapsed_time,formula: elapsed_time/60 -> round it the output -> output*60 -> elapsed_time-output -> result
-                readonly -i minute=$(( (elapsed_time/60)%60 )) # Get minute from elapsed time, formula: elapsed_time/60 -> output/60 -> round it the output_2 -> output_2*60 -> elapsed_time-output_2 -> result
-                readonly -i hour=$(( elapsed_time/3600 )) # Get hour from elapsed time, formula: elapsed_time/3600 -> result
-                if (( hour > 0 )); then # If hour greater than 0 then:
-                    printf -v elapsed_time_execution '%ih%im' ${hour} ${minute} # Store output printf into variable elapsed_time_execution. output will be: 12h34m
-                elif (( minute > 0 )); then # If minute greater than 0 then:
-                    printf -v elapsed_time_execution '%im%is' ${minute} ${second} # Store output printf into variable elapsed_time_execution. output will be: 12m34s
-                elif (( second >= 10 )); then # If second greater than/equal 10 then:
-                    printf -v elapsed_time_execution '%.2fs' ${second} # Store output printf into variable elapsed_time_execution. variable second will be formated to floating point(output will be: 12.34s)
-                elif (( second >= 1 )); then # If second greater than/equal 1 then:
-                    printf -v elapsed_time_execution '%.3fs' ${second} # Store output printf into variable elapsed_time_execution. variable second will be formated to floating point(output will be: 1.233s)
-                else
-                    printf -v elapsed_time_execution '%ims' $(( second*1000 )) # Store output printf into variable elapsed_time_execution. Get the millisecond from elapsed_time, formula: second*1000
-                fi
-                unset start_time_execution # Clear the value of variable start_time_execution
-            else
-                unset elapsed_time_execution # Clear previous result when hitting ENTER with no command to execute
-            fi # End if-else statement
-            RPROMPT="%(1j.%F{#ff6e33}%K{#ff6e33}%F{#803719}⚙ %K{reset}%F{#ff6e33} %j .)%(?..%F{#af0000}%K{#af0000}%F{#490000} %K{reset}%F{#af0000} %? )%F{#2c99ef}%K{#2c99ef}%F{#13456c} %K{reset}%F{#2c99ef} ${elapsed_time_execution:-}" # Set right-prompt style
-        fi # End if-else statement
-    fi # End if-else statement
-}
+autoload chpwd # Load a hook function that executed whenever the current directory is changed.
+autoload preexec # Load a hook function that executed just after a command has been read and is about executed.
+autoload zshexit # Load a hook function that executed at the point where the main shell is about exit normally.
+autoload precmd # Load a hook function that executed before each prompt.
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                                Trap functions                                ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+autoload TRAPWINCH # Load a trap function that executed when terminal resized
 TRAPINT(){ # Define a trap function that executed when CTRL_C was pressed.
     echo "" # Print string
     return 128+$1
@@ -168,10 +133,7 @@ TRAPINT(){ # Define a trap function that executed when CTRL_C was pressed.
 TRAPQUIT(){ # Define a trap function that executed when program running and CTRL_\ was pressed.
     return 128+$1
 }
-TRAPCONT(){
-}
-TRAPWINCH(){ # Define a trap function that executed when terminal resized
-    update_prompt # Call update prompt function
+TRAPCONT(){ # Define a trap function that executed when program continue executing after stopped, e.g., by STOP
 }
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                                     END                                      ┃

@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed wl-copy # Check if command is installed
+
+local directory="${1:-.}" # If no argument-2 passed, use current directory
+[[ $directory = /* ]] || directory="$PWD/$directory" # If argument-1 is not an absolute path, prepend $PWD
+print -n "${directory:a}" | wl-copy # Print $directory without newline | copy the absolute path without resolving symlinks || exit with error exit-code
+warn_msg " %B${directory:a}%b copied to clipboard." # Info message
