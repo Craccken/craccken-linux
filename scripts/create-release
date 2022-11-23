@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 
 main(){
     emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
@@ -8,7 +7,7 @@ main(){
     local release_dir="$(pwd)/release"
     local release_iso=$(find "${release_dir}" -type f -name "*.iso" -printf "%f\n" || :)
     local release_notes="${release_dir}/release-notes.md"
-    local release_version=$(echo "${release_iso}" | cut -d '-' -f 2 | cut -d '.' -f 1,2)
+    local release_version=$(echo "${release_iso}" | cut -d '-' -f 2 | cut -d '.' -f 1,2,3)
     local release_tag="v${release_version}"
     mkdir -p "${release_dir}" # Create release directory
     # ╭──────────────────────────────────────────────────────────────────────────────╮
