@@ -8,7 +8,7 @@
    version="1.1"
    id="SVGRoot"
    sodipodi:docname="critical.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,9 +25,9 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="32"
-     inkscape:cx="-2.34375"
-     inkscape:cy="8.015625"
-     inkscape:window-width="1788"
+     inkscape:cx="13.5"
+     inkscape:cy="8.046875"
+     inkscape:window-width="1870"
      inkscape:window-height="1080"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -144,12 +144,12 @@
        inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
        style="color-interpolation-filters:sRGB"
        id="filter3707-3"
-       x="-0.066154844"
-       y="-0.06567356"
-       width="1.1323097"
-       height="1.1313471">
+       x="-0.03082234"
+       y="-0.030598104"
+       width="1.0616447"
+       height="1.0611962">
       <feGaussianBlur
-         stdDeviation="0.40960245"
+         stdDeviation="0.18549785"
          result="fbSourceGraphic"
          id="feGaussianBlur3699-6" />
       <feGaussianBlur
@@ -214,12 +214,12 @@
        inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
        style="color-interpolation-filters:sRGB;"
        id="filter12269"
-       x="-0.17842754"
-       y="-0.19420904"
-       width="1.3568551"
-       height="1.3884181">
+       x="-0.19453741"
+       y="-0.21174379"
+       width="1.3890748"
+       height="1.4234876">
       <feGaussianBlur
-         stdDeviation="0.11719163"
+         stdDeviation="0.1286755"
          result="fbSourceGraphic"
          id="feGaussianBlur12261" />
       <feGaussianBlur
@@ -247,12 +247,12 @@
        inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
        style="color-interpolation-filters:sRGB;"
        id="filter13521"
-       x="-0.074497006"
-       y="-0.22033318"
-       width="1.148994"
-       height="1.4406664">
+       x="-0.067346145"
+       y="-0.19918372"
+       width="1.1346923"
+       height="1.3983674">
       <feGaussianBlur
-         stdDeviation="0.12027177"
+         stdDeviation="0.10776717"
          result="fbSourceGraphic"
          id="feGaussianBlur13513" />
       <feGaussianBlur
@@ -285,17 +285,17 @@
        transform="matrix(1.0604405,0,0,1.1537363,24.92354,-8.5551154)">
       <path
          id="path395-5"
-         style="mix-blend-mode:normal;fill:#ff0057;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3707-3)"
+         style="mix-blend-mode:normal;fill:#cc0022;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3707-3)"
          d="M 16.112195,0.99229008 8.613915,16.326405 V 12.817003 L 13.749981,2.309421 H 12.856752 V 0.99229008 Z m -11.9671148,0 V 2.309421 H 3.2491609 L 8.3852268,12.81111 v 3.509402 L 0.88963766,0.99229008 Z"
          transform="matrix(-0.72594777,0,0,0.66283984,-9.3171775,9.0423706)" />
       <path
-         style="fill:#ff0057;fill-opacity:1;stroke:none;stroke-width:0.154825px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter12269)"
+         style="fill:#cc0022;fill-opacity:1;stroke:none;stroke-width:0.154825px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter12269)"
          d="m -16.343691,15.324918 0.85111,1.571811 0.859724,-1.571811 z"
          id="path9271"
          sodipodi:nodetypes="cccc" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:1.97083px;line-height:1.25;font-family:sans-serif;letter-spacing:0.05px;fill:#ff0057;fill-opacity:0.992157;stroke:none;stroke-width:0.0492709;filter:url(#filter13521)"
+         style="font-style:normal;font-weight:normal;font-size:1.97083px;line-height:1.25;font-family:sans-serif;letter-spacing:0.05px;fill:#cc0022;fill-opacity:0.99215686;stroke:none;stroke-width:0.0492709;filter:url(#filter13521)"
          x="-18.457077"
          y="10.961414"
          id="text11515"
@@ -304,7 +304,7 @@
            id="tspan11513"
            x="-18.457077"
            y="10.961414"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Bebas Kai';-inkscape-font-specification:'Bebas Kai';fill:#ff0057;fill-opacity:0.992157;stroke-width:0.0492709">error</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Bebas Kai';-inkscape-font-specification:'Bebas Kai';fill:#cc0022;fill-opacity:0.99215686;stroke-width:0.0492709">error</tspan></text>
     </g>
   </g>
 </svg>

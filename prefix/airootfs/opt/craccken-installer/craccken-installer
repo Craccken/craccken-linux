@@ -224,7 +224,7 @@ run_mkinitcpio(){ # Create a function
     ([[ $LVM -eq 1 ]] && [[ $LUKS -eq 1 ]]) && sed -i 's/block filesystems/block encrypt lvm2 filesystems/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog && sed -i 's/#GRUB_ENABLE_CRYPTODISK=.*/GRUB_ENABLE_CRYPTODISK=y/g' ${MOUNTPOINT}/etc/default/grub 2>/tmp/.errlog
     ([[ $LVM -eq 0 ]] && [[ $LUKS -eq 1 ]]) && sed -i 's/block filesystems/block encrypt filesystems/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog && sed -i 's/#GRUB_ENABLE_CRYPTODISK=.*/GRUB_ENABLE_CRYPTODISK=y/g' ${MOUNTPOINT}/etc/default/grub 2>/tmp/.errlog
     check_for_error
-    sed -i 's/archiso archiso_loop_mnt archiso_kms/autodetect/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog # Remove archiso hooks from install
+    sed -i 's/archiso archiso_loop_mnt archiso_pxe_common archiso_pxe_nbd archiso_pxe_http archiso_pxe_nfs/autodetect/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog # Remove archiso hooks from install
     sed -i 's/keyboard/keyboard fsck/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog # Add fsck hook
     run_command_in_mountpoint "mkinitcpio -p linux" 2>>/tmp/.errlog
 	check_for_error
@@ -728,7 +728,14 @@ read_answer(){
 }
 
 ExitHandler(){
-    gum confirm || main_menu && umount_partitions && exit
+    tput smcup # Save current terminal screen to memory
+    clear
+
+    local width=$(tput cols)    # Get terminal columns <- width
+    local height=$(tput lines)  # Get terminal rows <- height
+
+    gum confirm --prompt.padding="$(( height / 2 )) $(( width / 2 - 8 )) 0 $(( width / 2 - 8 ))"|| main_menu && umount_partitions && exit
+    tput rmcup # Restore terminal screen from memory
 }
 
 # Execution
