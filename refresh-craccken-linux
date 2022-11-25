@@ -135,7 +135,7 @@ main(){
         "$HOME/.config/nwg-bar"
         "$HOME/.config/nwg-drawer"
         "$HOME/.config/bat"
-        "$HOME/.config/eww"
+        "$HOME/.config/eww"                     # eww widget config dir
         "$HOME/.config/electron-flags.conf"
         "$HOME/.config/fsh"
         "$HOME/.config/wget"                    # wget config dir
