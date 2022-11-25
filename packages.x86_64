@@ -213,7 +213,7 @@ mesa
 # xorg-xbacklight
 # xorg-fonts-misc
 # xorg-xinit
-# sddm
+sddm
 grim
 imv
 # sxiv
