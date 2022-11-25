@@ -93,7 +93,7 @@ notification_limit = 0
 #  █     center                                              
 #  █     right-center                                        
 #  ▼                                                          
-origin = top-left
+origin = top-center
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │      Respectively the horizontal and vertical offset in pixels from the      │
 #  │    corner of the screen specified by origin. A negative offset will lead     │
@@ -462,14 +462,14 @@ format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' f
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 [urgency_critical]
 timeout = 0
-background = "#4900199f"
-foreground = "#ff0057"
-frame_color = "#ff0057"
-highlight = "#ff0057"
+background = "#1400039f"
+foreground = "#cc0022"
+frame_color = "#cc0022"
+highlight = "#cc0022"
 fullscreen = "show"
 min_icon_size = 49
 icon = "/opt/craccken/icon/notification/critical.svg"
-format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' foreground='#ff0057'>%s</span>\n%b"
+format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' foreground='#cc0022'>%s</span>\n%b"
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃    Every section that isn't one of the above is interpreted as a rules to    ┃
 #          ┃                   override settings for certain messages.                    ┃
