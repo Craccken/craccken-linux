@@ -2,7 +2,7 @@
 > Functional linux distribution
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/Craccken/artworks/main/craccken-linux-banner.png">
+    <img src="https://github.com/Craccken/assets/blob/main/image/craccken-linux-banner.png">
 </p>
 
 `username: user`
