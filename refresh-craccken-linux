@@ -134,6 +134,7 @@ main(){
         "$HOME/.config/neofetch"                # Neofetch config dir
         "$HOME/.config/nwg-bar"
         "$HOME/.config/nwg-drawer"
+        "$HOME/.config/wofi"                    # Wofi (wayland rofi) config dir
         "$HOME/.config/bat"
         "$HOME/.config/eww"                     # eww widget config dir
         "$HOME/.config/electron-flags.conf"

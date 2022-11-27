@@ -8,14 +8,14 @@ sed -i "s/#en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen &>/dev/null #
 # │                                Manage service                                │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 {
-    local enable_services=(
+    enable_services=(
         # 'ly.service'
         'sddm.service'
         'NetworkManager.service'
         'systemd-resolved.service' 
         'systemd-networkd.service'
     ) # Declare local list
-    local disable_services=(
+    disable_services=(
         'iwd.service'
         'sshd.service'
         'reflector.service'
@@ -49,7 +49,7 @@ chmod 755 --recursive /etc/xdg/nvim
 chmod 755 --recursive /usr/local/bin
 chmod 755 --recursive /etc/sddm.conf.d /etc/ly_conf
 chmod 777 --recursive /etc/zsh/**/user-alias /etc/xdg/nvim/init.vim
-chmod 755 /etc/{htoprc,tmux.conf,securetty,locale.*,vconsole.conf,gitconfig,nanorc}
+chmod 755 /etc/{tmux.conf,securetty,locale.*,vconsole.conf,gitconfig,nanorc}
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                               Other operations                               │
 # ╰──────────────────────────────────────────────────────────────────────────────╯

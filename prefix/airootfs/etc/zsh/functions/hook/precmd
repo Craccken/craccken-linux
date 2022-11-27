@@ -24,6 +24,8 @@ if [[ -z $NO_RPROMPT ]] || (( $NO_RPROMPT == 0 )); then # If no_prompt variable 
         else
             unset elapsed_time_execution # Clear previous result when hitting ENTER with no command to execute
         fi # End if-else statement
+        # RPROMPT="%(1j.%F{#ff6e33}▐%K{#ff6e33}%F{#803719}⚙ %K{reset}%F{#ff6e33} %j .)%(?..%F{#af0000}▐%K{#af0000}%F{#490000} %K{reset}%F{#af0000} %? )%F{#2c99ef}▐%K{#2c99ef}%F{#13456c} %K{reset}%F{#2c99ef} ${elapsed_time_execution:-}" # Set right-prompt style
         RPROMPT="%F{#cc0022}◆ ${elapsed_time_execution:-}%K{reset}%F{reset}" # Set right-prompt style
     fi # End if-else statement
 fi # End if-else statement
+print -Pn "\e]133;A\e\\"
