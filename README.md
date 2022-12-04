@@ -1,5 +1,5 @@
 # Craccken GNU/Linux
-> Craccken Linux is a linux distribution based on Arch Linux,
+> Craccken Linux is a linux distribution based on Arch Linux.
 
 <p align="center">
     <img src="https://github.com/Craccken/assets/blob/main/image/craccken-linux-banner.png">
