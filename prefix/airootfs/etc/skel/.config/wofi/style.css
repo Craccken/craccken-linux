@@ -3,7 +3,7 @@
 }
 
 #window {
-    background-color: unset;
+    background-color: transparent;
     font-family: "Iosevka";
     font-size: 14px;
 }
@@ -51,12 +51,17 @@
     border-bottom-width: 1px;
 }
 
+#input image {
+    color: rgba(245, 245, 245, 0.9);
+}
+
 #scroll {
     margin-left: 1rem;
     margin-bottom: 1.2rem;
     margin-top: 0.2rem;
-    margin-right: 13rem;
+    margin-right: 15rem;
     border: none;
+    background-color: transparent;
 }
 
 #inner-box {
@@ -77,6 +82,10 @@
     border-left-width: 3px;
     border-left-color: #ffdf00;
     border-left-style: solid;
+}
+
+expander list {
+    background-color: transparent;
 }
 
 #text:selected {
