@@ -39,7 +39,7 @@ vim.opt.pumblend = 7                                                -- Enables p
 vim.opt.winblend = 6                                                -- Enables pseudo-transparency for a floating window.
 vim.opt.cmdheight = 0                                               -- Number of screen lines to use for the command-line.
 vim.opt.updatetime = 300                                            -- If this many milliseconds nothing is typed the swap file will be written to disk.
-vim.opt.lazyredraw = true                                           -- When this option is set, the screen will not redrawn while executing macros,registers and other commands that have not been typed.
+vim.opt.lazyredraw = false                                          -- When this option is set, the screen will not redrawn while executing macros,registers and other commands that have not been typed.
 vim.opt.termguicolors = true                                        -- Enables 24-bit RGB color in the terminal
 vim.opt.backupdir = "/tmp//,."                                      -- List of directories for the backup file, separated with commas.
 vim.opt.fileencoding = "utf-8"                                      -- File-content encoding for the current buffer.
@@ -73,6 +73,7 @@ vim.opt.foldlevelstart = 7                                          -- Sets 'fol
 vim.opt.foldenable = true                                           -- When off, all folds are open.
 vim.opt.foldnestmax = 20                                            -- Sets the maximum nesting of folds for the "indent" and "syntax" methods.
 vim.opt.winhighlight = "SpecialKey:SpecialKeyWin"                   -- Window-local highlights.  Comma-delimited list of highlight group-name pairs "{hl-builtin}:{hl},..." where each {hl-builtin} is a built-in highlight-groups item to be overridden by {hl} group in the window.
+vim.opt.textwidth = 0                                               -- Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width.  A zero value disables this.
 vim.opt.foldopen = vim.opt.foldopen + 'jump'                        -- Specifies for which type of commands folds will be opened, if the command moves the cursor into a closed fold.  It is a comma-separated list of items.
 vim.opt.fillchars = [[diff:/,eob: ,fold: ,foldopen:▼,foldsep: ,foldclose:▶]] -- Characters to fill the statuslines and vertical separators. vim.opt.diffopt = [[filler,internal,algorithm:histogram,indent-heuristic,iwhite,closeoff,vertical]] -- Option settings for diff mode. It can consist of the following items. All are optional.  Items must be separated by a comma.
 vim.opt.listchars = { eol = "↲", tab = "▶ ", trail = "•", precedes = "«", extends = "»", nbsp = "␣", space = " " } -- Strings to use in 'list' mode and for the :list command. It is a comma-separated list of string settings.
