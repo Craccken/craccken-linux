@@ -147,11 +147,18 @@ return require("packer").startup(function(use)
     use "JoosepAlviste/nvim-ts-context-commentstring"                       -- Neovim treesitter plugin for setting the commentstring based on the cursor location in a file. 
     use "linty-org/key-menu.nvim"                                           -- Key mapping hints in a floating window 
     use "windwp/nvim-autopairs"                                             -- Autopairs for neovim written by lua
-    use "Shatur/neovim-ayu"
+    use "stevearc/dressing.nvim"                                            -- Neovim plugin to improve the default vim.ui interfaces
+    use {"folke/noice.nvim", requires = 'MunifTanjim/nui.nvim'}             -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu. 
+    -- use "kylechui/nvim-surround"                                            -- Add/change/delete surrounding delimiter pairs with ease. Written with heart in Lua. 
+    -- use "Decodetalkers/csv-tools.lua"                                       -- for csv 
+    -- use "jinh0/eyeliner.nvim"                                               -- Move faster with unique f/F indicators. 
+    use "anuvyklack/hydra.nvim"                                             -- Create custom submodes and menus 
+    -- use "nvim-zh/colorful-winsep.nvim"                                      -- Make your nvim window separators colorful 
+    -- use 'ElPiloto/significant.nvim'                                         -- When you've got something significant to say. 
 
     use "hrsh7th/nvim-cmp"                      -- A completion plugin for neovim coded in lua.
     use "hrsh7th/cmp-path"                      -- nvim-cmp source for directory path
-    use "tamago324/cmp-zsh"                     -- nvim-cmp source for zsh
+    -- use "tamago324/cmp-zsh"                     -- nvim-cmp source for zsh
     use "dmitmel/cmp-cmdline-history"           -- Source for nvim-cmp which reads results from command-line or search histories 
     use "ray-x/cmp-treesitter"                  -- nvim-cmp source for treesitter 
     use "hrsh7th/cmp-buffer"                    -- nvim-cmp source for buffer words
