@@ -43,6 +43,7 @@ vim.api.nvim_set_hl(0, 'Folded', {link = 'Comment'})                        -- F
 vim.api.nvim_set_hl(0, 'FoldColumn', {fg = '#ba174e'})                      -- FoldColumn: Fold character in column
 vim.api.nvim_set_hl(0, 'NormalFloat', {fg = '#b3b1ad', bg = '#08090d'})     -- NormalFloat: Normal text in floating windows.
 vim.api.nvim_set_hl(0, 'FloatBorder', {fg = '#08090d', bg = '#08090d', blend = 0}) -- FloatBorder: Border of floating windows.
+vim.api.nvim_set_hl(0, 'FloatTitle', {fg = '#36a3d9', bg = '#030d11', blend = 0, italic = true}) -- FloatTitle: Title of floating windows
 vim.api.nvim_set_hl(0, 'Conceal', {fg = '#0b0e13', nocombine = true})       -- Conceal: placeholder characters substituted for concealed text.
 vim.api.nvim_set_hl(0, 'Directory', {fg = '#ffb454'})                       -- Directory: directory names (and other special names in listings)
 vim.api.nvim_set_hl(0, 'MatchParen', {underline = true, italic = true})     -- MatchParen: The character under the cursor or just before it, if it is a paired bracket, and its match.
@@ -134,7 +135,7 @@ vim.api.nvim_set_hl(0, 'StatusLineTerm', {link = 'StatusLine'})                 
 vim.api.nvim_set_hl(0, 'StatusLineTermNC', {link = 'StatusLineNC'})                 -- StatusLineTermNC: this is unnecessary because Nvim support 'winhighlight' window-local highlights.
 vim.api.nvim_set_hl(0, 'TabLine', {fg = '#b3b1ad', bg = 'NONE'})                    -- TabLine: tab pages line, not active tab page label.
 vim.api.nvim_set_hl(0, 'TabLineFill', {bg = 'NONE'})                                -- TabLineFill: tab pages line, where there are no labels.
-vim.api.nvim_set_hl(0, 'WinSeparator', {fg = '#000000', bg = 'NONE'})               -- WinSeparator: separators between window splits
+vim.api.nvim_set_hl(0, 'WinSeparator', {fg = '#040507', bg = 'NONE'})               -- WinSeparator: separators between window splits
 vim.api.nvim_set_hl(0, 'TabLineSel', {fg = '#b3b1ad', bold = true, reverse = true}) -- TabLineSel: tab pages line, active tab page label.
 
 vim.api.nvim_set_hl(0, 'DiagnosticSignWarn', {fg = '#e7c547'})  -- DiagnosticSignWarn: Used for "Warn" signs in sign column.
