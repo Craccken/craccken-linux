@@ -1,5 +1,3 @@
 #!/usr/bin/env zsh
 
-export NO_RPROMPT=1
-export NO_VIM_INDICATOR=1
 export PROMPT_ZSH="C:%~>"

@@ -1,4 +1,4 @@
-#!/bin/env zsh
+#!/usr/bin/env zsh
 if [[ "$XDG_SESSION_TYPE" != "wayland" ]]; then # Check if not running wayland display server then:
     return # Stop sourcing this file
 fi # End if-else statement
@@ -17,3 +17,4 @@ export _JAVA_AWT_WM_NONREPARENTING=1            # This will fix some java awt ap
 export MOZ_ENABLE_WAYLAND=1                     # Experimental wayland support in firefox
 # export WLR_NO_HARDWARE_CURSORS=1              # Fix cursor not visible in VM(virtual machine) and NVIDIA
 export LIBSEAT_BACKEND=logind
+export XCURSOR_SIZE=24                          # This variable sets the desired cursor size, in pixels.
