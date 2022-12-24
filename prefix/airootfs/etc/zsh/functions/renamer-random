@@ -4,7 +4,7 @@
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
 need_installed basename sed head rename mktemp # Check if command is installed || exit
-must_have_argument $@ # Must have argument passed || exit
+must_have_argument ${@:-} # Must have argument passed || exit
 
 # TIPS: do you know, you can create a file without 'touch' command, to create with pure bash use `:>name_of_file`
 local file # Create local variable

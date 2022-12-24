@@ -5,7 +5,7 @@ export PROMPT_THEME="$((< ~/.config/.prompt_theme) 2>/dev/null)" # Read file and
 eval "$(</etc/zsh/prompt/${PROMPT_THEME:-evilish})" 2>/dev/null || eval "$(</etc/zsh/prompt/evilish)" # Source the prompt configuration || Source the evilish style
 export PROMPT="${PROMPT_ZSH:-%n@%m:%~>} " # Set prompt style.
 
-[[ ! $TERM == *-256color ]] && export PROMPT="%F{%(#.#800000.#008000)}|%K{#ffffff}%F{#000000} %n > tty%l %F{reset}%K{reset}:%~ %F{%(?.#008000.#800000)}>%F{reset} " # Check if terminal is has not color capabilities && Set prompt style.
+[[ $TTY == /dev/tty* ]] && export PROMPT="%F{%(#.#800000.#008000)}|%K{#ffffff}%F{#000000} %n > tty%l %F{reset}%K{reset}:%~ %F{%(?.#008000.#800000)}>%F{reset} " # Check if terminal is not in /dev/tty && Set prompt style.
 
 zle && {zle reset-prompt; zle -R;} # Reset prompt and prompt buffer
-#. $(shuf -n 1 -e /etc/zsh/prompt/*(.)) # Get random prompt style from directory
+# . $(shuf -n 1 -e /etc/zsh/prompt/*(.)) # Get random prompt style from directory

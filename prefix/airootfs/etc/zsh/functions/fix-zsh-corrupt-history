@@ -4,7 +4,7 @@
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed strings # Need install this in order to run
-must_have_argument $1 # Must have argument-1 passed || exit 
+must_have_argument ${1:-} # Must have argument-1 passed || exit 
 
 mv ${HISTFILE:-~/.zsh_history} ~/.cache/zsh_history_corrupted # Move corrupted history into another path
 strings ~/.cache/zsh_history_corrupted > ${HISTFILE:-~/.zsh_history} # Fix corrupted history and output it into $HISTFILE path

@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed grub-mkconfig # Check if command is installed || exit with error exit-code
+need_installed grub-mkconfig # Check if command is installed
 
-AskPassword # Ask password
+ask-password # Ask password
 sudo grub-mkconfig -o /boot/grub/grub.cfg # Generate a GRUB configuration file, output Generated config to FILE(/boot/grub/grub.cfg)

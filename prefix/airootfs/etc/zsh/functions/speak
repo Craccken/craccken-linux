@@ -18,5 +18,5 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed espeak-ng # Check if command is installed || exit
 
 killall -q espeak-ng || : # Kill old process of speak
-[[ ! $EUID -eq 0 ]] && LC_ALL=C nohup espeak-ng -v en-us+f5 -s 151 -p 77 -g 10 -a 100 "$@" &>/dev/null &! # Check if not root-user && execute speak-ng for convert string to voice
+[[ ! $EUID -eq 0 ]] && LC_ALL=C nohup espeak-ng -v en-us+f5 -s 153 -p 77 -g 10 -a 100 "$@" &>/dev/null &! # Check if not root-user && execute speak-ng for convert string to voice
 #[[ ! $EUID -eq 0 ]] && nohup espeak-ng -v ja+f5 -s 155 -p 77 -g 10 -a 100 "$@" &>/dev/null &! # Check if not root-user && execute speak-ng for convert string to voice

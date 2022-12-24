@@ -7,7 +7,7 @@
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                      Source file in /etc/zsh/zshrc.d                         ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-print -v ZSH_INIT_TIME -P '%D{%s%N}' # Get info time start
+# print -v ZSH_INIT_TIME -P '%D{%s%N}' # Get info time start
 [[ -d "/etc/zsh/zshrc.d" ]] && { # Check if has /etc/zsh/zshrc.d directory && execute function below
     for file in /etc/zsh/zshrc.d/**/*(.); do # Create for-loop with file in /etc/zsh/zshrc.d/ directory
         eval "$(<${file})" # Check if file is readable && source the file
@@ -34,7 +34,6 @@ zstyle :completion:* menu select                                            # En
 zstyle :completion:* use-cache true                                         # Enable cache, it will optimize completion
 zstyle :completion:* cache-path ~/.cache/zsh_completion_cache               # Defines the path where any cache files containing dumped completion data are stored
 zstyle :completion:* verbose yes                                            # Verbose completion
-zstyle :completion:*:descriptions format '⟨%d⟩'                             # Set group descriptor
 zstyle :completion::complete:* gain-privileges 1                            # If the line has sudo or doas in it, then it tries to gain more access while completing command options (-/--)
 zstyle :completion:* list-colors ${(s.:.)LS_COLORS}                         # set list-colors to enable filename colorizing
 zstyle :completion:*:*:*:*:processes command "ps -u $USER -o pid,user,comm -w -w" # Run command if completion processes
@@ -102,7 +101,7 @@ zinit ice --wait --silent --if="[[ $EUID -eq 0 ]]" --id-as="alias/root-alias" --
 zinit snippet /etc/zsh/alias/root-alias                                                     # Specify ice modifiers && source file that contains root-aliases, with zinit
 for file in /etc/zsh/alias/*(.); do  # Create for-loop with list of commands
     local command="$(basename $file | cut -d '-' -f 1)" # Get only the first name of the file
-    zinit ice --wait --silent --has="${command}" --id-as="alias/${command}-alias" --nocompile; zinit snippet /etc/zsh/alias/${command}-alias    # Specify ice modifiers && source file that contains $commands-alias, with zinit.
+    zinit ice --wait --silent --has="${command}" --id-as="alias/${command}-alias" --nocompile; zinit snippet /etc/zsh/alias/${command}-alias # Specify ice modifiers && source file that contains $commands-alias, with zinit.
 done; unset file # End for-loop; Clearing variable so it will not polute the shell.
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                                  Functions                                   ┃
@@ -138,8 +137,8 @@ TRAPCONT(){ # Define a trap function that executed when program continue executi
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                                     END                                      ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-print -v ZSH_LOADED_TIME -P '%D{%s%N}' # Get info time end
-ZSH_STARTUP_TIME=$(( ( ZSH_LOADED_TIME - ZSH_INIT_TIME ) / 1000000 )) # Calculate differ time between start and end
 # NOTE: Uncomment this below if you want benchmarking this config
+# print -v ZSH_LOADED_TIME -P '%D{%s%N}' # Get info time end
+# ZSH_STARTUP_TIME=$(( ( ZSH_LOADED_TIME - ZSH_INIT_TIME ) / 1000000 )) # Calculate differ time between start and end
 # info_msg "Startup time: $ZSH_STARTUP_TIME ms"
 unset ZSH_INIT_TIME ZSH_LOADED_TIME ZSH_STARTUP_TIME # Remove variable, so it won't polute environment

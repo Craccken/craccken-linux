@@ -1,7 +1,9 @@
 #!/usr/bin/env zsh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed nc tlp-stat fzf ip grep iwconfig curl last w lsusb sensors stat usb-devices who nc # Check if command is installed : exit
-autoload spectre_fzf
+local function;for function in /etc/zsh/functions/optionals/get-info-modules/*(.) spectre_fzf; do # Create for-loop with list of functions of modules that will used in this functions
+    autoload ${function} 
+done # End for-loop statement
 
 local -a available_options=( # Declare local array
     "public-ip"                 # Get public ip address of this machine
