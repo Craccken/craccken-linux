@@ -31,7 +31,7 @@
     background-color: transparent;
     border-radius: unset;
     border-bottom-style:solid;
-    border-bottom-color: rgba(245, 245, 245, 0.2);
+    border-bottom-color: rgba(60, 60, 60, 0.2);
     border-bottom-width: 1px;
     transition-delay: 0ms;
     transition-duration: 0.07s;
@@ -47,7 +47,7 @@
     border-left-width: 5px;
     border-left-style: solid;
     border-bottom-style:solid;
-    border-bottom-color: rgba(245, 245, 245, 0.2);
+    border-bottom-color: rgba(60, 60, 60, 0.4);
     border-bottom-width: 1px;
 }
 

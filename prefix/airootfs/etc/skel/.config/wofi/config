@@ -3,7 +3,7 @@
 show=drun
 width=49%
 height=40%
-# prompt=
+prompt=
 # xoffset=0
 # yoffset=0
 normal_window=false
