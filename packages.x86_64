@@ -234,7 +234,7 @@ glfw-wayland
 nwg-bar
 light
 nwg-drawer
-# ly
+ly
 swaylock
 waybar
 xorg-xhost
@@ -340,5 +340,6 @@ fortune-mod
 zsh-completions
 # x11-ssh-askpass
 wl-clipboard-x11
+cozette-otb
 zsh-autosuggestions
 paru

@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
-# for package_to_compile in Hyprland; do # Create for-loop with list of package_to_compile
-#     cd /usr/local/src/${package_to_compile}/ && make install 1>/dev/null
-# done # End for-loop statement
-# mkdir -p /usr/share/wayland-sessions; cp /usr/local/src/Hyprland/example/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
 sed -i "s/#en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen &>/dev/null # Generate the chosen locale
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                Manage service                                │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 {
     enable_services=(
-        # 'ly.service'
-        'sddm.service'
+        'ly.service'
+        # 'sddm.service'
         'NetworkManager.service'
         'systemd-resolved.service' 
         'systemd-networkd.service'
@@ -61,23 +57,19 @@ rm -rf /etc/ly && mv -f /etc/ly_conf /etc/ly
 # │                             Create release file                              │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 {
-    echo 'PRETTY_NAME="Craccken GNU/Linux 1.0.1"'
-    echo 'NAME=Craccken'
-    echo 'BUILD_ID=rolling'
-    echo 'VERSION="1.0.1 Veronica"'
-    echo 'VERSION_ID="1.0.1"'
-    echo 'VERSION_CODENAME=veronica'
+    echo 'NAME=Craccken Linux'
+    echo 'PRETTY_NAME="Craccken GNU/Linux"'
     echo 'ID=Craccken'
-    echo 'ID_LIKE=arch'
+    echo 'BUILD_ID=rolling'
     echo 'HOME_URL="https://github.com/Craccken/craccken-linux"'
     echo 'DOCUMENTATION_URL="https://github.com/Craccken/craccken-linux"'
     echo 'SUPPORT_URL="https://github.com/Craccken/craccken-linux"'
     echo 'BUG_REPORT_URL="https://github.com/Craccken/craccken-linux"'
+    echo 'ID_LIKE=arch'
 } > /usr/lib/os-release
 {
-    echo "DISTRIB_CODENAME=veronica"
     echo "DISTRIB_ID=Craccken"
-    echo "DISTRIB_RELEASE=1.0.1"
+    echo "DISTRIB_RELEASE=rolling"
     echo "DISTRIB_DESCRIPTION='Craccken Linux'"
 } > /etc/lsb-release
 echo "Craccken Linux" > /etc/arch-release

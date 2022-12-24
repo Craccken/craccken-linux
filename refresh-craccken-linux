@@ -15,9 +15,9 @@ main(){
     # │                                  Initialize                                  │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
-    need_installed parallel-moreutils mkarchiso # Check if command is installed || exit 
-    need_normal_user # Need normal user || exit
-    AskPassword # Ask password || exit
+    need_installed parallel-moreutils mkarchiso # Check if command is installed
+    need_normal_user # Need normal user
+    ask-password # Ask password
     
     local file # Declare local variable
     local directory # Declare local variable
