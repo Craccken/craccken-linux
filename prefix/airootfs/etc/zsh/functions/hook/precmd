@@ -1,31 +1,6 @@
 #!/usr/bin/env zsh
-emulate -L zsh; setopt extendedglob pipefail
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 
 echo "" # Print string
-if [[ -z $NO_RPROMPT ]] || (( $NO_RPROMPT == 0 )); then # If no_prompt variable empty or 0 then:
-    if [[ ! $TTY == /dev/tty* ]]; then # Check if TTY is not /dev/tty 
-        if [[ $start_time_execution ]]; then # Check if variable start_time_execution is available
-            readonly -F elapsed_time=$(( EPOCHREALTIME - start_time_execution )) # Current_time-start_time_execution -> store into variable elapsed_time
-            readonly -F second=$(( elapsed_time%60 )) # Get second from elapsed_time,formula: elapsed_time/60 -> round it the output -> output*60 -> elapsed_time-output -> result
-            readonly -i minute=$(( (elapsed_time/60)%60 )) # Get minute from elapsed time, formula: elapsed_time/60 -> output/60 -> round it the output_2 -> output_2*60 -> elapsed_time-output_2 -> result
-            readonly -i hour=$(( elapsed_time/3600 )) # Get hour from elapsed time, formula: elapsed_time/3600 -> result
-            if (( hour > 0 )); then # If hour greater than 0 then:
-                printf -v elapsed_time_execution '%ih%im' ${hour} ${minute} # Store output printf into variable elapsed_time_execution. output will be: 12h34m
-            elif (( minute > 0 )); then # If minute greater than 0 then:
-                printf -v elapsed_time_execution '%im%is' ${minute} ${second} # Store output printf into variable elapsed_time_execution. output will be: 12m34s
-            elif (( second >= 10 )); then # If second greater than/equal 10 then:
-                printf -v elapsed_time_execution '%.2fs' ${second} # Store output printf into variable elapsed_time_execution. variable second will be formated to floating point(output will be: 12.34s)
-            elif (( second >= 1 )); then # If second greater than/equal 1 then:
-                printf -v elapsed_time_execution '%.3fs' ${second} # Store output printf into variable elapsed_time_execution. variable second will be formated to floating point(output will be: 1.233s)
-            else
-                printf -v elapsed_time_execution '%ims' $(( second*1000 )) # Store output printf into variable elapsed_time_execution. Get the millisecond from elapsed_time, formula: second*1000
-            fi
-            unset start_time_execution # Clear the value of variable start_time_execution
-        else
-            unset elapsed_time_execution # Clear previous result when hitting ENTER with no command to execute
-        fi # End if-else statement
-        # RPROMPT="%(1j.%F{#ff6e33}▐%K{#ff6e33}%F{#803719}⚙ %K{reset}%F{#ff6e33} %j .)%(?..%F{#af0000}▐%K{#af0000}%F{#490000} %K{reset}%F{#af0000} %? )%F{#2c99ef}▐%K{#2c99ef}%F{#13456c} %K{reset}%F{#2c99ef} ${elapsed_time_execution:-}" # Set right-prompt style
-        RPROMPT="%F{#cc0022}◆ ${elapsed_time_execution:-}%K{reset}%F{reset}" # Set right-prompt style
-    fi # End if-else statement
-fi # End if-else statement
-print -Pn "\e]133;A\e\\"
+elapsed-time-execution-command # Call command
+RPROMPT="%F{#36a3d9}%K{#030d11}  ${elapsed_time_execution:-} %K{reset}%F{reset}" # Set right-prompt style

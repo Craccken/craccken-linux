@@ -1,10 +1,9 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
-emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
-need_installed aireplay-ng iwconfig ifconfig || return $? # Check if command installed || exit
-need_normal_user || return $? # Only normal user can run || exit
-must_have_argument $1 || return $? # Must have argument-1 passed || exit 
-must_have_argument $2 || return $? # Must have argument-2 passed || exit 
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed aireplay-ng iwconfig ifconfig # Check if command installed || exit
+need_normal_user # Only normal user can run || exit
+must_have_argument ${1:-} # Must have argument-1 passed || exit 
+must_have_argument ${2:-} # Must have argument-2 passed || exit 
 
 local bssid="${2}" # Store argument-2 to local variable
 local interface="${1}" # Store argument-1 to local variable
