@@ -69,10 +69,10 @@ require('telescope').setup{
         prompt_title = "Prompt",                            -- Defines the default title of the prompt window. A false value can be used to hide the title altogether.
         mappings = {                                        -- Your mappings to override telescope's default mappings.
             n = { -- Normal Mode mapping
-                ["q"] = actions.close, -- Close telescope
-                ["<M-p>"] = action_layout.toggle_preview, -- ALT-P to toggle previewer
-                ["<C-Down>"] = actions.cycle_history_next,
-                ["<C-Up>"] = actions.cycle_history_prev,
+                ["q"] = actions.close,                          -- Close telescope
+                ["<M-p>"] = action_layout.toggle_preview,       -- Toggle previewer; ALT + p
+                ["<C-Down>"] = actions.cycle_history_next,      -- Cycle history next: CTRL + Down
+                ["<C-Up>"] = actions.cycle_history_prev,        -- Cycle history previous: CTRL + Up
             },
             i = { -- Insert Mode mapping
                 ["jk"] = { "<ESC>", type = "command" },         -- Go to Normal mode: jk
@@ -102,7 +102,6 @@ require('telescope').setup{
                 end, {  -- End function statement
                     ".*%.csv", 
                     ".*%.toml",
-                    ".*%.zsh",
                 })
                 if not vim.tbl_isempty(excluded_filetypes) then -- Checks if a table excluded is not empty then:
                     previewer_utils.set_preview_message( -- Set preview message
@@ -150,6 +149,7 @@ require('telescope').setup{
     }
 }
 require('telescope').load_extension('fzy_native') -- Load an additional extension
+require('telescope').load_extension('noice') -- Load an additional extension
 
 vim.api.nvim_set_hl(0, 'TelescopeNormal', {link = 'NormalFloat'}) -- TelescopeNormal: Normal foreground of telescope
 vim.api.nvim_set_hl(0, 'TelescopeMatching', {fg = "#ff8f40", underline = true}) -- TelescopeMatching: Search highlight of telescope

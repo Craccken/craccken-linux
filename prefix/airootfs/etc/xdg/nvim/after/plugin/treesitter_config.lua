@@ -59,7 +59,7 @@ require('nvim-treesitter.configs').setup { -- Call setup function
         enable = true,                              -- When enable is true this will enable the module
     },
     rainbow = {                                 -- Rainbow parentheses using tree-sitter.
-        enable = true,                              -- When enable is true this will enable the module
+        enable = false,                             -- When enable is true this will enable the module
         extended_mode = false,                      -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil,                       -- Do not enable for files with more than n lines, int
         colors = {                                  -- Table of hex color strings
@@ -126,10 +126,7 @@ require('nvim-treesitter.configs').setup { -- Call setup function
 }
 vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/treesitter-parser")
 
-
-
-
-
+--  ╾───────────────────────────────────────────────────────────────────╼
 vim.api.nvim_set_hl(0, '@punctuation.delimiter', {fg = '#ff7733'})      -- @punctuation.delimiter: Punctuation delimiters: Periods, commas, semicolons, etc.
 vim.api.nvim_set_hl(0, '@punctuation.bracket', {fg = '#9e9e9e'})        -- @punctuation.bracket: Brackets, braces, parentheses, etc.
 vim.api.nvim_set_hl(0, '@punctuation.special', {link = 'Delimiter'})    -- @punctuation.special: Punctuation delimiters: Periods, commas, semicolons, etc.
@@ -215,4 +212,13 @@ vim.api.nvim_set_hl(0, '@parameter', {link = 'Identifier'})             -- @para
 vim.api.nvim_set_hl(0, '@parameter.reference', {link = 'Identifier'})   -- @parameter.reference: References to parameters of a function.
 
 vim.api.nvim_set_hl(0, '@character', {fg = '#ba174e'})                  -- @character: Character literals `'a'` in C.
-vim.api.nvim_set_hl(0, '@character.special', {link = 'Character'})      -- @character.special: Special characters. like keystrokes
+--  ╾────────────────────────────────────────────────────────────────────╼
+
+-- WARNING: This hack to redirect zsh to use bash parser, DONT CHANGE ANYTHING BELOW
+local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
+require('nvim-treesitter.parsers').ft_to_lang = function(filetype)
+    if filetype == 'zsh' then -- Check if filetype is zsh then:
+        return 'bash'
+    end -- End if-else statement
+    return ft_to_lang(filetype)
+end -- End function statement

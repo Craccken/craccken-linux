@@ -24,7 +24,7 @@ require("ccc").setup({ -- Call setup function
         auto_enable = true,     -- Whether to enable automatically on BufEnter.
         max_byte = 100 * 1024,  -- The maximum buffer size for which highlight is enabled by
         filetypes = {},         -- File types for which highlighting is enabled. An empty table means all file types.
-        excludes = {},          -- Used only when ccc-option-highlighter-filetypes is empty table. You can specify file types to be excludes.
+        excludes = {"TelescopePrompt", "packer"}, -- Used only when ccc-option-highlighter-filetypes is empty table. You can specify file types to be excludes.
         lsp = true,             -- If true, highlight using textDocument/documentColor. If LS with the color provider is not attached to a buffer, it falls back to highlight with pickers.
     },
     recognize = {               -- These are settings for recognize color format.

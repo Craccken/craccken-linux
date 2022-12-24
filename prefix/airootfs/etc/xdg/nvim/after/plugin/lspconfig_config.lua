@@ -7,24 +7,24 @@ local on_attach = function(client, bufnr) -- Create function
         dynamicRegistration = false,
         lineFoldingOnly = true
     }
-    --  ╭──────────────────────────────────────────────────────────────────────────────╮
-    --  │                                   Plugins                                    │
-    --  ╰──────────────────────────────────────────────────────────────────────────────╯
+    
     require("nvim-navic").attach(client, bufnr) -- Enable nvim-navic
     -- require('virtualtypes').on_attach(client, bufnr) -- Enable jubnzv/virtual-types.nvim plugin
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                  KEYBINDING                                  │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true, silent = true, desc = 'Jumps to the definition of the symbol under the cursor.'})
-    vim.api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', {noremap = true, silent = true, desc = 'Jumps to the declaration of the symbol under the cursor.'})
-    vim.api.nvim_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap =  true, silent = true, desc = 'Displays hover information about the symbol under the cursor in a floating window'})
-    vim.api.nvim_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {noremap = true, silent = true, desc = 'Lists all the implementation for the symbol under the cursor in the quickfix window'})
-    vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {noremap = true, silent = true, desc = 'Displays signature information about the symbol under the cursor in a floating window'})
-    vim.api.nvim_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', {noremap = true, silent = true, desc = 'Jumps to the definition of the type of the symbol under the cursor.'})
-    vim.api.nvim_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', {noremap = true, silent = true, desc = 'Renames all references to the symbol under the cursor.'})
-    vim.api.nvim_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', {noremap = true, silent = true, desc = 'Selects a code action available at the current cursor position.'})
-    vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {noremap = true, silent = true, desc = 'Lists all the references to the symbol under the cursor in the quickfix window.'})
-    vim.api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', {noremap = true, silent = true, desc = 'Formats the current buffer.'})
+
+    local options = function(description)
+        return { buffer = bufnr, noremap = true, desc = description}
+    end -- End function statement
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition,               options('Jumps to the definition of the symbol under the cursor.'))
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover,                     options('Displays hover information about the symbol under the cursor in a floating window'))
+    vim.keymap.set('n', '<leader>vws', vim.lsp.buf.workspace_symbol, options('Lists all symbols in the current workspace in the quickfix window.'))
+    vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float,    options('Show diagnostics in a floating window.'))
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_next,             options('Move to the previous diagnostic in the current buffer.'))
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_prev,             options('Get the next diagnostic closest to the cursor position.'))
+    vim.keymap.set('n', '<leader>vca', vim.lsp.buf.code_action,     options('Selects a code action available at the current cursor position.'))
+    vim.keymap.set('n', '<leader>vrr', vim.lsp.buf.references,      options('Lists all the references to the symbol under the cursor in the quickfix window.'))
+    vim.keymap.set('n', '<leader>vrn', vim.lsp.buf.rename,          options('Renames all references to the symbol under the cursor.'))
+    vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help,        options('Displays signature information about the symbol under the cursor in a floating window.'))
+    vim.keymap.set('n', '<space>vf', function() vim.lsp.buf.format { async = true } end, options('Formats a buffer using the attached (and optionally filtered) language server clients.'))
 end -- End functions statement
 
 local servers = {  -- List of language server
@@ -50,6 +50,17 @@ for index, lsp in pairs(servers) do -- Use a loop to conveniently call 'setup' o
         capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Add autocompletetion
     })
 end -- End for-loop options
+
+require("lspconfig").bashls.setup({
+    on_attach = on_attach, -- Execute this function after the language server attaches to current buffer
+    capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Add autocompletetion
+    filetypes = {
+        "sh",
+        "bash",
+        "zsh",
+        "csh",
+    }
+})
 
 -- require("lspconfig").sumneko_lua.setup({
 --     cmd = { "lua-language-server", string.format("--logpath=%s/.cache/nvim/sumneko_lua", vim.loop.os_homedir()) },
