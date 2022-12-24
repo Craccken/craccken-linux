@@ -4,7 +4,7 @@ need_installed pacman sync # Check if command is installed || exit with error ex
 
 warn_msg " Clearing cache..." # Warning message
 speak "Clearing cache" || : # Speaking
-AskPassword # Ask password || exit
+ask-password # Ask password
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                     USER                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯

@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed ripdrag # Check if command is installed || exit
+autoload spectre_fzf
+
+local target_file="${1:-$(spectre_fzf 'Pick a file to drag')}" # Create local variable if argument-1 empty then pick a file with fzf
+play-audio-random /opt/craccken/sound/click || : # Play random audio in directory
+[[ -z "${target_file}" ]] && send_return EINVAL # If option variable is empty && exit
+ripdrag --icon-size 32 --resizable "${target_file}"

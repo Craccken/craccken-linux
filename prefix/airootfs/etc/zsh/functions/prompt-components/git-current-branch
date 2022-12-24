@@ -1,8 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
-#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-#          ┃                        Get name of current git branch                        ┃
-#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed git # Check if command is installed
 
