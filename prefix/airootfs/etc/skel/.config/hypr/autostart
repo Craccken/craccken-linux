@@ -13,7 +13,7 @@ killall -q activate-linux eww swayidle mpDris2 polkit-gnome-authentication-agent
 # │                                  Wallpaper                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+functions[wallpaper-handler] )) && wallpaper-handler &! # Check function if it available && Call wallpaper-handler to set wallpaper
-(( $+functions[live-wallpaper-handler] )) && live-wallpaper-handler nolooptop /opt/craccken/live-wallpaper/craccken-live-wallpaper.mp4 # Check function if it available && run live-wallpaper :D
+# (( $+functions[live-wallpaper-handler] )) && live-wallpaper-handler nolooptop /opt/craccken/live-wallpaper/craccken-live-wallpaper.mp4 # Check function if it available && run live-wallpaper :D
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                Screencasting                                 │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
