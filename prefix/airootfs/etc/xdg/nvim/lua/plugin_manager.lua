@@ -155,6 +155,7 @@ return require("packer").startup(function(use)
     use "anuvyklack/hydra.nvim"                                             -- Create custom submodes and menus 
     -- use "nvim-zh/colorful-winsep.nvim"                                      -- Make your nvim window separators colorful 
     -- use 'ElPiloto/significant.nvim'                                         -- When you've got something significant to say. 
+    -- use "mbbill/undotree"                                                   -- The undo history visualizer for VIM 
 
     use "hrsh7th/nvim-cmp"                      -- A completion plugin for neovim coded in lua.
     use "hrsh7th/cmp-path"                      -- nvim-cmp source for directory path

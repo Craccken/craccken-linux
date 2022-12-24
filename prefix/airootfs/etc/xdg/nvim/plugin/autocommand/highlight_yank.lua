@@ -1,4 +1,4 @@
-local autocommand_group_highlight_yank = vim.api.nvim_create_augroup("highlight_yank", {clear = true}) -- Create an autocommand group that will use to store autocommand
+local autocommand_group = vim.api.nvim_create_augroup("highlight_yank", {clear = true}) -- Create an autocommand group that will use to store autocommand
 vim.api.nvim_create_autocmd("TextYankPost", { -- Create autocommand
     callback = function() -- Create function that will executed
         vim.highlight.on_yank({ -- Highlights the yanked text.
@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("TextYankPost", { -- Create autocommand
             on_visual = true    -- highlight when yanking visual selection (default `true`)
         })
     end, -- End function statement
-    group = autocommand_group_highlight_yank, -- Store this autocommand to autocommand_group
+    group = autocommand_group, -- Store this autocommand to autocommand_group
     desc = "Highlight yank region", -- description of the autocommand
 })
 vim.api.nvim_set_hl(0, 'HighlightedYank', {fg = '#e7c547', bg = '#201a04', nocombine = true}) -- HighlightedYank: The highlight group to make yank region noticeable.

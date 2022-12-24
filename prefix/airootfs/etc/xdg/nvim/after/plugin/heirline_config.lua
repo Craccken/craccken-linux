@@ -622,7 +622,7 @@ local Terminal__Statusline = { -- Create component
 local Special__Statusline = { -- Create component
     condition = function() -- This function controls whether the component should be evaluated or not.
         return conditions.buffer_matches({ -- Check if the buffer is match
-            buftype = { "nofile", "help", "quickfix", "alpha" },
+            buftype = { "nofile", "help", "quickfix", "alpha", "undotree", "diff" },
             filetype = { "^git.*", "fugitive" }
         })
     end, -- End function statement
@@ -750,14 +750,14 @@ require("heirline").setup({ -- Call setup function
     hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
         if conditions.is_active() then -- If the statusline's window is the active window, then
             return { -- Return table
-                fg = utils.get_highlight("StatusLine").fg,
-                bg = utils.get_highlight("StatusLine").bg,
+                fg = "NONE",
+                bg = "NONE",
                 force = false -- Control whether the parent's hl fields will override child's hl.
             }
         else
             return { -- Return table
-                fg = utils.get_highlight("StatusLineNC").fg,
-                bg = utils.get_highlight("StatusLineNC").bg,
+                fg = "NONE",
+                bg = "NONE",
                 force = false -- Control whether the parent's hl fields will override child's hl.
             }
         end -- End if-else statement

@@ -13,8 +13,13 @@ vim.keymap.set('', '<Up>', '<Nop>', {noremap = true})
 vim.keymap.set('', '<Down>', '<Nop>', {noremap = true})
 vim.keymap.set('', '<Left>', '<Nop>', {noremap = true})
 vim.keymap.set('', '<Right>', '<Nop>', {noremap = true})
-vim.keymap.set('', 'X', '"xx', {noremap = true, desc='Prevent key from overriding item in the clipboard'})
-vim.keymap.set('', 'x', '"xx', {noremap = true, desc='Prevent key from overriding item in the clipboard'})
+vim.keymap.set('', 'X', '"xx', {noremap = true, desc = 'Prevent key from overriding item in the clipboard'})
+vim.keymap.set('', 'x', '"xx', {noremap = true, desc = 'Prevent key from overriding item in the clipboard'})
+--         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+--         ┃                             Quickfix navigation                              ┃
+--         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz', {noremap = true, silent = true, desc = 'Display the previous error in the list that includes a file name.'})
+vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz', {noremap = true, silent = true, desc = 'Display the next error in the list that includes a file name.'})
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 --         ┃                                 Moving line                                  ┃
 --         ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -37,7 +42,7 @@ vim.keymap.set('n', 'J', 'mzJ`z', {noremap = true, desc = 'Centering cursor when
 vim.keymap.set('n', '<C-q>', ':qall<CR>', {noremap = true, desc = 'Force Quit'})
 vim.keymap.set('n', '<leader><leader>a', ':%y+<CR>', {noremap = true, silent = true, desc = 'Copy this file'})
 vim.keymap.set('n', '<leader>o', ':call append(line("."), repeat([""], v:count1))<CR>', {noremap = true, silent = true, desc = 'Add newline without enter insert-mode'})
-vim.keymap.set('n', '<leader>r', '#yiw:%s/<C-r>+//g<Left><Left>', {noremap = true, desc = 'Replace all word under cursor'})
+vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {noremap = true, desc = 'Replace all word under cursor'})
 vim.keymap.set('n', '<C-h>', ':noh<CR>', {noremap = true, silent = true, desc = 'Clean up searching'})
 vim.keymap.set('i', '<C-f>', '<Esc>gUiw`]a', {noremap = true, desc = 'Uppercase word undercursor'})
 --         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

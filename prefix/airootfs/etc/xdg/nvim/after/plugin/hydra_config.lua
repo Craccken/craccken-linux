@@ -57,8 +57,8 @@ require("hydra")({
         { "K", "<C-w>2+" },
         { "L", "<C-w>3>", {desc = 'Resize window'} },
 
-        { "Q", ":q<CR>" },
-        { "<C-q>", ":q<CR>" },
+        { "Q", ":q<CR>", {silent = true} },
+        { "<C-q>", ":q<CR>", {silent = true} },
     }
 })
 

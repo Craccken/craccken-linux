@@ -80,7 +80,7 @@ require("cmp").setup{ -- Call setup function
             if require("cmp").visible() then                                                            -- If completion menu is visible then:
                 require("cmp").select_next_item({ behaviour = require("cmp").SelectBehavior.Insert })   -- Set mapping for select_next_item in completion: Tab
             elseif require("luasnip").expand_or_jumpable() then                                         -- Check if snippet is jumpable then:
-                require("luasnip").expand_or_jump()                                                     -- Jump!!!
+                require("luasnip").expand_or_jump()                                                     -- Expand snippet
             elseif has_words_before() then                                                              -- If have writed word before then:
                 require("cmp").complete()                                                               -- Invoke completion
             else
