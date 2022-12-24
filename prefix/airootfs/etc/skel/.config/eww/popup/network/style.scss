@@ -16,9 +16,9 @@
         padding-right: 10px; // Shorthand property to set values for the thickness of the padding area right
     }
     .text-value {
-        font-family: $font-text-2; // Specifies a prioritized list of font family names or generic family names.
+        font-family: 'Montserrat'; // Specifies a prioritized list of font family names or generic family names.
         font-size: 13px; // Indicates the desired height of glyphs from the font.
-        font-style: italic; // Allows italic or oblique faces to be selected
+        letter-spacing: 2px; // Used to specify the space between the characters in a text.
     }
     .icon, .downstream, .upstream {
         font-family: $font-text-1; // Specifies a prioritized list of font family names or generic family names.

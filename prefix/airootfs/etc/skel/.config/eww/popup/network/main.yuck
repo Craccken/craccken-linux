@@ -1,7 +1,7 @@
-(defpoll gateway :interval "12h" "/usr/bin/zsh -ic 'get-info-gateway'")
-(defpoll local-ip :interval "12h" "/usr/bin/zsh -ic 'get-info-local-ip wlan0'")
-(defpoll speed-upstream :interval "1s" "/usr/bin/zsh -ic 'get-info-speed-network up'")
-(defpoll speed-downstream :interval "1s" "/usr/bin/zsh -ic 'get-info-speed-network down'")
+(defpoll gateway :interval "12h" "/usr/bin/zsh -ic 'autoload get-info-gateway; get-info-gateway'")
+(defpoll local-ip :interval "12h" "/usr/bin/zsh -ic 'autoload get-info-local-ip; get-info-local-ip wlan0'")
+(defpoll speed-upstream :interval "1s" "/usr/bin/zsh -ic 'autoload get-info-speed-network; get-info-speed-network up'")
+(defpoll speed-downstream :interval "1s" "/usr/bin/zsh -ic 'autoload get-info-speed-network; get-info-speed-network down'")
 
 (defwidget popup-network [] ; Create new widget
   (box ; the main layout container
