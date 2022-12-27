@@ -1,8 +1,6 @@
 #!/usr/bin/env zsh
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                               Clean up process                               │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-killall -q activate-linux eww swayidle mpDris2 polkit-gnome-authentication-agent-1 waybar dunst VBoxClient swaybg entr nm-applet nwg-drawer mpvpaper # Kill old proccess, so it will not overlaping process
+killall -q swayidle waybar dunst # Kill old proccess, so it will not overlaping process
+
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Audio                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -21,16 +19,12 @@ killall -q activate-linux eww swayidle mpDris2 polkit-gnome-authentication-agent
 [[ -f /usr/lib/xdg-desktop-portal-wlr ]] && /usr/lib/xdg-desktop-portal-wlr -r &!
 [[ -f /usr/lib/xdg-desktop-portal-gtk ]] && /usr/lib/xdg-desktop-portal-gtk -r &!
 # ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                    Polkit                                    │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-[[ -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ]] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &! # Enable polkit-gnome for run root-application with normal user like gparted.
-# ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Statusbar                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 # (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config -s /etc/xdg/waybar/bar.css &! # Check command if it available && start waybar
 (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config -s /etc/xdg/waybar/bar.css &! # Check command if it available && start waybar
 (( $+commands[eww] )) && eww --restart open statusbar
-(( $+functions[generate-workspaces-component] )) && generate-workspaces-component &!
+generate-workspaces-component &!
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Music                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -41,18 +35,13 @@ killall -q activate-linux eww swayidle mpDris2 polkit-gnome-authentication-agent
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+commands[dunst] )) && dunst &! # Check command if it available && start notification-daemon
 # ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                  VirtualBox                                  │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+commands[VBoxClient] )) && VBoxClient-all &! # Start all vbox service(drag_and_drop, shared_clipboard, seamless)
-# ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Brightness                                  │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+functions[BrightnessHandler] )) && BrightnessHandler set_minimum_brightness 5 &! # Check function if it available && set minimum capacity of brightness
+BrightnessHandler set_minimum_brightness 5 &! # set minimum capacity of brightness
 # (( $+functions[this-will-save-your-eyes] )) && this-will-save-your-eyes &! # Check function if it available && start wlsunset
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Other                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-# (( $+commands[activate-linux] )) && activate-linux &!   # Start activate-linux :D
-(( $+commands[xhost] )) && xhost +si:localuser:root &!  # This will fix trouble with program that required root access like gparted, since we use wayland as display server.
-(( $+commands[foot] )) && foot --server &!              # Check command if it available && start terminal foot server
+(( $+commands[activate-linux] )) && [[ -z "$(pidof activate-linux)" ]] && activate-linux &! # Check if there is no process of command && Start activate-linux
 (( $+commands[swayidle] )) && swayidle -w timeout 300 '/bin/zsh -ic "lock-screen"' timeout 600 '/bin/zsh -ic "BrightnessHandler save_current_brightness && BrightnessHandler set_value 7"' resume '/bin/zsh -ic "BrightnessHandler restore_brightness"' &! # Check command if it available && start idle manager
+autoload active-window-flickers-border && active-window-flickers-border &!
