@@ -34,6 +34,7 @@ zstyle :fzf-tab:* default-color $'\033[38;5;246m'       # Set colors when there 
 zstyle :fzf-tab:* fzf-flags '--height=97%' '--border-label=fzf-tab' '--preview-window=bottom,40%,border-none'                   # Set extra fzf flags for fzf-tab
 zstyle :fzf-tab:complete:man:* fzf-preview 'man $word | bat -p -l man --color=always'                                           # Set previewer that show contents of man page
 zstyle :fzf-tab:complete:man:* fzf-flags '--height=80%' '--preview-window=right,75%,nowrap,border-none'                         # Set extra fzf flags for fzf-tab `man *`
+zstyle :fzf-tab:complete:(rm):* fzf-preview 'bat --color=always -p $word'                                                       # Set previewer that show contents of file
 zstyle :fzf-tab:complete:(cd|ls|exa|cp):* fzf-preview 'exa -G --all --group-directories-first --icons --color=always $realpath' # Set previewer that show contents of the folder
 zstyle :fzf-tab:complete:pacman:* fzf-preview 'pacman -Si $word 2>/dev/null'                                                    # Set previewer that show information of package
 zstyle :fzf-tab:complete:pacman:* fzf-flags '--height=97%' '--preview-window=right:70%:wrap,border-none'                        # Set extra fzf flags for pacman command
