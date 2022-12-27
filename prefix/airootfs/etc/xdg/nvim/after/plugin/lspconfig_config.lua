@@ -32,7 +32,7 @@ local servers = {  -- List of language server
     'rust_analyzer',
     'marksman',
     'prosemd_lsp',
-    'bashls',
+    -- 'bashls',
     'html',
     'clangd',
     'jsonls',

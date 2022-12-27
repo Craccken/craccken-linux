@@ -146,10 +146,14 @@ require('telescope').setup{
             override_generic_sorter = false, -- Override the default generic_sorter
             override_file_sorter = true,     -- Override the default file_sorter
         },
+        media_files = {
+            filetypes = {"png", "webp", "jpg", "jpeg"}, -- filetypes whitelist defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+            find_cmd = "rg" -- find command (defaults to `fd`)
+        },
     }
 }
-require('telescope').load_extension('fzy_native') -- Load an additional extension
 require('telescope').load_extension('noice') -- Load an additional extension
+-- require('telescope').load_extension('media_files') -- Load an additional extension
 
 vim.api.nvim_set_hl(0, 'TelescopeNormal', {link = 'NormalFloat'}) -- TelescopeNormal: Normal foreground of telescope
 vim.api.nvim_set_hl(0, 'TelescopeMatching', {fg = "#ff8f40", underline = true}) -- TelescopeMatching: Search highlight of telescope

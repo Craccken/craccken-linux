@@ -91,7 +91,6 @@ vim.api.nvim_set_hl(0, 'packerProgress', {fg = '#ff7733'})                      
 return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"                                            -- Plugin manager itself.
     use "nvim-telescope/telescope.nvim"                                     -- Great fuzzy finder with preview.
-    use "nvim-telescope/telescope-fzy-native.nvim"                          -- Fzy style sorter that is compiled
     use "numToStr/Comment.nvim"                                             -- Smart powerful plugin for neovim.
     use "goolord/alpha-nvim"                                                -- Fancy-startscreen :)
     -- use 'sunjon/shade.nvim'                                                 -- An Nvim lua plugin that dims your inactive windows
@@ -156,6 +155,7 @@ return require("packer").startup(function(use)
     -- use "nvim-zh/colorful-winsep.nvim"                                      -- Make your nvim window separators colorful 
     -- use 'ElPiloto/significant.nvim'                                         -- When you've got something significant to say. 
     -- use "mbbill/undotree"                                                   -- The undo history visualizer for VIM 
+    -- use "nvim-telescope/telescope-media-files.nvim"                         -- Telescope extension to preview media files using Ueberzug. 
 
     use "hrsh7th/nvim-cmp"                      -- A completion plugin for neovim coded in lua.
     use "hrsh7th/cmp-path"                      -- nvim-cmp source for directory path

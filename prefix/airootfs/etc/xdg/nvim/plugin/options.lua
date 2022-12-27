@@ -42,6 +42,7 @@ vim.opt.cmdheight = 0                                               -- Number of
 vim.opt.updatetime = 200                                            -- If this many milliseconds nothing is typed the swap file will be written to disk.
 vim.opt.lazyredraw = false                                          -- When this option is set, the screen will not redrawn while executing macros,registers and other commands that have not been typed.
 vim.opt.termguicolors = true                                        -- Enables 24-bit RGB color in the terminal
+vim.opt.guifont = "CozetteVector:h10"                               -- This is a list of fonts which will be used for the GUI version of Vim.
 vim.opt.backupdir = "/tmp//,."                                      -- List of directories for the backup file, separated with commas.
 vim.opt.fileencoding = "utf-8"                                      -- File-content encoding for the current buffer.
 vim.opt.encoding = "utf-8"                                          -- String-encoding used internally and for RPC communication.
