@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 
 local -a colors # Declare local array

@@ -1,2 +1,2 @@
-#!/bin/env zsh
+#!/usr/bin/env zsh
 [[ ! "$FAST_THEME_NAME" == "craccken" ]] && fast-theme /etc/zsh/configs/craccken.ini &>/dev/null &! # Load syntax theme

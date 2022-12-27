@@ -1,8 +1,7 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal ksharrays pipefail nounset
 need_installed fzf convert # Check if command is installed || exit with error exit-code
-killall -q convert # Clean up old process
+killall -q convert || : # Clean up old process
 
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                             Imagemagick Options                              ┃

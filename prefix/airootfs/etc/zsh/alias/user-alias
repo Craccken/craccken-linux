@@ -47,7 +47,6 @@ alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g void='/dev/null'
-alias -g moar='| more'
 alias -g leed='| less'
 alias -g logging='| ts'
 # ╭──────────────────────────────────────────────────────────────────────────────╮
