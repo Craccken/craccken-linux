@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl # Need install this in order to run
+
+while [[ -n "$(pidof Hyprland)" ]]; do # Check if process Hyprland exist and then create while-loop
+    local delay_seconds=$(( RANDOM % 10 + 5 )) # Create local variable with random number from 0-10 as value
+    sleep ${delay_seconds} # Delay the process as delay_seconds
+    
+    local number_of_flickering=$(( RANDOM % 12 + 2 )) # Create local variable with random number from 0-12 as value
+    local flicker # Create temporary variable for storing for-loop value
+    for flicker in {0..${number_of_flickering}}; do # Create for-loop with number number_of_flickering as flicker variable
+        hyprctl --batch "keyword decoration:col.shadow 0xFF00ff87 ; keyword general:col.active_border 0xFF00ff87" > /dev/null # Change shadow color and active-window border color
+        sleep 0.01 # Delay between flicker
+        hyprctl --batch "keyword decoration:col.shadow 0xFFff0057 ; keyword general:col.active_border 0xFFff0057" > /dev/null # Change shadow color and active-window border color
+        sleep 0.01 # Delay between flicker
+        hyprctl --batch "keyword decoration:col.shadow 0xFFd4d104 ; keyword general:col.active_border 0xFFd4d104" > /dev/null # Change shadow color and active-window border color
+        sleep 0.01 # Delay between flicker
+    done # End for-loop statement
+    hyprctl --batch "keyword decoration:col.shadow 0xFFf5f5f5 ; keyword general:col.active_border 0xFFf5f5f5" > /dev/null # Change shadow color and active-window border color
+done # End while-loop statement

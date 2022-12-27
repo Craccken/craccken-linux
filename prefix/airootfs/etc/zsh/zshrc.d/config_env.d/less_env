@@ -1,4 +1,4 @@
-#!/bin/env zsh
+#!/usr/bin/env zsh
 export LESS="-R" # Options which are passed to less automatically.
 export LESSHISTFILE="-" # Name of the history file used to remember search commands and shell commands between invocations of less. If set to "-" or "/dev/null", a history file is not used.
 export LESS_TERMCAP_so=$(tput smso) # Set terminal_capability of "less" : Start standout

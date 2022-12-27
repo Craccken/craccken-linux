@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+touch "$(print -P '%D{%Y-%m-%d-%H:%M:%S}')${@:-.txt}" && info_msg "File with timestamp has been created this directory, please check with 'ls'"

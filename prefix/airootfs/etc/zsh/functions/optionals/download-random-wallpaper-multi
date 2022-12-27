@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed curl jq shuf # Check if command is installed 
+need_internet # Need internet to run
+
+mkdir -p /tmp/$0 # Create temporary folder for storing wallpaper
+local query="${1:-}" # Create local for storing wallpaper query
+local -a wallpaper_urls=( $(curl -s "https://wallhaven.cc/api/v1/search?q=$(echo "${query}" | tr " " "+")&sorting=random&atleast=1920x1080" | jq -r '.data[].path') ) # Get wallpaper url list from API and store it into variable
+
+local url # Create variable for storing value from for-loop
+for url in ${wallpaper_urls[@]}; do # Create for-loop with wallpaper_urls as value
+    curl -s -O "${url}" --remote-name --output-dir "/tmp/$0" &! # Download from wallpaper_urls and output_file -- https://wallhaven.cc/help/api
+    sleep 0.7 # Delay second, prevent from http error too many request
+done # End while-loop statement
+echo "/tmp/$0" # Print output directory

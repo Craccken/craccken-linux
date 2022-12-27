@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+export NAP_DEFAULT_LANGUAGE="zsh"
+export NAP_THEME="monokai"
+export NAP_PRIMARY_COLOR="#2387b8"
+export NAP_PRIMARY_COLOR_SUBDUED="#36a3d9"
+export NAP_BRIGHT_GREEN="#9e8015"
+export NAP_GREEN="#e7c547"
+export NAP_BRIGHT_RED="#8a0017"
+export NAP_RED="#cc0022"
+export NAP_FOREGROUND="#af0000"
+export NAP_BACKGROUND="0"
+export NAP_GRAY="#15516f"
+export NAP_BLACK="#1d2330"
+export NAP_WHITE="#030d11"

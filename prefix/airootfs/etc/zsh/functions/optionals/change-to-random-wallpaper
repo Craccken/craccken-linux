@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_internet # Need internet to run
+
+autoload download-random-wallpaper-single # Load module functions
+wallpaper-handler "$(download-random-wallpaper-single ${1:-})" &! # Set wallpaper from download random wallpaper online

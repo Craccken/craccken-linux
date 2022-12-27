@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl # Need install this in order to run
+
+{
+    hyprctl keyword decoration:blur false # Disable blur
+    hyprctl keyword decoration:drop_shadow false # Disable shadow
+    hyprctl keyword decoration:dim_inactive false # Disable dim
+    hyprctl keyword animations:enabled false # Disable animations
+} > /dev/null

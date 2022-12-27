@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed curl jq shuf # Check if command is installed 
+need_internet # Need internet to run
+
+mkdir -p /tmp/$0 # Create cache folder
+local query="${1:-}" # Create local for storing wallpaper query
+local output_file="${2:-$(mktemp /tmp/$0/XXXXXXXXXX)}" # Create local variable for storing output file
+curl -s "$(curl -s "https://wallhaven.cc/api/v1/search?q=$(echo "${query}" | tr " " "+")&sorting=random&atleast=1920x1080" | jq -r '.data[].path' | shuf -n 1)" -o "${output_file}" # Get random wallpaper from API and download it into output_file -- https://wallhaven.cc/help/api
+realpath "${output_file}" # Print output_file path
