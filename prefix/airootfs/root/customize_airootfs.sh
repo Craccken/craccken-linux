@@ -49,6 +49,9 @@ chmod 755 /etc/{tmux.conf,securetty,locale.*,vconsole.conf,gitconfig,nanorc}
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                               Other operations                               │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
+pacman-key --populate archlinux
+pacman -S archlinux-keyring
+
 rm -rf /root/.local/share/zinit/completions
 rm -rf /home/user/.local/share/zinit/completions
 ln -sf /opt/craccken-installer/craccken-installer /usr/local/bin

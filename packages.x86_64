@@ -213,7 +213,7 @@ mesa
 # xorg-xbacklight
 # xorg-fonts-misc
 # xorg-xinit
-sddm
+# sddm
 grim
 imv
 # sxiv
@@ -225,15 +225,14 @@ qt5-graphicaleffects
 pixman
 wayland
 wlroots
-# wlroots-git
 libevdev
 wayland-protocols
 libxkbcommon
 glfw-wayland
 # river
-nwg-bar
 light
-nwg-drawer
+# nwg-bar
+# nwg-drawer
 ly
 swaylock
 waybar
@@ -243,7 +242,6 @@ qt5-wayland
 wev
 wofi
 hyprland-git
-# rofi-lbonn-wayland
 pango
 xdg-desktop-portal-wlr-git
 xdg-desktop-portal
@@ -304,7 +302,7 @@ wpa_supplicant
 pv
 fd
 bat
-dog
+# dog
 fzf
 # duf
 gnu-netcat
@@ -318,17 +316,16 @@ gdb
 less
 gum
 tmux
-distrobox
+# distrobox
 dunst
-gping
+# gping
 btop
 dialog
 neovim
 noto-fonts-emoji
 scdoc
-# ttf-iosevka-nerd
 # nnn
-espeakup
+# espeakup
 neofetch
 ripgrep
 # ripgrep-all
@@ -336,10 +333,11 @@ ripgrep
 git-delta
 espeak-ng
 # zsh-lovers
-fortune-mod
+# fortune-mod
 zsh-completions
 # x11-ssh-askpass
 wl-clipboard-x11
-cozette-otb
+# ttf-iosevka-nerd
+# cozette-otb
 zsh-autosuggestions
 paru

@@ -1,18 +1,17 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 
+cd ./release
 main(){
     emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
     need_installed sha256sum
 
-    local release_dir="$(pwd)/release"
-    local release_iso=$(find "${release_dir}" -type f -name "*.iso" -printf "%f\n" || :)
-    mkdir -p "${release_dir}" # Create release directory
+    local release_iso=$(find ./ -type f -name "*.iso" -printf "%f\n" || :)
     if [[ ! -n "${release_iso}" ]] then # Check if there is no release iso file then:
         warn_msg "There's no ISO file in 'release' directory. Copy the ISO file in 'release' directory & Run this script again."
         return
     fi
+    
     warn_msg "Generating sha256sum for ${release_iso} ..."
-    sha256sum "${release_dir}/${release_iso}" > "${release_dir}/${release_iso}.sha256sum" && info_msg "Success to generate checksum file." || error_msg "Failed to generate checksum file."
+    sha256sum "${release_iso}" > "./${release_iso}.sha256sum" && info_msg "Success to generate checksum file." || error_msg "Failed to generate checksum file."
 }
 main

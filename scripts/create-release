@@ -21,10 +21,8 @@ main(){
 \`\`\`
 \$ sha256sum -c ${release_iso}.sha256sum
 \`\`\`
-### Changelog: 
-- Type change-logs here
 
-** Full Changelog: [\`here\`](link)
+**Changelog**: [\`here\`](https://github.com/Craccken/craccken-linux/compare/yourpreviousversion...${release_tag})
 EOF
     nvim "${release_notes}"
     # ╭──────────────────────────────────────────────────────────────────────────────╮
@@ -36,8 +34,7 @@ EOF
     # ╭──────────────────────────────────────────────────────────────────────────────╮
     # │                                Upload assets                                 │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
-    local asset
-    for asset in ./release/*(.); do
+    local asset;for asset in ./release/*(.); do
         warn_msg "Uploading: ${asset}"
         gh release upload "${release_tag}" --clobber "${asset}"
     done
