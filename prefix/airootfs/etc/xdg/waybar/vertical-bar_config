@@ -5,58 +5,40 @@
     "position": "right",            // Bar position, can be top,bottom,left,right.
     "height": 0,                    // Height to be used by the bar if possible, leave blank for a dynamic value.
     "width": 50,                    // Width to be used by the bar if possible, leave blank for a dynamic value.
-    "modules-center": [             // Modules that will be displayed in the center.
-        "custom/launcher",
-        "workspaces",
-        "river/tags"
-    ],
     "modules-left": [               // Modules that will be displayed on the left.
         "battery",
         "network",
+        "temperature",
         "pulseaudio",
-        "memory",
-        "disk",
-        "custom/power"
+        "backlight",
+    ],
+    "modules-center": [             // Modules that will be displayed in the center.
+        "wlr/workspaces",
     ],
     "modules-right": [              // Modules that will be displayed on the right.
-        "temperature",
         "cpu",
-        "backlight",
+        "disk",
+        "memory",
         "clock#hour",
         "clock#minute"
     ], 
-    "margin-top": 15,               // Top margins of the bar
-    "margin-bottom": 15,            // Bottom margins of the bar 
-    "margin-left": 15,              // Left margins of the bar
-    "margin-right": 15,             // Right margins of the bar
+    "margin": 0,                    // Margins value using the css format without units.
+    // "margin-top": 15,               // Top margins of the bar
+    // "margin-bottom": 15,            // Bottom margins of the bar 
+    // "margin-left": 15,              // Left margins of the bar
+    // "margin-right": 15,             // Right margins of the bar
     "spacing": 0,                   // Size of gaps in between of the different modules.
-    "mode": "top",                  // Selects one of the preconfigured display modes.
+    "mode": "top",                  // Selects one of the preconfigured display modes. -- https://github.com/Alexays/Waybar/wiki/Configuration#bar-config
     "modifier-reset": "press",      // Defines the timing of modifier key to reset the bar visibility.
     "exclusive": true,              // Option to request an exclusive zone from the compositor. Disable this to allow drawing application windows underneath or on top of the bar.
     "fixed-center": true,           // Prefer fixed center position for the modules-center block. The center block will stay in the middle of the bar whenever possible.
     "passthrough": false,           // Option to pass any pointer events to the window under the bar.
     "gtk-layer-shell": true,        // Option to disable the use of gtk-layer-shell for popups. Only functional if compiled with gtk-layer-shell support.
     "ipc": false,                   // Option to subscribe to the Sway IPC bar configuration and visibility events and control waybar with swaymsg bar commands.
+    // "include": [],                  // Paths to additional configuration files. Each file can contain a single object with any of the bar configuration options.
     // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
     // ┃                                   MODULES                                    ┃
     // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-    "custom/launcher": { // The custom module displays either the output of a script or static text. To display static text, specify only the format field.
-        "rotate": 0,                                                // Positive value to rotate the text label.
-        "format": "",                                              // The format, how information should be displayed. On {} data gets inserted.
-        "tooltip": false,                                           // Option to enable tooltip on hover.
-        "max-length": 20,                                           // The maximum length in character the module should display.
-        "exec-on-event": false,                                     // If an event command is set (e.g. on-click or on-scroll-up) then re-execute the script after executing the event command.
-        "on-click": "killall nwg-drawer || nwg-drawer",             // Command to execute when clicked on the module.
-        "on-click-right": "killall nwg-drawer || nwg-drawer"        // Command to execute when you right clicked on the module.
-    },
-    "custom/power":{ // The custom module displays either the output of a script or static text. To display static text, specify only the format field.
-        "rotate": 0,                                // Positive value to rotate the text label.
-        "format": "",                              // The format, how information should be displayed. On {} data gets inserted.
-        "tooltip": false,                           // Option to enable tooltip on hover.
-        "max-length": 20,                           // The maximum length in character the module should display.
-        "exec-on-event": false,                     // If an event command is set (e.g. on-click or on-scroll-up) then re-execute the script after executing the event command.
-        "on-click": "killall nwg-bar || nwg-bar"    // Command to execute when clicked on the module.
-    },
     "temperature": { // The temperature module displays the current temperature from a thermal zone.
         // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
         // ┃                             Format replacements                              ┃
@@ -66,15 +48,15 @@
         // █ {temperatureF} : Temperature in Fahrenheit.
         // █ {temperatureK} : Temperature in Kelvin.
         // ▼                                                                               
-        "rotate": 0,                                                // Positive value to rotate the text label.
+        "critical-threshold": 80,                                   // The threshold before it is considered critical (Celsius).
         "interval": 10,                                             // The interval in which the information gets polled.
+        "format-critical": "",                                     // The format to use when temperature is considered critical
+        "format": "{temperatureC}",                                 // The format (Celsius/Farenheit) in which the temperature should be displayed.
+        "format-icons": ["", "", "", "", ""],                  // Based on the current temperature (Celsius) and critical-threshold if available, the corresponding icon gets selected. The order is low to high.
+        "rotate": 0,                                                // Positive value to rotate the text label.
         "max-length": 20,                                           // The maximum length in character the module should display.
         "tooltip": true,                                            // Option to enable tooltip on hover.
-        "tooltip-format": "{temperatureC}°C | {temperatureF}°F ",   // The format for the tooltip
-        "critical-threshold": 80,                                   // The threshold before it is considered critical (Celsius).
-        "format": " ",                                              // The format (Celsius/Farenheit) in which the temperature should be displayed.
-        "format-critical": "",                                     // The format to use when temperature is considered critical
-        "format-icons": ["", "", "", "", ""]                   // Based on the current temperature (Celsius) and critical-threshold if available, the corresponding icon gets selected. The order is low to high.
+        "tooltip-format": "{temperatureC}°C : {temperatureF}°F ",   // The format for the tooltip
     },
     "disk": { // The disk module tracks the usage of filesystems and partitions.
         // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -87,14 +69,10 @@
         // █ {used} : Amount of used disk space.
         // █ {free} : Amount of free disk space.
         // ▼                                                                               
-        "path": "/",        // Mount point of the filesystem to monitor.
-        "rotate": 0,        // Positive value to rotate the text label.
         "interval": 30,     // The interval in which the information gets polled.
-        "tooltip": true,    // Option to enable tooltip on hover.
+        "format": "",      // The format, how information should be displayed.
+        "rotate": 0,        // Positive value to rotate the text label.
         "max-length": 20,   // The maximum length in character the module should display.
-        "format": "廓",     // The format, how information should be displayed.
-        "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)", // Format of the text to display in the tooltip.
-        "on-click": "killall footclient || footclient -H -- /usr/bin/duf || /usr/bin/df -h",   // Command to execute when clicked on the module.
         "states": {         // A number of disk utilization states which get activated on certain percentage thresholds (percentage_used).
             "highest": 100,
             "veryHigh": 85,
@@ -103,7 +81,11 @@
             "low": 30,
             "veryLow": 15,
             "lowest": 0
-        }
+        },
+        // "on-click": "killall footclient || footclient -H -- /usr/bin/duf || /usr/bin/df -h",   // Command to execute when clicked on the module.
+        "path": "/",        // Mount point of the filesystem to monitor.
+        "tooltip": true,    // Option to enable tooltip on hover.
+        "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)", // Format of the text to display in the tooltip.
     },
     "memory": { // The memory module displays the current RAM and swap utilization.
         // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -119,11 +101,9 @@
         // █ {avail} : Amount of available memory in GiB.
         // █ {swapAvail} : Amount of available swap in GiB.
         // ▼                                                                               
-        "rotate": 0,        // Positive value to rotate the text label.
         "interval": 30,     // The interval in which the information gets polled.
-        "tooltip": true,    // Option to enable tooltip on hover.
-        "max-length": 20,   // The maximum length in character the module should display.
-        "format": "",      // The format, how information should be displayed.
+        "format": "", // The format, how information should be displayed.
+        "rotate": 0,        // Positive value to rotate the text label.
         "states": {         // A number of memory utilization states which get activated on certain percentage thresholds.
             "highest": 100,
             "veryHigh": 85,
@@ -132,7 +112,10 @@
             "low": 30,
             "veryLow": 15,
             "lowest": 0
-        }
+        },
+        "max-length": 20,   // The maximum length in character the module should display.
+        "tooltip": true,    // Option to enable tooltip on hover.
+        "tooltip-format": "{percentage}% : {used}GiB used",
     },
     "pulseaudio": { // The pulseaudio module displays the current volume reported by PulseAudio.
         // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -144,17 +127,19 @@
         // █ {desc} : Pulseaudio port's description, for bluetooth it'll be the device name.
         // █ {icon} : Icon, as defined in format-icons.
         // ▼                                                                               
-        "rotate": 0,                                            // Positive value to rotate the text label.
-        "tooltip": true,                                        // Option to enable tooltip on hover.
-        "max-length": 20,                                       // The maximum length in character the module should display.
-        "scroll-step": 1,                                       // The speed in which to change the volume when scrolling.
         "format": "{icon}",                                     // The format, how information should be displayed. This format is used when other formats aren't specified.
         "format-bluetooth": "",                                // This format is used when using bluetooth speakers.
         "format-muted": "",                                    // This format is used when the sound is muted.
         "format-source-muted": "",                             // This format is used when the source is muted.
-        "on-click": "killall alsamixer || foot -- alsamixer",   // Command to execute when clicked on the module.
-        "on-scroll-up": "pamixer -i 5",                         // Command to execute when scrolling up on the module. This replaces the default beaviour of volume control.
-        "on-scroll-down": "pamixer -d 5",                       // Command to execute when scrolling down on the module. This replaces the default beaviour of volume control.
+        "format-icons": { // The folowing strings for format-icons are supported. If they are found in the current PulseAudio port name, the corresponding icons will be selected.
+            "headphone": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [ "婢", "", "", "", "", "", ""] // Will be shown, when no other port is found.
+        },
+        "rotate": 0,                                            // Positive value to rotate the text label.
         "states": {                                             // A number of volume states which get activated on certain volume levels.
             "highest": 100,
             "veryHigh": 85,
@@ -164,77 +149,72 @@
             "veryLow": 15,
             "lowest": 0
         },
-        "format-icons": { // The folowing strings for format-icons are supported. If they are found in the current PulseAudio port name, the corresponding icons will be selected.
-            "headphone": "",
-            "headset": "",
-            "default": [ "婢", "", "", "", "", "", ""] // Will be shown, when no other port is found.
-        }
+        "max-length": 20,                                       // The maximum length in character the module should display.
+        "scroll-step": 1.0,                                     // The speed in which to change the volume when scrolling.
+        "on-click": "killall alsamixer || foot -- alsamixer",   // Command to execute when clicked on the module.
+        "tooltip": true,                                        // Option to enable tooltip on hover.
     },
     "network": { // The network module displays information about the current network connections.
         // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
         // ┃                             Format replacements                              ┃
         // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-        // ▲
-        // █ {ifname} : Name of the network interface.
-        // █ {ipaddr} : The first IP of the interface.
-        // █ {gwaddr} : The default gateway for the interface.
-        // █ {netmask} : The subnetmask corresponding to the IP.
-        // █ {cidr} : The subnetmask corresponding to the IP in CIDR notation.
-        // █ {essid} : Name (SSID) of the wireless network.
-        // █ {signalStrength} : Signal strenth of the wireless network.
-        // █ {signaldBm} : Signal strenth of the wireless network in dBm.
-        // █ {frequency} : Frequency of the wireless network in MHz.
-        // █ {bandwidthUpBits} : Instant up speed in bits/seconds.
-        // █ {bandwidthDownBits} : Instant down speed in bits/seconds.
-        // █ {bandwidthUpOctets} : Instant up speed in octets/seconds.
-        // █ {bandwidthDownOctets} : Instant down speed in octets/seconds.
-        // █ {bandwidthUpBytes} : Instant up speed in bytes/seconds.
-        // █ {bandwidthDownBytes} : Instant down speed in bytes/seconds.
-        // █ {icon} : Icon, as defined in format-icons.
-        // ▼                                                                                
-        "rotate": 0,                                                    // Positive value to rotate the text label.
-        "format": " ",                                                  // The format, how information should be displayed. This format is used when other formats aren't specified.
-        "interval": 60,                                                 // The interval in which the information gets polled.
-        "tooltip": true,                                                // Option to enable tooltip on hover.
+        // {ifname} : Name of the network interface.
+        // {ipaddr} : The first IP of the interface.
+        // {gwaddr} : The default gateway for the interface.
+        // {netmask} : The subnetmask corresponding to the IP.
+        // {cidr} : The subnetmask corresponding to the IP in CIDR notation.
+        // {essid} : Name (SSID) of the wireless network.
+        // {signalStrength} : Signal strenth of the wireless network.
+        // {signaldBm} : Signal strenth of the wireless network in dBm.
+        // {frequency} : Frequency of the wireless network in MHz.
+        // {bandwidthUpBits} : Instant up speed in bits/seconds.
+        // {bandwidthDownBits} : Instant down speed in bits/seconds.
+        // {bandwidthUpOctets} : Instant up speed in octets/seconds.
+        // {bandwidthDownOctets} : Instant down speed in octets/seconds.
+        // {bandwidthUpBytes} : Instant up speed in bytes/seconds.
+        // {bandwidthDownBytes} : Instant down speed in bytes/seconds.
+        // {icon} : Icon, as defined in format-icons.
+        "interval": 40,                                                 // The interval in which the information gets polled.
         "family": "ipv4",                                               // The address family that is used for the format replacement {ipaddr} and to determine if a network connection is present.
-        "max-length": 20,                                               // The maximum length in character the module should display.
-        "format-wifi": "",                                             // This format is used when a wireless interface is displayed.
+        "format": " ",                                                  // The format, how information should be displayed. This format is used when other formats aren't specified.
         "format-ethernet": "",                                         // This format is used when a ethernet interface is displayed.
+        "format-wifi": "",                                             // This format is used when a wireless interface is displayed.
         "format-linked": "",                                           // This format is used when a linked interface with no ip address is displayed.
         "format-disconnected": "",                                     // This format is used when the displayed interface is disconnected.
+        "rotate": 0,                                                    // Positive value to rotate the text label.
+        "max-length": 20,                                               // The maximum length in character the module should display.
+        "tooltip": true,                                                // Option to enable tooltip on hover.
         "tooltip-format": "{ifname} @ {gwaddr} ",                      // The format, how information should be displayed in the tooltip. This format is used when other formats aren't specified.
         "tooltip-format-wifi": "{essid} ({signalStrength}%) ",         // This format is used when a wireless interface is displayed.
         "tooltip-format-ethernet": "{ifname}/{cidr} @ {gwaddr} ",      // This format is used when a ethernet interface is displayed.
         "tooltip-format-disconnected": "Disconnected ",                // This format is used when the displayed interface is disconnected.
-        "on-click": "killall nmtui-connect || foot -- nmtui-connect"    // Command to execute when clicked on the module.
     },
     "cpu": { // The cpu module displays the current cpu utilization.
         // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
         // ┃                             Format replacements                              ┃
         // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-        // ▲
-        // █ {load} : Current cpu load
-        // █ {usage} : Current cpu usage.
-        // █ {avg_frequency} : Current cpu average frequency (based on all cores) in GHz.
-        // █ {min_frequency} : Current cpu min frequency (based on the core with the lowest frequency) in GHz.
-        // █ {max_frequency} : Current cpu max frequency (based on the core with the highest frequency) in GHz.
-        // ▼                                                                               
-        "rotate": 0,                                // Positive value to rotate the text label.
-        "interval": 10,                             // The interval in which the information gets polled.
-        "max-length": 20,                           // The maximum length in character the module should display.
-        "format": " ",                              // The format, how information should be displayed. On {} data gets inserted.
-        "on-click": "killall btop || foot -- btop", // Command to execute when clicked on the module.
-        "states": {                                 // A number of cpu usage states which get activated on certain usage levels.
+        // {load} : Current cpu load
+        // {usage} : Current cpu usage.
+        // {usageN} : Nth cpu core usage (% view).
+        // {avg_frequency} : Current cpu average frequency (based on all cores) in GHz.
+        // {min_frequency} : Current cpu min frequency (based on the core with the lowest frequency) in GHz.
+        // {max_frequency} : Current cpu max frequency (based on the core with the highest frequency) in GHz.
+        "interval": 10,         // The interval in which the information gets polled.
+        "format": "",          // The format, how information should be displayed. On {} data gets inserted.
+        "rotate": 0,            // Positive value to rotate the text label.
+        "states": {             // A number of cpu usage states which get activated on certain usage levels.
             "high": 95,
             "medium": 50,
             "low": 0
-        }
+        },
+        "on-click": "killall btop || foot -- btop", // Command to execute when clicked on the module.
     },
     "backlight": { // The backlight module displays the current backlight level.
+        "interval": 2,      // The interval in which the information gets polled.
+        "format": "{percent}",  // The format, how information should be displayed. On {} data gets inserted.
+        "format-icons": ["", "", ""], // Based on the current percentage, the corresponding icon gets selected. The order is low to high.
+        "max-length": 10,   // The maximum length in character the module should display.
         "rotate": 0,        // Positive value to rotate the text label.
-        "interval": 60,     // The interval in which the information gets polled.
-        "max-length": 20,   // The maximum length in character the module should display.
-        "format": " ",      // The format, how information should be displayed. On {} data gets inserted.
         "states": {         // A number of backlight states which get activated on certain brightness levels.
             "light": 100,
             "veryBright": 90,
@@ -244,55 +224,40 @@
             "veryDim": 20,
             "dark": 0
         },
-        "format-icons": ["", "", ""], // Based on the current percentage, the corresponding icon gets selected. The order is low to high.
         "tooltip-format": "{percent}%"  // Tooltip on hover, same as format
     },
     "battery": { // The battery module displays the current capacity and state (eg. charging) of your battery.
-        "bat": "BAT0",                              // The battery to monitor, as in /sys/class/power_supply/ instead of auto detect.
-        "rotate": 0,                                // Positive value to rotate the text label.
-        "interval": 60,                             // The interval in which the information gets polled.
-        "tooltip": true,                            // Option to enable tooltip on hover.
-        "tooltip-format": "{capacity}% {timeTo}",   // The tooltip format.
-        //"full-at": 100,                           // Define the max percentage of the battery, useful for an old battery, e.g. 96
-        "max-length": 20,                           // The maximum length in character the module should display.
-        "design-capacity": false,                   // Option to enable the use of the design capacity instead of the actual maximal capacity. Thus, even full, the battery may be at less than 100%.
-        "on-click": "killall battop || foot -- battop ", // Command to execute when clicked on the module.
-        "states": {                                 // A number of battery states which get activated on certain capacity levels.
-            "full": 100,
-            "good": 85,
-            "warning": 30,
-            "critical": 15
-        },
         // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
         // ┃                             Format replacements                              ┃
         // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-        // ▲
-        // █ {capacity} : Capacity in percentage                                          
-        // █ {power} : Power draw in watts                                                
-        // █ {icon} : Icon, as defined in format-icons.                                   
-        // █ {time} : Estimate of time until full or empty. Note that this is based on the power draw at the last refresh time, not an average.                 
-        // ▼                                                                               
-        // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-        // ┃                                Custom Formats                                ┃
-        // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-        // ╭──────────────────────────────────────────────────────────────────────────────╮
-        // │    The battery module allows to define custom formats based on up to two     │
-        // │              factors. The best fitting format will be selected.              │
-        // ╰──────────────────────────────────────────────────────────────────────────────╯
-        // ▲
-        // █ format-<state>: With states, a custom format can be set depending on the capacity of your battery.                                               
-        // █ format-<status>: With the status, a custom format can be set depending on the status in /sys/class/power_supply/<bat>/status (in lowercase).       
-        // █ format-<status>-<state>: You can also set a custom format depending on both values.                                                                
-        // ▼                                                                               
-        "format": "{capacity}% {icon}",     // The format, how the module should be displayed.
-        "format-time": "{H} H {M} MIN",     // The format of the estimate of time until full or empty.
-        "format-good": " ",                 // Format when battery at good states, NOTE: An empty format will hide the module
-        "format-full": " ",                 // Format when battery at full states
-        "format-warning": " ",              // Format when battery at warning states
-        "format-critical": " ",             // Format when battery at critical states
-        "format-charging": "",             // Format when battery at charging status
-        "format-plugged": "",              // Format when battery at plugged status
-        "format-icons": ["", "", "", "", ""] // Based on the current capacity, the corresponding icon gets selected. The order is low to high.
+        // {capacity} : Capacity in percentage                                          
+        // {power} : Power draw in watts                                                
+        // {icon} : Icon, as defined in format-icons.                                   
+        // {time} : Estimate of time until full or empty. Note that this is based on the power draw at the last refresh time, not an average.                 
+        // format-<state>: With states, a custom format can be set depending on the capacity of your battery.                                               
+        // format-<status>: With the status, a custom format can be set depending on the status in /sys/class/power_supply/<bat>/status (in lowercase).       
+        // format-<status>-<state>: You can also set a custom format depending on both values.                                                                
+        "design-capacity": false,   // Option to enable the use of the design capacity instead of the actual maximal capacity. Thus, even full, the battery may be at less than 100%.
+        // "full-at": 100,             // Define the max percentage of the battery, useful for an old battery, e.g. 96
+        "interval": 10,             // The interval in which the information gets polled.
+        "states": {                 // A number of battery states which get activated on certain capacity levels.
+            "full": 100,
+            "half-full": 89,
+            "good": 79,
+            "medium": 69,
+            "bad": 39,
+            "half-low": 29,
+            "low": 19,
+        },
+        "format": "{capacity}",     // The format, how the module should be displayed.
+        "format-time": "{H} H {M} MIN", // The format of the estimate of time until full or empty.
+        "format-icons": ["", "", "", "", ""],  // Based on the current capacity, the corresponding icon gets selected. The order is low to high.
+        "max-length": 10,                           // The maximum length in character the module should display.
+        "rotate": 0,                                // Positive value to rotate the text label.
+        "tooltip": true,                            // Option to enable tooltip on hover.
+        "tooltip-format": "{capacity}% {power} : {timeTo}", // The tooltip format.
+        // "format-charging": "",         // Format when battery at charging status
+        // "format-plugged": "",          // Format when battery at plugged status
     },
     "river/tags": { // The 'tags' module displays the current tag state of river.
         "num-tags": 5, // The number of tags that should be displayed. Max 32.
@@ -308,22 +273,23 @@
         // █ {icon} : Icon, as defined in format-icons.
         // ▼                                                                               
         "format": "{icon}",             // The format, how information should be displayed.
+        // "format-icons": {               // Based on the workspace name and state, the corresponding icon gets selected. 
+        //     "1": "",
+        //     "2": "",
+        //     "3": "",
+        //     "4": "",
+        //     "5": "ﲅ",
+        //     "active": "", // Will be shown, when workspace is active
+        //     "urgent": "", // Will be shown, when workspace is flagged as urgent.
+        //     "default": "" // Will be shown, when no string matches is found.
+        // },
         "sort-by-name": true,           // Should workspaces be sorted by name.
+        "sort-by-coordinates": true,    // Should workspaces be sorted by coordinates. Note that if both sort-by-name and sort-by-coordinates are true sort by name will be first. If both are false - sort by id will be performed.
+        "sort-by-number": true,         // If set to true, workspace names will be sorted numerically. Takes presedence over any other sort-by option.
         "on-click": "activate",         // Command to execute when clicked on the module.
         "on-click-right": "close",      // Command to execute when right-clicked on the module
-        "active-only": false,           // If set to true only active or urgent workspaces will be shown.
         "all-outputs": false,           // If set to false workspaces group will be shown only in assigned output. Otherwise all workspace groups are shown.
-        "sort-by-coordinates": true,    // Should workspaces be sorted by coordinates. Note that if both sort-by-name and sort-by-coordinates are true sort by name will be first. If both are false - sort by id will be performed.
-        "format-icons": {               // Based on the workspace name and state, the corresponding icon gets selected. 
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "ﲅ",
-            "active": "", // Will be shown, when workspace is active
-            "urgent": "", // Will be shown, when workspace is flagged as urgent.
-            "default": "" // Will be shown, when no string matches is found.
-        }
+        "active-only": false,           // If set to true only active or urgent workspaces will be shown.
     },
     "clock#hour": { // The clock module displays the current date and time.
         "rotate": 0,                                                        // Positive value to rotate the text label.
@@ -332,7 +298,6 @@
         "format": "{:%H}",                                                  // The format, how the date and time should be displayed. For valid format options have a look https://www.cplusplus.com/reference/ctime/strftime/
         "tooltip": true,                                                    // Option to enable tooltip on hover.
         "today-format": "<b><u>{}</u></b>",                                 // The formatting of today's date in the {calendar}
-        "timezones": [ "Asia/Jakarta", "America/New_York", "Japan"],        // A list of timezones (as in timezone) to use for time display, changed using the scroll wheel.
         "tooltip-format": "<big>{:%Y %B}</big>\n<small>{calendar}</small>"  // Tooltip on hover, same as format
     },
     "clock#minute": { // The clock module displays the current date and time.

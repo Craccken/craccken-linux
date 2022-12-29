@@ -1,0 +1,15 @@
+#memory {
+    background-origin: border-box;
+    background-size: contain;
+    background-clip: padding-box;
+    background-repeat: no-repeat;
+    background-position: initial;
+    background-image: url("/opt/craccken/assets/statusbar/background-3.svg");
+    font-family: 'Iosevka Nerd Font';
+    font-size: 17px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 2px;
+    margin-bottom: 0.5rem;
+    color: #f5f5f5;
+}

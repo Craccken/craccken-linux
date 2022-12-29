@@ -1,0 +1,62 @@
+#battery {
+    background-origin: border-box;
+    background-size: contain;
+    background-clip: padding-box;
+    background-repeat: no-repeat;
+    background-position: initial;
+    color: #f5f5f5;
+    text-shadow: 0px 0px 1.7px #f5f5f5; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
+    font-family: 'CozetteVector';
+    font-size: 17px;
+    padding-top: 1.32rem;
+    padding-bottom: 1.33rem;
+}
+#battery.full {
+    background-image: url("/opt/craccken/assets/statusbar/battery-full-discharging.svg");
+}
+#battery.charging.full {
+    background-image: url("/opt/craccken/assets/statusbar/battery-full-charging.svg");
+}
+#battery.half-full {
+    background-image: url("/opt/craccken/assets/statusbar/battery-half-full-discharging.svg");
+}
+#battery.charging.half-full {
+    background-image: url("/opt/craccken/assets/statusbar/battery-half-full-charging.svg");
+}
+#battery.good {
+    background-image: url("/opt/craccken/assets/statusbar/battery-good-discharging.svg");
+}
+#battery.charging.good {
+    background-image: url("/opt/craccken/assets/statusbar/battery-good-charging.svg");
+}
+#battery.medium {
+    background-image: url("/opt/craccken/assets/statusbar/battery-medium-discharging.svg");
+}
+#battery.charging.medium {
+    background-image: url("/opt/craccken/assets/statusbar/battery-medium-charging.svg");
+}
+#battery.bad {
+    background-image: url("/opt/craccken/assets/statusbar/battery-bad-discharging.svg");
+}
+#battery.charging.bad {
+    background-image: url("/opt/craccken/assets/statusbar/battery-bad-charging.svg");
+}
+#battery.half-low {
+    background-image: url("/opt/craccken/assets/statusbar/battery-half-low-discharging.svg");
+}
+#battery.charging.half-low {
+    background-image: url("/opt/craccken/assets/statusbar/battery-half-low-charging.svg");
+}
+#battey.low {
+    background-image: url("/opt/craccken/assets/statusbar/battery-low-discharging.svg");
+}
+#battery.charging.low {
+    background-image: url("/opt/craccken/assets/statusbar/battery-low-charging.svg");
+}
+/* @for $battery-percent from 90 through 100 { */
+/* @for $battery-percent from 80 through 89 { */
+/* @for $battery-percent from 70 through 79 { */
+/* @for $battery-percent from 40 through 69 { */
+/* @for $battery-percent from 30 through 39 { */
+/* @for $battery-percent from 20 through 29 { */
+/* @for $battery-percent from 0 through 19 { */
