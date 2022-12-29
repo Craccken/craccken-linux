@@ -1,6 +1,6 @@
 .cpu {
     @include background-fill; // Use function
-    background-image: url("./bar/assets/background-7.svg"); // Set the background image of an element
+    background-image: url("/opt/craccken/assets/statusbar/background-7.svg"); // Set the background image of an element
     font-family: $font-text-1; // Specifies a prioritized list of font family names or generic family names.
     padding-top: 0.8rem; // Shorthand property to set values for the thickness of the padding area top
     padding-bottom: 0.7rem; // Shorthand property to set values for the thickness of the padding area bottom

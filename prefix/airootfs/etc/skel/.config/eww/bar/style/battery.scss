@@ -15,74 +15,74 @@
     &-Discharging {
         @for $battery-percent from 90 through 100 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-full-discharging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-full-discharging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 80 through 89 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-half-full-discharging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-half-full-discharging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 70 through 79 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-good-discharging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-good-discharging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 40 through 69 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-medium-discharging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-medium-discharging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 30 through 39 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-bad-discharging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-bad-discharging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 20 through 29 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-half-low-discharging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-half-low-discharging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 0 through 19 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-low-discharging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-low-discharging.svg"); // Set the background image of an element
             }
         }
     }
     &-Charging {
         @for $battery-percent from 90 through 100 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-full-charging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-full-charging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 80 through 89 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-half-full-charging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-half-full-charging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 70 through 79 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-good-charging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-good-charging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 40 through 69 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-medium-charging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-medium-charging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 30 through 39 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-bad-charging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-bad-charging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 20 through 29 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-half-low-charging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-half-low-charging.svg"); // Set the background image of an element
             }
         }
         @for $battery-percent from 0 through 19 {
             &--#{$battery-percent} {
-                background-image: url("./bar/assets/battery-low-charging.svg"); // Set the background image of an element
+                background-image: url("/opt/craccken/assets/statusbar/battery-low-charging.svg"); // Set the background image of an element
             }
         }
     }

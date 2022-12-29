@@ -13,11 +13,11 @@
         transition-property: text-shadow, background-image; // Specifies the name of the CSS property to which the transition is applied.
     }
     .workspace-focused {
-        background-image: url("./bar/assets/background-9.svg"); // Set the background image of an element
+        background-image: url("/opt/craccken/assets/statusbar/background-9.svg"); // Set the background image of an element
         color: #000000; // Sets the color of an element's text
     }
     .workspace-unfocused {
-        background-image: url("./bar/assets/background-10.svg"); // Set the background image of an element
+        background-image: url("/opt/craccken/assets/statusbar/background-10.svg"); // Set the background image of an element
         &:hover {
             text-shadow: 0px 0px 2px #f5f5f5; // Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color'
         }

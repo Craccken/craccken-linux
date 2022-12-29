@@ -1,7 +1,7 @@
 .time {
     @include background-fill; // Use function
     color: #f5f5f5; // Sets the color of an element's text
-    background-image: url("./bar/assets/background-1.svg"); // Set the background image of an element
+    background-image: url("/opt/craccken/assets/statusbar/background-1.svg"); // Set the background image of an element
     font-weight: bold; // Specifies weight of glyphs in the font, their degree of blackness or stroke thickness\
     font-family: $font-text-1; // Specifies a prioritized list of font family names or generic family names.
     font-size: 17px; // Indicates the desired height of glyphs from the font.
@@ -22,7 +22,7 @@
         transition-property: text-shadow, background-image; // Specifies the name of the CSS property to which the transition is applied.
         &:hover {
             text-shadow: 0px 0px 2px #f5f5f5; // Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color'
-            background-image: url("./bar/assets/background-1-hover.svg"); // Set the background image of an element
+            background-image: url("/opt/craccken/assets/statusbar/background-1-hover.svg"); // Set the background image of an element
         }
         &:active {
             text-shadow: 0px 0px 2px #f5f5f5, -8 -4 0px #cc0022, -4 -4 0px #00ff87, 4px 10px 1px #cc0022, 8px 10px 1px #00ff87 ; /* Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color' */
