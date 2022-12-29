@@ -21,10 +21,11 @@ killall -q swayidle waybar dunst # Kill old proccess, so it will not overlaping 
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Statusbar                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-# (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config -s /etc/xdg/waybar/bar.css &! # Check command if it available && start waybar
-(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config -s /etc/xdg/waybar/bar.css &! # Check command if it available && start waybar
-(( $+commands[eww] )) && eww --restart open statusbar
-generate-workspaces-component &!
+(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config &! # Check command if it available && start waybar
+(( $+commands[eww] )) && eww --restart open statusbar && generate-workspaces-component & disown
+if (( ! $+commands[eww] )); then # Check if eww is not installed then:
+    (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config & disown # Check command if it available && start waybar
+fi # End if-else statement
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Music                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
