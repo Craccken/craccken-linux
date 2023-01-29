@@ -95,7 +95,8 @@ main(){
     # │                              Copy directory/file                             │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     refresh_directory /etc/X11/app-defaults /etc/X11
-    refresh_directory /opt
+    refresh_directory /opt/craccken /opt
+    refresh_directory /opt/craccken-installer
     refresh_directory /etc/zsh
     refresh_directory /etc/dunst
     refresh_directory /etc/zathurarc
@@ -141,6 +142,7 @@ main(){
         "$HOME/.config/fsh"
         "$HOME/.config/wget"                    # wget config dir
         "$HOME/.config/npmrc"                   # npm config dir
+        "$HOME/.config/newsboat"                # Newsboat rss config dir
     )
     local -a SYSTEM_CONFIGURATIONS=( # System configurations
         "/etc/doas.conf"

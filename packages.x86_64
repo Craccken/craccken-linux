@@ -44,8 +44,8 @@ pcmanfm-gtk3
 ntfs-3g
 gparted
 gptfdisk
-jfsutils
-xfsprogs
+# jfsutils
+# xfsprogs
 xarchiver
 e2fsprogs
 fatresize
@@ -53,7 +53,7 @@ trash-cli
 gvfs-mtp
 # gvfs-afc
 # gvfs-smb
-f2fs-tools
+# f2fs-tools
 exfatprogs
 btrfs-progs
 # gvfs-google
@@ -94,14 +94,13 @@ dashbinsh
 acpi
 base
 foot
-moreutils
 foot-terminfo
+moreutils
 opendoas
 opendoas-sudo
 usbutils
 make
 which
-patch
 bison
 python
 pacman
@@ -272,7 +271,7 @@ wireplumber
 #          ╭──────────────────────────────────────────────────────────────────────────────╮
 #          │                                   Network                                    │
 #          ╰──────────────────────────────────────────────────────────────────────────────╯
-iw
+# iw
 nbd
 curl
 lftp
@@ -312,7 +311,7 @@ npm
 jq
 tldr
 meson
-gdb
+# gdb
 less
 gum
 tmux
@@ -341,3 +340,5 @@ wl-clipboard-x11
 # cozette-otb
 zsh-autosuggestions
 paru
+# btrfs-assistant
+# snapper

@@ -6,4 +6,3 @@ sudo pacman -Sy --needed --noconfirm archiso mkinitcpio-archiso
 [[ -d ./output ]] && sudo mv ./output/* ../ || : # Clean output-directory
 
 sudo mkarchiso -v -o ./output ./prefix 2>./.error.log # Start mkarchiso
-# sudo umount ./work/x86_64/airootfs/dev
