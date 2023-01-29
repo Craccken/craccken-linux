@@ -1,6 +1,6 @@
 (defwidget time []
   (eventbox ; a container which can receive events and must contain exactly one child. Supports :hover css selectors.
-    :cursor "hand" ; Cursor to show while hovering (see gtk3-cursors for possible names)
+    :cursor "pointer" ; Cursor to show while hovering (see gtk3-cursors for possible names)
     :tooltip "${current_date}" ; tooltip text (on hover)
     (box ; the main layout container
       :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"

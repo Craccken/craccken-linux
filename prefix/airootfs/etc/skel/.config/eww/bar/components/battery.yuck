@@ -1,9 +1,9 @@
 (defwidget battery []
   (eventbox ; a container which can receive events and must contain exactly one child. Supports :hover css selectors.
-    :cursor "cell" ; Cursor to show while hovering (see gtk3-cursors for possible names)
+    :cursor "crosshair" ; Cursor to show while hovering (see gtk3-cursors for possible names)
     :tooltip "${EWW_BATTERY["BAT0"].capacity}% : ${EWW_BATTERY["BAT0"].status}" ; tooltip text (on hover)
     (box ; the main layout container
-      :class "battery-${EWW_BATTERY["BAT0"].status}--${EWW_BATTERY["BAT0"].capacity}" ; string css class name
+      :class "battery-${EWW_BATTERY["BAT0"].status == 'Not charging' ? 'Charging' : EWW_BATTERY["BAT0"].status }--${EWW_BATTERY["BAT0"].capacity}" ; string css class name
       :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
       :space-evenly false ; bool space the widgets evenly.
       (label ; A text widget giving you more control over how the text is displayed

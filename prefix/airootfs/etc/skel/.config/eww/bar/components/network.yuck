@@ -1,6 +1,6 @@
 (defwidget network []
   (eventbox ; a container which can receive events and must contain exactly one child. Supports :hover css selectors.
-    :cursor "hand" ; Cursor to show while hovering (see gtk3-cursors for possible names)
+    :cursor "pointer" ; Cursor to show while hovering (see gtk3-cursors for possible names)
     :onhoverlost "eww close popup-network" ; event to execute when the user losts hovers over the widget
     (box ; the main layout container
       :class "network" ; string css class name
