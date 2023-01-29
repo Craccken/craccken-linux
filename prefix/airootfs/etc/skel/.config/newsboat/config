@@ -1,0 +1,46 @@
+# Key-bind
+bind-key j down                     # Go up one line
+bind-key k up                       # Go down one line
+bind-key j next articlelist         # Jump to next list entry. (in articlelist)
+bind-key k prev articlelist         # Jump to previous list entry. (in articlelist)
+bind-key J next-feed articlelist    # Go to the next feed. This only works from the article list.
+bind-key K prev-feed articlelist    # Go to the previous feed. This only works from the article list.
+bind-key G end                      # Go to the last item in the list.
+bind-key g home                     # Go to the first item in the list.
+bind-key u pageup                   # Go up one page in the list.
+bind-key d pagedown                 # Go down one page in the list.
+bind-key l open                     # Open the currently selected feed or article.
+bind-key h quit                     # Quit the program or return to the previous dialog (depending on the context).
+bind-key a toggle-article-read      # Toggle the read flag for the currently selected article, and clear the delete flag if set.
+bind-key n next-unread              # Jump to the next unread article.
+bind-key N prev-unread              # Jump to the previous unread article.
+bind-key U show-urls                # Show all URLs in the article in a list (similar to urlview).
+
+# Colors
+color listnormal color236 default dim               # a normal list item
+color listfocus color56 default blink bold          # the currently selected list item
+color listnormal_unread color56 default dim         # an unread list item
+color listfocus_unread color57 default blink bold   # the currently selected unread list item
+color title color253 color232 blink                 # current dialog’s title, which is usually at the top of the screen.
+color info color0 default                           # the hints bar, which is usually at the bottom of the screen
+color hint-key color0 color172 bold underline       # a key in the hints bar. If you don’t specify a style for this element, then the info style is used
+color hint-keys-delimiter color0 color172 bold      # the comma that separates keys in the hints bar. If you don’t specify a style for this element, then the info style is used
+color hint-separator default color232 invis         # the colon separating keys from their descriptions in the hints bar.
+color hint-description color253 color232 blink      # a description of a key in the hints bar.
+color article default default                       # the article text
+color end-of-text-marker default default invis      # filler lines (~) below blocks of text
+
+# Option
+auto-reload yes # If set to yes, all feeds will be automatically reloaded at start up and then continuously after a certain time has passed (see reload-time).
+highlight all "---.*---" color172
+highlight feedlist ".*(0/0))" black
+highlight article "^(Title):.*$" default default standout
+highlight article "(^Feed:.*|^Author:.*)" color238 default dim blink
+highlight article "(^Link:.*|^Date:.*)" color238 default blink
+highlight article "https?://[^ ]+" color214 default underline
+highlight article "\\[[0-9][0-9]*\\]" color197 default reverse
+highlight article "\\[image\\ [0-9]+\\]" green default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
+highlight article " .*\\(link\\)$" color214 default blink
+highlight article " .*\\(image\\)$" blue default blink
+highlight article " .*\\(embedded flash\\)$" magenta default blink
