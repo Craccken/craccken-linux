@@ -1,3 +1,4 @@
+# vim:ft=bash
 ##
 ## 							
 ## English Translation File		
@@ -45,11 +46,6 @@ _ErrNoKernel="\nAt least one kernel (linux or linux-lts) must be selected.\n\n"
 # Vbox Installations
 _VBoxInstTitle="VirtualBox Installation "
 _VBoxInstBody="\nIf for any reason the VirtualBox guest modules do not load for the installed system (e.g. low resolution and scrollbars after booting), a one-off series of commands will fix this:\n\n$ su\n# depmod -a\n# modprobe -a vboxvideo vboxguest vboxsf\n# reboot"
-
-# Select Config Files
-_SeeConfOptTitle="Review Configuration Files"
-_SeeConfOptBody="\nSelect any file listed below to be reviewed or amended.\n"
-_SeeConfErrBody="\nFile does not exist.\n\n"
 
 # Pacman
 _PrepPacKey="Refresh Pacman Keys"
@@ -101,9 +97,6 @@ _LvmCompBody="\nDone! All Logical Volumes have been created for the Volume Group
 _LvmDelQ="\nConfirm deletion of Volume Group(s) and Logical Volume(s).\n\nIf deleting a Volume Group, all Logical Volumes within will be deleted as well.\n\n"
 _LvmSelVGBody="\nSelect Volume Group to delete. All Logical Volumes within will also be deleted.\n"
 _LvmVGErr="\nNo Volume Groups found.\n\n"
-
-# Show devices and partitions
-_DevShowOpt="List Devices (optional)"
 
 # Check Requirements
 _ChkTitle="Rechecking Requirements"
@@ -195,23 +188,14 @@ _FSTitle="Choose Filesystem"
 _FSBody="\nExt4 is recommended. Not all filesystems are viable for Root or Boot partitions. All have different features and limitations."
 _FSSkip="Skip / None" 
 
-# Select Root
-_SelRootBody="\nSelect ROOT Partition. This is where Craccken will be installed."
-
 # Select SWAP
 _SelSwpBody="\nSelect SWAP Partition. If using a Swapfile, it will be initially set the same size as your RAM."
 _SelSwpNone="None"
 _SelSwpFile="Swapfile"
 
-# Select UEFI
-_SelUefiBody="\nSelect UEFI Partition. This is a special partition for booting UEFI systems."
-
 # Format UEFI
 _FormUefiBody="The UEFI partition"
 _FormUefiBody2="has already been formatted.\n\nReformat? Doing so will erase ALL data already on that partition.\n\n"
-
-# UEFI Mountpoint
-_MntUefiBody="\nSelect UEFI Mountpoint.\n\nsystemd-boot requires /boot. Grub will work with either mountpoint."
 
 # Extra Partitions
 _ExtPartBody="\nSelect additional partitions in any order, or 'Done' to finish."
@@ -279,27 +263,18 @@ _InstNMErrBody="\nNetwork connection manager has been installed and enabled.\n\n
 _WelTitle="Welcome to"
 _WelBody="\nThis installer will download the latest packages from the Arch repositories. Only the minimal necessary configuration is undertaken.\n\nMENU OPTIONS: Select by pressing the option number or by using the up/down arrow keys before pressing [enter] to confirm. Switch between buttons by using [Tab] or the left/right arrow keys before pressing [enter] to confirm. Long lists can be navigated using the [pg up] and [pg down] keys, and/or by pressing the first letter of the desired option.\n\nCONFIGURATION & PACKAGE OPTIONS: Default packages in checklists will be pre-checked. Use the [Spacebar] to de/select."
 
-# Preparation Menu
-_PrepMenuBody="\nThe console keyboard layout will be used for both the installer and the installed system.\n"
-_PrepKBLayout="Set Desktop Keyboard Layout"
-_PrepMirror="Configure Installer Mirrorlist"
-_PrepPartDisk="Partition Disk"
-_PrepMntPart="Mount Partitions"
 _Back="Back"
 
 # Install Base Menu
 _InstBsMenuTitle="Install Base"
 _InstBseMenuBody="\nPackages to be installed must be downloaded from mirror servers. The pacstrap script installs the base system. To build packages from the AUR or with ABS, the base-devel group is also required."
-_InstBse="Install Base Packages"
-_InstBootldr="Install Bootloader"
 
 # Configure Base Menu
 _ConfBseMenuTitle="Configure Base"
 _ConfBseBody="\nBasic configuration of the base."
-_ConfBseFstab="Generate FSTAB"
 _ConfBseHost="Set Hostname"
-_ConfBseTimeHC="Set Timezone and Clock"
 _ConfBseSysLoc="Set System Locale"
+_ConfBseTimeHC="Set Timezone and Clock"
 _MMRunMkinit="Run Mkinitcpio"
 
 # User Menu

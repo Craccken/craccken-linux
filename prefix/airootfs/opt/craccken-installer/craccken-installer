@@ -1,5 +1,4 @@
-#!/bin/env bash
-
+#!/usr/bin/env bash
 # ISO Specific Variables, READ CAREFULLY FOR YOUR DISTRO
 ISO_HOST="Craccken"             # ISO Host Name
 ISO_USER="user"           		# Live user account
@@ -22,45 +21,22 @@ HIGHLIGHT=0           					# Highlight items for Main Menu
 HIGHLIGHT_SUB=0	    					# Highlight items for submenus
 SUB_MENU=""           					# Submenu to be highlighted
 
-# Logical Volume Management
-LVM=0                   				# Logical Volume Management Detected?
-LVM_SEP_BOOT=0          				# 1 = Seperate /boot, 2 = seperate /boot & LVM
-LVM_VG=""               				# Name of volume group to create or use
-LVM_VG_MB=0             				# MB remaining of VG
-LVM_LV_NAME=""          				# Name of LV to create or use
-LV_SIZE_INVALID=0       				# Is LVM LV size entered valid?
-VG_SIZE_TYPE=""         				# Is VG in Gigabytes or Megabytes?
-
-# LUKS
-LUKS=0                  				# Luks Detected?
-LUKS_DEV=""								# If encrypted, partition
-LUKS_NAME=""							# Name given to encrypted partition
-LUKS_UUID=""							# UUID used for comparison purposes
-LUKS_OPT=""								# Default or user-defined?
-
 # Installation
 MOUNTPOINT="/mnt"       				# Installation
 AIROOTIMG=""                			# Root image to install
 BYPASS="$MOUNTPOINT/bypass/" 			# Root image mountpoint
-BTRFS=0                     			# BTRFS used? "1" = btrfs alone, "2" = btrfs + subvolume(s)
 MOUNT_OPTS="/tmp/.mnt_opts" 			# Filesystem Mount options
 FS_OPTS=""								# FS mount options available
 CHK_NUM=16								# Used for FS mount options checklist length
 
-{ # Create a function
-    if [[ "$(cat /sys/class/dmi/id/sys_vendor)" == 'Apple Inc.' ]] || [[ "$(cat /sys/class/dmi/id/sys_vendor)" == 'Apple Computer, Inc.' ]]; then # Check if system is made by apple
-        modprobe -r -q efivars # Remove a module from the kernel with quiet mode
-    else
-        modprobe -q efivarfs # Load a module into the kernel with quiet mode
-    fi # End if-else statement
-    if [[ -d /sys/firmware/efi/ ]]; then # Check if system is UEFI or BIOS
-        [[ -z $(mount | grep /sys/firmware/efi/efivars) ]] && mount -t efivarfs efivarfs /sys/firmware/efi/efivars # Mount efivarfs if it is not already mounted
-        SYSTEM="UEFI" # Set variable SYSTEM to UEFI
-    else
-        SYSTEM="BIOS" # Set variable SYSTEM to BIOS
-    fi # End if-else statement
-    BACKTITLE="$VERSION - $SYSTEM ($ARCHI)"
-}
+modprobe -q efivarfs # Load a module into the kernel with quiet mode
+if [[ -d /sys/firmware/efi/ ]]; then # Check if system is UEFI or BIOS
+    [[ -z $(mount | grep /sys/firmware/efi/efivars) ]] && mount -t efivarfs efivarfs /sys/firmware/efi/efivars # Mount efivarfs if it is not already mounted
+    SYSTEM="UEFI" # Set variable SYSTEM to UEFI
+else
+    SYSTEM="BIOS" # Set variable SYSTEM to BIOS
+fi # End if-else statement
+BACKTITLE="$VERSION - $SYSTEM ($ARCHI)"
 
 run_command_in_mountpoint(){ # Create a function 
     arch-chroot $MOUNTPOINT /bin/bash -c "${1}" # Run shell command to mountpoint
@@ -79,24 +55,6 @@ check_mount(){ # Create a function
 
 check_base(){ # Create a function
     [[ ! -e ${MOUNTPOINT}/etc ]] && dialog --backtitle "$BACKTITLE" --title " $_ErrTitle " --msgbox "$_ErrNoBase" 0 0 && main_menu # Ensure that base of craccken has been installed
-}
-
-show_devices(){ # Create a function
-    lsblk -o NAME,MODEL,TYPE,FSTYPE,SIZE,MOUNTPOINT | grep "disk\|part\|lvm\|crypt\|NAME\|MODEL\|TYPE\|FSTYPE\|SIZE\|MOUNTPOINT" 1>/tmp/.devlist # Show devices / partitions.
-    dialog --backtitle "$BACKTITLE" --title " $_DevShowOpt " --textbox /tmp/.devlist 0 0
-}
-
-set_xkbmap(){ # Create a function
-    local XKBMAP_LIST
-	keymaps_xkb=("af al am at az ba bd be bg br bt bw by ca cd ch cm cn cz de dk ee es et eu fi fo fr gb ge gh gn gr hr hu ie il in iq ir is it jp ke kg kh kr kz la lk lt lv ma md me mk ml mm mn mt mv ng nl no np pc ph pk pl pt ro rs ru se si sk sn sy tg th tj tm tr tw tz ua us uz vn za")
-	for i in $keymaps_xkb; do
-        XKBMAP_LIST="${XKBMAP_LIST} ${i} -"
-    done
-    dialog --backtitle "$BACKTITLE" --title " Set Desktop Keyboard Layout " --scrollbar --cursor-off-label --menu "$_XkbmapBody" 0 0 16 \
-        ${XKBMAP_LIST} 2>${ANSWER} || prep_menu
-    XKBMAP=$(read_answer)
-    echo -e "Section "\"InputClass"\"\nIdentifier "\"system-keyboard"\"\nMatchIsKeyboard "\"on"\"\nOption "\"XkbLayout"\" "\"${XKBMAP}"\"\nEndSection" > /tmp/01-keyboard-layout.conf
-	setxkbmap $XKBMAP # Set keymap for X11
 }
 
 set_locale(){ # Create a function
@@ -219,11 +177,6 @@ create_new_user(){ # Create new user(s) for installed system. First user is crea
 }
 
 run_mkinitcpio(){ # Create a function
-	# If LVM and/or LUKS used, add the relevant hook(s)
-	([[ $LVM -eq 1 ]] && [[ $LUKS -eq 0 ]]) && sed -i 's/block filesystems/block lvm2 filesystems/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog
-    ([[ $LVM -eq 1 ]] && [[ $LUKS -eq 1 ]]) && sed -i 's/block filesystems/block encrypt lvm2 filesystems/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog && sed -i 's/#GRUB_ENABLE_CRYPTODISK=.*/GRUB_ENABLE_CRYPTODISK=y/g' ${MOUNTPOINT}/etc/default/grub 2>/tmp/.errlog
-    ([[ $LVM -eq 0 ]] && [[ $LUKS -eq 1 ]]) && sed -i 's/block filesystems/block encrypt filesystems/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog && sed -i 's/#GRUB_ENABLE_CRYPTODISK=.*/GRUB_ENABLE_CRYPTODISK=y/g' ${MOUNTPOINT}/etc/default/grub 2>/tmp/.errlog
-    check_for_error
     sed -i 's/archiso archiso_loop_mnt archiso_pxe_common archiso_pxe_nbd archiso_pxe_http archiso_pxe_nfs/autodetect/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog # Remove archiso hooks from install
     sed -i 's/keyboard/keyboard fsck/g' ${MOUNTPOINT}/etc/mkinitcpio.conf 2>/tmp/.errlog # Add fsck hook
     run_command_in_mountpoint "mkinitcpio -p linux" 2>>/tmp/.errlog
@@ -238,7 +191,7 @@ umount_partitions(){
     done # End for-loop statement
 }
 
-confirm_mount(){ # Revised to deal with partion sizes now being displayed to the user
+confirm_mount(){ # Revised to deal with partition sizes now being displayed to the user
     if [[ $(mount | grep $1) ]]; then   
         dialog --backtitle "$BACKTITLE" --title " $_MntStatusTitle " --infobox "$_MntStatusSucc" 0 0
         PARTITIONS=$(echo $PARTITIONS | sed "s~${PARTITION} [0-9]*[G-M]~~" | sed "s~${PARTITION} [0-9]*\.[0-9]*[G-M]~~" | sed s~${PARTITION}$' -'~~)
@@ -298,30 +251,17 @@ select_filesystem(){
         "Skip" "-" \
         "ext4" "mkfs.ext4 -q" \
         "btrfs" "mkfs.btrfs -f" 2>${ANSWER}
-        # "btrfs" "mkfs.btrfs -f" \
-        "f2fs" "mkfs.f2fs" \
-        # "reiserfs" "mkfs.reiserfs -q" \
-        # "xfs" "mkfs.xfs -f" 2>${ANSWER}	
 	case $(read_answer) in # Read answer from select_filesystem function
 		"Skip")
             FILESYSTEM="Skip" ;;
 		"btrfs")
             FILESYSTEM="mkfs.btrfs -f"	
-			CHK_NUM=16; fs_opts="autodefrag compress=zlib compress=lzo compress=no compress-force=zlib compress-force=lzo discard noacl noatime nodatasum nospace_cache recovery skip_balance space_cache ssd ssd_spread"
+            BTRFS_FILESYSTEM=true
+			CHK_NUM=16; fs_opts="autodefrag compress=zlib compress=lzo compress=no compress-force=zlib compress-force=lzo discard noacl noatime nodatasum recovery skip_balance space_cache=v2 ssd ssd_spread"
 			modprobe btrfs ;;
 		"ext4")
             FILESYSTEM="mkfs.ext4 -q"
 			CHK_NUM=8; fs_opts="data=journal data=writeback dealloc discard noacl noatime nobarrier nodelalloc" ;;
-		"f2fs")
-            FILESYSTEM="mkfs.f2fs"
-			CHK_NUM=16; fs_opts="data_flush disable_roll_forward disable_ext_identify discard fastboot flush_merge inline_xattr inline_data inline_dentry no_heap noacl nobarrier noextent_cache noinline_data norecovery"
-			modprobe f2fs ;;
-		"reiserfs")
-            FILESYSTEM="mkfs.reiserfs -q"
-			CHK_NUM=5; fs_opts="acl nolog notail replayonly user_xattr" ;;
-		"xfs")
-            FILESYSTEM="mkfs.xfs -f"
-			CHK_NUM=9; fs_opts="discard filestreams ikeep largeio noalign nobarrier norecovery noquota wsync" ;;
 		*)
             prep_menu ;;
 	esac
@@ -330,6 +270,15 @@ select_filesystem(){
         if [[ $? -eq 0 ]]; then
             ${FILESYSTEM} ${PARTITION} >/dev/null 2>/tmp/.errlog
             check_for_error
+            if [[ ${BTRFS_FILESYSTEM} ]]; then
+                mount ${PARTITION} ${MOUNTPOINT}${MOUNT} 2>>/tmp/.errlog # Normal mounting
+                pushd ${MOUNTPOINT}
+                btrfs subvolume create @
+                btrfs subvolume create @home
+                mkdir -p @/{boot/efi,home}
+                popd
+                umount ${MOUNTPOINT}${MOUNT}
+            fi
         else
             select_filesystem
         fi
@@ -341,7 +290,7 @@ mount_partitions(){
     # Seperate subfunction for neatness.
     mount_opts() {
         FS_OPTS=""
-        echo "" > ${MOUNT_OPTS}
+        echo "" > ${MOUNT_OPTS} # Create temporary file
         for i in ${fs_opts}; do
             FS_OPTS="${FS_OPTS} ${i} - off"
         done
@@ -356,72 +305,6 @@ mount_partitions(){
             [[ $? -eq 1 ]] && mount_opts
         fi # End if-else statement
     }
-
-    mount_current_partition(){ # Subfunction to save repetition of code
-        mkdir -p ${MOUNTPOINT}${MOUNT} 2>/tmp/.errlog # Make the mount directory
-        # Get mounting options for appropriate filesystems
-        [[ $fs_opts != "" ]] && mount_opts
-
-        # Use special mounting options if selected, else standard mount
-        if [[ $(cat ${MOUNT_OPTS}) != "" ]]; then
-            mount -o $(cat ${MOUNT_OPTS}) ${PARTITION} ${MOUNTPOINT}${MOUNT} 2>>/tmp/.errlog
-        else
-            mount ${PARTITION} ${MOUNTPOINT}${MOUNT} 2>>/tmp/.errlog
-        fi
-        check_for_error
-        confirm_mount ${MOUNTPOINT}${MOUNT}
-        # Identify if mounted partition is type "crypt" (LUKS on LVM, or LUKS alone)
-        if [[ $(lsblk -lno TYPE ${PARTITION} | grep "crypt") != "" ]]; then
-            # cryptname for bootloader configuration either way
-            LUKS=1
-            LUKS_NAME=$(echo ${PARTITION} | sed "s~^/dev/mapper/~~g")
-
-            # Check if LUKS on LVM (parent = lvm /dev/mapper/...) 
-            cryptparts=$(lsblk -lno NAME,FSTYPE,TYPE | grep "lvm" | grep -i "crypto_luks" | uniq | awk '{print "/dev/mapper/"$1}')
-            for i in ${cryptparts}; do
-                if [[ $(lsblk -lno NAME ${i} | grep $LUKS_NAME) != "" ]]; then
-                    LUKS_DEV="$LUKS_DEV cryptdevice=${i}:$LUKS_NAME"
-                    LVM=1
-                    break;
-                fi
-            done
-            
-            # Check if LUKS alone (parent = part /dev/...)
-            cryptparts=$(lsblk -lno NAME,FSTYPE,TYPE | grep "part" | grep -i "crypto_luks" | uniq | awk '{print "/dev/"$1}')
-            for i in ${cryptparts}; do
-                if [[ $(lsblk -lno NAME ${i} | grep $LUKS_NAME) != "" ]]; then
-                    LUKS_UUID=$(lsblk -lno UUID,TYPE,FSTYPE ${i} | grep "part" | grep -i "crypto_luks" | awk '{print $1}')
-                    LUKS_DEV="$LUKS_DEV cryptdevice=UUID=$LUKS_UUID:$LUKS_NAME"
-                    break;
-                fi
-            done
-        elif [[ $(lsblk -lno TYPE ${PARTITION} | grep "lvm") != "" ]]; then # If LVM logical volume....
-            LVM=1
-            # First get crypt name (code above would get lv name)
-            cryptparts=$(lsblk -lno NAME,TYPE,FSTYPE | grep "crypt" | grep -i "lvm2_member" | uniq | awk '{print "/dev/mapper/"$1}')
-            for i in ${cryptparts}; do
-                if [[ $(lsblk -lno NAME ${i} | grep $(echo $PARTITION | sed "s~^/dev/mapper/~~g")) != "" ]]; then
-                    LUKS_NAME=$(echo ${i} | sed s~/dev/mapper/~~g)
-                    break;
-                fi
-            done
-            
-            # Now get the device (/dev/...) for the crypt name
-            cryptparts=$(lsblk -lno NAME,FSTYPE,TYPE | grep "part" | grep -i "crypto_luks" | uniq | awk '{print "/dev/"$1}')
-            for i in ${cryptparts}; do
-                if [[ $(lsblk -lno NAME ${i} | grep $LUKS_NAME) != "" ]]; then
-                    # Create UUID for comparison
-                    LUKS_UUID=$(lsblk -lno UUID,TYPE,FSTYPE ${i} | grep "part" | grep -i "crypto_luks" | awk '{print $1}')
-                    if [[ $(echo $LUKS_DEV | grep $LUKS_UUID) == "" ]]; then # Check if not already added as a LUKS DEVICE (i.e. multiple LVs on one crypt). If not, add.
-                        LUKS_DEV="$LUKS_DEV cryptdevice=UUID=$LUKS_UUID:$LUKS_NAME"
-                        LUKS=1
-                    fi
-                    break;
-                fi
-            done
-        fi
-    }
-
     make_swap(){ # Seperate function due to ability to cancel
         dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart " --menu "$_SelSwpBody" 0 0 7 "$_SelSwpNone" $"-" "$_SelSwpFile" $"-" ${PARTITIONS} 2>${ANSWER} || prep_menu  # Ask user to select partition or create swapfile
         if [[ $(read_answer) != "$_SelSwpNone" ]]; then    
@@ -457,15 +340,8 @@ mount_partitions(){
     #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
     #          ┃                        MOUNTING FUNCTION BEGINS HERE                         ┃
     #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-	# prep variables
 	MOUNT=""
-	LUKS_NAME=""
-	LUKS_DEV=""
-	LUKS_UUID=""
-	LUKS=0
-	LVM=0
 	dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart " --msgbox "$_WarnMount1 'Skip' $_WarnMount2" 0 0 # Warn users that they CAN mount partitions without formatting them!
-    lvm_detect # LVM Detection. If detected, activate.
 
 	# Ensure partitions are unmounted (i.e. where mounted previously), and then list available partitions
 	INCLUDE_PART='part\|lvm\|crypt'
@@ -473,15 +349,27 @@ mount_partitions(){
 	find_partitions
 	
 	# Identify and mount root
-	dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart " --menu "$_SelRootBody" 0 0 7 ${PARTITIONS} 2>${ANSWER} || prep_menu
+	dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart " --menu "\nSelect ROOT Partition. This is where Craccken will be installed." 0 0 7 ${PARTITIONS} 2>${ANSWER} || prep_menu
 	PARTITION=$(read_answer)
-    ROOT_PART=${PARTITION}
-   	
 	select_filesystem # Format with FS (or skip)
-	mount_current_partition # Make the directory and mount. Also identify LUKS and/or LVM
+    
+    [[ $fs_opts != "" ]] && mount_opts # Get mounting options for appropriate filesystems
+    if [[ ${BTRFS_FILESYSTEM} ]]; then
+        mount -o "$(cat ${MOUNT_OPTS}),subvol=@" ${PARTITION} ${MOUNTPOINT}
+        mount -o "$(cat ${MOUNT_OPTS}),subvol=@home" ${PARTITION} ${MOUNTPOINT}/home
+    else
+        mkdir -p ${MOUNTPOINT}${MOUNT} 2>/tmp/.errlog # Make the mount directory
+        if [[ $(cat ${MOUNT_OPTS}) != "" ]]; then # Use special mounting options if selected, else standard mount
+            mount -o $(cat ${MOUNT_OPTS}) ${PARTITION} ${MOUNTPOINT}${MOUNT} 2>>/tmp/.errlog # Mount with special options
+        else
+            mount ${PARTITION} ${MOUNTPOINT}${MOUNT} 2>>/tmp/.errlog # Normal mounting
+        fi
+    fi
+    confirm_mount ${MOUNTPOINT}${MOUNT}
+    
 	make_swap # Identify and create swap, if applicable
-    if [[ $SYSTEM == "UEFI" ]]; then # Extra Step for VFAT UEFI Partition. This cannot be in an LVM container.
-        dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart " --menu "$_SelUefiBody" 0 0 7 ${PARTITIONS} 2>${ANSWER} || prep_menu  
+    if [[ $SYSTEM == "UEFI" ]]; then # Extra Step for VFAT UEFI Partition.
+        dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart " --menu "\nSelect UEFI Partition. This is a special partition for booting UEFI systems." 0 0 7 ${PARTITIONS} 2>${ANSWER} || prep_menu  
         PARTITION=$(read_answer)
         UEFI_PART=${PARTITION}
         if [[ $(fsck -N $PARTITION | grep fat) ]]; then # If it is already a fat/vfat partition and then
@@ -493,52 +381,12 @@ mount_partitions(){
         fi
         check_for_error
              
-        dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart " --menu "$_MntUefiBody"  0 0 2 \
-            "/boot" "systemd-boot"\
-            "/boot/efi" "-" 2>${ANSWER} # Inform users of the mountpoint options and consequences       
-        [[ $(read_answer) != "" ]] && UEFI_MOUNT=$(read_answer) || prep_menu
+        UEFI_MOUNT="/boot/efi"
         mkdir -p ${MOUNTPOINT}${UEFI_MOUNT}
-        mount ${PARTITION} ${MOUNTPOINT}${UEFI_MOUNT}
-        confirm_mount ${MOUNTPOINT}${UEFI_MOUNT}           
+        [[ ${BTRFS_FILESYSTEM} == true ]] && mount ${PARTITION} "${MOUNTPOINT}/@${UEFI_MOUNT}" || mount ${PARTITION} ${MOUNTPOINT}${UEFI_MOUNT}
+        confirm_mount ${MOUNTPOINT}${UEFI_MOUNT}
     fi
-    
-    # All other partitions
-	while [[ $NUMBER_PARTITIONS > 0 ]]; do 
-		dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart " --menu "$_ExtPartBody" 0 0 7 "$_Done" $"-" ${PARTITIONS} 2>${ANSWER} || prep_menu 
-		PARTITION=$(read_answer)
-		if [[ $PARTITION == $_Done ]]; then
-		    break
-		else
-			MOUNT=""
-			select_filesystem
-			[[ $SYSTEM == "UEFI" ]] && MNT_EXAMPLES="/home\n/var" || MNT_EXAMPLES="/boot\n/home\n/var"
-			dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart $PARTITON " --inputbox "$_ExtPartBody1$MNT_EXAMPLES\n" 0 0 "/" 2>${ANSWER} || prep_menu # Ask user for mountpoint. Don't give /boot as an example for UEFI systems!
-			MOUNT=$(read_answer)
-			while [[ ${MOUNT:0:1} != "/" ]] || [[ ${#MOUNT} -le 1 ]] || [[ $MOUNT =~ \ |\' ]]; do # loop while the mountpoint specified is incorrect (is only '/', is blank, or has spaces). 
-				dialog --backtitle "$BACKTITLE" --title " $_ErrTitle " --msgbox "$_ExtErrBody" 0 0 # Warn user about naming convention
-				dialog --backtitle "$BACKTITLE" --title " $_PrepMntPart $PARTITON " --inputbox "$_ExtPartBody1$MNT_EXAMPLES\n" 0 0 "/" 2>${ANSWER} || prep_menu # Ask user for mountpoint again
-				MOUNT=$(read_answer)                     
-			done
-			mount_current_partition # Create directory and mount.
-			if [[ $MOUNT == "/boot" ]]; then # Determine if a seperate /boot is used. 0 = no seperate boot, 1=seperate non-lvm boot,  2=seperate lvm boot. For Grub configuration
-			    [[ $(lsblk -lno TYPE ${PARTITION} | grep "lvm") != "" ]] && LVM_SEP_BOOT=2 || LVM_SEP_BOOT=1
-			fi
-		fi
-	done
 }	
-
-lvm_detect(){ # LVM Detection.
-    LVM_PV=$(pvs -o pv_name --noheading 2>/dev/null)
-    LVM_VG=$(vgs -o vg_name --noheading 2>/dev/null)
-    LVM_LV=$(lvs -o vg_name,lv_name --noheading --separator - 2>/dev/null)
-    if [[ $LVM_LV != "" ]] && [[ $LVM_VG != "" ]] && [[ $LVM_PV != "" ]]; then
-        dialog --backtitle "$BACKTITLE" --title " $_PrepLVM " --infobox "$_LvmDetBody" 0 0
-        modprobe dm-mod 2>/tmp/.errlog
-        check_for_error
-        vgscan >/dev/null 2>&1
-        vgchange -ay >/dev/null 2>&1
-    fi
-}
 
 install_root(){
     if [[ -e /run/archiso/bootmnt/arch/x86_64/airootfs.sfs ]]; then # Change installation method depending on use of img or sfs
@@ -555,6 +403,7 @@ install_root(){
         rsync -av --no-i-r ${AIROOTIMG} ${MOUNTPOINT}/ 2>/tmp/.errlog | pv -len --size "${counter}" --interval 1.0 2>&1 >/dev/null | dialog --backtitle "$BACKTITLE" --title "$VERSION - $SYSTEM ($ARCHI)" --gauge "\n" 10 75
     fi
     # Keyboard config for vc and x11
+    echo -e "Section "\"InputClass"\"\nIdentifier "\"system-keyboard"\"\nMatchIsKeyboard "\"on"\"\nOption "\"XkbLayout"\" "\"${XKBMAP:-us}"\"\nEndSection" > /tmp/01-keyboard-layout.conf
     [[ -e /tmp/01-keyboard-layout.conf ]] && cp -f /tmp/01-keyboard-layout.conf ${MOUNTPOINT}/etc/X11/xorg.conf.d/$(ls ${MOUNTPOINT}/etc/X11/xorg.conf.d/ | grep "keyboard") 2>>/tmp/.errlog
     if [[ -e /run/archiso/bootmnt/arch/boot/${ARCHI}/vmlinuz-linux ]]; then # set up kernel for mkiniticpio
 	    cp /run/archiso/bootmnt/arch/boot/${ARCHI}/vmlinuz-linux ${MOUNTPOINT}/boot/vmlinuz-linux
@@ -573,144 +422,120 @@ install_root(){
 }
 
 install_bootloader(){ # Install Bootloader
-    check_mount
+    check_mount # Call functions
     run_command_in_mountpoint "PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl" 2>/tmp/.errlog # Set the default PATH variable
     check_for_error
+    
     if [[ $SYSTEM == "BIOS" ]]; then
         select_device
         dialog --backtitle "$BACKTITLE" --title " Grub-install " --infobox "\nPlease wait...\n\n" 0 0
         run_command_in_mountpoint "grub-install --target=i386-pc --recheck $DEVICE" 2>/tmp/.errlog
         run_command_in_mountpoint "grub-mkconfig -o /boot/grub/grub.cfg" 2>>/tmp/.errlog
         check_for_error
-        if ( [[ $LVM -eq 1 ]] && [[ $LVM_SEP_BOOT -eq 0 ]] ) || [[ $LVM_SEP_BOOT -eq 2 ]]; then # if /boot is LVM (whether using a seperate /boot mount or not), amend grub
-            sed -i "s/GRUB_PRELOAD_MODULES=\"\"/GRUB_PRELOAD_MODULES=\"lvm\"/g" ${MOUNTPOINT}/etc/default/grub
-            run_command_in_mountpoint "grub-mkconfig -o /boot/grub/grub.cfg" 2>>/tmp/.errlog
-            check_for_error
-        fi # End if-else statement
-    else
-        [[ -z $(mount | grep /sys/firmware/efi/efivars) ]] && mount -t efivarfs efivarfs /sys/firmware/efi/efivars # Ensure again that efivarfs is mounted
-        dialog --backtitle "$BACKTITLE" --title " Grub-install " --infobox "\nPlease wait...\n\n" 0 0
-        run_command_in_mountpoint "grub-install --target=x86_64-efi --efi-directory=${UEFI_MOUNT} --bootloader-id=craccken_grub --recheck" 2>/tmp/.errlog
-        run_command_in_mountpoint "grub-mkconfig -o /boot/grub/grub.cfg" 2>>/tmp/.errlog # Generate config file
+        return # Close this functions process
+    fi # End if else statement
+    
+    [[ -z $(mount | grep /sys/firmware/efi/efivars) ]] && mount -t efivarfs efivarfs /sys/firmware/efi/efivars # Ensure again that efivarfs is mounted
+    dialog --backtitle "$BACKTITLE" --title " Grub-install " --infobox "\nPlease wait...\n\n" 0 0
+    run_command_in_mountpoint "grub-install --target=x86_64-efi --efi-directory=${UEFI_MOUNT} --bootloader-id=CRACCKEN --recheck" 2>/tmp/.errlog
+    run_command_in_mountpoint "grub-mkconfig -o /boot/grub/grub.cfg" 2>>/tmp/.errlog # Generate config file
+    check_for_error
+    dialog --backtitle "$BACKTITLE" --title " $_InstUefiBtTitle " --yesno "$_SetBootDefBody ${UEFI_MOUNT}/EFI/boot $_SetBootDefBody2" 0 0 # Ask if user wishes to set Grub as the default bootloader and act accordingly
+    if [[ $? -eq 0 ]]; then
+        run_command_in_mountpoint "mkdir ${UEFI_MOUNT}/EFI/boot" 2>/tmp/.errlog
+        run_command_in_mountpoint "cp -r ${UEFI_MOUNT}/EFI/craccken_grub/grubx64.efi ${UEFI_MOUNT}/EFI/boot/bootx64.efi" 2>>/tmp/.errlog
         check_for_error
-        dialog --backtitle "$BACKTITLE" --title " $_InstUefiBtTitle " --yesno "$_SetBootDefBody ${UEFI_MOUNT}/EFI/boot $_SetBootDefBody2" 0 0 # Ask if user wishes to set Grub as the default bootloader and act accordingly
-        if [[ $? -eq 0 ]]; then
-            run_command_in_mountpoint "mkdir ${UEFI_MOUNT}/EFI/boot" 2>/tmp/.errlog
-            run_command_in_mountpoint "cp -r ${UEFI_MOUNT}/EFI/craccken_grub/grubx64.efi ${UEFI_MOUNT}/EFI/boot/bootx64.efi" 2>>/tmp/.errlog
-            check_for_error
-            dialog --backtitle "$BACKTITLE" --title " $_InstUefiBtTitle " --infobox "\nGrub $_SetDefDoneBody" 0 0
-        fi
+        dialog --backtitle "$BACKTITLE" --title " $_InstUefiBtTitle " --infobox "\nGrub $_SetDefDoneBody" 0 0
     fi
 }
 
 prep_menu(){ # Create a function
-    [[ $SUB_MENU != "prep_menu" ]] && SUB_MENU="prep_menu" && HIGHLIGHT_SUB=0
-    local PREP_MENU_OPT # Create local variable
-    local prep_menu_options=( "Set_Desktop_Keyboard_Layout" "List_Devices_(optional)" "Partition_Disk" "Mount_Partitions" "Back" ) # Create local array 
-    for index in $(seq 1 ${#prep_menu_options[@]}); do # Create for-loop with length of array
-        PREP_MENU_OPT="$PREP_MENU_OPT ${index} ${prep_menu_options[$((index - 1))]}" # Set PREP_MENU_OPT with options
-    done # End for-loop statement
-    dialog --cursor-off-label --default-item $((HIGHLIGHT_SUB + 1)) --backtitle "$BACKTITLE" --title " Prepare Installation " --menu "$_PrepMenuBody" 0 0 5 \
-        ${PREP_MENU_OPT} 2>${ANSWER}
-    HIGHLIGHT_SUB=$(read_answer)
-	case $(read_answer) in # Read answer from prep_menu
-        "1") set_xkbmap ;;
-        "2") show_devices ;;
-        "3") umount_partitions
-             select_device
-             create_partitions ;;
-        "4") mount_partitions ;;        
-          *) main_menu ;;
+    clear # Clear terminal screen
+    local prep_menu_answer=$(gum choose --selected="${prep_menu_answer}" "List devices (optional)" "1. Partition disk" "2. Mount partitions" "Back") # Choose an options and store it into variable
+    case "${prep_menu_answer}" in # Read value from prep_menu_answer variable
+        "List devices (optional)") 
+            lsblk -o NAME,MODEL,TYPE,FSTYPE,SIZE,MOUNTPOINT | /usr/bin/grep "disk\|part\|lvm\|crypt\|NAME\|MODEL\|TYPE\|FSTYPE\|SIZE\|MOUNTPOINT" | gum pager # Show devices / partitions.
+            ;;
+        "1. Partition disk") 
+            umount_partitions
+            select_device
+            create_partitions ;;
+        "2. Mount partitions") 
+            mount_partitions ;;        
+        *) main_menu ;;
     esac # End switch-case statement
-    prep_menu  	
+    prep_menu # Call this functions itself
 }
 
 install_root_menu(){ # Base Installation
-    [[ $SUB_MENU != "install_root_menu" ]] && SUB_MENU="install_root_menu" && HIGHLIGHT_SUB=0
-    dialog --default-item $(( HIGHLIGHT_SUB + 1 )) --backtitle "$BACKTITLE" --title "$_InstBsMenuTitle" --menu "$_InstBseMenuBody" 0 0 4 \
-        "1" "$_InstBse" \
-        "2" "$_InstBootldr" \
-        "3" "$_Back" 2>${ANSWER}	
-    HIGHLIGHT_SUB=$(read_answer)
-    case $(read_answer) in # Read answer from install_root_menu
-        "1") install_root && run_mkinitcpio ;;
-        "2") install_bootloader ;;
+    clear # Clear terminal screen
+    local install_root_menu_answer=$(gum choose --selected="${install_root_menu_answer}" "1. Install Base Packages" "2. Install Bootloader" "Back")
+    case "${install_root_menu_answer}" in # Read value from install_root_menu_answer variable
+        "1. Install Base Packages") install_root && run_mkinitcpio ;;
+        "2. Install Bootloader") install_bootloader ;;
         *) main_menu ;;
     esac # End switch-case statement
-    install_root_menu 	
+    install_root_menu # Call this functions itself
 }
 
 config_base_menu(){ # Base Configuration
     run_command_in_mountpoint "PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl" 2>/tmp/.errlog # Set the default PATH variable
     check_for_error
-    [[ $SUB_MENU != "config_base_menu" ]] && SUB_MENU="config_base_menu" && HIGHLIGHT_SUB=0
-    dialog --default-item $(( HIGHLIGHT_SUB + 1 )) --backtitle "$BACKTITLE" --title " $_ConfBseMenuTitle " --menu "$_ConfBseBody" 0 0 8 \
-        "1" "$_ConfBseFstab" \
-        "2" "$_ConfBseHost" \
-        "3" "$_ConfBseSysLoc" \
-        "4" "$_ConfBseTimeHC" \
-        "5" "$_ConfUsrNew" \
-        "6" "$_Back" 2>${ANSWER}	
-	HIGHLIGHT_SUB=$(read_answer)
-    case $(read_answer) in
-        "1") generate_fstab ;;
-        "2") set_hostname ;;
-        "3") set_locale ;;        
-        "4") set_timezone && set_hw_clock ;;
-        "5") create_new_user ;;
+    clear # Clear terminal screen
+    echo "Configure Base"
+    echo "Basic configuration of the base."
+    local config_base_menu_answer=$(gum choose --selected="${config_base_menu_answer}" "1. Generate FSTAB" "2. Set Hostname" "3. Set System Locale" "4. Set Timezone and Clock" "5. Add New User(s)" "Back")
+    case "${config_base_menu_answer}" in # Read value from config_base_menu_answer variable
+        "1. Generate FSTAB") generate_fstab ;;
+        "2. Set Hostname") set_hostname ;;
+        "3. Set System Locale") set_locale ;;        
+        "4. Set Timezone and Clock") set_timezone && set_hw_clock ;;
+        "5. Add New User(s)") create_new_user ;;
         *) main_menu ;;
     esac
-    config_base_menu
+    config_base_menu # Call this functions itself
 }
 
-edit_configs(){ # Edit configs of installed system
-	local FILE # Clear the file variables
-    [[ $SUB_MENU != "edit_configs" ]] && SUB_MENU="edit_configs" && HIGHLIGHT_SUB=0
-    dialog --default-item $((HIGHLIGHT_SUB + 1)) --backtitle "$BACKTITLE" --title " $_SeeConfOptTitle " --menu "$_SeeConfOptBody" 0 0 12 \
-        "1" "/etc/locale.conf" \
-        "2" "/etc/hostname" \
-        "3" "/etc/hosts" \
-        "4" "/etc/mkinitcpio.conf" \
-        "5" "/etc/fstab" \
-        "6" "/etc/default/grub" \
-        "7" "/etc/pacman.conf" \
-        "8" "$_Back" 2>${ANSWER}
-	HIGHLIGHT_SUB=$(read_answer)
-    case $(read_answer) in
-        "1") [[ -e $MOUNTPOINT/etc/locale.conf ]] && FILE="${MOUNTPOINT}/etc/locale.conf" ;;
-        "2") [[ -e $MOUNTPOINT/etc/hostname ]] && FILE="${MOUNTPOINT}/etc/hostname" ;;
-        "3") [[ -e $MOUNTPOINT/etc/hosts ]] && FILE="${MOUNTPOINT}/etc/hosts" ;;
-        "4") [[ -e $MOUNTPOINT/etc/mkinitcpio.conf ]] && FILE="${MOUNTPOINT}/etc/mkinitcpio.conf" ;;
-        "5") [[ -e $MOUNTPOINT/etc/fstab ]] && FILE="${MOUNTPOINT}/etc/fstab" ;;
-        "6") [[ -e $MOUNTPOINT/etc/default/grub ]] && FILE="${MOUNTPOINT}/etc/default/grub" ;;
-        "7") [[ -e $MOUNTPOINT/etc/pacman.conf ]] && FILE="${MOUNTPOINT}/etc/pacman.conf" ;;
+edit_configs_menu(){ # Edit configs of installed system
+    local FILE # Clear the file variables
+    echo "Review Configuration Files"
+    echo "Select any file listed below to be reviewed or amended."
+    local edit_configs_menu_answer=$(gum choose --selected="${edit_configs_menu_answer}" "1. /etc/locale.conf" "2. /etc/hostname" "3. /etc/hosts" "4. /etc/mkinitcpio.conf" "5. /etc/fstab" "6. /etc/default/grub" "7. /etc/pacman.conf" "Back")
+    case "${edit_configs_menu_answer}" in # Read value from edit_configs_menu_answer variable
+        "1. /etc/locale.conf")      FILE="${MOUNTPOINT}/etc/locale.conf" ;;
+        "2. /etc/hostname")         FILE="${MOUNTPOINT}/etc/hostname" ;;
+        "3. /etc/hosts")            FILE="${MOUNTPOINT}/etc/hosts" ;;
+        "4. /etc/mkinitcpio.conf")  FILE="${MOUNTPOINT}/etc/mkinitcpio.conf" ;;
+        "5. /etc/fstab")            FILE="${MOUNTPOINT}/etc/fstab" ;;
+        "6. /etc/default/grub")     FILE="${MOUNTPOINT}/etc/default/grub" ;;
+        "7. /etc/pacman.conf")      FILE="${MOUNTPOINT}/etc/pacman.conf" ;;
         *) main_menu ;;
     esac # End switch-case statement
-	[[ $FILE != "" ]] && nvim $FILE || dialog --backtitle "$BACKTITLE" --title " $_ErrTitle " --msgbox "$_SeeConfErrBody" 0 0
-	edit_configs
+	nvim $FILE
+	edit_configs_menu # Call this functions itself
 }
 
 main_menu(){ # Create a function
-    echo ""
-    PS3="$(zsh -ic 'info_msg "Select option"') "
-    select main_menu_answer in "Prepare Installation" "Install base" "Configure base" "Review configuration files" "Done" "Quit"; do
-        case "${main_menu_answer}" in
-            "Prepare Installation")
+    while :; do # Create infinite-loop with while-loop
+        clear # Clear terminal screen
+        local main_menu_answer=$(gum choose --selected="${main_menu_answer}" "1. Prepare Installation" "2. Install base" "3. Configure base" "4. Review configuration files" "Done" "Quit")
+        case "${main_menu_answer}" in # Read value from main_menu_answer variable
+            "1. Prepare Installation")
                 prep_menu
                 ;;
-            "Install base")
+            "2. Install base")
                 check_mount
                 install_root_menu
                 ;;
-            "Configure base")
+            "3. Configure base")
                 check_mount
                 check_base
                 config_base_menu
                 ;;
-            "Review configuration files")
+            "4. Review configuration files")
                 check_mount
                 check_base
-                edit_configs
+                edit_configs_menu
                 ;;
             "Done")
                 zsh -ic "warn_msg 'Now you need to reboot!'"
@@ -720,7 +545,7 @@ main_menu(){ # Create a function
                 ExitHandler # Call function to handle exit
                 ;;
         esac # End switch-case statement
-    done
+    done # End while-loop
 }
 
 read_answer(){
@@ -728,12 +553,9 @@ read_answer(){
 }
 
 ExitHandler(){
-    tput smcup # Save current terminal screen to memory
-    clear
-
+    tput smcup && clear # Save current terminal screen to memory && Clear terminal screen
     local width=$(tput cols)    # Get terminal columns <- width
     local height=$(tput lines)  # Get terminal rows <- height
-
     gum confirm --prompt.padding="$(( height / 2 )) $(( width / 2 - 8 )) 0 $(( width / 2 - 8 ))"|| main_menu && umount_partitions && exit
     tput rmcup # Restore terminal screen from memory
 }
@@ -744,6 +566,5 @@ zsh -ic "need_root_user" || exit $?
 source /opt/craccken-installer/english.trans # Source translation file for installer
 # sed -i "s/#en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen &>/dev/null # Generate the chosen locale
 > /tmp/.errlog # Clear error log, just in case something is there from a previous use the installer.
-while true; do
-    main_menu      
-done # End while-loop
+
+main_menu
