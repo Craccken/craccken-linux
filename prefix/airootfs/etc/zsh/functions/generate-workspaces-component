@@ -11,7 +11,7 @@ handler(){ # Create function
         widget_buffer="${widget_buffer} (eventbox :cursor \"pointer\" :tooltip \"Workspace ${workspace}\" (button :class \"${class}\" :onclick \"hyprctl dispatch workspace ${workspace}\" \"${workspace}\"))"
     done # End for-loop statement
     
-    [[ -f "/tmp/workspaces-widget" ]] && rm -f /tmp/workspaces-widget # Check if workspace widget in temporary directory already exist && remove workspace-widget
+    rm -f /tmp/workspaces-widget # Remove workspace-widget file
     echo "(box :class \"workspaces\" :valign \"center\" :orientation \"v\" :vexpand true :hexpand true ${widget_buffer})" > /tmp/workspaces-widget # Print out widget_buffer to a file in temporary directory, this will rendered as a widget
 }
 

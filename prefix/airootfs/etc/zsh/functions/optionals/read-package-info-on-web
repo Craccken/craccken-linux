@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed pacman xdg-open grep # Check if command is installed
+must_have_argument ${1:-} # Must have argument-1 passed || exit 
+
+local info_package="$(LANG=C pacman -Si "${1}")" # Get info-package from pacman
+local architecture="$(/usr/bin/grep -m 1 '^Arch' <<< "${info_package}" | /usr/bin/grep -oP '[^ ]+$')"} # Grab information about architecture of the package
+local repository="$(/usr/bin/grep -m 1 '^Repo' <<< "${info_package}" | /usr/bin/grep -oP '[^ ]+$')"} # Grab information about repository that package placed
+[[ -n "${info_package:-}" ]] && xdg-open "https://www.archlinux.org/packages/${repository}/${architecture}/${1}/" &>/dev/null # Open in browset

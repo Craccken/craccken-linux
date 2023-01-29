@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed find # Check if command is installed
+
+ask-password # Ask password
+sudo ${EDITOR:-/usr/bin/nvim} $(find "/etc/zsh/functions" -name "${1:-}" -type f 2>/dev/null) # Find functions file in /etc/zsh/functions directory and edit it with your editor

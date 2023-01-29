@@ -6,4 +6,5 @@ need_normal_user # Only normal user can run || exit
 killall -q swaybg || : # Kill old process, if exist
 local directory="${1:-$XDG_PICTURES_DIR/Wallpaper}" # If no argument-1 passed, use wallpaper directory from user home
 [[ -d "${directory}" ]] && swaybg -m fill -i $(find "${directory}" -maxdepth 1 -type f \( -iname \*.jpg -o -iname \*.png \) | shuf -n 1) || : # Check if directory variable is a directory && Set random file from directory as wallpaper
+# [[ -d "${directory}" ]] && swww img --transition-type random $(find "${directory}" -maxdepth 1 -type f \( -iname \*.jpg -o -iname \*.png \) | shuf -n 1) || : # Check if directory variable is a directory && Set random file from directory as wallpaper
 [[ -f "${1:-}" ]] && swaybg -m fill -i "${1}" || : # Check if argument-1 is a file && Set argument-1 as a wallpaper

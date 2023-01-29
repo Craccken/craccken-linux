@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+autoload zsh/mapfile
+local quotes_file=${1:-~/Documents/quotes.txt} # Get argument-1 value as a file that will be used.
+local quotes=( "${(f@)mapfile[$quotes_file]}" ) # Get the content of the file and store it into array
+
+echo "${quotes[RANDOM % #quotes + 1]}" # Print out random line from the qoutes array

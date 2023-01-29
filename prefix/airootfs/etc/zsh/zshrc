@@ -28,20 +28,26 @@ ZINIT[COMPINIT_OPTS]="-C -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"     # Se
 ZINIT[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"          # Set directory for dumped completion file, this will speed compinit.
 . /etc/zsh/zinit/zinit.zsh                                                  # Enable zsh-plugins-manager(zinit)
 
-zicompinit                                                                  # Initialiaze completion for the current session when called directly.
-_comp_options+=(globdots)                                                   # Include hidden files for compinit
-zstyle :completion:* menu select                                            # Enable autocompletion with an arrow-key driven interactive.
-zstyle :completion:* use-cache true                                         # Enable cache, it will optimize completion
-zstyle :completion:* cache-path ~/.cache/zsh_completion_cache               # Defines the path where any cache files containing dumped completion data are stored
-zstyle :completion:* verbose yes                                            # Verbose completion
-zstyle :completion::complete:* gain-privileges 1                            # If the line has sudo or doas in it, then it tries to gain more access while completing command options (-/--)
-zstyle :completion:* list-colors ${(s.:.)LS_COLORS}                         # set list-colors to enable filename colorizing
-zstyle :completion:*:*:*:*:processes command "ps -u $USER -o pid,user,comm -w -w" # Run command if completion processes
-zstyle :completion:* matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # Case insensitive auto-completion
+zicompinit                                                          # Initialiaze completion for the current session when called directly.
+_comp_options+=(globdots)                                           # Include hidden files for compinit
+zstyle ':completion:*' menu select                                  # Enable autocompletion with an arrow-key driven interactive.
+zstyle ':completion:*' use-cache true                               # Enable cache, it will optimize completion
+zstyle ':completion:*' cache-path ~/.cache/zsh_completion_cache     # Defines the path where any cache files containing dumped completion data are stored
+zstyle ':completion:*' verbose true                                 # If set, as it is by default, the completion listing is more verbose. In particular many commands show descriptions for options if this style is `true'.
+zstyle ':completion::complete:*' gain-privileges true               # If set to true, this style enables the use of commands like sudo or doas to gain extra privileges when retrieving information for completion.
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}               # set list-colors to enable filename colorizing
+zstyle ':completion:*:warnings' format 'No matches for: %d'         # set format of completions warnings messages, The sequence `%d' in this string will be replaced with a short description of what these matches are. look zshcompsys(1)
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w" # Run command if completion processes
+zstyle ':completion:* matcher-list' '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # This style can be set to a list of match specifications that are to be applied everywhere.
 
-zmodload zsh/zpty
+# Autoload zsh modules when they are referenced
 zmodload zsh/complist
 zmodload zsh/datetime
+zmodload -a zsh/zpty zpty
+zmodload -a zsh/zprof zprof
+zmodload -ap zsh/mapfile mapfile
+zmodload -aF zsh/stat b:zstat # stat(1) is now commonly an external command, so just load zstat
+
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                                  Completion                                  ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛

@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed find # Check if command is installed
 
 ask-password # Ask password
 find-pacman-stuff

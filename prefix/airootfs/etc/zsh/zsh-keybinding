@@ -12,7 +12,7 @@
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                            Load functions to zsh                             │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-autoload fancy-ctrl-z edit-clipboard edit-command-line zle-keymap-select zle-line-init i-want-to-look-busy select-quoted select-bracketed fast-sudo
+autoload fancy-ctrl-z edit-clipboard edit-command-line zle-keymap-select zle-line-init want-to-look-busy select-quoted select-bracketed fast-sudo
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │       Add functions to zsh-line-edit widget so we can bind it to a key       │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -41,6 +41,7 @@ bindkey -M menuselect 'l' vi-forward-char           # Set keybinding for move-ri
 # ┃                                     CORE                                     ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 bindkey -M main '^ ' autosuggest-accept     # Set keybinding for accepts the current suggestion: CTRL + SPACE
+bindkey -M main ' ' magic-space             # Set keybinding to do history expansion on space
 bindkey -M viins '^[c' fzf-cd-widget        # Set keybinding for cd into the selected directory: ALT + c
 bindkey -M viins '^[t' fzf-file-widget      # Set keybinding for paste the selected file path into the command line: ALT + t
 bindkey -M viins '^[r' fzf-history-widget   # Set keybinding for paste the selected command from history into command line: ALT + r
@@ -66,7 +67,7 @@ bindkey -M vicmd '^v' edit-command-line # Set keybinding for call edit-command-l
 bindkey -M main '^x^v' edit-clipboard   # Set keybinding for call edit-clipboard functions: CTRL + x + CTRL + v
 bindkey -M main '^[s' fast-sudo         # Set keybinding for call fast-sudo functions: Alt + s
 bindkey -M main '^e^r' edit-configuration # Set keybinding for call teleport functions: CTRL + e + CTRL + r
-bindkey -M main '^x^f' i-want-to-look-busy # Set keybinding for call i-want-to-look-busy: CTRL + x CTRL + c
+bindkey -M main '^x^f' want-to-look-busy # Set keybinding for call i-want-to-look-busy: CTRL + x CTRL + c
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                                    UNBIND                                    ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
