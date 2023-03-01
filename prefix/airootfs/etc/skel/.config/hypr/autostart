@@ -38,11 +38,11 @@ fi # End if-else statement
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Brightness                                  │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-BrightnessHandler set_minimum_brightness 5 &! # set minimum capacity of brightness
+brightness-handler set_minimum_brightness 5 &! # set minimum capacity of brightness
 # (( $+functions[this-will-save-your-eyes] )) && this-will-save-your-eyes &! # Check function if it available && start wlsunset
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Other                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+commands[activate-linux] )) && [[ -z "$(pidof activate-linux)" ]] && activate-linux &! # Check if there is no process of command && Start activate-linux
-(( $+commands[swayidle] )) && swayidle -w timeout 300 '/bin/zsh -ic "lock-screen"' timeout 600 '/bin/zsh -ic "BrightnessHandler save_current_brightness && BrightnessHandler set_value 7"' resume '/bin/zsh -ic "BrightnessHandler restore_brightness"' &! # Check command if it available && start idle manager
+(( $+commands[swayidle] )) && swayidle -w timeout 300 'zsh -ic "lock-screen"' timeout 350 'zsh -ic "brightness-handler save-brightness && brightness-handler set-value 7"' resume 'zsh -ic "brightness-handler restore-brightness"' &! # Check command if it available && start idle manager
 autoload active-window-flickers-border && active-window-flickers-border &!

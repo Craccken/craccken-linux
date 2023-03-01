@@ -1,9 +1,9 @@
 .popup-network {
     @include background-fill; // Use function
-    color: #f5f5f5; // Sets the color of an element's text
+    color: #000000; // Sets the color of an element's text
     font-family: $font-text-1; // Specifies a prioritized list of font family names or generic family names.
     font-size: 15px; // Indicates the desired height of glyphs from the font.
-    text-shadow: 0px 0px 1.7px #f5f5f5; // Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color'
+    text-shadow: 0px 0px 1.7px #000000; // Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color'
     background-image: url("./popup/network/background.svg"); // Set the background image of an element
     padding-top: 15px; // Shorthand property to set values for the thickness of the padding area top
     padding-bottom: 15px; // Shorthand property to set values for the thickness of the padding area bottom
@@ -11,14 +11,14 @@
     padding-right: 15px; // Shorthand property to set values for the thickness of the padding area right
     .ssid {
         font-size: 19px; // Indicates the desired height of glyphs from the font.
+        font-weight: 500; // Specifies weight of glyphs in the font, their degree of blackness or stroke thickness\.
         letter-spacing: 4px; // Used to specify the space between the characters in a text.
-        font-family: "den"; // Specifies a prioritized list of font family names or generic family names.
+        font-family: "Roboto Condensed"; // Specifies a prioritized list of font family names or generic family names.
         padding-right: 10px; // Shorthand property to set values for the thickness of the padding area right
     }
     .text-value {
-        font-family: 'Montserrat'; // Specifies a prioritized list of font family names or generic family names.
-        font-size: 13px; // Indicates the desired height of glyphs from the font.
-        letter-spacing: 2px; // Used to specify the space between the characters in a text.
+        font-family: 'Roboto'; // Specifies a prioritized list of font family names or generic family names.
+        font-size: 14px; // Indicates the desired height of glyphs from the font.
     }
     .icon, .downstream, .upstream {
         font-family: $font-text-1; // Specifies a prioritized list of font family names or generic family names.
