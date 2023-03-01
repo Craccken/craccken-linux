@@ -35,6 +35,8 @@ available_options[vconsole]="/etc/vconsole.conf"
 available_options[lf]="/etc/lf"
 available_options[release]="/etc/lsb-release /usr/lib/os-release"
 available_options[zsh]="/etc/zsh"
+available_options[zsh__zshrc]="/etc/zsh/zshrc.d"
+available_options[zsh__zprofile]="/etc/zsh/zprofile.d"
 available_options[neovim]="/etc/xdg/nvim /etc/xdg/nvim/colors /etc/xdg/nvim/lua /etc/xdg/nvim/plugin"
 
 local option="${1:-$(print -l ${(ko)available_options} | spectre_fzf 'Choose an option')}" # Declare local variable if argument-1 empty then pick available_options keys value and sorted with fzf

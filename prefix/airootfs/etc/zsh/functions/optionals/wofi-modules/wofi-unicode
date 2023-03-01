@@ -2,6 +2,6 @@
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed wl-copy wofi column # Check if command is installed
 
-local selected_unicode_from_list=$(cut -d ';' -f1 /opt/craccken/unicode/* | wofi --show=dmenu -i -p "Select unicode you want to copy" | sed "s/ .*//")
+local selected_unicode_from_list=$(cut -d ';' -f1 /opt/craccken/unicode/* | wofi --show=dmenu -m -i | sed "s/ .*//")
 [[ -z "${selected_unicode_from_list}" ]] && return # Check if selected_unicode_from_list is empty && exit 
 wl-copy "${selected_unicode_from_list}" &&  notify-send "$0" "Unicode coppied to the clipboard!"

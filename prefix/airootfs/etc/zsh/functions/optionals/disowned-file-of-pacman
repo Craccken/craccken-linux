@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed comm sort find # Check if command is installed
+
+mkdir -p /tmp/$0 # Create temporary folder
+local files_that_pacman_have=$(mktemp /tmp/$0/XXXXXXXXXX) # Create temporary file and store the path into this variable
+local files_that_you_have=$(mktemp /tmp/$0/XXXXXXXXXX) # Create temporary file and store the path into this variable
+pacman -Qlq | sort -u > "${files_that_pacman_have}" # Get list package contents like file and folder, sort it and store into temporary file
+sudo find /bin /etc /lib /sbin /usr ! -name lost+found \( -type d -printf '%p/\n' -o -print \) | sort > "${files_that_you_have}" # Get list of files and folders on your system, sort it and store into temporary file
+comm -23 "${files_that_you_have}" "${files_that_pacman_have}" # Compare the temporary file and print the differences

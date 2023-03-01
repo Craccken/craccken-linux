@@ -7,4 +7,4 @@ local led="/sys/class/leds/asus::kbd_backlight/brightness" # Change this to what
 local led_current_state=$(/usr/bin/cat "${led}") # Create local variable for storing current led state
 (( ${led_current_state} == 1 )) && echo "0" > "${led}" || echo "1" > "${led}" # Check if the current led state is 1(on) && Turn off the led || Turn on the led
 sleep 0.5 # Delay 0.5 second
-echo "${led_current_state}" > "${led}" # Bring led to initial state
+echo "${led_current_state}" > "${led}" || : # Bring led to initial state

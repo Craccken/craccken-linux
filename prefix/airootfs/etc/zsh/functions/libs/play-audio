@@ -4,4 +4,4 @@ need_installed ffplay # Check if command is installed || exit
 need_normal_user 2>/dev/null # Only normal user can run || exit
 
 killall -q ffplay || : # Kill old process of ffplay
-ffplay -nodisp -autoexit ${1:-} &>/dev/null
+ffplay -loglevel quiet -nodisp -autoexit ${1:-}

@@ -13,8 +13,8 @@ read_value_from_file_and_summarize() { # Create function for read value and summ
 	printf %d\\n $(($DATA_FROM_ARGUMENT - $DATA_FROM_CACHE)) # Sumarize value from subraction data with old_data and print out
 }
 
-local receive_bytes=$(read_value_from_file_and_summarize /sys/class/net/wlan0/statistics/rx_bytes) # Call function and store it into variable
-local transmit_bytes=$(read_value_from_file_and_summarize /sys/class/net/wlan0/statistics/tx_bytes) # Call function and store it into variable
+local receive_bytes=$(read_value_from_file_and_summarize /sys/class/net/${2:-wlan0}/statistics/rx_bytes) # Call function and store it into variable
+local transmit_bytes=$(read_value_from_file_and_summarize /sys/class/net/${2:-wlan0}/statistics/tx_bytes) # Call function and store it into variable
 case "${1:-}" in # Read argument-1 variable
     up) 
         printf "%4sB" $(numfmt --to=iec $transmit_bytes) # Convert transmit_bytes into human readable 1K = 1024 and print out

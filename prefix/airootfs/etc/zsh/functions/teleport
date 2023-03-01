@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
 autoload spectre_fzf
 
 local -A available_options # Declare local associative array
@@ -10,6 +10,7 @@ available_options[waybar]="/etc/xdg/waybar"
 available_options[eww]="$HOME/.config/eww"
 available_options[wofi]="$HOME/.config/wofi"
 available_options[newsboat]="$HOME/.config/newsboat"
+available_options[foot]="$HOME/.config/foot"
 available_options[temporary]="/tmp"
 available_options[udev]="/etc/udev"
 available_options[temporary]="/tmp"
@@ -48,8 +49,8 @@ available_options[neovim__filetype-config]="/etc/xdg/nvim/ftplugin"
 
 local option="${1:-$(print -l ${(ko)available_options} | spectre_fzf 'Choose your destination')}" # Declare local variable if argument-1 empty then pick available_options keys value and sorted with fzf
 [[ -z "${option}" ]] && send_return EINVAL # If option variable is empty && exit
-[[ -z "${available_options[$option]}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
+[[ -z "${available_options[$option]:-}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
 play-audio-random /opt/craccken/sound/click || : # Play random audio in directory
 blink-led &! # Call function to blink-led effect
 speak "Moving, into ${option} directory." || : # Call function from /etc/zsh/functions to translate text to speak
-cd "${available_options[$option]}" 2> /dev/null || speak "Cannot teleport into ${option} directory." || : # Moving into available_options(option) value || exit
+cd "${available_options[${option:-}]}" || : # Moving into destination
