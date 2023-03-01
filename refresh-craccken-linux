@@ -50,8 +50,9 @@ main(){
         ./prefix/airootfs/etc/systemd/system/pacmanbeeper.service \
         ./prefix/airootfs/etc/systemd/system/choose-mirror.service
     ln -sf /usr/share/zoneinfo/UTC ./prefix/airootfs/etc/localtime
-    mkdir -p ${PREFIX_PATH}/root/.config ${PREFIX_PATH}/root/.local/share ${PREFIX_PATH}/usr/lib ${PREFIX_PATH}/usr/src ${PREFIX_PATH}/usr/local
-    mkdir -p ${PREFIX_PATH}/etc/skel/.config ${PREFIX_PATH}/etc/skel/.local/share
+    mkdir -p ${PREFIX_PATH}/usr/lib ${PREFIX_PATH}/usr/src ${PREFIX_PATH}/usr/local
+    mkdir -p ${PREFIX_PATH}/root/.config ${PREFIX_PATH}/root/.local/share  ${PREFIX_PATH}/root/.local/state/zsh
+    mkdir -p ${PREFIX_PATH}/etc/skel/.config ${PREFIX_PATH}/etc/skel/.local/share ${PREFIX_PATH}/etc/skel/.local/state/zsh
     # ╭──────────────────────────────────────────────────────────────────────────────╮
     # │                              Set important file                              │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
