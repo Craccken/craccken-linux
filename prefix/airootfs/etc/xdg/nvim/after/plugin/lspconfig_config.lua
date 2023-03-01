@@ -37,6 +37,7 @@ local servers = {  -- List of language server
     'clangd',
     'jsonls',
     'intelephense',
+    'phpactor',
     'cssls',
     'emmet_ls',
     'eslint',

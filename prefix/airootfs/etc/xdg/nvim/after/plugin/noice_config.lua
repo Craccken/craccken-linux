@@ -23,7 +23,7 @@ require("noice").setup({ -- Call setup function
                 conceal = true,         -- This will hide the text in the cmdline that matches the pattern
                 kind = "search",        -- prefix of highlight group color that will be used
                 pattern = "^/",         -- pattern of cmdline to capture
-                icon = "",            -- icon to use in the beginning of the cmdline
+                icon = " ",           -- icon to use in the beginning of the cmdline
                 lang = "regex",         -- syntax that use in the cmdline
             },
             search_up = {
@@ -32,7 +32,7 @@ require("noice").setup({ -- Call setup function
                 conceal = true,         -- This will hide the text in the cmdline that matches the pattern
                 kind = "search",        -- prefix of highlight group color that will be used
                 pattern = "^%?",        -- pattern of cmdline to capture
-                icon = "",            -- icon to use in the beginning of the cmdline
+                icon = " ",           -- icon to use in the beginning of the cmdline
                 lang = "regex",         -- syntax that use in the cmdline
             },
             filter = { 
@@ -141,7 +141,7 @@ require("noice").setup({ -- Call setup function
     },
     lsp = {
         progress = {
-            enabled = true,
+            enabled = false,
             format = "lsp_progress", -- format use for lsp progress
             format_done = "lsp_progress_done", -- format use for lsp progress done
             throttle = 1000 / 30, -- frequency to update lsp progress message

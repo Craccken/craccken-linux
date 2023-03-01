@@ -18,15 +18,29 @@ require("toggleterm").setup({ -- Call setup function
     end,
     hide_numbers = true,            -- Hide the number column in toggleterm buffers
     shade_filetypes = {},
-    shade_terminals = true,
-    shading_factor = 1,             -- The degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-    start_in_insert = true,
+    autochdir = true,               -- when neovim changes it current directory the terminal will change it's own when next it's opened
+    highlights = {                  -- highlights which map to a highlight group name and a table of it's values NOTE: this is only a subset of values, any group placed here will be set for the terminal window split
+        Normal = {
+            link = 'Normal'
+        },
+        NormalFloat = {
+            link = 'NormalFloat'
+        },
+        FloatBorder = {
+            link = 'FloatBorder'
+        },
+    },
+    shade_terminals = true,         -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
+    shading_factor = 1,             -- the percentage by which to lighten terminal background, default: -30 (gets multiplied by -3 if background is light)
+    start_in_insert = true,         -- Start terminal in insert mode
     insert_mappings = true,         -- Whether or not the open mapping applies in insert mode
     terminal_mappings = true,       -- Whether or not the open mapping applies in the opened terminals
     persist_size = true,
-    direction = 'float',
+    persist_mode = true,            -- if set to true (default) the previous terminal mode will be remembered
+    direction = 'horizontal',       -- 'vertical' | 'horizontal' | 'tab' | 'float',
     close_on_exit = true,           -- Close the terminal window when the process exits
     shell = vim.o.shell,            -- Change the default shell
+    auto_scroll = true,             -- Automatically scroll to the bottom on terminal output
     float_opts = {                  -- This field is only relevant if direction is set to 'float'
         border = 'shadow',              -- The border key is *almost* the same as 'nvim_open_win' see :h nvim_open_win for details on borders.
         width = 130,                    -- Width of floating window
@@ -36,7 +50,7 @@ require("toggleterm").setup({ -- Call setup function
             border = "Normal",
             background = "Normal",
         }
-    }
+    },
 })
 
 vim.keymap.set('i', '<F1>', '<Esc>:ToggleTerm<CR>', {noremap = true, desc = 'Open terminal'})

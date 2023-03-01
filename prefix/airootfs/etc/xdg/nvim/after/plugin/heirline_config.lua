@@ -14,7 +14,55 @@ local mode_colors = heirline_data.mode_colors -- Get table from module
 -- ┃                                  COMPONENT                                   ┃
 -- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 local Align = { provider = "%=", hl = { fg = '#000000', bg = 'NONE'} } -- Create component for aligning other components
-local None = { provider = "" } -- Create components for empty space
+local None = { provider = "" } -- Create component for empty space
+local Ruler = { -- Create component that store ruler information
+    { -- Create sub-component of sub-component that store separator icon
+        provider = " ", -- This is the string that gets printed in the statusline.
+        hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+            return { -- Return table
+                fg = mode_colors[self.vimode_base or 'special'].gradient_9, -- The foreground color.
+            }
+        end, -- End function statement
+    },
+    { -- Create sub-component of sub-component that store ruler information
+        -- ▲
+        -- █  %l = current line number                         
+        -- █  %L = number of lines in the buffer               
+        -- █  %c = column number                               
+        -- █  %P = percentage through file of displayed window 
+        -- ▼                                                    
+        provider = " %l/%L:%c %P ", -- This is the string that gets printed in the statusline.
+        hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+            return { -- Return table
+                fg = "#000000", -- The foreground color.
+                bg = mode_colors[self.vimode_base or 'special'].gradient_9, -- The background color.
+            }
+        end, -- End function statement
+    },
+}
+local Scrollbar = { -- Create component that store scrollbar
+    provider = function(self) -- This is the string that gets printed in the statusline.
+        local current_position_line = vim.api.nvim_win_get_cursor(0)[1] -- Get position of cursor(column/line) in current window
+        local number_of_lines = vim.api.nvim_buf_line_count(0) -- Get the number of lines in this buffer
+        local i = math.floor((current_position_line - 1) / number_of_lines * #self.scrollbar) + 1 -- Calculation
+        return string.rep(self.scrollbar[i], 2) -- Return the output of calculation and repeat scrollbar character by 2 (mean print 2 character)
+    end, -- End function statement
+    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+        return { -- Return table
+            fg = mode_colors[self.vimode_base or 'special'].gradient_10, -- The foreground color.
+        }
+    end, -- End function statement
+}
+local Filetype = { -- Create component that store filetype name
+    provider = function() -- This is the string that gets printed in the statusline.
+        return string.upper(vim.bo.filetype) -- Uppercase the return vim.bo.filetype
+    end, -- End function statement
+    hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
+        return { -- Return table
+            fg = mode_colors[self.vimode_base or 'special'].gradient_8, -- The background color.
+        }
+    end -- End function statement
+}
 
 -- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 -- ┃                                   INACTIVE                                   ┃
@@ -292,23 +340,6 @@ local Default__Statusline = { -- Create component
             end, -- End function statement
         },
     },
-
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                  NVIM-NAVIC                                  │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    {
-        condition = require("nvim-navic").is_available, -- If nvim-gps plugin is installed then
-        hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-            return { -- Return table
-                fg = mode_colors[self.vimode_base].gradient_7, -- The foreground color.
-            }
-        end, -- End function statement
-        flexible = priority.high,
-        { -- Create flexible component normal
-            provider = require("nvim-navic").get_location, -- This is the string that gets printed in the statusline
-        },
-        None -- Fallback components
-    },
     Align,
     -- ╭──────────────────────────────────────────────────────────────────────────────╮
     -- │                                     GIT                                      │
@@ -525,96 +556,9 @@ local Default__Statusline = { -- Create component
             }
         end, -- End function statement
     },
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                   FILETYPE                                   │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component that store filetype name
-        provider = function() -- This is the string that gets printed in the statusline.
-            return string.upper(vim.bo.filetype) -- Uppercase the return vim.bo.filetype
-        end, -- End function statement
-        hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-            return { -- Return table
-                fg = mode_colors[self.vimode_base].gradient_8, -- The background color.
-            }
-        end -- End function statement
-    },
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                    RULER                                     │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component that store ruler information
-        { -- Create sub-component of sub-component that store separator icon
-            provider = " ", -- This is the string that gets printed in the statusline.
-            hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                return { -- Return table
-                    fg = mode_colors[self.vimode_base].gradient_9, -- The foreground color.
-                }
-            end, -- End function statement
-        },
-        { -- Create sub-component of sub-component that store ruler information
-            -- ▲
-            -- █  %l = current line number                         
-            -- █  %L = number of lines in the buffer               
-            -- █  %c = column number                               
-            -- █  %P = percentage through file of displayed window 
-            -- ▼                                                    
-            provider = " %l/%L:%c %P ", -- This is the string that gets printed in the statusline.
-            hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                return { -- Return table
-                    fg = "#000000", -- The foreground color.
-                    bg = mode_colors[self.vimode_base].gradient_9, -- The background color.
-                }
-            end, -- End function statement
-        },
-    },
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                  SCROLLBAR                                   │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component that store scrollbar
-        provider = function(self) -- This is the string that gets printed in the statusline.
-            local current_position_line = vim.api.nvim_win_get_cursor(0)[1] -- Get position of cursor(column/line) in current window
-            local number_of_lines = vim.api.nvim_buf_line_count(0) -- Get the number of lines in this buffer
-            local i = math.floor((current_position_line - 1) / number_of_lines * #self.scrollbar) + 1 -- Calculation
-            return string.rep(self.scrollbar[i], 2) -- Return the output of calculation and repeat scrollbar character by 2 (mean print 2 character)
-        end, -- End function statement
-        hl = function(self) -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-            return { -- Return table
-                fg = mode_colors[self.vimode_base].gradient_10, -- The foreground color.
-            }
-        end, -- End function statement
-    },
-}
--- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
--- ┃                                   TERMINAL                                   ┃
--- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-local Terminal__Statusline = { -- Create component
-    condition = function() conditions.buffer_matches({ buftype = { "terminal", "toggleterm" } }) end, -- Check if the buffer is match
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                TERMINAL NAME                                 │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component that store terminal name
-        provider = function() -- This is the string that gets printed in the statusline.
-            local terminal_name, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "") -- Get terminal name by subtition with regex
-            return " ".. terminal_name
-        end, -- End function statement
-        hl = { -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-            bold = true, -- Enable bold style
-            fg = "#2c99ef", -- The foreground color
-        },
-    },
-    Align,
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                   FILETYPE                                   │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component that store filetype name
-        provider = function() -- This is the string that gets printed in the statusline.
-            return string.upper(vim.bo.filetype) -- Uppercase the return vim.bo.filetype
-        end, -- End function statement
-        hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-            return { -- Return table
-                fg = mode_colors['terminal'].gradient_8, -- The foreground color.
-            }
-        end -- End function statement
-    },
+    Filetype, -- Call filetype component
+    Ruler, -- Call ruler component
+    Scrollbar, -- Call scrollbar component
 }
 -- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 -- ┃                                   SPECIAL                                    ┃
@@ -684,84 +628,20 @@ local Special__Statusline = { -- Create component
             end, -- End function statement
         },
     },
-    Align,
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                    RULER                                     │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component that store ruler information
-        { -- Create sub-component of sub-component that store separator icon
-            provider = " ", -- This is the string that gets printed in the statusline.
-            hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                return { -- Return table
-                    fg = mode_colors['special'].gradient_9, -- The foreground color.
-                }
-            end, -- End function statement
-        },
-        { -- Create sub-component of sub-component that store ruler information
-            -- ▲
-            -- █  %l = current line number                         
-            -- █  %L = number of lines in the buffer               
-            -- █  %c = column number                               
-            -- █  %P = percentage through file of displayed window 
-            -- ▼                                                    
-            provider = " %l/%L:%c %P ", -- This is the string that gets printed in the statusline.
-            hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-                return { -- Return table
-                    fg = "#000000", -- The foreground color.
-                    bg = mode_colors['special'].gradient_9, -- The background color.
-                }
-            end, -- End function statement
-        },
-    },
-    -- ╭──────────────────────────────────────────────────────────────────────────────╮
-    -- │                                  SCROLLBAR                                   │
-    -- ╰──────────────────────────────────────────────────────────────────────────────╯
-    { -- Create sub-component that store scrollbar
-        provider = function(self) -- This is the string that gets printed in the statusline.
-            local current_position_line = vim.api.nvim_win_get_cursor(0)[1] -- Get position of cursor(column/line) in current window
-            local number_of_lines = vim.api.nvim_buf_line_count(0) -- Get the number of lines in this buffer
-            local i = math.floor((current_position_line - 1) / number_of_lines * #self.scrollbar) + 1 -- Calculation
-            return string.rep(self.scrollbar[i], 2) -- Return the output of calculation and repeat scrollbar character by 2 (mean print 2 character)
-        end, -- End function statement
-        hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants.
-            return { -- Return table
-                fg = mode_colors['special'].gradient_10, -- The foreground color.
-            }
-        end, -- End function statement
-    },
+    Align, -- Call align component
+    Filetype, -- Call filetype component
+    Ruler, -- Call ruler component
+    Scrollbar, -- Call scrollbar component
 }
 
-vim.api.nvim_create_autocmd("User", {
-    pattern = 'HeirlineInitWinbar',
-    callback = function(args)
-        local buf = args.buf
-        local buftype = vim.tbl_contains(
-            { "prompt", "nofile", "help", "quickfix" },
-            vim.bo[buf].buftype
-        )
-        local filetype = vim.tbl_contains({ "gitcommit", "fugitive" }, vim.bo[buf].filetype)
-        if buftype or filetype then
-            vim.opt_local.winbar = nil
-        end
-    end,
-})
-
-require("heirline").setup({ -- Call setup function
-    hl = function() -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
-        if conditions.is_active() then -- If the statusline's window is the active window, then
-            return { -- Return table
-                fg = "NONE",
-                bg = "NONE",
-                force = false -- Control whether the parent's hl fields will override child's hl.
-            }
-        else
-            return { -- Return table
-                fg = "NONE",
-                bg = "NONE",
-                force = false -- Control whether the parent's hl fields will override child's hl.
-            }
-        end -- End if-else statement
-    end, -- End function statement
-    fallthrough = false, -- the first statusline with no condition, or which condition returns true is used. think of it as a switch case with breaks to stop fallthrough.
-    Special__Statusline, Terminal__Statusline, Inactive__Statusline, Default__Statusline, -- Call the statusline
+require("heirline").setup({
+    statusline = { -- Call setup function
+        hl = { -- hl controls the colors of what is printed by the component's provider, or by any of its descendants. 
+            fg = "NONE",
+            bg = "NONE",
+            force = false -- Control whether the parent's hl fields will override child's hl.
+        }, -- End function statement
+        fallthrough = false, -- the first statusline with no condition, or which condition returns true is used. think of it as a switch case with breaks to stop fallthrough.
+        Special__Statusline, Inactive__Statusline, Default__Statusline, -- Call the statusline
+    },
 })

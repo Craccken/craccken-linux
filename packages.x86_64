@@ -214,8 +214,8 @@ mesa
 # xorg-xinit
 # sddm
 grim
-imv
-# sxiv
+# imv
+sxiv
 slurp
 egl-wayland
 qt5-wayland
@@ -232,6 +232,9 @@ glfw-wayland
 light
 # nwg-bar
 # nwg-drawer
+nwg-look
+qt5ct
+qt6ct
 ly
 swaylock
 waybar
@@ -250,7 +253,7 @@ xdg-desktop-portal
 pipewire
 alsa-tools
 alsa-utils
-# pavucontrol
+pavucontrol
 pamixer
 realtime-privileges
 alsa-plugins
@@ -321,7 +324,6 @@ dunst
 btop
 dialog
 neovim
-noto-fonts-emoji
 scdoc
 # nnn
 # espeakup
@@ -336,8 +338,11 @@ espeak-ng
 zsh-completions
 # x11-ssh-askpass
 wl-clipboard-x11
-# ttf-iosevka-nerd
-# cozette-otb
+noto-fonts-emoji
+otf-cascadia-code-nerd
+ttf-firacode-nerd
+ttf-roboto
+ttf-iosevka-nerd
 zsh-autosuggestions
 paru
 # btrfs-assistant

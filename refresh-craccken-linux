@@ -105,8 +105,7 @@ main(){
     refresh_directory /etc/X11/xorg.conf.d                          # xorg config dir
     refresh_directory /etc/xdg/nvim /etc/xdg                        # neovim config dir
     refresh_directory /etc/sddm.conf.d                              # sddm config dir
-    refresh_directory /usr/share/fonts/OTF /usr/share/fonts         # Export OTF fonts into your linux fonts
-    refresh_directory /usr/share/fonts/TTF /usr/share/fonts         # Export TTF fonts into your linux fonts
+    refresh_directory /usr/share/fonts/external /usr/share/fonts    # Export TTF fonts into your linux fonts
     # refresh_directory /usr/local/src
     refresh_file /etc/zathurarc                                     # zathura file config
     refresh_file /etc/sysctl.conf                                   # sysctl config file

@@ -71,6 +71,7 @@ vim.opt.spelllang = { 'en_us' }                                     -- A list of
 vim.opt.laststatus = 3                                              -- Adds the option to have a single global statusline for the current window at the bottom of the screen instead of a statusline at the bottom of every window
 vim.opt.foldcolumn = '0'                                            -- Sets the width for a column on the side of the window to indicate folds.
 vim.opt.foldlevel = 7                                               -- The higher number the more folded regions are open, When foldlevel is 0, all folds are closed.
+vim.opt.wrapscan = false                                            -- The search will not go to the beginning when reach end of the file
 vim.opt.foldlevelstart = 7                                          -- Sets 'foldlevel' when starting to edit another buffer in a window
 vim.opt.foldenable = true                                           -- When off, all folds are open.
 vim.opt.foldnestmax = 20                                            -- Sets the maximum nesting of folds for the "indent" and "syntax" methods.
