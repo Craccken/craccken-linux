@@ -2,4 +2,4 @@
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed find shuf # Check if command is installed || exit with error exit-code
 
-play-audio "$(find "${1:-./}" -maxdepth 1 -type f -readable \( -name '*.ogg' -o -name '*.mp3' -o -name '*.wav' -o -name '*.flac' \) | shuf -n 1)" &!
+play-audio "$(find "${1:-./}" -maxdepth 1 -type f -readable \( -name '*.ogg' -o -name '*.mp3' -o -name '*.wav' -o -name '*.flac' \) | shuf -n 1)"

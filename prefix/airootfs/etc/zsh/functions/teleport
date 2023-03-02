@@ -53,4 +53,4 @@ local option="${1:-$(print -l ${(ko)available_options} | spectre_fzf 'Choose you
 play-audio-random /opt/craccken/sound/click || : # Play random audio in directory
 blink-led &! # Call function to blink-led effect
 speak "Moving, into ${option} directory." || : # Call function from /etc/zsh/functions to translate text to speak
-cd "${available_options[${option:-}]}" || : # Moving into destination
+cd "${available_options[${option}]}" # Moving into destination
