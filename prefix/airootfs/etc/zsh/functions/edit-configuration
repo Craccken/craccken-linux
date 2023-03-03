@@ -40,9 +40,9 @@ available_options[zsh__zprofile]="/etc/zsh/zprofile.d"
 available_options[neovim]="/etc/xdg/nvim /etc/xdg/nvim/colors /etc/xdg/nvim/lua /etc/xdg/nvim/plugin"
 
 local option="${1:-$(print -l ${(ko)available_options} | spectre_fzf 'Choose an option')}" # Declare local variable if argument-1 empty then pick available_options keys value and sorted with fzf
-play-audio-random /opt/craccken/sound/click # Play random audio in directory
+play-audio-random /opt/craccken/sound/click 2>/dev/null || : # Play random audio in directory
 [[ -z "${option:-}" ]] && send_return EINVAL # If option variable is empty && exit
-[[ -z "${available_options[${option:-}]:-}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
+[[ -z "${available_options[$option]:-}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
 file_configurations=( $(find $(print ${available_options[$option]}) -maxdepth 1 -writable -type f 2>/dev/null) ) # Search available_options(option) value type file and store it to array
 file_configurations=( ${file_configurations[@]/*.descriptor-fragment/} ) # Delete file from array if file_configurations has name .rune_stone in it
 [[ -n "${file_configurations[*]}" ]] && nvim -p "${file_configurations[@]}" # Check if there is file in variable && open up file_configurations with neovim in tab

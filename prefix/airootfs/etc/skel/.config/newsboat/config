@@ -32,6 +32,7 @@ color end-of-text-marker default default invis      # filler lines (~) below blo
 
 # Option
 auto-reload yes # If set to yes, all feeds will be automatically reloaded at start up and then continuously after a certain time has passed (see reload-time).
+browser "firefox"
 highlight all "---.*---" color172
 highlight feedlist ".*(0/0))" black
 highlight article "^(Title):.*$" default default standout

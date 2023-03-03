@@ -50,7 +50,7 @@ available_options[neovim__filetype-config]="/etc/xdg/nvim/ftplugin"
 local option="${1:-$(print -l ${(ko)available_options} | spectre_fzf 'Choose your destination')}" # Declare local variable if argument-1 empty then pick available_options keys value and sorted with fzf
 [[ -z "${option}" ]] && send_return EINVAL # If option variable is empty && exit
 [[ -z "${available_options[$option]:-}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
-play-audio-random /opt/craccken/sound/click || : # Play random audio in directory
+play-audio-random /opt/craccken/sound/click 2>/dev/null || : # Play random audio in directory
 blink-led &! # Call function to blink-led effect
 speak "Moving, into ${option} directory." || : # Call function from /etc/zsh/functions to translate text to speak
 cd "${available_options[${option}]}" # Moving into destination
