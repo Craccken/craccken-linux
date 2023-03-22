@@ -1,5 +1,4 @@
-#!/bin/env zsh
-# vim:ft=sh
+#!/usr/bin/env zsh
 forgit_add=ga               # Set default alias for interactive `git add` viewer
 forgit_log=glo              # Set default alias for interactive `git log` viewer
 forgit_ignore=gi            # Set default alias for interactive `.gitignore` generator

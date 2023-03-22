@@ -1,5 +1,4 @@
-#!/bin/env zsh
-# vim:ft=sh
+#!/usr/bin/env zsh
 ZVM_KEYTIMEOUT=0.4                              # Set key input timeout for waiting next key, in seconds.
 ZVM_ESC_KEYTIMEOUT=0.02                         # This option only for NEX-ENGINE, adjust the waiting timeout for the esc-key.
 ZVM_CURSOR_STYLE_ENABLED=true                   # Enable the cursor style feature

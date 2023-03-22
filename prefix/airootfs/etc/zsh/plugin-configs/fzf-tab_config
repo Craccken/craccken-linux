@@ -18,7 +18,7 @@ local -a FZF_TAB_GROUP_COLORS=( # Create local array for store group color
     $'\033[38;5;120m'
 )
 zstyle -e '*' list-colors 'reply=(${(s[:])LS_COLORS})'
-zstyle :fzf-tab:* fzf-command ftb-tmux-popup            # Specify the fuzzy search program, ( fzf | ftb-tmux-popup )
+zstyle :fzf-tab:* fzf-command fzf                       # Specify the fuzzy search program, ( fzf | ftb-tmux-popup )
 zstyle :fzf-tab:* fzf-pad 4                             # Set how many lines does fzf's prompt occupied
 # zstyle :fzf-tab:* group-colors $FZF_TAB_GROUP_COLORS    # Color for different groups and their descriptions.
 # zstyle :fzf-tab:* show-group none                       # Set `full` for show all group-descriptions.

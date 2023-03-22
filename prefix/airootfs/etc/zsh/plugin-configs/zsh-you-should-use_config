@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+export YSU_MESSAGE_POSITION="before" # By default, you-should-use will display its reminder message before a command has executed. You can choose to display the mesasge after a command has executed
+export YSU_MODE=BESTMATCH # By default, you-should-use will display the best match from any matching aliases found. You can change this behaviour so that it displays all matches found by setting 'ALL'
+export YSU_MESSAGE_FORMAT="$(print -P '\n%F{#d4d104}%K{#232201}  ┆ ')Found existing %alias_type for '%command'. You should use: '%alias' $(print -P '%F{#232201}%K{reset}%F{reset}')" # https://github.com/MichaelAquilina/zsh-you-should-use#customising-messages
+export YSU_HARDCORE=0 # https://github.com/MichaelAquilina/zsh-you-should-use#hardcore-mode
+export YSU_IGNORED_ALIASES=("g" "ll" "vim" "vi") # You can tell you-should-use to permanently ignore certain aliases by including them in the YSU_IGNORED_ALIASES variable (which is an array)

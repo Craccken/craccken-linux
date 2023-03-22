@@ -1,5 +1,4 @@
-#!/bin/env zsh
-# vim:ft=sh
+#!/usr/bin/env zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 ZSH_HIGHLIGHT_STYLES[default]=#dadada                                   # Set highlight default text
 ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=#af0000                          # Set highlight unknown-token/errors

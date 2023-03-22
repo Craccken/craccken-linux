@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+export AUTO_NOTIFY_THRESHOLD=20 # By default, auto-notify will send notifications for tasks that take longer than 10 seconds. Set threshold to 20seconds
+export AUTO_NOTIFY_EXPIRE_TIME=10000 # Set notification expiry to 10 seconds
+export AUTO_NOTIFY_TITLE="Hey! %command has just finished" # Set format for notifications title
+export AUTO_NOTIFY_BODY="It completed in %elapsed seconds with exit code %exit_code" # Set format for notifications body
+# export AUTO_NOTIFY_IGNORE=("docker" "man" "sleep" "sudo su") # redefine what is ignored by auto-notify
+export AUTO_NOTIFY_WHITELIST=("pacman" "docker") # If AUTO_NOTIFY_WHITELIST is defined, then all the values in AUTO_NOTIFY_IGNORE are not used.

@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+bindkey -M main '^[[A' history-substring-search-up      # Set keybinding for call history-substring-search-up: up-arrow-key
+bindkey -M main '^[[B' history-substring-search-down    # Set keybinding for call history-substring-search-down: down-arrow-key
+bindkey -M vicmd 'k' history-substring-search-up        # Set keybinding for call history-substring-search-up in normal-mode: k
+bindkey -M vicmd 'j' history-substring-search-down      # Set keybinding for call history-substring-search-down in normal-mode: j
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=magenta,fg=black" # Defines how the query should be highlighted inside a matching command.
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=white,fg=black" # defines how the query should be highlighted when no commands in the history match it.
