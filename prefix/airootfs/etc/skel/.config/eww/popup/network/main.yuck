@@ -1,7 +1,7 @@
-(defpoll gateway :interval "12h" "/usr/bin/zsh -ic 'autoload get-info-gateway; get-info-gateway'")
-(defpoll local-ip :interval "12h" "/usr/bin/zsh -ic 'autoload get-info-local-ip; get-info-local-ip wlan0'")
-(defpoll speed-upstream :interval "1s" "/usr/bin/zsh -ic 'autoload get-info-speed-network; get-info-speed-network up'")
-(defpoll speed-downstream :interval "1s" "/usr/bin/zsh -ic 'autoload get-info-speed-network; get-info-speed-network down'")
+(defpoll gateway :initial "None" :interval "12h" "/usr/bin/zsh -ic 'autoload get-info-gateway; get-info-gateway'")
+(defpoll local-ip :initial "None" :interval "12h" "/usr/bin/zsh -ic 'autoload get-info-local-ip; get-info-local-ip wlan0'")
+(defpoll speed-upstream :initial "0B" :interval "1s" "/usr/bin/zsh -ic 'autoload get-info-speed-network; get-info-speed-network up'")
+(defpoll speed-downstream :initial "0B" :interval "1s" "/usr/bin/zsh -ic 'autoload get-info-speed-network; get-info-speed-network down'")
 
 (defwidget popup-network [] ; Create new widget
   (box ; the main layout container
@@ -15,39 +15,39 @@
       :wrap false             ; Wrap the text. This mainly makes sense if you set the width of this widget.
       :show-truncated false   ; show whether the text was truncated
       :text ssid)             ; the text to display
-    (box                    ; the main layout container
-      :spacing 20             ; spacing between elements
-      :halign "start"         ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
+    (box                      ; the main layout container
+      :spacing 7              ; spacing between elements
+      :halign "end"           ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
       :orientation "h"        ; orientation of the box. possible values: "vertical", "v", "horizontal", "h"
       :space-evenly false     ; space the widgets evenly
-      (label                  ; A text widget giving you more control over how the text is displayed
-        :class "icon"           ; string css class name
-        :text "")              ; the text to display
       (label                  ; A text widget giving you more control over how the text is displayed
         :class "text-value"     ; string css class name
-        :text gateway))         ; the text to display
-    (box                    ; the main layout container
-      :spacing 20             ; spacing between elements
-      :orientation "h"        ; orientation of the box. possible values: "vertical", "v", "horizontal", "h"
-      :space-evenly false     ; space the widgets evenly
-      :halign "start"         ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
+        :text '${gateway}')     ; the text to display
       (label                  ; A text widget giving you more control over how the text is displayed
         :class "icon"           ; string css class name
-        :text "")              ; the text to display
-      (label                  ; A text widget giving you more control over how the text is displayed
-        :class "text-value"     ; string css class name
-        :text local-ip))        ; the text to display
+        :text ""))             ; the text to display
     (box                    ; the main layout container
-      :spacing 30             ; spacing between elements
-      :halign "start"         ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
+      :spacing 7              ; spacing between elements
+      :halign "end"           ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
       :orientation "h"        ; orientation of the box. possible values: "vertical", "v", "horizontal", "h"
       :space-evenly false     ; space the widgets evenly
       (label                  ; A text widget giving you more control over how the text is displayed
-        :class "upstream"       ; string css class name
-        :text "  ${speed-upstream}") ; the text to display
+        :class "text-value"     ; string css class name
+        :text '${local-ip}')    ; the text to display
       (label                  ; A text widget giving you more control over how the text is displayed
-        :class "downstream"     ; string css class name
-        :text "  ${speed-downstream}")))) ; the text to display
+        :class "icon"           ; string css class name
+        :text ""))             ; the text to display
+    (box                    ; the main layout container
+      :spacing 20             ; spacing between elements
+      :halign "center"         ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
+      :orientation "h"        ; orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+      :space-evenly false     ; space the widgets evenly
+      (label                  ; A text widget giving you more control over how the text is displayed
+        :class "upstream"     ; string css class name
+        :text " ${speed-upstream}") ; the text to display
+      (label                  ; A text widget giving you more control over how the text is displayed
+        :class "downstream"   ; string css class name
+        :text " ${speed-downstream}")))) ; the text to display
 
 (defwindow popup-network ; Create new window
   :monitor 0 ; Which monitor this window should be displayed on.
