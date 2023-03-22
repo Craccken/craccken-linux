@@ -1,18 +1,12 @@
 #!/usr/bin/env zsh
-export YAD_OPTIONS="
-    --title=Unknown 
-    --borders=5 
-    --fixed
-    --center
-    --on-top
-    --tabnum=4
-    --no-button --buttons-layout=end
-    --uri-handler='xdg-open %s'
-    --undecorated 
-    --text-align=center
-    --height=900 --width=1000
-    --hscroll-policy=auto --vscroll-policy=auto
-    --response=0"                                                               # Set default options for yad. See yad(1)
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
+export MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history"
+export XCURSOR_PATH="/usr/share/icons:$XDG_DATA_HOME/icons"
+export ANDROID_HOME="$XDG_DATA_HOME/android"
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 export SAVEHIST=7000                                                            # Set the maximum number of history events to save in the history file.
 export HISTSIZE=7000                                                            # Set the maximum number of commands that are stored in memory in a history events while the shell session is on going.
 export HISTFILE="$XDG_STATE_HOME/zsh/history"                                   # Set directory where is histfile is saved

@@ -5,10 +5,8 @@
 #   ███╔╝  ╚════██║██╔══██║        ██╔═██╗ ██╔══╝    ╚██╔╝  ██╔══██╗██║██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║
 #  ███████╗███████║██║  ██║███████╗██║  ██╗███████╗   ██║   ██████╔╝██║██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝
 #  ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ 
-# ▲
-# █  INFO: Use 'wev' command to print the key codes, e.g: home-key, end-key, up-arrow-key, down-arrow-key, etc.                                                                            
-# █  TNFO: Use CTRL+s to freeze output and use CTRL+q to resume it, it is default from zsh, to disable it add `setopt noflowcontrol` in your zshrc                                             
-# ▼                                                                                                   
+# INFO: Use 'wev' or 'cat -v' command to print the key codes, e.g: home-key, end-key, up-arrow-key, down-arrow-key, etc.                                                                            
+# INFO: Use CTRL+s to freeze output and use CTRL+q to resume it, it is default from zsh, to disable it add `setopt noflowcontrol` in your zshrc                                             
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                            Load functions to zsh                             │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -31,12 +29,26 @@ zle -N fast-sudo
 zle -N zle-keymap-select
 zle -N zle-line-init
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃                                    UNBIND                                    ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+bindkey -r '^R' # Unbind Ctrl+R
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                                  COMPLETION                                  ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 bindkey -M menuselect 'h' vi-backward-char          # Set keybinding for move-left in tab-complete-menu: h
 bindkey -M menuselect 'j' vi-down-line-or-history   # Set keybinding for move-down in tab-complete-menu: j
 bindkey -M menuselect 'k' vi-up-line-or-history     # Set keybinding for move-up in tab-complete-menu: k
 bindkey -M menuselect 'l' vi-forward-char           # Set keybinding for move-right in tab-complete-menu: l
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃                                  FUNCTIONS                                   ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+bindkey -M main '^e' teleport           # Set keybinding for call teleport functions: CTRL + e
+bindkey -M main '^Z' fancy-ctrl-z       # Set keybinding for call fancy-ctrl-z functions: CTRL + z
+bindkey -M vicmd '^v' edit-command-line # Set keybinding for call edit-command-line: CTRL + V
+bindkey -M main '^x^v' edit-clipboard   # Set keybinding for call edit-clipboard functions: CTRL + x + CTRL + v
+bindkey -M main '^[s' fast-sudo         # Set keybinding for call fast-sudo functions: Alt + s
+bindkey -M main '^e^r' edit-configuration # Set keybinding for call teleport functions: CTRL + e + CTRL + r
+bindkey -M main '^x^f' want-to-look-busy # Set keybinding for call i-want-to-look-busy: CTRL + x CTRL + c
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                                     CORE                                     ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -58,17 +70,3 @@ for mode in visual viopp; do # Create for loop with mode as value
 		bindkey -M "${mode}" "${key}" select-bracketed # Set keybinding for being able to ci{, ci(, ci<, di{, etc like in vim
 	done # End for-loop statement
 done # End for-loop statement
-# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# ┃                                  FUNCTIONS                                   ┃
-# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-bindkey -M main '^e' teleport           # Set keybinding for call teleport functions: CTRL + e
-bindkey -M main '^Z' fancy-ctrl-z       # Set keybinding for call fancy-ctrl-z functions: CTRL + z
-bindkey -M vicmd '^v' edit-command-line # Set keybinding for call edit-command-line: CTRL + V
-bindkey -M main '^x^v' edit-clipboard   # Set keybinding for call edit-clipboard functions: CTRL + x + CTRL + v
-bindkey -M main '^[s' fast-sudo         # Set keybinding for call fast-sudo functions: Alt + s
-bindkey -M main '^e^r' edit-configuration # Set keybinding for call teleport functions: CTRL + e + CTRL + r
-bindkey -M main '^x^f' want-to-look-busy # Set keybinding for call i-want-to-look-busy: CTRL + x CTRL + c
-# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# ┃                                    UNBIND                                    ┃
-# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-bindkey -r '^R' # Unbind Ctrl+R

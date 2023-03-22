@@ -56,3 +56,4 @@ setopt interactivecomments      # Enable comments in interactive mode
 # setopt cshjunkiequotes          # Ignore `'` example type this without enabling this option you will see the difference: ls 'foo
 # setopt notify                   # Report the status of background jobs immediately
 # setopt ksh_arrays               # Set array elements numbered from zero
+setopt glob_dots                # GLOBDOTS lets files beginning with a . be matched without explicitly specifying the dot. 

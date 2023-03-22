@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                    Alias                                     ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# NOTE: if you want to save changes on alias-configuration,zsh-keybinding you must update with `zinit-update`
+zinit ice --wait --silent --id-as="config/keybinding" --nocompile                           # Specify ice modifiers, read https://github.com/zdharma-continuum/zinit#ice-modifiers
+zinit snippet /etc/zsh/zsh-keybinding                                                       # Source file that contains keybinding, with zinit.
+zinit ice --wait --silent --id-as="alias/user-alias" --nocompile                            # Specify ice modifiers, read https://github.com/zdharma-continuum/zinit#ice-modifiers
+zinit snippet /etc/zsh/alias/user-alias                                                     # Source file that contains user-aliases, with zinit
+zinit ice --wait --silent --id-as="alias/system-alias" --nocompile                          # Specify ice modifiers, read https://github.com/zdharma-continuum/zinit#ice-modifiers
+zinit snippet /etc/zsh/alias/system-alias                                                   # Source file that contains system-aliases, with zinit
+zinit ice --wait --silent --if="[[ $EUID -eq 0 ]]" --id-as="alias/root-alias" --nocompile   # Specify ice modifiers, read https://github.com/zdharma-continuum/zinit#ice-modifiers
+zinit snippet /etc/zsh/alias/root-alias                                                     # Specify ice modifiers && source file that contains root-aliases, with zinit
+for file in /etc/zsh/alias/*(.); do  # Create for-loop with list of commands
+    local command="$(basename $file | cut -d '-' -f 1)" # Get only the first name of the file
+    zinit ice --wait --silent --has="${command}" --id-as="alias/${command}-alias" --nocompile; zinit snippet /etc/zsh/alias/${command}-alias # Specify ice modifiers && source file that contains $commands-alias, with zinit.
+done; unset file # End for-loop; Clearing variable so it will not polute the shell.

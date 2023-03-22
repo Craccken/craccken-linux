@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+export YAD_OPTIONS="
+    --title=Unknown 
+    --borders=5 
+    --fixed
+    --center
+    --on-top
+    --tabnum=4
+    --no-button --buttons-layout=end
+    --uri-handler='xdg-open %s'
+    --undecorated 
+    --text-align=center
+    --height=900 --width=1000
+    --hscroll-policy=auto --vscroll-policy=auto
+    --response=0"                                                               # Set default options for yad. See yad(1)

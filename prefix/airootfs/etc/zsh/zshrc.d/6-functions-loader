@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                  Functions                                   ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+for function in /etc/zsh/functions/*(.) /etc/zsh/functions/libs/**/*(.) tetriscurses run-help run-help-ip; do # Create for-loop with list of functions from /etc/zsh/functions directory that will be loaded
+    autoload ${function} 
+done; unset function # End for-loop; Clearing variable so it will not polute the shell.
+(( $+aliases[run-help] )) && unalias run-help # Check if specify alias available && remove alias
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                    PROMPT                                    ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+update-prompt # Call update prompt function
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                Hook functions                                ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+autoload chpwd # Load a hook function that executed whenever the current directory is changed.
+autoload preexec # Load a hook function that executed just after a command has been read and is about executed.
+autoload zshexit # Load a hook function that executed at the point where the main shell is about exit normally.
+autoload precmd # Load a hook function that executed before each prompt.
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                Trap functions                                ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+autoload TRAPWINCH # Load a trap function that executed when terminal resized
+TRAPINT(){ # Define a trap function that executed when CTRL_C was pressed.
+    echo "" # Print string
+    return 128+$1
+}
+TRAPQUIT(){ # Define a trap function that executed when program running and CTRL_\ was pressed.
+    return 128+$1
+}
+TRAPCONT(){ # Define a trap function that executed when program continue executing after stopped, e.g., by STOP
+}

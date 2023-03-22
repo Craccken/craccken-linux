@@ -1,0 +1,59 @@
+#!/usr/bin/env zsh
+
+# NOTE: Read this in order to managing plugin manager
+# > https://github.com/zdharma-continuum/zinit
+# > https://github.com/zdharma-continuum/zinit#ice-modifiers
+
+_run_after_load_(){ # Create function
+    eval "$(</etc/zsh/plugin-configs/${1}_config)" # Source file that passed with first parameter and contain configuration
+}
+
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                  Completion                                  ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# NOTE: you need to run `zinit creinstall completion-name` to Install completions for plugin, can also receive absolute local path. -q – quiet. -Q - quiet all.
+# TIPS: run `zinit clist` to list completions in use, with columns completions per line, `zinit clist 5` will for example print 5 completions per line. Default is 3.
+# TIPS: run `zinit cuninstall completion-name` to uninstall completions for plugin.
+# TIPS: run `zinit csearch` to search for available completions from any plugin. 
+zinit ice --wait --silent --nocompile --depth="1" --id-as="efibootmgr__completion" --as="completion"
+zinit light wehlando/efibootmgr-zsh-completion # Enable https://github.com/wehlando/efibootmgr-zsh-completion
+
+#          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#          ┃                                   Plugins                                    ┃
+#          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# zinit ice --wait --silent --depth="1" --id-as="zsh-vi-mode" --atload="_run_after_load_ zvm"
+# zinit light jeffreytse/zsh-vi-mode # Enable https://github.com/jeffreytse/zsh-vi-mode
+
+# zinit ice --wait --silent --depth="1" --id-as="zsh-async"
+# zinit light mafredri/zsh-async # Enable https://github.com/mafredri/zsh-async
+
+zinit ice --wait --silent --depth="1" --id-as="zsh-autopair"
+zinit light hlissner/zsh-autopair # Enable https://github.com/hlissner/zsh-autopair
+
+# zinit ice --wait --silent --id-as="bash-insulter" --if="[[ -f /etc/bash.command-not-found ]]"
+# zinit snippet /etc/bash.command-not-found # Enable bash-insulter plugin -- https://github.com/hkbakke/bash-insulter
+
+zinit ice --wait --silent --id-as="zsh-autosuggestions" --if="[[ -d /usr/share/zsh/plugins/zsh-autosuggestions ]]" --atload="_run_after_load_ zsh-autosuggestions"
+zinit snippet /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh # Enable https://github.com/zsh-users/zsh-autosuggestions.
+
+zinit ice --wait --silent --depth="1" --id-as="fast-syntax-highlighting" --atinit="zicdreplay" --atload="_run_after_load_ fast-syntax-highlighting"
+zinit light zdharma-continuum/fast-syntax-highlighting  # Enable https://github.com/zdharma-continuum/fast-syntax-highlighting
+
+if [[ $+commands[fzf] ]]; then # Check if fzf installed
+    for fzf_plugin in completion key-bindings; do # Create for-loop with list of name
+        zinit ice --wait="1" --silent --id-as="fzf/${fzf_plugin}" --atload="_run_after_load_ fzf"
+        zinit snippet /usr/share/fzf/${fzf_plugin}.zsh
+    done; unset fzf_plugin # End for-loop; Clearing variable so it will not polute the shell.
+    
+    zinit ice --wait="2" --silent --depth="1" --id-as="fzf-tab" --atload="_run_after_load_ fzf-tab"
+    zinit light Aloxaf/fzf-tab # Enable https://github.com/Aloxaf/fzf-tab
+fi # End if-else statement
+
+zinit ice --wait --silent --depth="1" --id-as="zsh-you-should-use" --atload="_run_after_load_ zsh-you-should-use"
+zinit light MichaelAquilina/zsh-you-should-use  # Enable https://github.com/MichaelAquilina/zsh-you-should-use
+
+zinit ice --wait --silent --depth="1" --id-as="zsh-history-substring-search"  --atload='_run_after_load_ zsh-history-substring-search'
+zinit light zsh-users/zsh-history-substring-search # Enable https://github.com/zsh-users/zsh-history-substring-search
+
+zinit ice --wait --silent --depth="1" --id-as="zsh-auto-notify"  --atload='_run_after_load_ zsh-auto-notify'
+zinit light MichaelAquilina/zsh-auto-notify # Enable https://github.com/MichaelAquilina/zsh-auto-notify
