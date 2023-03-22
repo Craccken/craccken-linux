@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed stdbuf socat jq # Need install this in order to run
+
+get-active-workspace-id # Get initial active-workspace
+socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 grep '^workspace' | stdbuf -o0 cut -d '>' -f 3 # Get active-workspace event from hyprland socket and print the value

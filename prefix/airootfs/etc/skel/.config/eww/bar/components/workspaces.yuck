@@ -1,5 +1,17 @@
 (defwidget workspaces []
-  (literal ; A widget that allows you to render arbitrary yuck.
-    :content workspaces-widget)) ; inline yuck that will be rendered as a widget.
-
-(deflisten workspaces-widget `/usr/bin/tail -F /tmp/workspaces-widget`) ; A listening variable runs a script once, and reads its output continously. Whenever the script outputs a new line, the value will be updated to that new line
+  (box ; the main layout container
+    :class "workspaces" ; string css class name
+    :valign "center" ; string how to align this vertically. possible values: "fill", "baseline", "center", "start", "end"
+    :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
+    (label :text "${list-of-workspaces}${focused-workspace}${current-window-title}" :visible false) ; Don't Remove this, if you remove this, the active-workspaces bug out
+    (for workspace in list-of-workspaces ; Create for-loop with workspaces variable as workspace
+      (eventbox 
+        :cursor "pointer" ; Cursor to show while hovering (see gtk3-cursors for possible names)
+        :tooltip "${workspace == focused-workspace ? "${current-window-title}": "Workspace ${workspace}" }" ; tooltip text (on hover)
+        (button 
+          :class "workspace-${workspace == focused-workspace ? "focused" : "unfocused"}" ; string css class name
+          :onclick "hyprctl dispatch workspace ${workspace}" ; a command that get's run when the button is clicked
+          "${workspace}")))))
+(deflisten current-window-title :initial "..." "/usr/bin/zsh -ic 'get-window-title-continuously'")
+(deflisten list-of-workspaces :initial "1" "/usr/bin/zsh -ic 'get-list-workspace-continuously'")
+(deflisten focused-workspace :initial "[]" "/usr/bin/zsh -ic 'get-active-workspace-continuously'")

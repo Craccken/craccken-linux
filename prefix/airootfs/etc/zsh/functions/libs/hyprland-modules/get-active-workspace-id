@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl jq # Need installed in order to run
+
+hyprctl monitors -j | jq '.[].activeWorkspace.id' # Get current workspace id number of hyprland

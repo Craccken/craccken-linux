@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl jq # Need installed in order to run
+
+hyprctl clients -j | jq -r ".[] | select(.workspace.id == $(get-current-workspace-id)) | .at,.size" | jq -sr 'add | _nwise(4) | "\(.[0]),\(.[1]) \(.[2])x\(.[3])"' | select-region-on-screen # Select window on current workspace with select-region-on-screen
