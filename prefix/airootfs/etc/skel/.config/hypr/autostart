@@ -22,9 +22,9 @@ killall -q swayidle waybar dunst # Kill old proccess, so it will not overlaping 
 # │                                  Statusbar                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config &! # Check command if it available && start waybar
-(( $+commands[eww] )) && eww --restart open statusbar && generate-workspaces-component & disown
+(( $+commands[eww] )) && eww --restart open statusbar &!
 if (( ! $+commands[eww] )); then # Check if eww is not installed then:
-    (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config & disown # Check command if it available && start waybar
+    (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config &! # Check command if it available && start waybar
 fi # End if-else statement
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Music                                     │
@@ -43,6 +43,6 @@ brightness-handler set_minimum_brightness 5 &! # set minimum capacity of brightn
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Other                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+commands[foot] )) && foot --server &! # Check if command available && run foot server
 (( $+commands[activate-linux] )) && [[ -z "$(pidof activate-linux)" ]] && activate-linux &! # Check if there is no process of command && Start activate-linux
 (( $+commands[swayidle] )) && swayidle -w timeout 300 'zsh -ic "lock-screen"' timeout 350 'zsh -ic "brightness-handler save-brightness && brightness-handler set-value 7"' resume 'zsh -ic "brightness-handler restore-brightness"' &! # Check command if it available && start idle manager
-autoload active-window-flickers-border && active-window-flickers-border &!
