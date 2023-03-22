@@ -156,6 +156,10 @@ return require("packer").startup(function(use)
     -- use 'ElPiloto/significant.nvim'                                         -- When you've got something significant to say. 
     -- use "mbbill/undotree"                                                   -- The undo history visualizer for VIM 
     -- use "nvim-telescope/telescope-media-files.nvim"                         -- Telescope extension to preview media files using Ueberzug. 
+    use {
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end 
+    }
 
     use "hrsh7th/nvim-cmp"                      -- A completion plugin for neovim coded in lua.
     use "hrsh7th/cmp-path"                      -- nvim-cmp source for directory path
@@ -168,7 +172,7 @@ return require("packer").startup(function(use)
     use "saadparwaiz1/cmp_luasnip"              -- luasnip completion source for nvim-cmp 
     use "hrsh7th/cmp-nvim-lsp"                  -- nvim-cmp source for neovim builtin LSP client
     use "davidsierradz/cmp-conventionalcommits" -- nvim-cmp source for autocompleting git commits with conventional commits types and lerna packages as scope 
-    use "hrsh7th/cmp-nvim-lsp-signature-help"   -- nvim-cmp source for lsp-signature
+    -- use "hrsh7th/cmp-nvim-lsp-signature-help"   -- nvim-cmp source for lsp-signature
     use "hrsh7th/cmp-nvim-lsp-document-symbol"  -- nvim-cmp source for textDocument/documentSymbol via nvim-lsp.
     use "f3fora/cmp-spell"                      -- spell source for nvim-cmp based on vim's spellsuggest.
 end)

@@ -1,4 +1,4 @@
-if not pcall(require, "cmp") then -- Check if nvim not have cmp plugin
+if not pcall(require, "cmp") or vim.fn.exists("g:started_by_firenvim") == 1 then -- Check if nvim not have cmp plugin
     return -- Stop sourcing this file.
 end -- End if-else statement
 

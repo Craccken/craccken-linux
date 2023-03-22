@@ -3,7 +3,7 @@ if not pcall(require, "mason-lspconfig") then -- Check if nvim not have mason-ls
 end -- End if-else statement
 
 require("mason-lspconfig").setup({ -- Call setup function
-    ensure_installed = { "bashls" }, -- A list of servers to automatically install if they're not already installed. Example: { "rust_analyzer", "sumneko_lua" } This setting has no relation with the `automatic_installation` setting.
+    -- ensure_installed = { "bashls" }, -- A list of servers to automatically install if they're not already installed. Example: { "rust_analyzer", "sumneko_lua" } This setting has no relation with the `automatic_installation` setting.
     -- ╭──────────────────────────────────────────────────────────────────────────────────────────────────╮
     -- │       Whether servers that are set up (via lspconfig) should be automatically installed if       │
     -- │                                  they're not already installed.                                  │

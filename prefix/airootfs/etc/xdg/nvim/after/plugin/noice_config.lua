@@ -1,4 +1,4 @@
-if not pcall(require, "noice") then -- Check if nvim not have noice plugin
+if not pcall(require, "noice") or vim.fn.exists("g:started_by_firenvim") == 1 then -- Check if nvim not have noice plugin
     return -- Stop sourcing this file.
 end -- End if-else statement
 
