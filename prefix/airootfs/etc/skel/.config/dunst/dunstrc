@@ -104,7 +104,7 @@ origin = top-center
 #  █     origin = top-right                                                                 
 #  █     offset = 10x300 # a margin of 10 pixels from the right and 300 pixels from the top 
 #  ▼                                                                                         
-offset = 10x10
+offset = 10x20
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │   Specifies a scale factor for dimensions to adapt notifications to HiDPI    │
 #  │                 screens. It is auto-detected if value is 0.                  │
@@ -128,7 +128,7 @@ progress_bar_min_width = 0
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                  Set the maximum width for the progress bar                  │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-progress_bar_max_width = 444
+progress_bar_max_width = 500
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                   Set the frame width of the progress bar                    │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -210,12 +210,12 @@ force_xwayland = false
 #  │      number after the font name and space. Multiple font options can be      │
 #  │                            separated with commas.                            │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-font = "Roboto-Regular 8, Cantarell 10"
+font = "Roboto-Regular 9, Cantarell 9"
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │      The spacing between lines. If the height is smaller than the font       │
 #  │                height, it will get raised to the font height.                │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-line_height = 0
+line_height = 5
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                          The format of the message.                          │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -437,39 +437,35 @@ fullscreen = "pushback"
 #          ┃                     Low: Matches low urgency notifcation                     ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 [urgency_low]
-timeout = 10
-# background = "#123635ff"
-# foreground = "#80fffd"
-# frame_color = "#80fffd"
-# highlight = "#80fffd"
-background = "#f5f5f5c9"
+timeout = 5
+background = "#f5f5f5ff"
 foreground = "#5c5c5c"
-frame_color = "#f5f5f5c9"
-highlight = "#7b00ff"
-format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' foreground='#5c5c5c'>%s</span>\n%b"
+frame_color = "#f5f5f5ff"
+highlight = "#5c5c5c"
+format = "<span size='large' font_desc='Arame,Zector,Roboto' weight='bold' text_transform='none' foreground='#5c5c5c'>%s</span>\n%b"
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                  Normal: Matches normal urgency notifcation                  ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 [urgency_normal]
 timeout = 10
-background = "#040507c9"
-foreground = "#b3b1ad"
-frame_color = "#040507c9"
-highlight = "#7b00ff"
-format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' foreground='#ff7733'>%s</span>\n%b"
+background = "#f5f5f5ff"
+foreground = "#5c5c5c"
+frame_color = "#f5f5f5ff"
+highlight = "#5c5c5c"
+format = "<span size='large' font_desc='Arame,Zector,Roboto' weight='bold' text_transform='none' foreground='#5c5c5c'>%s</span>\n%b"
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃               Critical: Matches critical urgency notification                ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 [urgency_critical]
 timeout = 0
-background = "#140003c9"
+background = "#140003d0"
 foreground = "#cc0022"
 frame_color = "#cc0022"
 highlight = "#cc0022"
 fullscreen = "show"
 min_icon_size = 49
 icon = "/opt/craccken/assets/notification/critical.svg"
-format = "<span size='x-large' font_desc='Zector,CozetteVector' weight='heavy' foreground='#cc0022'>%s</span>\n%b"
+format = "<span size='large' font_desc='Arame,Zector,Roboto' weight='bold' text_transform='none' foreground='#cc0022'>%s</span>\n%b"
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃    Every section that isn't one of the above is interpreted as a rules to    ┃
 #          ┃                   override settings for certain messages.                    ┃
