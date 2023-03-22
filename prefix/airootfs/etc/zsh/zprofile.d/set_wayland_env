@@ -1,28 +1,12 @@
 #!/usr/bin/env zsh
 [[ "$XDG_SESSION_TYPE" != "wayland" ]] && return # Check if not running wayland display server then && Stop sourcing this file 
 
-export XDG_CURRENT_DESKTOP=Hyprland
-export XDG_SESSION_TYPE=wayland                 # Set display server to wayland
-export XDG_SESSION_DESKTOP=Hyprland
-
 export DISABLE_QT5_COMPAT=0
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
-export QT_QPA_PLATFORM=wayland                  # Run QT apps on native wayland
-export QT_QPA_PLATFORMTHEME=qt5ct               # Use qt style from qt5ct
 # export QT_STYLE_OVERRIDE=kvantum
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=1    # Older versions of Qt always show window decorations. This will hide window decorations
-export QT_WAYLAND_FORCE_DPI=96                  # To use your monitor's DPI change the value to "physical", instead of the default of 96 DPI
-
 export ELM_DISPLAY=wl                           #
 export ELM_ENGINE=wayland_egl                   #
 export ECORE_EVAS_ENGINE=wayland_egl            #
-export KITTY_ENABLE_WAYLAND=1                   # Use kitty on native wayland
-export GDK_BACKEND=wayland                      # Run GTK apps on native wayland
 # export SDL_VIDEODRIVER=wayland                  # Run native game on wayland, It may break most games and other(older) binary applications might not work with wayland SDL video driver.
 export SDL_DYNAMIC_API=/usr/lib/libSDL2-2.0.so
-export _JAVA_AWT_WM_NONREPARENTING=1            # This will fix some java awt applications not display properly
-export MOZ_ENABLE_WAYLAND=1                     # Experimental wayland support in firefox
 # export WLR_NO_HARDWARE_CURSORS=1                # Fix cursor not visible in VM(virtual machine) and NVIDIA
 export LIBSEAT_BACKEND=logind
-export CLUTTER_BACKEND=wayland
-export XCURSOR_SIZE=24                          # This variable sets the desired cursor size, in pixels.
