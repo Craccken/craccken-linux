@@ -99,7 +99,6 @@ main(){
     refresh_directory /opt/craccken /opt
     refresh_directory /opt/craccken-installer
     refresh_directory /etc/zsh
-    refresh_directory /etc/dunst
     refresh_directory /etc/zathurarc
     refresh_directory /etc/xdg/waybar
     refresh_directory /etc/default
@@ -137,6 +136,7 @@ main(){
         "$HOME/.config/nwg-drawer"
         "$HOME/.config/wofi"                    # Wofi (wayland rofi) config dir
         "$HOME/.config/bat"
+        "$HOME/.config/dunst"                   # Dunst notification config dir
         "$HOME/.config/eww"                     # eww widget config dir
         "$HOME/.config/electron-flags.conf"
         "$HOME/.config/fsh"

@@ -1,4 +1,5 @@
 * {
+    all: unset;
     outline: none;
 }
 
@@ -26,13 +27,14 @@
     transition-duration: 0.05s;
     transition-timing-function: ease;
     transition-property: all;
+    padding: 7px;
 }
 
 #input:focus {
     font-size: 1rem;
     font-family: "Aller Light";
+    padding: 7px;
     padding-left: 10px;
-    padding-right: 1px;
     margin-top: 2rem;
     margin-right: 10rem;
     margin-left: 1rem;
@@ -74,8 +76,8 @@
     padding-left: 0.5rem;
     font-size: 0.9rem;
     border-left-width: 2px;
-    border-left-color: rgba(60, 60, 60, 0.1);
     border-left-style: solid;
+    border-left-color: rgba(60, 60, 60, 0.1);
 }
 
 #entry:selected {
