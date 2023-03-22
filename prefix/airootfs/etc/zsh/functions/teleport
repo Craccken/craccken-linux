@@ -4,19 +4,19 @@ autoload spectre_fzf
 
 local -A available_options # Declare local associative array
 available_options[xinit]="/etc/X11/xinit"
-available_options[dunst]="/etc/dunst"
 available_options[sddm]="/etc/sddm.conf.d"
 available_options[waybar]="/etc/xdg/waybar"
-available_options[eww]="$HOME/.config/eww"
-available_options[wofi]="$HOME/.config/wofi"
-available_options[newsboat]="$HOME/.config/newsboat"
-available_options[foot]="$HOME/.config/foot"
+available_options[eww]="$XDG_CONFIG_HOME/eww"
+available_options[wofi]="$XDG_CONFIG_HOME/wofi"
+available_options[newsboat]="$XDG_CONFIG_HOME/newsboat"
+available_options[foot]="$XDG_CONFIG_HOME/foot"
+available_options[dunst]="$XDG_CONFIG_HOME/dunst"
 available_options[temporary]="/tmp"
 available_options[udev]="/etc/udev"
 available_options[temporary]="/tmp"
 
 available_options[home]="$HOME"
-available_options[home__config]="$HOME/.config"
+available_options[home__config]="$XDG_CONFIG_HOME"
 available_options[home__pictures]="$HOME/Pictures"
 available_options[home__documents]="$HOME/Documents"
 available_options[home__downloads]="$HOME/Downloads"
@@ -35,9 +35,9 @@ available_options[zsh__trap]="/etc/zsh/functions/trap"
 available_options[zsh__prompt]="/etc/zsh/prompt"
 available_options[zsh__functions]="/etc/zsh/functions"
 available_options[zsh__functions_optionals]="/etc/zsh/functions/optionals"
-available_options[zsh__functions_libs]="/etc/zsh/functions/libs"
-available_options[zsh__functions_hook]="/etc/zsh/functions/hook"
-available_options[zsh__plugin-config]="/etc/zsh/configs"
+available_options[zsh__functions-libs]="/etc/zsh/functions/libs"
+available_options[zsh__functions-hook]="/etc/zsh/functions/hook"
+available_options[zsh__plugin-config]="/etc/zsh/plugin-configs"
 
 available_options[neovim]="/etc/xdg/nvim"
 available_options[neovim__lua]="/etc/xdg/nvim/lua"
@@ -53,4 +53,4 @@ local option="${1:-$(print -l ${(ko)available_options} | spectre_fzf 'Choose you
 play-audio-random /opt/craccken/sound/click 2>/dev/null || : # Play random audio in directory
 blink-led &! # Call function to blink-led effect
 speak "Moving, into ${option} directory." || : # Call function from /etc/zsh/functions to translate text to speak
-cd "${available_options[${option}]}" # Moving into destination
+cd "${available_options[${option}]}" || : # Moving into destination
