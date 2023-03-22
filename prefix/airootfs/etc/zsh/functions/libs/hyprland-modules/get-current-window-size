@@ -2,4 +2,4 @@
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed hyprctl jq # Need installed in order to run
 
-hyprctl activewindow -j | jq -r '.workspace.id' # Get current workspace id number of hyprland compositor
+hyprctl activewindow -j | jq -Mc -r '.size | "\(.[0])x\(.[1])"' # Get current window size, heightxwidth

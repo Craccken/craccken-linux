@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-# vim:ft=sh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail
 
 if [[ ! "$TERMINAL_WIDTH" == "$(tput cols)" ]]; then # Check if terminal width is not same as width size
