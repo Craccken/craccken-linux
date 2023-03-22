@@ -1,5 +1,17 @@
 #!/usr/bin/env zsh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
 
-current-terminal-size
-update-prompt
+tput smcup # Save current terminal screen to memory
+tput civis # Make cursor invisible
+
+local width=$(tput cols)    # Get terminal columns <- width
+local height=$(tput lines)  # Get terminal rows <- height
+
+tput cup $((height / 2 - 5)) $((width / 2 - 11)) # Move the cursor into center by dividing the height and width by 2
+convert /opt/craccken/assets/notification/resize.png -resize "50%" -background '#010204' -auto-orient -alpha remove sixel:- || :
+
+sleep 1 # Delay restore terminal
+tput rmcup # Restore terminal screen from memory
+tput cvvis # Make cursor visible
+
+update-prompt # Call functions to update or refresh the prompt

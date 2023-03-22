@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="50"
+   height="50"
+   viewBox="0 0 49.999998 49.999998"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="resize.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:export-filename="resize.png"
+   inkscape:export-xdpi="960.00482"
+   inkscape:export-ydpi="960.00482"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview161"
+     pagecolor="#0d1117"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#0d1117"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="11.313708"
+     inkscape:cx="2.4306797"
+     inkscape:cy="13.832777"
+     inkscape:window-width="1870"
+     inkscape:window-height="1080"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs156">
+    <filter
+       inkscape:label="Blur Double"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
+       style="color-interpolation-filters:sRGB"
+       id="filter3707"
+       x="-0.13546869"
+       y="-0.14364319"
+       width="1.2709374"
+       height="1.225726">
+      <feGaussianBlur
+         stdDeviation="0.20959074"
+         result="fbSourceGraphic"
+         id="feGaussianBlur3699" />
+      <feGaussianBlur
+         stdDeviation="0.01"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur3701" />
+      <feComposite
+         in2="result1"
+         operator="arithmetic"
+         in="fbSourceGraphic"
+         k2="0.5"
+         k3="0.5"
+         result="result2"
+         id="feComposite3703"
+         k1="0"
+         k4="0" />
+      <feBlend
+         in2="fbSourceGraphic"
+         mode="normal"
+         result="result3"
+         id="feBlend3705" />
+    </filter>
+    <filter
+       inkscape:label="Blur Double"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
+       style="color-interpolation-filters:sRGB"
+       id="filter14382"
+       x="-1.5709736"
+       y="-0.36402866"
+       width="4.1419473"
+       height="1.7280573">
+      <feGaussianBlur
+         stdDeviation="0.45995753"
+         result="fbSourceGraphic"
+         id="feGaussianBlur14374" />
+      <feGaussianBlur
+         stdDeviation="0.01"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur14376" />
+      <feComposite
+         in2="result1"
+         operator="arithmetic"
+         in="fbSourceGraphic"
+         k2="0.5"
+         k3="0.5"
+         result="result2"
+         id="feComposite14378"
+         k1="0"
+         k4="0" />
+      <feBlend
+         in2="fbSourceGraphic"
+         mode="normal"
+         result="result3"
+         id="feBlend14380" />
+    </filter>
+    <filter
+       inkscape:label="Blur Double"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
+       style="color-interpolation-filters:sRGB"
+       id="filter23859"
+       x="-0.13719438"
+       y="-0.13719438"
+       width="1.2743888"
+       height="1.2743888">
+      <feGaussianBlur
+         stdDeviation="0.14195481"
+         result="fbSourceGraphic"
+         id="feGaussianBlur23851" />
+      <feGaussianBlur
+         stdDeviation="0.01"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur23853" />
+      <feComposite
+         in2="result1"
+         operator="arithmetic"
+         in="fbSourceGraphic"
+         k2="0.5"
+         k3="0.5"
+         result="result2"
+         id="feComposite23855"
+         k1="0"
+         k4="0" />
+      <feBlend
+         in2="fbSourceGraphic"
+         mode="normal"
+         result="result3"
+         id="feBlend23857" />
+    </filter>
+    <filter
+       inkscape:label="Blur Double"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
+       style="color-interpolation-filters:sRGB"
+       id="filter3707-3"
+       x="-0.03082234"
+       y="-0.030598104"
+       width="1.0616447"
+       height="1.0611962">
+      <feGaussianBlur
+         stdDeviation="0.18549785"
+         result="fbSourceGraphic"
+         id="feGaussianBlur3699-6" />
+      <feGaussianBlur
+         stdDeviation="0.01"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur3701-7" />
+      <feComposite
+         in2="result1"
+         operator="arithmetic"
+         in="fbSourceGraphic"
+         k2="0.5"
+         k3="0.5"
+         result="result2"
+         id="feComposite3703-5"
+         k1="0"
+         k4="0" />
+      <feBlend
+         in2="fbSourceGraphic"
+         mode="normal"
+         result="result3"
+         id="feBlend3705-3" />
+    </filter>
+    <filter
+       inkscape:label="Blur Double"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
+       style="color-interpolation-filters:sRGB"
+       id="filter3707-3-6"
+       x="-0.066109367"
+       y="-0.064652547"
+       width="1.1322187"
+       height="1.1293051">
+      <feGaussianBlur
+         stdDeviation="0.4093431"
+         result="fbSourceGraphic"
+         id="feGaussianBlur3699-6-2" />
+      <feGaussianBlur
+         stdDeviation="0.01"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur3701-7-9" />
+      <feComposite
+         in2="result1"
+         operator="arithmetic"
+         in="fbSourceGraphic"
+         k2="0.5"
+         k3="0.5"
+         result="result2"
+         id="feComposite3703-5-1"
+         k1="0"
+         k4="0" />
+      <feBlend
+         in2="fbSourceGraphic"
+         mode="normal"
+         result="result3"
+         id="feBlend3705-3-2" />
+    </filter>
+    <filter
+       inkscape:label="Blur Double"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
+       style="color-interpolation-filters:sRGB"
+       id="filter12269"
+       x="-0.19453742"
+       y="-0.21174379"
+       width="1.3890748"
+       height="1.4234875">
+      <feGaussianBlur
+         stdDeviation="0.1286755"
+         result="fbSourceGraphic"
+         id="feGaussianBlur12261" />
+      <feGaussianBlur
+         stdDeviation="0.01"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur12263" />
+      <feComposite
+         in2="result1"
+         operator="arithmetic"
+         in="fbSourceGraphic"
+         k2="0.5"
+         k3="0.5"
+         result="result2"
+         id="feComposite12265"
+         k1="0"
+         k4="0" />
+      <feBlend
+         in2="fbSourceGraphic"
+         mode="normal"
+         result="result3"
+         id="feBlend12267" />
+    </filter>
+    <filter
+       inkscape:label="Blur Double"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Overlays two copies with different blur amounts and modifiable blend and composite"
+       style="color-interpolation-filters:sRGB"
+       id="filter13521"
+       x="-0.067346148"
+       y="-0.19918372"
+       width="1.1346923"
+       height="1.3983674">
+      <feGaussianBlur
+         stdDeviation="0.10776717"
+         result="fbSourceGraphic"
+         id="feGaussianBlur13513" />
+      <feGaussianBlur
+         stdDeviation="0.01"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur13515" />
+      <feComposite
+         in2="result1"
+         operator="arithmetic"
+         in="fbSourceGraphic"
+         k2="0.5"
+         k3="0.5"
+         result="result2"
+         id="feComposite13517"
+         k1="0"
+         k4="0" />
+      <feBlend
+         in2="fbSourceGraphic"
+         mode="normal"
+         result="result3"
+         id="feBlend13519" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-1.866389,-1.8661114)">
+    <g
+       id="g14253"
+       transform="matrix(0.93526727,0,0,-1.093351,35.127307,95.975493)"
+       style="stroke-width:0.99977779;stroke-dasharray:none">
+      <text
+         xml:space="preserve"
+         style="font-size:36.1629px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:4.52037px;stroke-width:0.99977779;stroke-dasharray:none"
+         x="-16.767973"
+         y="7.6471753"
+         id="text1014"
+         transform="scale(1.043062,0.95871578)"><tspan
+           sodipodi:role="line"
+           id="tspan1012"
+           style="stroke-width:0.99977779;stroke-dasharray:none"
+           x="-16.767973"
+           y="7.6471753" /></text>
+      <path
+         id="rect2635"
+         style="fill:#f5f5f5;stroke-width:0.99977779;stroke-miterlimit:2;paint-order:stroke fill markers;stroke-dasharray:none;fill-opacity:1"
+         d="m -13.315892,47.463121 -1.827475,1.461133 v 4.330174 h 32.782043 v -5.791307 z"
+         sodipodi:nodetypes="cccccc" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:2.18039px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0.367872px;stroke-width:0.408824"
+       x="23.341043"
+       y="41.677723"
+       id="text2709"><tspan
+         sodipodi:role="line"
+         id="tspan2707"
+         x="23.341043"
+         y="41.677723"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.18039px;font-family:Arame;-inkscape-font-specification:'Arame Bold';stroke-width:0.408824">Terminal Resizing</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:1.94054px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0.2px;fill:#f5f5f5;stroke-width:0.363852;fill-opacity:1"
+       x="4.02424"
+       y="49.675564"
+       id="text2758"><tspan
+         sodipodi:role="line"
+         id="tspan2756"
+         x="4.02424"
+         y="49.675564"
+         style="font-style:italic;font-variant:normal;font-weight:300;font-stretch:normal;font-size:1.94054px;font-family:Roboto;-inkscape-font-specification:'Roboto Light Italic';fill:#f5f5f5;stroke-width:0.363852;fill-opacity:1">Running hook event functions.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.3467px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0.241861px;fill:#f5f5f5;stroke-width:0.440007;fill-opacity:1"
+       x="45.232342"
+       y="5.6226931"
+       id="text2758-09"><tspan
+         sodipodi:role="line"
+         id="tspan2756-1"
+         x="45.232342"
+         y="5.6226931"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.3467px;font-family:Suboleya;-inkscape-font-specification:'Suboleya Italic';fill:#f5f5f5;stroke-width:0.440007;fill-opacity:1">ZSH</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.94054px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0.2px;fill:#f5f5f5;stroke-width:0.363852;fill-opacity:1"
+       x="4.0147648"
+       y="5.7465034"
+       id="text2758-0"><tspan
+         sodipodi:role="line"
+         id="tspan2756-6"
+         x="4.0147648"
+         y="5.7465034"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.94054px;font-family:Roboto;-inkscape-font-specification:Roboto;fill:#f5f5f5;stroke-width:0.363852;fill-opacity:1">SIGWINCH</tspan></text>
+    <rect
+       style="fill:none;stroke:#f5f5f5;stroke-width:0.484414;stroke-miterlimit:2;stroke-dasharray:none;paint-order:stroke fill markers;stroke-opacity:1"
+       id="rect2995"
+       width="49.515587"
+       height="49.515587"
+       x="2.1085963"
+       y="2.1083183" />
+    <text
+       xml:space="preserve"
+       style="font-size:25.5684px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:3.19605px;fill:#f5f5f5;fill-opacity:1;stroke-width:0.639211"
+       x="10.566529"
+       y="31.760773"
+       id="text3795"><tspan
+         sodipodi:role="line"
+         id="tspan3793"
+         x="10.566529"
+         y="31.760773"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Arame Mono';-inkscape-font-specification:'Arame Mono';fill:#f5f5f5;fill-opacity:1;stroke-width:0.639211">07</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:5px"
+       x="-51.603035"
+       y="24.057802"
+       id="text3986"><tspan
+         sodipodi:role="line"
+         id="tspan3984"
+         x="-51.603035"
+         y="24.057802" /></text>
+  </g>
+</svg>
