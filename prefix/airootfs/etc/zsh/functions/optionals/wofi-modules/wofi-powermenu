@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed poweroff wofi # Check if command is installed
+
+local -A available_options # Declare local associative array
+available_options[Shutdown]="/usr/bin/poweroff"
+available_options[Restart]="/usr/bin/poweroff --reboot"
+available_options[Logout]="/usr/bin/hyprctl dispatch exit"
+local option="$(print -l ${(k)available_options} | wofi --show=dmenu)" # Pick available_options with wofi
+[[ -z "${option}" ]] && send_return EINVAL # If option variable is empty && exit
+[[ -z "${available_options[$option]:-}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
+eval "${available_options[${option}]}" # Run the selected option in available_options

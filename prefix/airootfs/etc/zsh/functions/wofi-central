@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed wofi # Check if command is installed
+
+local -A available_options # Declare local associative array
+local function;for function in /etc/zsh/functions/optionals/wofi-modules/*(.); do # Create for-loop with list of functions of modules that will used in this functions
+    autoload ${function} # Load the functions that will be used
+    available_options[$(basename $function | cut -d '-' -f2)]="$(basename $function)"
+done # End for-loop statement
+
+local option="$(print -l ${(k)available_options} | wofi --show=dmenu)" # Pick available_options with wofi
+[[ -z "${option}" ]] && send_return EINVAL # If option variable is empty && exit
+[[ -z "${available_options[$option]:-}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
+eval "${available_options[${option}]}" # Run the selected option in available_options

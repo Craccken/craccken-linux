@@ -2,5 +2,5 @@
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed mpc cut wofi column # Check if command is installed
 
-local selected_music_from_playlist=$(mpc playlist -f "[%position%];[[%title%;[%artist%]]|[%file%]]" | column -t -s ';' | wofi --show=dmenu -p "Select music you want to play" | cut -d " " -f 1) # Get music from your playlist and pick it with wofi then store it into variable
+local selected_music_from_playlist=$(mpc playlist -f "[%position%];[[%title%;[%artist%]]|[%file%]]" | column -t -s ';' | wofi --show=dmenu | cut -d " " -f 1) # Get music from your playlist and pick it with wofi then store it into variable
 [[ -n "${selected_music_from_playlist}" ]] && mpc play "${selected_music_from_playlist}" # Check if selected_music_from_playlist not empty && play selected_music_from_playlist
