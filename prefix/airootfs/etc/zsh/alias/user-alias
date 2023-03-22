@@ -77,6 +77,6 @@ alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
 # │                                    OTHER                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 alias mountc='mount | column -t'
-alias fix_broken_terminal='reset'
+alias fix-broken-terminal='reset'
 alias ascii-table='man ascii'
 alias stopwatch='time ( read )'
