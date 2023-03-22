@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl # Need install this in order to run
+
+local GAPS_IN=$(hyprctl getoption general:gaps_in -j | jq '.int') # Get gaps_in value from hyprland
+local GAPS_OUT=$(hyprctl getoption general:gaps_out -j | jq '.int') # Get gaps_out value from hyprland
+[[ $GAPS_IN -eq 1 && $GAPS_OUT -eq 0 ]] && hyprctl --batch "keyword general:gaps_in 10; keyword general:gaps_out 15" || hyprctl --batch "keyword general:gaps_in 1; keyword general:gaps_out 0" # Check if the gaps is unset && set gaps || remove gaps
