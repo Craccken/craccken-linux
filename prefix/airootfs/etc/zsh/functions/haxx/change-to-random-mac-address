@@ -2,4 +2,4 @@
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed ifconfig macchanger # Check if command installed
 
-sudo ifconfig ${1:-} down && sudo macchanger -r ${1:-} && sudo ifconfig ${1:-} up # Turn off the interface && Change the interface mac address to random & Turn on the interface
+sudo ifconfig ${1:-wlan0} down && sudo macchanger -r ${1:-wlan0} && sudo ifconfig ${1:-wlan0} up # Turn off the interface && Change the interface mac address to random & Turn on the interface
