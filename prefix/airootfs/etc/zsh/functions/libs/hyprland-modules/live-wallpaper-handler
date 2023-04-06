@@ -1,18 +1,18 @@
 #!/usr/bin/env zsh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_normal_user # Only normal user can run || exit
 need_installed mpvpaper # Check if command is installed
+need_normal_user # Only normal user can run
 
 killall -q mpvpaper || : # Kill old process of mpvpaper, if exist
 case ${1:-} in # Read argument-1 passed
     noLoop|noloop)
-        mpvpaper -v -s -f --mpv-options "--quiet --no-audio" "${3:-eDP-1}" "${2}"
+        mpvpaper -p -s -f --mpv-options "--hwdec=auto --quiet" "${3:-eDP-1}" "${2}"
         ;;
-    noLoopTop|nolooptop)
-        mpvpaper --layer top -v -s -f --mpv-options "--quiet --no-audio" "${3:-eDP-1}" "${2}"
+    noLoopTop|nolooptop|noloop-top)
+        mpvpaper --layer top -p -s -f --mpv-options "--hwdec=auto --quiet" "${3:-eDP-1}" "${2}"
         ;;
     Loop|loop)
-        mpvpaper -v -p -f --mpv-options "--loop --quiet --no-audio" "${3:-eDP-1}" "${2}"
+        mpvpaper -p -s -f --mpv-options "--loop --hwdec=auto --quiet" "${3:-eDP-1}" "${2}"
         ;;
     *)
         : # Do nothing

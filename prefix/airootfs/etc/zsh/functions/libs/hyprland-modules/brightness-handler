@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed light # Check if command is installed || exit with error exit-code
+need_installed light # Check if command is installed
 
-case "$1" in # Read argument-1 passed
+case "${1:-}" in # Read argument-1 passed
     up)
         (( $+commands[brillo] )) && brillo -A 5 -q -u 150000 || light -A 5 # Increase brightness by 5 value
         ;;
