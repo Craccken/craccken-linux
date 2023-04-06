@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed mpv # Check if command is installed : exit
+
+mpv --no-cache --no-osc --no-input-default-bindings --no-audio --profile=low-latency --input-conf=/dev/null --untimed --title=webcam --window-scale=0.5 av://v4l2:/dev/${1:-video0} --vf=hflip,eq=brightness=0.004:saturation=2 # Open video or a webcam device

@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed curl # Check if command is installed || exit
+
+curl --head --fail https://httpstat.us/${1:-202} # Test http response API status, this is useful if you a developer.
