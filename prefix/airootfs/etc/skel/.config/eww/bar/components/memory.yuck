@@ -1,7 +1,7 @@
 (defwidget memory []
   (box ; the main layout container
     :class "memory" ; string css class name
-    :tooltip "Memory used percentage ${EWW_RAM.used_mem_perc}%" ; tooltip text (on hover)
+    :tooltip "Memory used percentage ${round(EWW_RAM.used_mem_perc, 0)}%" ; tooltip text (on hover)
     :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
     :space-evenly false ; bool space the widgets evenly.
     (circular-progress ; A widget that displays a circular progress bar

@@ -1,7 +1,7 @@
 (defwidget disk []
   (box ; the main layout container
     :class "disk" ; string css class name
-    :tooltip "disk used percentage ${round(EWW_DISK["/"].used_perc, 0)}%" ; tooltip text (on hover)
+    :tooltip "Disk used percentage ${round(EWW_DISK["/"].used_perc, 0)}%" ; tooltip text (on hover)
     :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
     :space-evenly false ; bool space the widgets evenly.
     (circular-progress ; A widget that displays a circular progress bar
