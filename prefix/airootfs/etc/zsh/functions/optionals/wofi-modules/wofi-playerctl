@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed playerctl wofi # Check if command is installed
+
+local -A available_options # Declare local associative array
+available_options[play]="/usr/bin/playerctl play"
+available_options[pause]="/usr/bin/playerctl pause"
+available_options[stop]="/usr/bin/playerctl stop"
+available_options[next]="/usr/bin/playerctl next"
+available_options[previous]="/usr/bin/playerctl previous"
+available_options[toggle]="/usr/bin/playerctl play-pause"
+local option="$(print -l ${(k)available_options} | wofi --show=dmenu --sort-order=alphabetical)" # Pick available_options with wofi
+[[ -z "${option}" ]] && send_return EINVAL # If option variable is empty && exit
+[[ -z "${available_options[$option]:-}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
+eval "${available_options[${option}]}" # Run the selected option in available_options
