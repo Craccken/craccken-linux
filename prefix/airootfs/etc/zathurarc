@@ -10,27 +10,27 @@ map i recolor                               # i -> Recolor pages.
 map p print                                 # p -> Show the print dialog.
 map g goto top                              # g -> Go to a top page.
 set n-completion-items 17                   # Defines the maximum number of displayed completion entries.
-set completion-bg "#00241b"                 # Defines the background color that is used for command line completion entries
-set completion-fg "#00c897"                 # Defines the foreground color that is used for command line completion entries
-set completion-group-bg "#313244"           # Defines the background color that is used for command line completion group elements
-set completion-group-fg "#89B4FA"           # Defines the foreground color that is used for command line completion group elements
-set completion-highlight-bg "#00241b"       # Defines the background color that is used for the current command line completion elements
-set completion-highlight-fg "#1affc6"       # Defines the foreground color that is used for the current command line completion elements
-set default-fg "#dedede"                    # Defines the default foreground color
+set completion-bg "#040507"                 # Defines the background color that is used for command line completion entries
+set completion-fg "#b3b1ad"                 # Defines the foreground color that is used for command line completion entries
+set completion-group-bg "#040507"           # Defines the background color that is used for command line completion group elements
+set completion-group-fg "#ff8f40"           # Defines the foreground color that is used for command line completion group elements
+set completion-highlight-bg "#030d11"       # Defines the background color that is used for the current command line completion elements
+set completion-highlight-fg "#36a3d9"       # Defines the foreground color that is used for the current command line completion elements
+set default-fg "#b3b1ad"                    # Defines the default foreground color
 set default-bg "#000000"                    # Defines the default background color
 set exec-command ""                         # Defines a command the should be prepended to any command run with exec.
-set font "CozetteVector normal 17"          # Defines the font that will be used
+set font "Roboto normal 10"                 # Defines the font that will be used
 set guioptions "s"                          # Show of hides GUI elements. If it contains 'c', the command line is displayed. If it contains 's', the statusbar is displayed. If it contains 'h', the horizontal scrollbar is displayed. If it contains 'v', the vertical scrollbar is displayed.
-set inputbar-bg "#100024"                   # Defines the background color for the inputbar
-set inputbar-fg	"#5f00d7"                   # Defines the foreground color for the inputbar
-set notification-bg	"#021d22"               # Defines the background color for a notification
-set notification-fg	"#0cbddf"               # Defines the foreground color for a notification
-set notification-error-bg "#24000c"         # Defines the background color for an error notification
-set notification-error-fg "#ff0057"         # Defines the foreground color for an error notification
+set inputbar-bg "#040507"                   # Defines the background color for the inputbar
+set inputbar-fg	"#b3b1ad"                   # Defines the foreground color for the inputbar
+set notification-bg	"#030d11"               # Defines the background color for a notification
+set notification-fg	"#36a3d9"               # Defines the foreground color for a notification
+set notification-error-bg "#140003"         # Defines the background color for an error notification
+set notification-error-fg "#cc0022"         # Defines the foreground color for an error notification
 set notification-warning-bg	"#191801"       # Defines the background color for a warning notification
 set notification-warning-fg	"#d4d104"       # Defines the foreground color for a warning notification
-set statusbar-bg "#100024"                  # Defines the background color of the statusbar
-set statusbar-fg "#4e00ad"                  # Defines the foreground color of the statusbar
+set statusbar-bg "#040507"                  # Defines the background color of the statusbar
+set statusbar-fg "#b3b1ad"                  # Defines the foreground color of the statusbar
 set statusbar-h-padding 7                   # Defines the horizontal padding of the statusbar and notificationbar
 set statusbar-v-padding 7                   # Defines the vertical padding of the statusbar and notificationbar
 set window-icon ""                          # Defines the path for a icon to be used as window icon.
@@ -46,7 +46,7 @@ set filemonitor "glib"                      # Defines the file monitor backend u
 set incremental-search true                 # En/Disables incremental search (search while typing).
 set highlight-color	"#273345"               # Defines the color that is used for highlighting parts of the document (e.g.: show search results)
 set highlight-fg "#bbc4ce"                  # Defines the color that is used for text when highlighting parts of the document (e.g.: number for links).
-set highlight-active-color "#567199"        # Defines the color that is used to show the current selected highlighted element (e.g.: current search result)
+set highlight-active-color "#ffe97a"        # Defines the color that is used to show the current selected highlighted element (e.g.: current search result)
 set highlight-transparency 0.7              # Defines the opacity of a highlighted element
 set page-padding 7                          # The page padding defines the gap in pixels between each rendered page.
 set page-cache-size 15                      # Defines the maximum number of pages that could be kept in the page cache. When the cache is full and a new page that isn't cached becomes visible, the least recently viewed page in the cache will be evicted to make room for the new one. Large values for this variable are NOT recommended, because this will lead to consuming a significant portion of the system memory.
@@ -55,8 +55,8 @@ set pages-per-row 1                         # Defines the number of pages that a
 set first-page-column "1:2"                 # Defines the column in which the first page will be displayed. This setting is stored separately for every value of pages-per-row according to the following pattern <1 page per row>:[<2 pages per row>[: ...]]. The last value in the list will be used for all other number of pages per row if not set explicitly.
 set recolor true                            # Enables recoloring
 set recolor-keephue true                    # En/Disables keeping original hue when recoloring
-set recolor-darkcolor "#bbc4ce"             # Defines the color value that is used to represent dark colors in recoloring mode
-set recolor-lightcolor "#0d1117"            # Defines the color value that is used to represent light colors in recoloring mode
+set recolor-darkcolor "#b3b1ad"             # Defines the color value that is used to represent dark colors in recoloring mode
+set recolor-lightcolor "#08090d"            # Defines the color value that is used to represent light colors in recoloring mode
 set recolor-reverse-video true              # Defines if original image colors should be kept while recoloring.
 set render-loading true                     # Defines if the "Loading..." text should be displayed if a page is rendered
 set render-loading-bg "#0d1117"             # Defines the background color that is used for the "Loading..." text.
@@ -87,10 +87,10 @@ set selection-clipboard clipboard           # Selected data will be written to t
 set selection-notification true             # Defines if a notification should be displayed after selecting text.
 set synctex true                            # En/Disables SyncTeX backward synchronization support.
 set synctex-editor-command ""               # Defines the command executed for SyncTeX backward synchronization.
-set index-fg "#5f00d7"                      # Defines the foreground color of the index mode.
-set index-bg "#100024"                      # Define the background color of the index mode.
-set index-active-fg	"#780aff"               # Define the foreground color of the selected element in index mode.
-set index-active-bg	"#15002e"               # Define the background color of the selected element in index mode.
+set index-fg "#b3b1ad"                      # Defines the foreground color of the index mode.
+set index-bg "#040507"                      # Define the background color of the index mode.
+set index-active-fg	"#36a3d9"               # Define the foreground color of the selected element in index mode.
+set index-active-bg	"#030d11"               # Define the background color of the selected element in index mode.
 set sandbox "normal"                        # Defines the sandbox mode to use for the seccomp syscall filter. Possible values are "none", "normal" and "strict". If "none" is used, the sandbox will be disabled. The use of "normal" will provide minimal protection and allow normal use of zathura with support for all features. The "strict" mode is a read only sandbox that is intended for viewing documents only.
 set window-icon-document false              # Defines whether the window document should be updated based on the first page of a dcument.
 set page-right-to-left false                # Defines whether pages in multi-column view should start from the right side.
