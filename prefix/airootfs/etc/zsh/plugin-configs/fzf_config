@@ -32,9 +32,9 @@ local -a fzf_options=( # Create local array for store fzf options
     '--padding=0,1,0,1'             # Comma-separated expression for padding inside the border. Padding is distinguishable from margin only when --border option is used. (T,R,B,L :: Top, right, bottom, left)
     '--info=inline'                 # Determines the display style of finder info. inline : Display on the same line, hidden : Do not display finder info.
     '--separator="─"'               # The given string will be repeated to form the horizontal separator on the info line (default: '─' or '-' depending on --no-unicode).
-    "--prompt=' '"                 # Input prompt (default: '> ')
-    "--pointer='▶'"                 # Pointer to the current line (default: '>')
-    "--marker='▋'"                  # Multi-select marker (default: '>')
+    "--prompt='ﯟ '"                 # Input prompt (default: '> ')
+    "--pointer=' '"                 # Pointer to the current line (default: '>')
+    "--marker=' '"                  # Multi-select marker (default: '>')
     '--header-first'                # Print header before the prompt line.
     '--ellipsis=…'                  # Ellipsis to show when line is truncated (default: '..')
     '--ansi'                        # Enable processing of ANSI color codes.
@@ -50,52 +50,32 @@ local -a fzf_options=( # Create local array for store fzf options
     '--preview-window=right,60%'    # Determines the layout of the preview window. If the argument contains :hidden, the preview window will be hidden by default until 'toggle-preview' action is triggered.
 )
 local -a fzf_style=( # Create local array for store color configuration
-    "--color='fg:#a8a8a8'"              # Text color
-    "--color='bg:#ededed'"              # Background color
+    "--color='fg:#1b202d'"              # Text color
     "--color='preview-fg:#b3b1ad'"      # Preview window text
-    "--color='preview-bg:#040507'"      # Preview window background
-    "--color='hl:#b3b1ad:bold'"         # Highlighted substrings
-    "--color='fg+:#858585'"             # Text (current line)
-    "--color='bg+:#ededed'"             # Background (current line)
-    "--color='gutter:#d9d9d9'"          # Gutter on the left (default to bg+)
-    "--color='hl+:#858585:bold:italic'" # Highlighted substrings (current line)
-    "--color='query:#949494'"           # Query string
-    "--color='disabled:#858585'"        # Query string when search is disabled
-    "--color='info:#a8a8a8'"            # Info line (match counters)
-    "--color='separator:#d9d9d9'"       # Horizontal separator on info line (match counters)
-    "--color='border:#ededed'"          # Border arround the window
-    "--color='label:#a3a3a3'"           # Border label (--border-label and --preview-label)
-    "--color='prompt:#858585'"          # Prompt search
-    "--color='pointer:#bababa'"         # Pointer to the current line
-    "--color='marker:#ededed'"          # Multi-select marker
-    "--color='spinner:#d9d9d9'"         # Streaming input indicator
-    "--color='header:#bababa'"          # Header text
-)
-local -a fzf_style_sub=( # Create local array for store color configurations
-    "--color='fg:#07C8F9'"              # Text color
-    "--color='bg:#011014'"              # Background color
-    "--color='preview-fg:#15cbf9'"      # Preview window text
-    "--color='preview-bg:#011318'"      # Preview window background
-    "--color='hl:#24cff9:bold'"         # Highlighted substrings
-    "--color='fg+:#15cbf9'"             # Text (current line)
-    "--color='bg+:#021f27'"             # Background (current line)
-    "--color='gutter:#011014'"          # Gutter on the left (default to bg+)
-    "--color='hl+:#33d2fa:bold:italic'" # Highlighted substrings (current line)
-    "--color='query:#07C8F9'"           # Query string
-    "--color='disabled:#011b22'"        # Query string when search is disabled
-    "--color='info:#023c4b'"            # Info line (match counters)
-    "--color='separator:#05acd6'"       # Horizontal separator on info line (match counters)
-    "--color='border:#05acd6'"          # Border arround the window
-    "--color='label:#05acd6'"           # Border label (--border-label and --preview-label)
-    "--color='prompt:#06b8e5'"          # Prompt search
-    "--color='pointer:#024455'"         # Pointer to the current line
-    "--color='marker:#024c5e:italic'"   # Multi-select marker
-    "--color='header:#023c4b'"          # Header text
-    "--color='spinner:#0598bd'"         # Streaming input indicator
+    "--color='bg:#08090d'"              # Background color
+    "--color='preview-bg:#06070a'"      # Preview window background
+    "--color='hl:#ff8f40'"              # Highlighted substrings
+    "--color='fg+:#242b3d:italic'"      # Text (current line)
+    "--color='bg+:#0b0e13'"             # Background (current line)
+    "--color='gutter:#08090d'"          # Gutter on the left (default to bg+)
+    "--color='hl+:#ff8f40:italic'"      # Highlighted substrings (current line)
+    "--color='query:#b3b1ad'"           # Query string
+    "--color='disabled:#0b0e13'"        # Query string when search is disabled
+    "--color='info:#36a3d9:italic'"     # Info line (match counters)
+    "--color='border:#0b0e13'"          # Border arround the window
+    "--color='separator:#0b0e13'"       # Horizontal separator on info line (match counters)
+    "--color='scrollbar:#36a3d9'"       # Scrollbar
+    "--color='label:#36a3d9'"           # Border label (--border-label and --preview-label)
+    "--color='preview-label:#36a3d9'"   # Border label of the preview window (--preview-label)
+    "--color='prompt:#36a3d9'"          # Prompt search
+    "--color='pointer:#2a3247'"         # Pointer to the current line
+    "--color='marker:#36a3d9'"          # Multi-select marker
+    "--color='spinner:#1b202d'"         # Streaming input indicator
+    "--color='header:#36a3d9'"          # Header text
 )
 export FZF_COMPLETION_TRIGGER=';;' # Use ;; as the trigger sequence, default is: **
-export FZF_ALT_C_OPTS="${fzf_style_sub[@]} --margin=0 --no-height --border-label='Jump into directory.'" # Set FZF_ALT_C_OPTS to pass additional options .
-export FZF_CTRL_R_OPTS="${fzf_style_sub[@]} --margin=0 --no-height --border-label='Search history.' "  # Set FZF_CTRL_R_OPTS to pass additional options.
-export FZF_CTRL_T_OPTS="${fzf_style_sub[@]} --margin=0 --no-height --border-label='Pick up some file!' --preview-window=top,50% --preview='bat --theme=TwoDark --style=numbers --color=always {}'" # Set FZF_CTRL_T_OPTS to pass additional options.
+export FZF_ALT_C_OPTS="--margin=0 --no-height --border-label='Jump into directory.'" # Set FZF_ALT_C_OPTS to pass additional options .
+export FZF_CTRL_R_OPTS="--margin=0 --no-height --border-label='Search history.' "  # Set FZF_CTRL_R_OPTS to pass additional options.
+export FZF_CTRL_T_OPTS="--margin=0 --no-height --border-label='Pick up some file!' --preview-window=top,50% --preview='bat --theme=TwoDark --style=numbers --color=always {}'" # Set FZF_CTRL_T_OPTS to pass additional options.
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'" # Set default command to use when input is tty
 export FZF_DEFAULT_OPTS="${fzf_options[@]} ${fzf_keybinding[@]} ${fzf_style[@]}" # Set default options/parameter fzf, read fzf(1).

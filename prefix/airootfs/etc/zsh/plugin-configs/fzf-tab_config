@@ -30,7 +30,7 @@ zstyle :fzf-tab:* print-query ';'                       # Press this will use cu
 zstyle :fzf-tab:* accept-line alt-space                 # Specify the key to accept and run a suggestion in one keystroke.
 zstyle :fzf-tab:* continuous-trigger '/'                # Specify the key that trigger continuous completion (accept the result and start another completion immediately), it's useful when completing a long path.
 zstyle :fzf-tab:* query-string prefix input first       # The strategy for generating query string.
-zstyle :fzf-tab:* default-color $'\033[38;5;246m'       # Set colors when there is no group, use ansi escape code for the color.
+zstyle :fzf-tab:* default-color $'\033[38;2;27;32;45m'       # Set colors when there is no group, use ansi escape code for the color.
 zstyle :fzf-tab:* fzf-flags '--height=97%' '--border-label=fzf-tab' '--preview-window=bottom,40%,border-none'                   # Set extra fzf flags for fzf-tab
 zstyle :fzf-tab:complete:man:* fzf-preview 'man $word | bat -p -l man --color=always'                                           # Set previewer that show contents of man page
 zstyle :fzf-tab:complete:man:* fzf-flags '--height=80%' '--preview-window=right,75%,nowrap,border-none'                         # Set extra fzf flags for fzf-tab `man *`
