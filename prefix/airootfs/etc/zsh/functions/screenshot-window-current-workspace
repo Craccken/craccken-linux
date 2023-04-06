@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed grim wl-copy # Check if command is installed || exit with error exit-code
-
-mkdir -p "${XDG_SCREENSHOTS_DIR:-${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/}" # Create Screenshots directory at home when not creeated
-local output_file="${1:-${XDG_SCREENSHOTS_DIR:-${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots}/$(print -P '%D{%F-%T-%Z}').png}" # Get current date and time and store it to variable
-LC_ALL=C grim -t 'png' -g "$(select-window-current-workspace)" "${output_file}" # Select window of current workspace and screenshot it to output_file
-< "${output_file}" | wl-copy # Copy the output from grim

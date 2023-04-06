@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-must_have_argument ${*:-} # Must have argument passed || exit
+need_installed vipe # Check if command is installed
 
-echo "${*}" > ./.rune_stone
+echo "${*:-$(vipe)}" > ./.descriptor-fragment # Create description file

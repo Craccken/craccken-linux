@@ -12,6 +12,5 @@ rm -rf $XDG_CACHE_HOME/**/*(.) # Remove cache home directory in the background
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    SYSTEM                                    │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-warn_msg " Clearing memory cache..."; sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches" || send_return EPERM # Clear memory cache
 warn_msg " Removing unneeded dependency..."; [[ -n "$(pacman -Qdt)" ]] && {sudo pacman -Rsnu $(pacman -Qdtq) || send_return EPERM;} || warn_msg "No orphans package to remove!"
 wait # Wait the background process done

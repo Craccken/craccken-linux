@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed acpi dunstify # Check if command is installed || exit
-need_normal_user # Need normal user to run || exit
+need_installed acpi dunstify # Check if command is installed
+need_normal_user # Need normal user to run
 
 local battery # Create local variable
 for battery in /sys/class/power_supply/BAT?; do # Create for-loop with battery as value
