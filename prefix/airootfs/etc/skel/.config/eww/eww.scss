@@ -7,7 +7,7 @@
     background-clip: padding-box;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: rgba($color: #010204, $alpha: 0.1);
+    // background-color: rgba($color: #010204, $alpha: 0.1);
     background-image: url("/opt/craccken/assets/statusbar/background-12.svg");
     // background-image: linear-gradient(90deg, white, transparent);
 }
@@ -26,7 +26,7 @@
 //  ╰──────────────────────────────────────────────────────────────────────────────╯
 $font-text-1: "Iosevka Nerd Font";
 $font-text-2: "CozetteVector";
-$font-text-3: "Zector";
+$font-text-3: "Roboto";
 //  ╭──────────────────────────────────────────────────────────────────────────────╮
 //  │                                    Module                                    │
 //  ╰──────────────────────────────────────────────────────────────────────────────╯

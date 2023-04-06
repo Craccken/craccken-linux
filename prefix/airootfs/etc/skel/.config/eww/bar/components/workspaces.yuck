@@ -12,6 +12,6 @@
           :class "workspace-${workspace == focused-workspace ? "focused" : "unfocused"}" ; string css class name
           :onclick "hyprctl dispatch workspace ${workspace}" ; a command that get's run when the button is clicked
           "${workspace}")))))
-(deflisten current-window-title :initial "..." "/usr/bin/zsh -ic 'get-window-title-continuously'")
-(deflisten list-of-workspaces :initial "1" "/usr/bin/zsh -ic 'get-list-workspace-continuously'")
-(deflisten focused-workspace :initial "[]" "/usr/bin/zsh -ic 'get-active-workspace-continuously'")
+(deflisten current-window-title :initial "..." "zsh -ic 'get-window-title-continuously'")
+(deflisten list-of-workspaces :initial "1" "zsh -ic 'get-list-workspace-continuously'")
+(deflisten focused-workspace :initial "[]" "zsh -ic 'get-active-workspace-continuously'")
