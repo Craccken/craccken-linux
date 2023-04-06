@@ -49,7 +49,7 @@ vim.api.nvim_set_hl(0, 'Directory', {fg = '#ffb454'})                       -- D
 vim.api.nvim_set_hl(0, 'MatchParen', {underline = true, italic = true})     -- MatchParen: The character under the cursor or just before it, if it is a paired bracket, and its match.
 vim.api.nvim_set_hl(0, 'CursorLine', {bg = '#0b0e13', nocombine = true})    -- CursorLine: Screen-line at the cursor, when 'cursorline' is set.
 vim.api.nvim_set_hl(0, 'CursorColumn', {bg = '#0b0e13', nocombine = true})  -- CursorColumn: Screen-column at the cursor, when 'cursorcolumn' is set.
-vim.api.nvim_set_hl(0, 'CursorLineNr', {fg = '#e6b450', bg = '#0b0e13'})    -- CursorLineNr: Like LineNR when 'cursorline' or 'relativenumber' is set for the cursor line.
+vim.api.nvim_set_hl(0, 'CursorLineNr', {fg = '#e6b450', bg = '#0b0e13', italic = true}) -- CursorLineNr: Like LineNR when 'cursorline' or 'relativenumber' is set for the cursor line.
 vim.api.nvim_set_hl(0, 'LineNR', {fg = '#1d2330'})                          -- LineNr: Line number for ':number', and when 'number' or 'relativenumber' option is set.
 vim.api.nvim_set_hl(0, 'ColorColumn', {bg = '#0d1017'})                     -- ColorColumn: used for the column set with 'colorcolumn'.
 vim.api.nvim_set_hl(0, 'SignColumn', {fg = '#0a0e14'})                      -- SignColumn: column where signs are displayed.

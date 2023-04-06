@@ -35,7 +35,7 @@ hi def link hyprNumber Number
 hi def link hyprBool Boolean
 hi def link hyprKeyword Identifier
 hi def link hyprSection Keyword
-hi def link hyprDispatcher manReference
+hi def link hyprDispatcher Keyword
 hi def link hyprKeybinding Special
 
 let b:current_syntax = "hyprland" " Set current syntax name

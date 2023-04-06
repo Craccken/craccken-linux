@@ -4,6 +4,8 @@ end -- End if-else statement
 local cokeline_data = require("cokeline-data") -- Import module
 local focused = cokeline_data.focused -- Get table from module
 local unfocused = cokeline_data.unfocused -- Get table from module
+local focused_foreground = "#242b3d" -- Main color foreground
+local unfocused_foreground = "#1b202d" -- unfocused color foreground
 require('cokeline').setup({ -- Call setup function
     show_if_buffers_are_at_least = 2, -- Show the bufferline when there are at least this many visible buffers.
     buffers = {
@@ -96,88 +98,63 @@ require('cokeline').setup({ -- Call setup function
         -- },
         {
             text = '',
-            fg = function(buffer)
-                return buffer.is_focused and focused.gradient_1 or unfocused.gradient_1
-            end,
+            fg = function(buffer) return buffer.is_focused and focused.gradient_1 or unfocused.gradient_1 end,
             bg = require('cokeline/utils').get_hex('Normal', 'bg'),
             truncation = { priority = 1 },
         },
         {
             text = ' ',
-            bg = function(buffer)
-                return buffer.is_focused and focused.gradient_2 or unfocused.gradient_2
-            end,
+            bg = function(buffer) return buffer.is_focused and focused.gradient_2 or unfocused.gradient_2 end,
             truncation = { priority = 1 },
         },
         {
-            text = function(buffer)
-                return (require('cokeline/mappings').is_picking_focus() or require('cokeline/mappings').is_picking_close()) and buffer.pick_letter .. " " or buffer.devicon.icon
-            end, -- End function statement
-            fg = function()
-                return (require("cokeline/mappings").is_picking_focus() or require("cokeline/mappings").is_picking_close()) and '#63D7CE' or '#000000'
-            end,
-            bg = function(buffer)
-                return buffer.is_focused and focused.gradient_3 or unfocused.gradient_3
-            end,
-            style = function()
-                  return (require('cokeline/mappings').is_picking_focus() or require('cokeline/mappings').is_picking_close()) and 'italic' or nil
-            end, -- End function statement
+            text = function(buffer) return (require('cokeline/mappings').is_picking_focus() or require('cokeline/mappings').is_picking_close()) and buffer.pick_letter .. " " or "" end, -- End function statement
+            fg = function() return (require("cokeline/mappings").is_picking_focus() or require("cokeline/mappings").is_picking_close()) and '#36a3d9' or unfocused_foreground end,
+            bg = function(buffer) return buffer.is_focused and focused.gradient_3 or unfocused.gradient_3 end,
+            style = function() return (require('cokeline/mappings').is_picking_focus() or require('cokeline/mappings').is_picking_close()) and 'italic' or nil end, -- End function statement
         },
         {
             text = function(buffer)
                 return buffer.index .. " "
             end,
-            fg = "#000000",
-            bg = function(buffer)
-                return buffer.is_focused and focused.gradient_4 or unfocused.gradient_4
-            end,
+            fg = function(buffer) return buffer.is_focused and '#36a3d9' or unfocused_foreground end,
+            bg = function(buffer) return buffer.is_focused and focused.gradient_4 or unfocused.gradient_4 end,
             truncation = { priority = 1 }
         },
         {
-            text = '╎ ',
-            fg = "#000000",
-            bg = function(buffer)
-                return buffer.is_focused and focused.gradient_5 or unfocused.gradient_5
-            end,
+            text = '▏',
+            fg = function(buffer) return buffer.is_focused and '#36a3d9' or unfocused_foreground end,
+            bg = function(buffer) return buffer.is_focused and focused.gradient_5 or unfocused.gradient_5 end,
             truncation = { priority = 1 },
         },
         {
-            text = function(buffer) return buffer.filename end,
-            fg = "#000000",
-            bg = function(buffer)
-                return buffer.is_focused and focused.gradient_6 or unfocused.gradient_6
-            end,
+            text = function(buffer) return buffer.devicon.icon .. buffer.filename end,
+            fg = function(buffer) return buffer.is_focused and focused_foreground or unfocused_foreground end,
+            bg = function(buffer) return buffer.is_focused and focused.gradient_6 or unfocused.gradient_6 end,
+            style = function(buffer) return buffer.is_focused and "bold" or nil end,
         },
         {
             text = ' ',
-            bg = function(buffer)
-                return buffer.is_focused and focused.gradient_7 or unfocused.gradient_7
-            end,
+            bg = function(buffer) return buffer.is_focused and focused.gradient_7 or unfocused.gradient_7 end,
             truncation = { priority = 1 },
         },
         {
             text = function(buffer)
-                return buffer.is_modified and '' or ''
+                return buffer.is_modified and '' or ''
             end, -- End function statement
-            fg = "#000000",
-            bg = function(buffer)
-                return buffer.is_focused and focused.gradient_8 or unfocused.gradient_8
-            end,
+            fg = function(buffer) return buffer.is_focused and focused_foreground or unfocused_foreground end,
+            bg = function(buffer) return buffer.is_focused and focused.gradient_8 or unfocused.gradient_8 end,
             delete_buffer_on_left_click = true, -- If `true` the buffer will be deleted when this component is left-clicked (useful to implement close buttons)
             truncation = { priority = 1 },
         },
         {
             text = ' ',
-            bg = function(buffer)
-                return buffer.is_focused and focused.gradient_9 or unfocused.gradient_9
-            end,
+            bg = function(buffer) return buffer.is_focused and focused.gradient_9 or unfocused.gradient_9 end,
             truncation = { priority = 1 },
         },
         {
             text = '',
-            fg = function(buffer)
-                return buffer.is_focused and focused.gradient_10 or unfocused.gradient_10
-            end,
+            fg = function(buffer) return buffer.is_focused and focused.gradient_10 or unfocused.gradient_10 end,
             bg = require('cokeline/utils').get_hex('Normal', 'bg'),
             truncation = { priority = 1 },
         },

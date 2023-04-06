@@ -49,7 +49,7 @@ require('telescope').setup{
             },
         },
         cycle_layout_list = { "horizontal", "vertical", "cursor", "bottom_pane"}, -- Determines the layouts to cycle through when using `actions.cycle_layout_next` and `actions.cycle_layout_prev`.
-        winblend = 3,                                       -- Configure winblend for telescope floating window.
+        winblend = 0,                                       -- Configure winblend for telescope floating window.
         wrap_results = false,                               -- Word wrap the search results
         prompt_prefix = 'ﯟ ',                               -- The character(s) that will be shown in front of Telescope's prompt.
         selection_caret = '  ',                             -- The character(s) that will be shown in front of the current selection.

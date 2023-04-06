@@ -5,7 +5,7 @@ end -- End if-else statement
 vim.notify = require("notify") -- Other plugins can use the notification windows by setting it as your default notify function
 require("notify").setup({ -- Call setup function
     level = "TRACE",                    -- Minimum log level to display. See vim.log.levels.
-    timeout = 2500,                     -- Default timeout for notifications, in milliseconds
+    timeout = 1300,                     -- Default timeout for notifications, in milliseconds
     max_width = 100,                    -- Max number of columns for messages
     max_height = nil,                   -- Max number of lines for a message
     stages = "fade_in_slide_out",       -- Animation stages

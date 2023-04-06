@@ -18,7 +18,7 @@ require('dressing').setup({ -- Call setup function
         min_width = { 20, 0.2 },    -- This means "the greater of 20 columns or 20% of total"
         buf_options = {},
         win_options = {             -- see :help nvim_open_win
-            winblend = 10,          -- Window transparency (0-100)
+            winblend = 0,          -- Window transparency (0-100)
             wrap = false,           -- Disable line wrapping
         },
         mappings = {                -- Set to `false` to disable
