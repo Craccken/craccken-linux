@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed convert # Check if command is installed
+
+LC_ALL=C convert ${1:-} -colorspace gray "${2:-$HOME/$0-output-$$.png}" # Make image into gray scale -- https://imagemagick.org/script/command-line-options.php#colorspace

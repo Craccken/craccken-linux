@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed composite # Check if command is installed
+
+# The `-compose displace` flag in ImageMagick is used to displace the pixels of
+# one image based on the pixel values of another image. This can be used to
+# create various distortions and effects in an image.
+# 1. Set the -compose option to displace.
+# 2. Set the compose:args option to specify the amount of displacement in pixels for both the x and y axes.
+# 3. Apply the displace composition using the -composite option. or you can use composite command directly
+LC_ALL=C composite -compose displace -define compose:args=${3:-25x0} ${1:-} ${1:-} "${2:-$HOME/$0-output-$$.png}" 

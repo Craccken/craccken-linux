@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed composite # Check if command is installed
+
+local offset_x=-2 # offset_x is the separation distance x of the colors channels in the output. set to -8,-4 to make stronger
+local offset_y=-1 # same like x but for y axis
+LC_ALL=C composite -stereo ${3:-${offset_x}${offset_y}} ${1:-} ${1:-} "${2:-$HOME/$0-output-$$.png}" # create a stereo pair from two input images. It takes two input images and combines them into a single output image with a horizontal displacement between the left and right images, simulating a 3D stereo effect. 

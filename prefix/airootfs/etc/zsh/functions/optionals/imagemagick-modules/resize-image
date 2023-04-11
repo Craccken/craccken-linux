@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed convert # Check if command is installed
+
+LC_ALL=C convert ${1:-} -resize "${3:-50%}" "${2:-$HOME/$0-output-$$.png}" # Resize image -- https://imagemagick.org/script/command-line-options.php#resize

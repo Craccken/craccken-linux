@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn ksharrays
+need_installed convert # Check if command is installed
+autoload edit-image-grayscale edit-image-stereo edit-image-swap-channel edit-image-glitch-lines # Load functions, that will use later
+mkdir -p /tmp/$0 # Create temporary directory for storing data
+
+local temporary_file="$(mktemp /tmp/$0/XXXXXXXXXX.png)" # Path for storing copy of an original image
+convert "${1:-}" +repage ${temporary_file} # Reset the image virtual canvas information, this can be also checking the argument-1 is an image or not
+
+edit-image-grayscale "${temporary_file}" "${temporary_file}" # Apply grayscale
+edit-image-stereo "${temporary_file}" "${temporary_file}" # Apply stereo effect
+# edit-image-glitch-lines "${temporary_file}" "${temporary_file}" # Add glitch lines
+edit-image-swap-channel "${temporary_file}" "${2:-$HOME/$0-output-$$.png}" "${3:-}" # Swap colors channel

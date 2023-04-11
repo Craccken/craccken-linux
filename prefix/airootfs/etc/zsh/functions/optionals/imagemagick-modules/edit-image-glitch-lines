@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed convert # Check if command is installed
+
+local reseed=$(( RANDOM % 100 )) # RESEED is the initial seed value for the random number generator. Values are integers >= 0.
+local number=4          # NUMBER of glitch lines. Values are integers > 0.
+local amplitude=80      # AMPLITUDE of the horizontal distortion of glitch lines. Values are integers >= 0.
+local thickness=300     # THICKNESS (or height) of the glitch lines. Values are integers >= 0.
+local jaggedness=3      # JAGGEDNESS of the glitches. Values are integers > 0. The default=20.
+local width height      # Declare variable for storing image dimension
+read -r width height <<<$(convert -ping ${1:-} -format "%w %h" info:) # Get width and height from input image & store it into variable
+
+local lines=0 # Create local variable
+local draw_args="line 0,0" # Create local variable that will use for draw argument later
+repeat $number; { # Create random length lines for constant gray sections to overlay on random column image below 
+    local y1=$(convert xc: -seed $reseed -format "%[fx:round( ($lines + 1) * $height / $number + (rand() > 0.5 ? 1 : -1) * $height / (3 * $number) )]" info:)
+    local y2=$(( $y1 + $thickness ))
+    draw_args="$draw_args 0,$y1 line 0,$y2"
+    reseed=$(( 11 * $reseed + 13 ))
+    lines=$(( $lines + 1 ))
+}
+draw_args="$draw_args 0,$height"
+LC_ALL=C convert ${1:-} \( -size 1x${height} xc: -seed ${reseed} +noise random -colorspace gray -fill gray -draw "${draw_args}" -alpha off -scale x${jaggedness}% -scale ${width}X${height}! \) -compose displace -define compose:args=${amplitude}x0 -composite "${2:-$HOME/$0-output-$$.png}" # Add distortion

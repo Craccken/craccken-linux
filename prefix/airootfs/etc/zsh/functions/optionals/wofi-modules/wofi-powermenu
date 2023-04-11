@@ -7,7 +7,8 @@ available_options[Shutdown]="/usr/bin/poweroff"
 available_options[Restart]="/usr/bin/poweroff --reboot"
 available_options[Logout]="/usr/bin/hyprctl dispatch exit"
 available_options[Suspend]="/usr/bin/systemctl suspend"
-local option="$(print -l ${(k)available_options} | wofi --show=dmenu)" # Pick available_options with wofi
+available_options[Lockscreen]="sleep 0.5 && lock-screen"
+local option="$(print -l ${(k)available_options} | wofi --insensitive --show=dmenu)" # Pick available_options with wofi
 [[ -z "${option}" ]] && send_return EINVAL # If option variable is empty && exit
 [[ -z "${available_options[$option]:-}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
 eval "${available_options[${option}]}" # Run the selected option in available_options

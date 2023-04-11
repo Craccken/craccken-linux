@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed convert # Check if command is installed
+
+# 1. -separate: separates the channels of an image into individual grayscale images. The output will be one image per channel.
+# 2. -swap: Swaps the specified channels of an image. The choices are: red-cyan(0,0), green-magenta(0,1) and blue-yellow(0,2).
+# 3. -combine: Combines multiple grayscale images into a single image with multiple channels. The grayscale images should be specified in the order of the channels, such as red, green, and blue.
+LC_ALL=C convert ${1:-} -separate -swap "${3:-0,0}" -combine "${2:-$HOME/$0-output-$$.png}" 

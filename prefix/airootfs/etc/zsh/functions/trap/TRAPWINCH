@@ -6,11 +6,9 @@ tput civis # Make cursor invisible
 
 local width=$(tput cols)    # Get terminal columns <- width
 local height=$(tput lines)  # Get terminal rows <- height
-
 tput cup $((height / 2 - 5)) $((width / 2 - 11)) # Move the cursor into center by dividing the height and width by 2
-convert /opt/craccken/assets/notification/resize.png -resize "50%" -background '#010204' -auto-orient -alpha remove sixel:- || :
+LC_ALL=C convert /opt/craccken/assets/notification/resize.png -resize "50%" -background '#010204' -auto-orient -alpha remove sixel:- && sleep 0.2 || : # Spawn sixel image from imagemagick && Delay restore terminal || do nothing
 
-sleep 1 # Delay restore terminal
 tput rmcup # Restore terminal screen from memory
 tput cvvis # Make cursor visible
 
