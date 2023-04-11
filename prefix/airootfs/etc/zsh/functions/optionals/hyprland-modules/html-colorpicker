@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+(( $+commands[hyprpicker] )) && hyprpicker && return # Check if command is available && run hyprpicker
+
+need_installed grim slurp convert # Need install this in order to run
+grim -g "$(slurp -b "#00000000" -c "#f5f5f500" -B "#000000af" -w 2 -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 # https://github.com/swaywm/sway/wiki/Tricks#html-color-picker

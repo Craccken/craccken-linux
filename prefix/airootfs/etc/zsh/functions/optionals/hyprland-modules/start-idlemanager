@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed swayidle # Need install this in order to run
+
+killall -q swayidle || : # Kill all of the old process, if exist
+swayidle -w \
+    timeout 420 'zsh -ic "lock-screen"' \
+    timeout 600 'hyprctl dispatch dpms off' \
+        resume 'hyprctl dispatch dpms on' \
+    before-sleep 'zsh -ic "hyprctl dispatch dpms on; lock-screen"' &! # Start idle manager
