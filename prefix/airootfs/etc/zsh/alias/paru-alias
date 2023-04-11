@@ -1,7 +1,4 @@
 #!/usr/bin/env zsh
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │   Add some aliases for paru AUR-helper https://github.com/morganamilo/paru   │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
 alias paru-install-package='paru -S --needed'
 alias paru-update-n-upgrade='paru'
 alias paru-search-package='paru -Ss'

@@ -1,14 +1,4 @@
 #!/usr/bin/env zsh
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                      Add some useful alias for truncate                      │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-alias gimmeh_1MB="truncate --size=1m ./1MB.dat" # Create a file with size 1 Megabyte
-alias gimmeh_2MB="truncate --size=2m ./2MB.dat" # Create a file with size 2 Megabyte
-alias gimmeh_3MB="truncate --size=3m ./3MB.dat" # Create a file with size 3 Megabyte
-alias gimmeh_4MB="truncate --size=4m ./4MB.dat" # Create a file with size 4 Megabyte
-alias gimmeh_5MB="truncate --size=5m ./5MB.dat" # Create a file with size 5 Megabyte
-alias gimmeh_6MB="truncate --size=6m ./6MB.dat" # Create a file with size 6 Megabyte
-alias gimmeh_7MB="truncate --size=7m ./7MB.dat" # Create a file with size 7 Megabyte
-alias gimmeh_8MB="truncate --size=8m ./8MB.dat" # Create a file with size 8 Megabyte
-alias gimmeh_9MB="truncate --size=9m ./9MB.dat" # Create a file with size 9 Megabyte
-alias gimmeh_10MB="truncate --size=10m ./10MB.dat" # Create a file with size 10 Megabyte
+alias make1MB="truncate --size=1m ./1MB.dat" # Create a file with size 1mb (all zeros)
+alias make5MB="truncate --size=5m ./5MB.dat" # Create a file with size 5mb (all zeros)
+alias make10MB="truncate --size=10m ./10MB.dat" # Create a file with size 10mb (all zeros)

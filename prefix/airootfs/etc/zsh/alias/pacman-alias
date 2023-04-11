@@ -1,8 +1,5 @@
 #!/usr/bin/env zsh
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                       Add some useful alias for pacman                       │
-# │               https://wiki.archlinux.org/index.php/Pacman_Tips               │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
+# https://wiki.archlinux.org/index.php/Pacman_Tips
 alias install-package='sudo pacman -S --needed'
 alias update-upgrade='sudo pacman -Syu'
 alias update-repository='sudo pacman -Sy'
@@ -18,4 +15,4 @@ alias list-installed-packages-from-aur='pacman -Qm'
 alias list-installed-packages-from-repository='pacman -Qn'
 alias list-installed-packages-explicitly='pacman -Qe'
 alias list-installed-packages-nolonger-needed='pacman -Qdtq'
-alias clear-pacman-log='rm -v /var/log/pacman.log 2> /dev/null'
+alias clear-pacman-log='rm -v /var/log/pacman.log'
