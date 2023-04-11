@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl jq # Need installed in order to run
+
+local outergap=$(hyprctl getoption general:gaps_out -j | jq '.int') # Get current outergap
+hyprctl keyword general:gaps_out $(( outergap + ${1:-1} )) # Calculate outer gap with argument-1 and set that into the settings

@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl # Need install this in order to run
+
+case "${1:-high}" in # Read argument-1 passed
+    high) hyprctl --batch "keyword decoration:blur_size 11; keyword decoration:blur_passes 3" ;;
+    medium) hyprctl --batch "keyword decoration:blur_size 11; keyword decoration:blur_passes 2" ;;
+    low) hyprctl --batch "keyword decoration:blur_size 9; keyword decoration:blur_passes 2" ;;
+    *) : ;; # Do nothing
+esac # End switch-case statement

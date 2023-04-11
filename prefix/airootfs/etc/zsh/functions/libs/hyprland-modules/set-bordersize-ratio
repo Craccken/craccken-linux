@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl jq # Need installed in order to run
+
+local bordersize=$(hyprctl getoption general:border_size -j | jq '.int') # Get current bordersize
+hyprctl keyword general:border_size $(( bordersize + ${1:-1} )) # Calculate bordersize with argument-1 and set that into the settings
