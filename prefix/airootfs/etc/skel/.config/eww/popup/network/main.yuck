@@ -52,8 +52,10 @@
 (defwindow popup-network ; Create new window
   :monitor 0 ; Which monitor this window should be displayed on.
   :geometry (geometry ; Geometry of the window.
-    :x "10px" :y "10px" ; Position of the window. Values may be provided in px or %. Will be relative to anchor.
+    :x "15px" :y "10px" ; Position of the window. Values may be provided in px or %. Will be relative to anchor.
     :height "100px" :width "200px" ; Width and height of the window. Values may be provided in px or %.
     :anchor "top right") ; Anchor-point of the window. Either center or combinations of top, center, bottom and left, center, right.
-  :stacking "overlay" ; Where the window should appear in the stack. Possible values: fg, bg, overlay, bottom.
+  :stacking "fg"   ; Where the window should appear in the stack. Possible values: fg, bg, overlay, bottom.
+  :exclusive false ; Whether the compositor should reserve space for the window automatically.
+  :namespace "popup-network" ; Set the wayland layersurface namespace eww uses
   (popup-network))

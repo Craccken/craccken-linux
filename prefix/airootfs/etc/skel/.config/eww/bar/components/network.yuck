@@ -9,7 +9,7 @@
       :visible {ssid != "--"} ; visibility of the widget
       (button 
         :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
-        :onclick "eww open popup-network" ; a command that get's run when the button is clicked
+        :onclick "eww open popup-network" ; a command that get run when the button is clicked
         "")))) ; the text to display
 
 (defpoll ssid :interval "2s" "nmcli device show wlan0 | grep CONNECTION | cut -d : -f 2 | xargs")
