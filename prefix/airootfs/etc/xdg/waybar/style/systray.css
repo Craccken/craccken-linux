@@ -9,7 +9,6 @@
     padding: 10px;
     padding-top: 12px;
     padding-bottom: 12px;
-    border-left-width: 2px;
     background-origin: border-box;
     background-size: 100% 100%;
     background-clip: padding-box;
@@ -32,6 +31,8 @@
     border-left-color: #ffdf00;
     border-left-style: solid;
 }
-#tray *:disabled { /* Set style for item in systray disabled */
-    color: rgba(60, 60, 60, 0.3);
+#tray menuitem:disabled { /* Set style for item in systray disabled */
+    /* color: rgba(60, 60, 60, 0.3); */
+    border-left-color: rgba(60, 60, 60, 0);
+    color: #f5f5f5;
 }
