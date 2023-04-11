@@ -15,6 +15,7 @@ available_options[tmux]="/etc/tmux.conf"
 available_options[river]="$XDG_CONFIG_HOME/river"
 available_options[hyprland]="$XDG_CONFIG_HOME/hypr"
 available_options[wofi]="$XDG_CONFIG_HOME/wofi"
+available_options[swaylock]="$XDG_CONFIG_HOME/swaylock"
 available_options[dunst]="$XDG_CONFIG_HOME/dunst"
 available_options[foot]="$XDG_CONFIG_HOME/foot"
 available_options[nwg-bar]="$XDG_CONFIG_HOME/nwg-bar"
@@ -45,4 +46,4 @@ play-audio-random /opt/craccken/sound/click 2>/dev/null || : # Play random audio
 [[ -z "${available_options[$option]:-}" ]] && send_return EINVAL # If available_options(option) empty value -> (not valid) && exit
 file_configurations=( $(find $(print ${available_options[$option]}) -maxdepth 1 -writable -type f 2>/dev/null) ) # Search available_options(option) value type file and store it to array
 file_configurations=( ${file_configurations[@]/*.descriptor-fragment/} ) # Delete file from array if file_configurations has name .rune_stone in it
-[[ -n "${file_configurations[*]}" ]] && nvim -p "${file_configurations[@]}" # Check if there is file in variable && open up file_configurations with neovim in tab
+[[ -n "${file_configurations[*]}" ]] && $EDITOR "${file_configurations[@]}" # Check if there is file in variable && open up file_configurations with neovim in tab

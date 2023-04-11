@@ -3,7 +3,8 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed socat # Need install this in order to run
 
 echo "[ $(get-list-workspace-id | sed -z 's/\n/,/g; s/.$//') ]" # Get list of used workspaces id and change it to json array
-local event # Create variable for storing event from hyprland
+local event event_data event_name # Create variable for storing event from hyprland
 socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read event; do # Create while-loop for read event from hyprland socket
-    echo "[ $(get-list-workspace-id | sed -z 's/\n/,/g; s/.$//') ]" # Get list of used workspaces id and change it to json array
+    read -r event_name event_data <<<$(echo ${event} | sed 's/>>/ /g') # Get event name and data from hyprland socket event & store it into variable
+    [[ "${event_name}" == "workspace" ]] && echo "[ $(get-list-workspace-id | sed -z 's/\n/,/g; s/.$//') ]" # Get list of used workspaces id and change it to json array for every workspace event
 done # End while-loop statement

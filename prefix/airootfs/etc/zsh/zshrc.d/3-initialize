@@ -18,4 +18,3 @@ zstyle ':completion::complete:*' gain-privileges true               # If set to 
 zstyle ':completion:*:warnings' format 'No matches for: %d'         # set format of completions warnings messages, The sequence `%d' in this string will be replaced with a short description of what these matches are. look zshcompsys(1)
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w" # Run command if completion processes
 zstyle ':completion:* matcher-list' '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # This style can be set to a list of match specifications that are to be applied everywhere.
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}               # set list-colors to enable filename colorizing
