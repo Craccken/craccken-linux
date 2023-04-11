@@ -1,15 +1,11 @@
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                    Ucode                                     │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+# -- Ucode stuff
 amd-ucode
 intel-ucode
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                    Driver                                    │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+
+# -- Driver section
 brltty
 ethtool
 # nvidia
-# broadcom-wl
 # nvidia-utils
 xf86-video-ati
 xf86-video-vesa
@@ -24,11 +20,10 @@ xf86-input-libinput
 # xf86-video-nouveau
 # xf86-input-vmmouse
 xf86-input-synaptics
-# qemu-guest-agent
+qemu-guest-agent
 # virtualbox-guest-utils
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                             Filesystem utilities                             │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+ 
+# -- Filesystem utilities
 xz
 zip
 gzip
@@ -61,38 +56,28 @@ btrfs-progs
 xdg-user-dirs
 # gvfs-gphoto2
 xdg-user-dirs-gtk
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                            Requirements bootmode                             │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+
+# > Requirements bootmode
 mtools
 dosfstools
 edk2-shell
 # memtest86+
 erofs-utils
 squashfs-tools
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                    Kernel                                    │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+
+# -- Kernel section
 linux
 linux-headers
-# linux-xanmod-edge
-# linux-xanmod-edge-headers
-# linux-atm
 linux-firmware
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                    System                                    │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
-gcc
-cmake
-ninja
-#zig
+
+# -- System section
+base
 tlp
 zsh
 dash
-shadow
 dashbinsh
+shadow
 acpi
-base
 foot
 foot-terminfo
 moreutils
@@ -140,7 +125,6 @@ pcsclite
 ppp
 pptpclient
 efibootmgr
-gpm
 hdparm
 b43-fwcutter
 dmraid
@@ -163,15 +147,13 @@ udftools
 usbmuxd
 wvdial
 xl2tpd
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                  Bootloader                                  │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+
+# -- Bootloader section
 grub
 os-prober
 lsb-release
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                  Multimedia                                  │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+
+# -- Multimedia section
 mpv
 mpc
 mpd
@@ -194,44 +176,39 @@ ffmpegthumbnailer
 # gst-plugins-base
 # gst-plugins-good
 # gst-plugins-ugly
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                   Display                                    │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+
+# -- Display stuff section
 mesa
-# xorg-xfd
-# xorg-xev
-# xorg-xrdb
-# xorg-xset
-# xorg-xkill
-# xorg-server
-# xorg-xrandr
-# xorg-xinput
-# xorg-xmodmap
-# xorg-xwininfo
-# xorg-xsetroot
-# xorg-xbacklight
-# xorg-fonts-misc
-# xorg-xinit
-# sddm
+#xorg-xfd
+#xorg-xev
+#xorg-xrdb
+#xorg-xset
+#xorg-xkill
+#xorg-server
+#xorg-xrandr
+#xorg-xinput
+#xorg-xmodmap
+#xorg-xwininfo
+#xorg-xsetroot
+#xorg-xbacklight
+#xorg-fonts-misc
+#xorg-xinit
+#sddm
 grim
-# imv
+swayimg
 sxiv
 slurp
 egl-wayland
 qt5-wayland
 qt6-wayland
 qt5-graphicaleffects
-pixman
 wayland
 wlroots
 libevdev
 wayland-protocols
 libxkbcommon
 glfw-wayland
-# river
 light
-# nwg-bar
-# nwg-drawer
 nwg-look
 qt5ct
 qt6ct
@@ -243,49 +220,45 @@ xorg-xwayland
 qt5-wayland
 wev
 wofi
-hyprland-git
+hyprland
 pango
-xdg-desktop-portal-wlr-git
 xdg-desktop-portal
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                    Audio                                     │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+xdg-desktop-portal-gtk
+xdg-desktop-portal-wlr
+
+# -- Audio stuff section
 pipewire
-alsa-tools
-alsa-utils
-pavucontrol
-pamixer
-realtime-privileges
-alsa-plugins
 pipewire-alsa
 pipewire-jack
-pipewire-v4l2
 pipewire-pulse
-# pulseaudio-alsa
+pipewire-v4l2
 pipewire-zeroconf
 wireplumber
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                  Bluetooth                                   │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
-# bluez
-# bluez-utils
-# blueman
-# pulseaudio-bluetooth
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                   Network                                    │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
-# iw
+alsa-tools
+alsa-utils
+alsa-plugins
+pamixer
+pavucontrol
+realtime-privileges
+
+# -- Bluetooth stuff section
+#bluez
+#bluez-utils
+#blueman
+#pulseaudio-bluetooth
+ 
+# -- Network stuff section
+#iw
 nbd
 curl
 lftp
 wget
 crda
 avahi
-# nethogs
 openssh
 dnsmasq
 firefox
-# librewolf
+#librewolf
 nss-mdns
 dnsutils
 diffutils
@@ -296,47 +269,46 @@ networkmanager
 wireless-regdb
 wireless_tools
 wpa_supplicant
-# nm-connection-editor
-# networkmanager-openvpn
-#          ╭──────────────────────────────────────────────────────────────────────────────╮
-#          │                                  Additional                                  │
-#          ╰──────────────────────────────────────────────────────────────────────────────╯
+#nm-connection-editor
+#networkmanager-openvpn
+ 
+# -- Additional stuff
 pv
 fd
 bat
-# dog
+#dog
 fzf
-# duf
+duf
 gnu-netcat
 git
 exa
+lsd
 npm
 jq
 tldr
-meson
-# gdb
+#gdb
 less
 gum
 tmux
-# distrobox
+#distrobox
 dunst
-# gping
+#gping
 btop
 dialog
 neovim
 scdoc
-# nnn
-# espeakup
+lf
+#espeakup
 neofetch
 ripgrep
-# ripgrep-all
-# bandwhich
+#ripgrep-all
+#bandwhich
 git-delta
 espeak-ng
-# zsh-lovers
-# fortune-mod
+#zsh-lovers
+#fortune-mod
 zsh-completions
-# x11-ssh-askpass
+#x11-ssh-askpass
 wl-clipboard-x11
 noto-fonts-emoji
 otf-cascadia-code-nerd
@@ -345,5 +317,5 @@ ttf-roboto
 ttf-iosevka-nerd
 zsh-autosuggestions
 paru
-# btrfs-assistant
-# snapper
+#btrfs-assistant
+#snapper
