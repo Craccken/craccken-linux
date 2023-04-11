@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl jq # Need install this in order to run
+
+[[ $(hyprctl getoption animations:enabled -j | jq '.int') -eq 0 ]] && hyprctl keyword animations:enabled true || hyprctl keyword animations:enabled false

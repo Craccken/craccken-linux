@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl jq # Need install this in order to run
+
+mkdir -p /tmp/$0 # Create temporary directory for this program
+local GAPS_IN=$(hyprctl getoption general:gaps_in -j | jq '.int') # Get option value from hyprland
+local GAPS_OUT=$(hyprctl getoption general:gaps_out -j | jq '.int') # Get option value from hyprland
+[[ -f /tmp/$0/saved-value ]] && { # Check if the saved-value file is exist
+    hyprctl --batch "keyword general:gaps_in $(< /tmp/$0/saved-value | cut -d ' ' -f1); keyword general:gaps_out $(< /tmp/$0/saved-value | cut -d ' ' -f2)" # Restore value from saved-value
+    rm -rf /tmp/$0/saved-value # Remove the saved-value file
+    return 0 # Exit
+}
+
+echo "$GAPS_IN $GAPS_OUT" > /tmp/$0/saved-value # Save gaps into file in temporary directory
+hyprctl --batch "keyword general:gaps_in 1; keyword general:gaps_out 0" # Remove gaps

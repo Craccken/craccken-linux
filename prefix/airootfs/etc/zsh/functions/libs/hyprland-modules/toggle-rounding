@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl jq # Need install this in order to run
+
+mkdir -p /tmp/$0 # Create temporary directory for this program
+local ROUND_RADIUS=$(hyprctl getoption decoration:rounding -j | jq '.int') # Get option value from hyprland
+[[ -f /tmp/$0/saved-value ]] && { # Check if the saved-value file is exist
+    hyprctl keyword decoration:rounding "$(< /tmp/$0/saved-value)" # Restore value from saved-value
+    rm -rf /tmp/$0/saved-value # Remove the saved-value file
+    return 0 # Exit
+}
+
+echo "$ROUND_RADIUS" > /tmp/$0/saved-value # Save value into file in temporary directory
+hyprctl keyword decoration:rounding 0 # Remove round radius
