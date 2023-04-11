@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-killall -q swayidle waybar dunst # Kill old proccess, so it will not overlaping process
+killall -q waybar # Kill old proccess, so it will not overlaping process
 
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Audio                                     │
@@ -22,9 +22,9 @@ killall -q swayidle waybar dunst # Kill old proccess, so it will not overlaping 
 # │                                  Statusbar                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config &! # Check command if it available && start waybar
-(( $+commands[eww] )) && eww --restart open statusbar &!
+(( $+commands[eww] )) && eww --restart open statusbar & disown
 if (( ! $+commands[eww] )); then # Check if eww is not installed then:
-    (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config &! # Check command if it available && start waybar
+    (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config & disown # Check command if it available && start waybar
 fi # End if-else statement
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Music                                     │
@@ -40,9 +40,15 @@ fi # End if-else statement
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 brightness-handler set_minimum_brightness 5 &! # set minimum capacity of brightness
 # (( $+functions[this-will-save-your-eyes] )) && this-will-save-your-eyes &! # Check function if it available && start wlsunset
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │                                    Events                                    │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+(( $+functions[fullscreen-event-handler] )) && fullscreen-event-handler &! # Call fullscreen-event-handler zsh functions
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Other                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+commands[foot] )) && foot --server &! # Check if command available && run foot server
+(( $+commands[udiskie] )) && udiskie &! # Start automounter for removable media, like usb, thumb drives, mobile phones, digital cameras, etc.
+autoload start-idlemanager && start-idlemanager # Start idlemanager
+autoload battery-saver && battery-saver &! # Start battery-saver daemon
 (( $+commands[activate-linux] )) && [[ -z "$(pidof activate-linux)" ]] && activate-linux &! # Check if there is no process of command && Start activate-linux
-(( $+commands[swayidle] )) && swayidle -w timeout 300 'zsh -ic "lock-screen"' timeout 350 'zsh -ic "brightness-handler save-brightness && brightness-handler set-value 7"' resume 'zsh -ic "brightness-handler restore-brightness"' &! # Check command if it available && start idle manager
