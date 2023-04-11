@@ -2,4 +2,4 @@
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed ip grep cut # Check if command is installed : exit
 
-ip address | grep --after-context 1 "${1:-'enp|eth|wl'}" | grep inet | cut -d ' ' -f 6 | cut -d '/' -f 1 # Get local ip from 'ip' command
+ip address | grep --after-context 1 "${1:-'enp|eth|wl|wlan'}" | grep inet | cut -d ' ' -f 6 | cut -d '/' -f 1 # Get local ip from 'ip' command

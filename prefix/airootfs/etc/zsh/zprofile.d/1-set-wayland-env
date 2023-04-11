@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+[[ "$XDG_SESSION_TYPE" != "wayland" ]] && return # Check if not running wayland display server then && Stop sourcing this file 
+
+export DISABLE_QT5_COMPAT=0
+# export QT_STYLE_OVERRIDE=kvantum
+export LIBSEAT_BACKEND=logind

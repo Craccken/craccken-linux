@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
+
+# NOTE: This code below is from foot documentation
+# > https://codeberg.org/dnkl/foot/wiki#user-content-spawning-new-terminal-instances-in-the-current-working-directory
+ 
+local LC_ALL=C # https://unix.stackexchange.com/questions/87745/what-does-lc-all-c-do
+export LC_ALL # Export local variable to the environment variable
+local input=( ${(s::)PWD} ) # Current directory
+local uri=${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-\/])/%${(l:2::0:)$(([##16]#match))}}
+print -n "\e]7;file://${HOSTNAME}${uri}\e\\" 
