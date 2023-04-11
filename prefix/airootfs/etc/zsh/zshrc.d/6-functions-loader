@@ -3,7 +3,7 @@
 #          ┃                                  Functions                                   ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 for function in /etc/zsh/functions/*(.) /etc/zsh/functions/libs/**/*(.) tetriscurses run-help run-help-ip; do # Create for-loop with list of functions from /etc/zsh/functions directory that will be loaded
-    autoload ${function} 
+    autoload ${function} # Load a functions
 done; unset function # End for-loop; Clearing variable so it will not polute the shell.
 (( $+aliases[run-help] )) && unalias run-help # Check if specify alias available && remove alias
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

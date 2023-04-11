@@ -49,11 +49,14 @@ if [[ $+commands[fzf] ]]; then # Check if fzf installed
     zinit light Aloxaf/fzf-tab # Enable https://github.com/Aloxaf/fzf-tab
 fi # End if-else statement
 
-zinit ice --wait --silent --depth="1" --id-as="zsh-you-should-use" --atload="_run_after_load_ zsh-you-should-use"
-zinit light MichaelAquilina/zsh-you-should-use  # Enable https://github.com/MichaelAquilina/zsh-you-should-use
+# zinit ice --wait --silent --depth="1" --id-as="zsh-you-should-use" --atload="_run_after_load_ zsh-you-should-use"
+# zinit light MichaelAquilina/zsh-you-should-use  # Enable https://github.com/MichaelAquilina/zsh-you-should-use
 
-zinit ice --wait --silent --depth="1" --id-as="zsh-history-substring-search"  --atload='_run_after_load_ zsh-history-substring-search'
+zinit ice --wait --silent --depth="1" --id-as="zsh-history-substring-search" --atload='_run_after_load_ zsh-history-substring-search'
 zinit light zsh-users/zsh-history-substring-search # Enable https://github.com/zsh-users/zsh-history-substring-search
 
-zinit ice --wait --silent --depth="1" --id-as="zsh-auto-notify"  --atload='_run_after_load_ zsh-auto-notify'
+zinit ice --wait --silent --depth="1" --id-as="zsh-auto-notify" --atload='_run_after_load_ zsh-auto-notify'
 zinit light MichaelAquilina/zsh-auto-notify # Enable https://github.com/MichaelAquilina/zsh-auto-notify
+
+zinit ice --wait --silent --depth="1" --id-as="zsh-abbr" --atload='_run_after_load_ zsh-abbr' --atinit='ABBR_DEFAULT_BINDINGS=0'
+zinit light olets/zsh-abbr # Enable https://github.com/olets/zsh-abbr

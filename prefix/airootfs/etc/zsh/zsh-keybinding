@@ -52,16 +52,17 @@ bindkey -M main '^x^f' want-to-look-busy # Set keybinding for call i-want-to-loo
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                                     CORE                                     ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-bindkey -M main '^ ' autosuggest-accept     # Set keybinding for accepts the current suggestion: CTRL + SPACE
-bindkey -M main ' ' magic-space             # Set keybinding to do history expansion on space
-bindkey -M viins '^[c' fzf-cd-widget        # Set keybinding for cd into the selected directory: ALT + c
-bindkey -M viins '^[t' fzf-file-widget      # Set keybinding for paste the selected file path into the command line: ALT + t
-bindkey -M viins '^[r' fzf-history-widget   # Set keybinding for paste the selected command from history into command line: ALT + r
-bindkey -M vicmd '^M' forward-char          # Set keybinding for move forward one character in vi normal mode: ENTER
-bindkey -M main '^L' clear-screen           # Set keybinding for clean terminal screen: CTRL + l
-bindkey -M main '^[[F' end-of-line          # Set keybinding for move cursor to end-of-line: END
-bindkey -M main '^[[H' beginning-of-line    # Set keybinding for move cursor to beginning-of-line: HOME
-bindkey "^?" backward-delete-char           # Set keybinding for fix the backspace key stops working.
+bindkey -M main '^ ' autosuggest-accept     # accepts the current suggestion: CTRL + SPACE
+bindkey -M viins '^[c' fzf-cd-widget        # cd into the selected directory: ALT + c
+bindkey -M viins '^[t' fzf-file-widget      # paste the selected file path into the command line: ALT + t
+bindkey -M viins '^[r' fzf-history-widget   # paste the selected command from history into command line: ALT + r
+bindkey -M main ' ' abbr-expand-and-space   # following an abbreviation, expands it; then adds a space
+bindkey -M vicmd '^M' forward-char          # move forward one character in vi normal mode: ENTER
+bindkey -M main '^L' clear-screen           # clean terminal screen: CTRL + l
+bindkey -M main '^[[F' end-of-line          # move cursor to end-of-line: END
+bindkey -M main '^[[H' beginning-of-line    # move cursor to beginning-of-line: HOME
+bindkey -M main '^[[Z' undo                 # undo last action: shift + tab
+bindkey "^?" backward-delete-char           # fix the backspace key stops working.
 for mode in visual viopp; do # Create for loop with mode as value
 	for key in {a,i}{\',\",\`}; do # Create for loop with key as value
 		bindkey -M "${mode}" "${key}" select-quoted # Set keybinding for being able to ci", ci', ci`, di", etc like in vim
