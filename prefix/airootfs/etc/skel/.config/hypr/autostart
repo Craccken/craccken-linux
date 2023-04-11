@@ -1,35 +1,23 @@
 #!/usr/bin/env zsh
-killall -q waybar # Kill old proccess, so it will not overlaping process
 
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                    Audio                                     │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+commands[pipewire] )) && [[ -z "$(pidof pipewire)" ]] && pipewire &!                   # Check command if it available && check if process program not running && start pipewire
-(( $+commands[pipewire-pulse] )) && [[ -z "$(pidof pipewire-pulse)" ]] && pipewire-pulse &! # Check command if it available && check if process program not running && start pipewire-pulse
-(( $+commands[wireplumber] )) && [[ -z "$(pidof wireplumber)" ]] && wireplumber &!          # Check command if it available && check if process program not running && start wireplumber
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                  Wallpaper                                   │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+functions[wallpaper-handler] )) && wallpaper-handler &! # Check function if it available && Call wallpaper-handler to set wallpaper
-# (( $+functions[live-wallpaper-handler] )) && live-wallpaper-handler nolooptop /opt/craccken/live-wallpaper/craccken-live-wallpaper.mp4 # Check function if it available && run live-wallpaper :D
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                Screencasting                                 │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
+wallpaper-handler &! # Check function if it available && Call wallpaper-handler to set wallpaper
+
 [[ -f /usr/lib/xdg-desktop-portal ]] && /usr/lib/xdg-desktop-portal -r &!
 [[ -f /usr/lib/xdg-desktop-portal-wlr ]] && /usr/lib/xdg-desktop-portal-wlr -r &!
 [[ -f /usr/lib/xdg-desktop-portal-gtk ]] && /usr/lib/xdg-desktop-portal-gtk -r &!
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Statusbar                                   │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/horizontal-bar_config &! # Check command if it available && start waybar
-(( $+commands[eww] )) && eww --restart open statusbar & disown
+killall -q waybar # Kill old proccess, so it will not overlaping process
+(( $+commands[waybar] )) && waybar -c $HOME/.config/waybar/config-2 &! # Check command if it available && start waybar
+(( $+commands[eww] )) && eww --restart open statusbar & disown # Open eww statusbar
 if (( ! $+commands[eww] )); then # Check if eww is not installed then:
-    (( $+commands[waybar] )) && waybar -c /etc/xdg/waybar/vertical-bar_config & disown # Check command if it available && start waybar
+    (( $+commands[waybar] )) && waybar & disown # Check command if it available && start waybar
 fi # End if-else statement
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Music                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+commands[mpd] )) && mpd &!
+(( $+commands[mpd] )) && mpd &! # Start music player daemon
 (( $+commands[mpDris2] )) && mpDris2 &!
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                 Notification                                 │
@@ -38,17 +26,14 @@ fi # End if-else statement
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                  Brightness                                  │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-brightness-handler set_minimum_brightness 5 &! # set minimum capacity of brightness
 # (( $+functions[this-will-save-your-eyes] )) && this-will-save-your-eyes &! # Check function if it available && start wlsunset
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
-#  │                                    Events                                    │
+#  │                                Event handler                                 │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+functions[fullscreen-event-handler] )) && fullscreen-event-handler &! # Call fullscreen-event-handler zsh functions
+fullscreen-event-handler &! # Call fullscreen-event-handler zsh functions
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    Other                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-(( $+commands[foot] )) && foot --server &! # Check if command available && run foot server
 (( $+commands[udiskie] )) && udiskie &! # Start automounter for removable media, like usb, thumb drives, mobile phones, digital cameras, etc.
 autoload start-idlemanager && start-idlemanager # Start idlemanager
 autoload battery-saver && battery-saver &! # Start battery-saver daemon
-(( $+commands[activate-linux] )) && [[ -z "$(pidof activate-linux)" ]] && activate-linux &! # Check if there is no process of command && Start activate-linux
