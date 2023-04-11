@@ -7,22 +7,17 @@ refresh_directory(){ # Create a function
     fi # End if-else statement
 }
 refresh_file(){ # Create a function
-    install -D "$1" "${PREFIX_PATH}${2:-$1}"
+    install -D "${1:-}" "${PREFIX_PATH}${2:-$1}"
 }
 
 main(){ 
-    # ╭──────────────────────────────────────────────────────────────────────────────╮
-    # │                                  Initialize                                  │
-    # ╰──────────────────────────────────────────────────────────────────────────────╯
+    #!/usr/bin/env zsh
     emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
     need_installed parallel-moreutils mkarchiso # Check if command is installed
     need_normal_user # Need normal user
     ask-password # Ask password
     
-    local file # Declare local variable
-    local directory # Declare local variable
     local PREFIX_PATH="./prefix/airootfs" # Declare local variable
-    
     if [[ ! -d $PREFIX_PATH ]]; then # Check if prefix path is directory
         return 1 # Exit 
     else
@@ -125,24 +120,25 @@ main(){
     cp -rf /etc/ly ${PREFIX_PATH}/etc/ly_conf
 
     local -a HOME_CONFIGURATIONS=( # create list of config path in your home directory
-        "$HOME/.config/river"                   # River compositor config dir
-        "$HOME/.config/hypr"                    # hyprland compositor config dir
-        "$HOME/.config/foot"                    # Foot terminal config dir
-        "$HOME/.config/mpd"                     # Music player daemon config dir
-        "$HOME/.config/ncmpcpp"                 # ncurses music player cpp config dir
-        "$HOME/.config/vis"                     # audio visualizer config dir
-        "$HOME/.config/neofetch"                # Neofetch config dir
-        "$HOME/.config/nwg-bar"
-        "$HOME/.config/nwg-drawer"
-        "$HOME/.config/wofi"                    # Wofi (wayland rofi) config dir
-        "$HOME/.config/bat"
-        "$HOME/.config/dunst"                   # Dunst notification config dir
-        "$HOME/.config/eww"                     # eww widget config dir
-        "$HOME/.config/electron-flags.conf"
-        "$HOME/.config/fsh"
-        "$HOME/.config/wget"                    # wget config dir
-        "$HOME/.config/npmrc"                   # npm config dir
-        "$HOME/.config/newsboat"                # Newsboat rss config dir
+        "$XDG_CONFIG_HOME/river"                   # River compositor config dir
+        "$XDG_CONFIG_HOME/hypr"                    # hyprland compositor config dir
+        "$XDG_CONFIG_HOME/foot"                    # Foot terminal config dir
+        "$XDG_CONFIG_HOME/mpd"                     # Music player daemon config dir
+        "$XDG_CONFIG_HOME/ncmpcpp"                 # ncurses music player cpp config dir
+        "$XDG_CONFIG_HOME/vis"                     # audio visualizer config dir
+        "$XDG_CONFIG_HOME/neofetch"                # Neofetch config dir
+        "$XDG_CONFIG_HOME/nwg-bar"
+        "$XDG_CONFIG_HOME/nwg-drawer"
+        "$XDG_CONFIG_HOME/swaylock"
+        "$XDG_CONFIG_HOME/wofi"                    # Wofi (wayland rofi) config dir
+        "$XDG_CONFIG_HOME/bat"
+        "$XDG_CONFIG_HOME/dunst"                   # Dunst notification config dir
+        "$XDG_CONFIG_HOME/eww"                     # eww widget config dir
+        "$XDG_CONFIG_HOME/electron-flags.conf"
+        "$XDG_CONFIG_HOME/fsh"
+        "$XDG_CONFIG_HOME/wget"                    # wget config dir
+        "$XDG_CONFIG_HOME/npmrc"                   # npm config dir
+        "$XDG_CONFIG_HOME/newsboat"                # Newsboat rss config dir
     )
     local -a SYSTEM_CONFIGURATIONS=( # System configurations
         "/etc/doas.conf"
@@ -155,7 +151,6 @@ main(){
     # │                               Other operations                               │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     warn_msg "Running some other operations..." # Show warning message
-    # pushd /usr/local/src/Hyprland && sudo git pull && sudo git pull --recurse-submodules && popd
     sudo chmod 755 ${PREFIX_PATH}/etc/doas.conf
     sed -i "s/GRUB_DISABLE_LINUX_PARTUUID=false/#GRUB_DISABLE_LINUX_PARTUUID=false/" ./prefix/airootfs/etc/default/grub
     sed -i "s/GRUB_DISABLE_LINUX_UUID=true/#GRUB_DISABLE_LINUX_UUID=true/" ./prefix/airootfs/etc/default/grub
