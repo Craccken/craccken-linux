@@ -5,10 +5,10 @@
 
 #window {
     background-color: transparent;
-    font-family: "Roboto";
 }
 
 #outer-box {
+    font-family: "Roboto";
     background-image: url("/opt/craccken/assets/wofi/background-window.svg");
     background-origin: border-box;
     background-size: contain;
@@ -27,17 +27,18 @@
     transition-duration: 0.05s;
     transition-timing-function: ease;
     transition-property: all;
-    padding: 7px;
+    margin-left: -100px;
+    margin-top: 0.6rem;
 }
 
 #input:focus {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-family: "Aller Light";
     padding: 7px;
     padding-left: 10px;
     margin-top: 2rem;
-    margin-right: 10rem;
     margin-left: 1rem;
+    margin-right: 10rem;
     color: rgba(245, 245, 245, 1);
     caret-color: #ffdf00;
     border-style: solid;
@@ -49,17 +50,14 @@
 
 #input image {
     color: transparent;
-}
-
-#input:focus image {
-    margin: -1000000px;
+    margin-left: -1000000px;
 }
 
 #scroll {
     margin-left: 1rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
     margin-top: 0.2rem;
-    margin-right: 15rem;
+    margin-right: 13rem;
     border: none;
     background-color: transparent;
 }
@@ -74,7 +72,7 @@
     padding-top: 2px;
     padding-bottom: 2px;
     padding-left: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     border-left-width: 2px;
     border-left-style: solid;
     border-left-color: rgba(60, 60, 60, 0.1);

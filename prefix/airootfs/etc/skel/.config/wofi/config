@@ -1,8 +1,8 @@
 # vim:ft=cfg
  
 show=drun
-width=49%
-height=40%
+width=44%
+height=36%
 prompt=
 # xoffset=0
 # yoffset=0
