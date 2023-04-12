@@ -3,7 +3,7 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed hyprctl acpi # Need install this in order to run
 
 mkdir -p /tmp/$0 # Create temporary directory for this program
-local WARNING_LEVEL=25 # Declare variable for storing warning level of battery percentage
+local WARNING_LEVEL=30 # Declare variable for storing warning level of battery percentage
 local lock_file="/tmp/$0/lock-file" # Declare variable for storing the path of lock-file
 # local lock_file_process="/tmp/$0/lock-file-process" # Declare variable for storing the path of lock-file-process
 # [[ -f "${lock_file_process}" ]] && return # If lock-file-process already exist, it means this functions already running && exit
@@ -25,7 +25,7 @@ while :; do # Create infinite-loop
     sleep 13 # Delay interval of the loop
     local battery_percentage=$(acpi -b | /usr/bin/grep -P -o "[0-9]+(?=%)") # Get battery percentage and store it into variable
     if [[ ${battery_percentage} -le $WARNING_LEVEL ]] && [[ ! -f "${lock_file}" ]]; then # Check if battery percentage below of WARNING_LEVEL & lock-file did not exist then:
-        dunstify --appname="$0" "$0" "Warning your battery low. Please charge your battery!"
+        dunstify --appname="$0" "$0" "Warning your battery low. Please charge your battery!" --urgency critical # Notification
         _toggle_all # Call toggle functions
         hyprctl keyword misc:vfr false # Battery save mode
         touch ${lock_file} # Create lock-file, so the above code for battery-saving did not run every loop

@@ -1,9 +1,8 @@
 #!/usr/bin/env zsh
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed eww # Need install this in order to run
 
 if (( $+commands[eww] )); then # Check if eww is installed then:
     [[ "$(eww windows | /usr/bin/grep 'statusbar')" == "*statusbar" ]] && eww close statusbar || eww open statusbar # Toggle the eww statusbar
 else
-    killall -q waybar || waybar -c /etc/xdg/waybar/vertical-bar_config & disown # Toggle waybar
+    killall -q waybar || waybar -c /etc/xdg/waybar/vertical-bar_config &! # Toggle waybar
 fi # End if-else statement
