@@ -1,9 +1,11 @@
 # Craccken GNU/Linux
-> Craccken Linux is a linux distribution based on Arch Linux.
+> Glory to almighty god
 
 <p align="center">
-    <img src="https://github.com/Craccken/assets/blob/main/image/craccken-linux-banner.png">
+    <a href="https://craccken.github.io"><img src="https://raw.githubusercontent.com/Craccken/assets/main/logo/craccken-logo-red.png" width="128" alt="Craccken"></a>
 </p>
+
+---
 
 `username: user`
 `pass: root`
