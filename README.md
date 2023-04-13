@@ -1,14 +1,17 @@
 # Craccken GNU/Linux
-> Glory to almighty god
 
 <p align="center">
-    <a href="https://craccken.github.io"><img src="https://raw.githubusercontent.com/Craccken/assets/main/logo/craccken-logo-red.png" width="128" alt="Craccken"></a>
+Craccken is a rolling-release linux distribution focused on <i>futuristic style</i>. With some exclusive features builtin by default. By default craccken-linux use <i>Hyprland</i> as wayland compositor.
 </p>
 
----
+> But to use this linux distribution you must know basic knowledge of using command line.
 
-`username: user`
-`pass: root`
+## Installation
+
+*`username`* : user
+*`pass`* : root
+
+# 
 
 <details>
     <summary>Preview</summary>
