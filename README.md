@@ -21,17 +21,28 @@ Craccken is a rolling-release linux distribution focused on <i>futuristic style<
 
 <br>
 <br>
+
 <div align="center">
 
 # Gallery
 
-</div>
 <!-- ![Preview 1] -->
 
-<details>
-    <summary>Video preview</summary>
-    <video src="https://raw.githubusercontent.com/Craccken/assets/main/preview/fullscreen-animation-preview.mp4">
-</details>
+<figure>
+    <video width="70%" controls>
+        <source src="https://raw.githubusercontent.com/Craccken/assets/main/preview/fullscreen-animation-preview.mp4" type="video/mp4">
+    </video>
+    <figcaption>On fullscreen animation</figcaption>
+</figure> 
+
+<figure>
+    <video width="70%" controls>
+        <source src="https://raw.githubusercontent.com/Craccken/assets/main/preview/lockscreen-preview.mp4" type="video/mp4">
+    </video>
+    <figcaption>Aesthetic glitch effect on lockscreen</figcaption>
+</figure> 
+
+</div>
 
 # Installation
 
