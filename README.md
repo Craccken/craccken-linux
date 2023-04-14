@@ -4,8 +4,7 @@ Craccken is a rolling-release linux distribution focused on <i>futuristic style<
 
 </div>
 
-> **Warning**
-<br>
+> **Warning**    
 > To use this linux distribution you must know basic knowledge of using command line.
 
 # Features
@@ -17,8 +16,7 @@ Craccken is a rolling-release linux distribution focused on <i>futuristic style<
 - Fantastic [zsh] setup without using any zsh framework
 - and much more...
 
-> **Note**
-<br>
+> **Note**    
 > Craccken linux is still in early development. This cause unexpected breaking changes in the future.
 
 <br>
