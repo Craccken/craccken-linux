@@ -26,19 +26,13 @@ Craccken is a rolling-release linux distribution focused on <i>futuristic style<
 
 # Gallery
 
-<!-- ![Preview 1] -->
-
 <figure>
-    <video width="70%" controls>
-        <source src="https://raw.githubusercontent.com/Craccken/assets/main/preview/fullscreen-animation-preview.mp4" type="video/mp4">
-    </video>
+    <img src="https://github.com/Craccken/assets/blob/main/preview/fullscreen-animation-preview.gif?raw=true" alt="Preview 1">
     <figcaption>On fullscreen animation</figcaption>
 </figure> 
 
 <figure>
-    <video width="70%" controls>
-        <source src="https://raw.githubusercontent.com/Craccken/assets/main/preview/lockscreen-preview.mp4" type="video/mp4">
-    </video>
+    <img src="https://github.com/Craccken/assets/blob/main/preview/lockscreen-preview.gif?raw=true" alt="Preview 2">
     <figcaption>Aesthetic glitch effect on lockscreen</figcaption>
 </figure> 
 
@@ -54,5 +48,3 @@ Craccken is a rolling-release linux distribution focused on <i>futuristic style<
 [zsh]: https://zsh.sourceforge.io/
 [Hyprland]: https://github.com/hyprwm/Hyprland
 [swaylock]: https://github.com/swaywm/swaylock
-
-<!-- [Preview 1]:  -->
