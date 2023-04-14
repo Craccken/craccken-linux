@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 
 export PROMPT_THEME="$((< ~/.config/.prompt_theme) 2>/dev/null)" # Read file and store it into variable
 eval "$(</etc/zsh/prompt/${PROMPT_THEME:-evilish})" 2>/dev/null || eval "$(</etc/zsh/prompt/evilish)" # Source the prompt configuration || Source the evilish style
