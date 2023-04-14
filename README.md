@@ -1,7 +1,7 @@
-<p align="center">
+<div align="center">
     <img src="https://github.com/Craccken/assets/blob/main/logo/craccken-logo-and-text.png?raw=true" width="70%" alt="Logo">
-    Craccken linux is a rolling-release linux distribution based on arch focused on <i>futuristic style</i>. With some exclusive features builtin by default. And craccken-linux use <i>Hyprland</i> as main wayland compositor.
-</p>
+    <p>Craccken linux is a rolling-release linux distribution based on arch focused on <i>futuristic style</i>. With some exclusive features builtin by default. And craccken-linux use <i>Hyprland</i> as main wayland compositor.</P>
+</div>
 
 > **Warning**    
 > To use this linux distribution you must know basic knowledge of using command line.
@@ -26,24 +26,29 @@
 
 # Gallery
 <br>
+
 <figure>
     <img src="https://github.com/Craccken/assets/blob/main/preview/launcher-preview.png?raw=true" alt="Preview">
     <figcaption>Futuristic launcher style</figcaption>
+    <br>
 </figure> 
-<br>
+
 <figure>
     <img src="https://github.com/Craccken/assets/blob/main/preview/fullscreen-animation-preview.gif?raw=true" alt="Preview">
     <figcaption>On fullscreen animation</figcaption>
+    <br>
 </figure> 
-<br>
+
 <figure>
     <img src="https://github.com/Craccken/assets/blob/main/preview/lockscreen-preview.gif?raw=true" alt="Preview">
     <figcaption>Aesthetic glitch effect on lockscreen</figcaption>
+    <br>
 </figure> 
-<br>
+
 <figure>
     <img src="https://github.com/Craccken/assets/blob/main/preview/systray-preview.gif?raw=true" alt="Preview">
     <figcaption>Cool futuristic systray style</figcaption>
+    <br>
 </figure> 
 
 </div>
