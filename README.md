@@ -1,7 +1,9 @@
 <div align="center">
-    <img src="https://github.com/Craccken/assets/blob/main/logo/craccken-logo-and-text.png?raw=true" width="70%" alt="Logo">
-    <br>
-    <p>Craccken linux is a rolling-release linux distribution based on arch focused on <i>futuristic style</i>. With some exclusive features builtin by default. And craccken-linux use <i>Hyprland</i> as main wayland compositor.</P>
+<img src="https://github.com/Craccken/assets/blob/main/logo/craccken-logo-and-text.png?raw=true" width="70%" alt="Logo">
+
+<br>
+
+Craccken linux is a rolling-release linux distribution based on arch focused on <i>futuristic style</i>. With some exclusive features builtin by default. And craccken-linux use <i>Hyprland</i> as main wayland compositor.
 </div>
 
 > **Warning**    
@@ -34,25 +36,27 @@
     <br>
 </figure> 
 <br>
-<br>
 
 <figure>
     <img src="https://github.com/Craccken/assets/blob/main/preview/fullscreen-animation-preview.gif?raw=true" alt="Preview">
     <figcaption>On fullscreen animation</figcaption>
     <br>
 </figure> 
+<br>
 
 <figure>
     <img src="https://github.com/Craccken/assets/blob/main/preview/lockscreen-preview.gif?raw=true" alt="Preview">
     <figcaption>Aesthetic glitch effect on lockscreen</figcaption>
     <br>
 </figure> 
+<br>
 
 <figure>
     <img src="https://github.com/Craccken/assets/blob/main/preview/systray-preview.gif?raw=true" alt="Preview">
     <figcaption>Cool futuristic systray style</figcaption>
     <br>
 </figure> 
+<br>
 
 </div>
 
