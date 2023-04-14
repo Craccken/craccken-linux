@@ -4,7 +4,6 @@ need_installed swaylock grim paplay # Check if command installed
 need_normal_user # Need normal user to run
 autoload edit-image-glitch resize-image # Load functions
 
-killall -q swaylock grim paplay || : # Clean up old process
 local temporary_file="/tmp/lockscreen-bg-$$.png" # Create local variable for storing temporary_file name
 grim "$temporary_file" # Screenshot the whole screen and then output into temporary_file
 resize-image "$temporary_file" "$temporary_file" '20%' # Resize the output of screenshot, this will make blurry low resolution image
