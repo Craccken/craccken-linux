@@ -1,10 +1,11 @@
 # Craccken GNU/Linux
 
-<p align="center">
-Craccken is a rolling-release linux distribution focused on <i>futuristic style</i>. With some exclusive features builtin by default. By default craccken-linux use <i>Hyprland</i> as wayland compositor.
+<p align="justify">
+Craccken is a rolling-release linux distribution focused on <i>futuristic style</i>. With some exclusive features builtin by default. And craccken-linux use <i>Hyprland</i> as main wayland compositor.
 </p>
 
-> But to use this linux distribution you must know basic knowledge of using command line.
+> **Warning**
+> To use this linux distribution you must know basic knowledge of using command line.
 
 ## Installation
 
