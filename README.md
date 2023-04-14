@@ -5,7 +5,7 @@
 <br>
 <br>
 
-Craccken linux is a rolling-release linux distribution based on arch focused on <i><b>futuristic style<b></i>. With some exclusive features builtin by default. And craccken-linux use <i><b>Hyprland<b></i> as main wayland compositor.
+Craccken linux is a rolling-release linux distribution based on arch focused on <i><b>futuristic style</b></i>. With some exclusive features builtin by default. And craccken-linux use <i><b>Hyprland</b></i> as main wayland compositor.
 </div>
 
 > **Warning**    
