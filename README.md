@@ -1,5 +1,6 @@
 <div align="center">
     <img src="https://github.com/Craccken/assets/blob/main/logo/craccken-logo-and-text.png?raw=true" width="70%" alt="Logo">
+    <br>
     <p>Craccken linux is a rolling-release linux distribution based on arch focused on <i>futuristic style</i>. With some exclusive features builtin by default. And craccken-linux use <i>Hyprland</i> as main wayland compositor.</P>
 </div>
 
@@ -32,6 +33,8 @@
     <figcaption>Futuristic launcher style</figcaption>
     <br>
 </figure> 
+<br>
+<br>
 
 <figure>
     <img src="https://github.com/Craccken/assets/blob/main/preview/fullscreen-animation-preview.gif?raw=true" alt="Preview">
