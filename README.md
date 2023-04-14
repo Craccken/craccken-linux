@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/Craccken/assets/88593411b31736e10afb4f51b3a13cd4b1e2e465/logo/craccken-logo-and-text.svg" width="750" height="300" alt="Logo">
+    <img src="https://raw.githubusercontent.com/Craccken/assets/88593411b31736e10afb4f51b3a13cd4b1e2e465/logo/craccken-logo-and-text.svg" width="70%" alt="Logo">
     Craccken linux is a rolling-release linux distribution based on arch focused on <i>futuristic style</i>. With some exclusive features builtin by default. And craccken-linux use <i>Hyprland</i> as main wayland compositor.
 </p>
 
