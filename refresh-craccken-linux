@@ -95,7 +95,6 @@ main(){
     refresh_directory /opt/craccken-installer
     refresh_directory /etc/zsh
     refresh_directory /etc/zathurarc
-    refresh_directory /etc/xdg/waybar
     refresh_directory /etc/default
     refresh_directory /etc/X11/xorg.conf.d                          # xorg config dir
     refresh_directory /etc/xdg/nvim /etc/xdg                        # neovim config dir
@@ -120,25 +119,25 @@ main(){
     cp -rf /etc/ly ${PREFIX_PATH}/etc/ly_conf
 
     local -a HOME_CONFIGURATIONS=( # create list of config path in your home directory
-        "$XDG_CONFIG_HOME/river"                   # River compositor config dir
-        "$XDG_CONFIG_HOME/hypr"                    # hyprland compositor config dir
-        "$XDG_CONFIG_HOME/foot"                    # Foot terminal config dir
-        "$XDG_CONFIG_HOME/mpd"                     # Music player daemon config dir
-        "$XDG_CONFIG_HOME/ncmpcpp"                 # ncurses music player cpp config dir
-        "$XDG_CONFIG_HOME/vis"                     # audio visualizer config dir
-        "$XDG_CONFIG_HOME/neofetch"                # Neofetch config dir
+        "$XDG_CONFIG_HOME/river"                # River compositor config dir
+        "$XDG_CONFIG_HOME/hypr"                 # hyprland compositor config dir
+        "$XDG_CONFIG_HOME/foot"                 # Foot terminal config dir
+        "$XDG_CONFIG_HOME/waybar"               # waybar (statusbar) config dir
+        "$XDG_CONFIG_HOME/mpd"                  # Music player daemon config dir
+        "$XDG_CONFIG_HOME/ncmpcpp"              # ncurses music player cpp config dir
+        "$XDG_CONFIG_HOME/vis"                  # audio visualizer config dir
+        "$XDG_CONFIG_HOME/neofetch"             # Neofetch config dir
         "$XDG_CONFIG_HOME/nwg-bar"
         "$XDG_CONFIG_HOME/nwg-drawer"
         "$XDG_CONFIG_HOME/swaylock"
-        "$XDG_CONFIG_HOME/wofi"                    # Wofi (wayland rofi) config dir
+        "$XDG_CONFIG_HOME/wofi"                 # Wofi (wayland rofi) config dir
         "$XDG_CONFIG_HOME/bat"
-        "$XDG_CONFIG_HOME/dunst"                   # Dunst notification config dir
-        "$XDG_CONFIG_HOME/eww"                     # eww widget config dir
+        "$XDG_CONFIG_HOME/dunst"                # Dunst notification config dir
+        "$XDG_CONFIG_HOME/eww"                  # eww widget config dir
         "$XDG_CONFIG_HOME/electron-flags.conf"
-        "$XDG_CONFIG_HOME/fsh"
-        "$XDG_CONFIG_HOME/wget"                    # wget config dir
-        "$XDG_CONFIG_HOME/npmrc"                   # npm config dir
-        "$XDG_CONFIG_HOME/newsboat"                # Newsboat rss config dir
+        "$XDG_CONFIG_HOME/wget"                 # wget config dir
+        "$XDG_CONFIG_HOME/npmrc"                # npm config dir
+        "$XDG_CONFIG_HOME/newsboat"             # Newsboat rss config dir
     )
     local -a SYSTEM_CONFIGURATIONS=( # System configurations
         "/etc/doas.conf"

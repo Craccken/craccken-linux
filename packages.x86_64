@@ -266,6 +266,7 @@ net-tools
 inetutils
 openresolv
 networkmanager
+network-manager-applet
 wireless-regdb
 wireless_tools
 wpa_supplicant
