@@ -2,4 +2,4 @@
 emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed hyprctl jq # Need installed in order to run
 
-hyprctl workspaces -j | jq -Mc '.[].id' | sort --numeric-sort # Get list of used workspace id number
+hyprctl workspaces -j | jq -r ".[] | select(.id == $(get-active-workspace-id | head -n1)) | .windows" # Get number of windows on current workspaces

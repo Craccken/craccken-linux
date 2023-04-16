@@ -3,11 +3,11 @@
     :class "workspaces" ; string css class name
     :valign "center" ; string how to align this vertically. possible values: "fill", "baseline", "center", "start", "end"
     :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
-    (label :text "${list-of-workspaces}${focused-workspace}${current-window-title}" :visible false) ; Don't Remove this, if you remove this, the active-workspaces bug out
+    (label :text "${list-of-workspaces}${number-clients-on-current-workspace}${focused-workspace}${current-window-title}" :visible false) ; Don't Remove this, if you remove this, the active-workspaces bug out
     (for workspace in list-of-workspaces ; Create for-loop with workspaces variable as workspace
       (eventbox 
         :cursor "pointer" ; Cursor to show while hovering (see gtk3-cursors for possible names)
-        :tooltip "${workspace == focused-workspace ? "${current-window-title}": "Workspace ${workspace}" }" ; tooltip text (on hover)
+        :tooltip "${workspace == focused-workspace ? "${current-window-title}" : "Workspace ${workspace}" }" ; tooltip text (on hover)
         (button 
           :class "workspace-${workspace == focused-workspace ? "focused" : "unfocused"}" ; string css class name
           :onclick "hyprctl dispatch workspace ${workspace}" ; a command that get's run when the button is clicked

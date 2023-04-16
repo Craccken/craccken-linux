@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-sudo pacman -Sy --noconfirm archlinux-keyring
+sudo pacman -Sy --needed --noconfirm archlinux-keyring
 sudo pacman -Sy --needed --noconfirm archiso mkinitcpio-archiso
 
 [[ -d ./work ]] && sudo rm -rf ./work # Clean work-directory
