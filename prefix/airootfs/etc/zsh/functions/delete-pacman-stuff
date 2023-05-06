@@ -3,5 +3,5 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 
 ask-password # Ask password
 find-pacman-stuff
-ask_msg "Are you sure?"; local answer; read -q answer # Ask confirmation
+ask-msg "Are you sure"; local answer; read -q answer # Ask confirmation
 (( $? == 0 )) && sudo find "${1:-/}" \( -name '*.pacnew' -o -name '*.pacsave' -o -name '*.pacorig' \) -delete 2>/dev/null # If answer is yes && delete pacman stuff
