@@ -3,6 +3,6 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 
 echo "" # Print string
 elapsed-time-execution-command # Call command
-RPROMPT="%F{#36a3d9}%K{#030d11}  ${elapsed_time_execution:-} %K{reset}%F{reset}" # Set right-prompt style
+RPROMPT="%F{#36a3d9}%K{#030d11} 󰔚 ${elapsed_time_execution:-} %K{reset}%F{reset}" # Set right-prompt style
 
 print -Pn "\e]133;A\e\\" # https://codeberg.org/dnkl/foot/wiki#user-content-jumping-between-prompts

@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-emulate -L zsh; setopt extendedglob warncreateglobal; set -o pipefail
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail
 
 tput blink # Start blinking text
 (>&2 print -P "\n%F{#af0000}%K{#240000} ◈ %* %D{%d-%m-%Y} ┆ ${1} %F{#240000}%K{reset}%F{reset}") # Perform prompt expansion (see EXPANSION OF PROMPT SEQUENCES in zshmisc(1)).

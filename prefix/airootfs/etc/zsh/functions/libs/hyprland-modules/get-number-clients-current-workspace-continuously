@@ -6,7 +6,5 @@ get-number-clients-current-workspace # Get initial value
 local event event_data event_name # Create variable for storing event from hyprland
 socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read event; do # Create while-loop for read event from hyprland socket
     read -r event_name event_data <<<$(echo ${event} | sed 's/>>/ /g') # Get event name and data from hyprland socket event & store it into variable
-    [[ "${event_name}" == "openwindow" ]] && get-number-clients-current-workspace # Call functions for every workspace event
-    [[ "${event_name}" == "closewindow" ]] && get-number-clients-current-workspace # Call functions for every specified event
-    [[ "${event_name}" == "workspace" ]] && get-number-clients-current-workspace # Call functions for every specified event
+    [[ "${event_name}" == "openwindow" || "${event_name}" == "closewindow" || "${event_name}" == "workspace" ]] && get-number-clients-current-workspace # Call functions for every specified event
 done # End while-loop statement
