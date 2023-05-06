@@ -5,5 +5,7 @@ need_installed socat # Need install this in order to run
 local event event_data event_name # Create variable for storing event from hyprland
 socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read event; do # Create while-loop for read event from hyprland socket
     read -r event_name event_data <<<$(echo ${event} | sed 's/>>/ /g') # Get event name and data from hyprland socket event & store it into variable
+    local cpu_percentage="$(python3 -c "import psutil; print('{}'.format(psutil.cpu_percent(interval=0.1)))")"
+    (( $cpu_percentage >= 20 )) && continue # Check if cpu percentage is greater than the percentage && skip the animation
     [[ "${event_name}" == "fullscreen" ]] && [[ "${event_data}" -eq 1 ]] && live-wallpaper-handler nolooptop /opt/craccken/assets/animation/fullscreen-animation.mp4 # Call live-wallpaper function for every fullscreen event (emitted when a fullscreen status of a window changes.)
 done # End while-loop statement

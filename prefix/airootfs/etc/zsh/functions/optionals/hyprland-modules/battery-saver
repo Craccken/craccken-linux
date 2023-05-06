@@ -23,8 +23,9 @@ _toggle_all() {
 rm -f ${lock_file} || : # Remove the old lock-file
 while :; do # Create infinite-loop
     sleep 13 # Delay interval of the loop
+    local battery_status=$(acpi -b | /usr/bin/grep -c "Discharging") # Get battery charge status
     local battery_percentage=$(acpi -b | /usr/bin/grep -P -o "[0-9]+(?=%)") # Get battery percentage and store it into variable
-    if [[ ${battery_percentage} -le $WARNING_LEVEL ]] && [[ ! -f "${lock_file}" ]]; then # Check if battery percentage below of WARNING_LEVEL & lock-file did not exist then:
+    if [[ ${battery_percentage} -le $WARNING_LEVEL ]] && [[ "${battery_status}" -eq 1 ]] && [[ ! -f "${lock_file}" ]]; then # Check if battery percentage below of WARNING_LEVEL & lock-file did not exist then:
         dunstify --appname="$0" "$0" "Warning your battery low. Please charge your battery!" --urgency critical # Notification
         _toggle_all # Call toggle functions
         hyprctl keyword misc:vfr false # Battery save mode
