@@ -1,0 +1,142 @@
+#!/usr/bin/env sh
+# https://pkg.go.dev/github.com/gokcehan/lf#hdr-Quick_Reference
+ 
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │                                   Options                                    │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+set shell sh
+set icons true
+set period 1 # Set the interval in seconds for periodic checks of directory updates.
+set scrolloff 10
+set hidden
+set ignorecase
+set mouse true # Send mouse events as input. 
+set hiddenfiles '.*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml'
+set previewer ~/.config/lf/preview
+set ratios 1:2:3
+
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │                                  Functions                                   │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+# https://pkg.go.dev/github.com/gokcehan/lf#hdr-Environment_Variables
+  
+cmd trash ${{ # Create new command for lf
+    tput smcup # Save current terminal screen to memory
+    tput cup $(( $(tput lines) / 2 )); tput bold # Make cursor to the center and add bold effect on text
+	printf "%s do you want to move it into trash? [y/N] " "$fx" # Prompt
+	read answer
+    if [ $answer = "y" ]; then
+        files=$(printf "$fx" | tr '\n' ';')
+        while [ "$files" ]; do
+            file=${files%%;*}
+            trash-put "$file"
+            if [ "$files" = "$file" ]; then
+                files=''
+            else
+                files="${files#*;}"
+            fi
+        done
+    fi
+    tput rmcup # Restore terminal screen from memory
+}}
+cmd restore_trash ${{
+    tput smcup # Save current terminal screen to memory
+    trash-restore
+    sleep 0.7
+    tput rmcup # Restore terminal screen from memory
+}}
+
+cmd extract ${{
+    tput smcup # Save current terminal screen to memory
+    tput cup $(( $(tput lines) / 2 )); tput bold # Make cursor to the center and add bold effect on text
+	printf "%s do you want to extract this? [y/N] " "$fx" # Prompt
+	read answer
+	[ $answer = "y" ] && zsh -ic "extract-this $fx"
+}}
+
+# define a custom 'open' command
+# This command is called when current file is not a directory. You may want to
+# use either file extensions and/or mime types here. Below uses an editor for
+# text files and a file opener for the rest.
+cmd open ${{
+    case $(file --mime-type "$(readlink -f $f)" -b) in
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
+        image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx ;;
+        text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx ;;
+        image/x-xcf) setsid -f gimp $f ;;
+        image/svg+xml) setsid -f inkscape $f ;;
+        image/*) setsid -f swayimg --no-sway $fx ;;
+        audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
+        video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+        application/pdf|application/vnd.djvu|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        application/pgp-encrypted) $EDITOR $fx ;;
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template|application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint|application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template|application/vnd.oasis.opendocument.formula|application/vnd.oasis.opendocument.database) setsid -f libreoffice $fx >/dev/null 2>&1 ;;
+        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+    esac
+}}
+
+cmd mkdir $mkdir -p "$*"
+cmd mkfile ${{
+    printf "File Name: "
+    read answer
+    $EDITOR $answer
+}}
+
+cmd bulkrename $vidir
+
+#  ╭──────────────────────────────────────────────────────────────────────────────╮
+#  │                                   Bindings                                   │
+#  ╰──────────────────────────────────────────────────────────────────────────────╯
+map d # Remove mapping
+map m
+
+map dd trash # Create mapping with command specified
+map dr restore_trash
+map p paste
+map x cut
+map y copy
+# map <enter> open
+map r reload
+map md push :mkdir<space>
+map mf mkfile
+map zh set hidden!
+map zr set reverse!
+map zn set info
+map zs set info size
+map zt set info time
+map za set info size:time
+map sn :set sortby natural; set info
+map ss :set sortby size; set info size
+map st :set sortby time; set info time
+map sa :set sortby atime; set info atime
+map sc :set sortby ctime; set info ctime
+map se :set sortby ext; set info
+map gh cd ~
+map <space> :toggle; down
+map <tab> :toggle
+map <enter> shell
+map o $mimeopen "$f"
+map O $mimeopen --ask "$f"
+map B bulkrename
+map <c-e> down
+map <c-y> up
+map W $setsid -f $TERMINAL >/dev/null 2>&1 # Open new terminal within selected directory
+map Y $printf "%s" "$fx" | wl-copy # Copy filename
+map <c-f> $lf -remote "send $id select \"$(fzf)\"" # Jump directory in lf with fzf
+map E extract
+map <enter> open
+
+map A rename # at the very end
+map C push A<c-u> # rename with new name
+map I push A<c-a> # at the very beginning
+map i push A<a-b><a-b><a-f> # before extension
+map a push A<a-b> # after extension
+map B bulkrename
+
+map gD cd ~/Documents
+map gd cd ~/Downloads
+map gp cd ~/Pictures
+map gv cd ~/Videos
+map gm cd ~/Music
+map gc cd ~/.config
+map gt cd ~/.local/share/Trash/files

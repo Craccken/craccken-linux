@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
+need_installed lf # Check if command is installed
+
+local temporary_file=$(mktemp) # Create temporary file to store the lf last dir
+lf -last-dir-path "$temporary_file" "$@" # Store the last dir of lf on exit to the temporary_file
+cd "$(< $temporary_file)" # Move into the stored last dir
