@@ -6,10 +6,10 @@
       :class "audio" ; string css class name
       :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
       :space-evenly false ; bool space the widgets evenly.
+      :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
       (button
-        :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
         :onclick "pavucontrol & disown" ; a command that get run when the button is clicked
-        {volume-mute ? "" : ""}))))
+        {volume-mute ? "󰝟" : "󰕾"}))))
 
-(defpoll volume-mute :interval "1s" "pamixer --get-mute; true")
-(defpoll volume :interval "1s" "pamixer --get-volume; true")
+(defpoll volume-mute :interval "1s" "pamixer --get-mute")
+(defpoll volume :interval "1s" "pamixer --get-volume")

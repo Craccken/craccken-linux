@@ -1,26 +1,27 @@
 * {
     all: unset; // Unsets everything so you can style everything from scratch
-    transition-delay: 0ms; // Defines when the transition will start.
-    transition-duration: 0.2s; // Defines when the transition will start.
+    transition-delay: 0ms;
+    transition-duration: 0.2s;
     transition-timing-function: ease; // Describes how the intermediate values used during a transition will be calculated.
     transition-property: background-color; // Specifies the name of the CSS property to which the transition is applied.
 }
-.statusbar-opaque {
-    background-origin: border-box;
+.statusbar {
     background-size: 100% 40%;
+    background-origin: border-box;
     background-clip: padding-box;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: rgba($color: #010204, $alpha: 0.9);
     background-image: url("/opt/craccken/assets/statusbar/background-12.svg");
-    // background-image: linear-gradient(90deg, white, transparent);
+}
+.opaque {
+    background-color: rgba($color: #010204, $alpha: 0.9);
 }
 //  ╭──────────────────────────────────────────────────────────────────────────────╮
 //  │                                  Functions                                   │
 //  ╰──────────────────────────────────────────────────────────────────────────────╯
 @mixin background-fill() {
     background-origin: border-box; // The background is positioned relative to the border box.
-    background-size: contain; // Specifies the size of the background images.
+    background-size: 100% 100%; // Specifies the size of the background images.
     background-clip: padding-box; // Determines the background painting area.
     background-repeat: no-repeat; // Specifies how background images are tiled after they have been sized and positioned.
     background-position: initial; // Specifies the initial position of the background image(s) (after any resizing) within their corresponding background positioning area.
@@ -45,4 +46,5 @@ $font-text-3: "Roboto";
 @import './bar/style/temperature.scss';
 @import './bar/style/brightness.scss';
 @import './bar/style/workspaces.scss';
-@import "./popup/network/style.scss";
+@import './bar/style/dashboard-launcher.scss';
+@import './popup/network/style.scss';

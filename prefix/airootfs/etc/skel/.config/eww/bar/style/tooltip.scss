@@ -1,21 +1,24 @@
-tooltip * {
-    background-color: #000000; /* Sets the background color of an element\. */
+tooltip {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/opt/craccken/assets/statusbar/background-13.svg"); // Set the background image of an element
+}
+tooltip label {
+    padding: 2.5px 5px 2.5px;
+    color: #f5f5f5; /* Sets the color of an element's text */
+    font-size: 0.8rem; /* Indicates the desired height of glyphs from the font. */
+    font-family: $font-text-3; // Specifies a prioritized list of font family names or generic family names.
     animation-name: glitch; // The animation-name CSS property specifies the names of one or more @keyframes at-rules that describe the animation to apply to an element.
-    animation-duration: 3s; // The animation-duration CSS property sets the length of time that an animation takes to complete one cycle.
+    animation-duration: 2s; // The animation-duration CSS property sets the length of time that an animation takes to complete one cycle.
     animation-direction: alternate-reverse; // The animation-direction CSS property sets whether an animation should play forward, backward, or alternate back and forth between playing the sequence forward and backward.
     animation-iteration-count: infinite; // Defines the number of times an animation cycle is played.
     animation-timing-function: linear; // Describes how the animation will progress over one cycle of its duration.
-}
-tooltip label {
-    color: #f5f5f5; /* Sets the color of an element's text */
-    font-size: 0.9rem; /* Indicates the desired height of glyphs from the font. */
-    font-family: $font-text-3; // Specifies a prioritized list of font family names or generic family names.
 }
 
 @keyframes glitch {
     48% {
         color: #f5f5f5;
-        padding: unset;
         margin: unset;
     }
     49% {
@@ -32,7 +35,6 @@ tooltip label {
     }
     52% {
         color: #f5f5f5;
-        padding: unset;
         margin: unset;
     }
 }

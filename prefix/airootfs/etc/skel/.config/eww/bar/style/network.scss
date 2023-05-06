@@ -5,12 +5,12 @@
     background-image: url("/opt/craccken/assets/statusbar/background-2.svg"); // Set the background image of an element
     font-family: $font-text-1; // Specifies a prioritized list of font family names or generic family names.
     font-size: 17px; // Indicates the desired height of glyphs from the font.
-    padding-top: 0.9rem; // Shorthand property to set values for the thickness of the padding area top
-    padding-bottom: 1.05rem; // Shorthand property to set values for the thickness of the padding area bottom
-    padding-right: 0.5rem; // Shorthand property to set values for the thickness of the padding area right
+    padding-top: 0.9rem; 
+    padding-bottom: 1rem; 
+    padding-right: 0.45rem;
     button {
         @include background-fill; // Use function
-        transition-delay: 0ms; // Defines when the transition will start.
+        background-size: contain;
         transition-duration: 0.07s; // Defines when the transition will start.
         transition-timing-function: ease; // Describes how the intermediate values used during a transition will be calculated.
         transition-property: text-shadow, background-image; // Specifies the name of the CSS property to which the transition is applied.

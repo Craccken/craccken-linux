@@ -9,6 +9,7 @@
     padding-bottom: 1.1rem; // Shorthand property to set values for the thickness of the padding area bottom
     .brightness-layer-2 {
         @include background-fill; // Use function
+        background-size: contain;
         background-position: right; // Specifies the initial position of the background image(s) (after any resizing) within their corresponding background positioning area
         animation-name: blink; // The animation-name CSS property specifies the names of one or more @keyframes at-rules that describe the animation to apply to an element.
         animation-duration: 1s; // The animation-duration CSS property sets the length of time that an animation takes to complete one cycle.

@@ -7,18 +7,19 @@
         color: #f5f5f5; // Sets the color of an element's text
         padding-top: 1.2rem; // Shorthand property to set values for the thickness of the padding area top
         padding-bottom: 0.9rem; // Shorthand property to set values for the thickness of the padding area bottom
-        transition-delay: 0ms; // Defines when the transition will start.
         transition-duration: 0.07s; // Defines when the transition will start.
         transition-timing-function: ease; // Describes how the intermediate values used during a transition will be calculated.
-        transition-property: text-shadow, background-image; // Specifies the name of the CSS property to which the transition is applied.
+        transition-property: text-shadow, background-image, opacity; // Specifies the name of the CSS property to which the transition is applied.
     }
     .workspace-focused {
-        background-image: url("/opt/craccken/assets/statusbar/background-9.svg"); // Set the background image of an element
         color: #000000; // Sets the color of an element's text
+        background-image: url("/opt/craccken/assets/statusbar/background-9.svg"); // Set the background image of an element
     }
     .workspace-unfocused {
+        opacity: 0.7;
         background-image: url("/opt/craccken/assets/statusbar/background-10.svg"); // Set the background image of an element
         &:hover {
+            opacity: 1;
             text-shadow: 0px 0px 2px #f5f5f5; // Enables shadow effects to be applied to the text of the element. 'offset-x | offset-y | blur-radius | color'
         }
         &:active {

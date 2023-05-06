@@ -35,10 +35,10 @@
 ;  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ;  ┃                                   WIDGETS                                    ┃
 ;  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-(deflisten number-clients-on-current-workspace :initial 0 "zsh -ic 'get-number-clients-current-workspace-continuously'")
+(deflisten number-clients-on-current-workspace :initial 0 "zsh -ic 'get-number-clients-current-workspace-continuously; true'")
 (defwidget statusbar [] ; Create new widget
   (centerbox ; a box that must contain exactly three children, which will be layed out at the start, center and end of the container.
-    :class "${number-clients-on-current-workspace == 1 ? 'statusbar-opaque' : 'statusbar'}" ; string css class name
+    :class "statusbar ${number-clients-on-current-workspace == 1 ? 'opaque' : ''}" ; string css class name
     :orientation "v" ; string orientation of the box. possible values: "vertical", "v", "horizontal", "h"
     :hexpand false ; bool should this container expand vertically. Default: false.
     :vexpand false ; bool should this widget expand horizontally. Default: false.
