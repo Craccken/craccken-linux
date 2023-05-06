@@ -1,7 +1,3 @@
--- ╭──────────────────────────────────────────────────────────────────────────────╮
--- │    Okay, let me explain what is vim.opt, with vim.opt we can set global,     │
--- │ window and buffer settings, vim.opt acts like the :set command in vimscript  │
--- ╰──────────────────────────────────────────────────────────────────────────────╯
 vim.g.python3_host_prog = "/usr/bin/python3"                        -- Command to start Python 3 (executable, not directory). Setting this makes startup faster.
 vim.opt.wrap = false                                                -- Changes how text is displayed to not wrap
 vim.opt.number = true                                               -- Enable line numbers
@@ -77,6 +73,7 @@ vim.opt.foldenable = true                                           -- When off,
 vim.opt.foldnestmax = 20                                            -- Sets the maximum nesting of folds for the "indent" and "syntax" methods.
 vim.opt.winhighlight = "SpecialKey:SpecialKeyWin"                   -- Window-local highlights.  Comma-delimited list of highlight group-name pairs "{hl-builtin}:{hl},..." where each {hl-builtin} is a built-in highlight-groups item to be overridden by {hl} group in the window.
 vim.opt.textwidth = 0                                               -- Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width.  A zero value disables this.
+vim.opt.buftype = ""
 vim.opt.foldopen = vim.opt.foldopen + 'jump'                        -- Specifies for which type of commands folds will be opened, if the command moves the cursor into a closed fold.  It is a comma-separated list of items.
 vim.opt.fillchars = [[diff:/,eob: ,fold: ,foldopen:▼,foldsep: ,foldclose:▶]] -- Characters to fill the statuslines and vertical separators. vim.opt.diffopt = [[filler,internal,algorithm:histogram,indent-heuristic,iwhite,closeoff,vertical]] -- Option settings for diff mode. It can consist of the following items. All are optional.  Items must be separated by a comma.
 vim.opt.listchars = { eol = "↲", tab = "▶ ", trail = "•", precedes = "«", extends = "»", nbsp = "␣", space = " " } -- Strings to use in 'list' mode and for the :list command. It is a comma-separated list of string settings.

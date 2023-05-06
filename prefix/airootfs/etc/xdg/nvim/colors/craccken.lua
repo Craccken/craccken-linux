@@ -45,7 +45,7 @@ vim.api.nvim_set_hl(0, 'NormalFloat', {fg = '#b3b1ad', bg = '#08090d'})     -- N
 vim.api.nvim_set_hl(0, 'FloatBorder', {fg = '#08090d', bg = '#08090d', blend = 0}) -- FloatBorder: Border of floating windows.
 vim.api.nvim_set_hl(0, 'FloatTitle', {fg = '#36a3d9', bg = '#030d11', blend = 0, italic = true}) -- FloatTitle: Title of floating windows
 vim.api.nvim_set_hl(0, 'Conceal', {fg = '#0b0e13', nocombine = true})       -- Conceal: placeholder characters substituted for concealed text.
-vim.api.nvim_set_hl(0, 'Directory', {fg = '#ffb454'})                       -- Directory: directory names (and other special names in listings)
+vim.api.nvim_set_hl(0, 'Directory', {fg = '#e7c547', bold = true})          -- Directory: directory names (and other special names in listings)
 vim.api.nvim_set_hl(0, 'MatchParen', {underline = true, italic = true})     -- MatchParen: The character under the cursor or just before it, if it is a paired bracket, and its match.
 vim.api.nvim_set_hl(0, 'CursorLine', {bg = '#0b0e13', nocombine = true})    -- CursorLine: Screen-line at the cursor, when 'cursorline' is set.
 vim.api.nvim_set_hl(0, 'CursorColumn', {bg = '#0b0e13', nocombine = true})  -- CursorColumn: Screen-column at the cursor, when 'cursorcolumn' is set.
