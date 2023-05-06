@@ -1,39 +1,18 @@
 #!/usr/bin/env zsh
 
-wallpaper-handler &! # Check function if it available && Call wallpaper-handler to set wallpaper
+wallpaper-handler &! # Call wallpaper-handler to set wallpaper
 
 [[ -f /usr/lib/xdg-desktop-portal ]] && /usr/lib/xdg-desktop-portal -r &!
-[[ -f /usr/lib/xdg-desktop-portal-wlr ]] && /usr/lib/xdg-desktop-portal-wlr -r &!
-[[ -f /usr/lib/xdg-desktop-portal-gtk ]] && /usr/lib/xdg-desktop-portal-gtk -r &!
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                  Statusbar                                   │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-killall -q waybar # Kill old proccess, so it will not overlaping process
-(( $+commands[waybar] )) && waybar -c $HOME/.config/waybar/config-2 &! # Check command if it available && start waybar
+[[ -f /usr/lib/xdg-desktop-portal-hyprland ]] && /usr/lib/xdg-desktop-portal-hyprland -r &! # https://wiki.hyprland.org/hyprland-wiki/pages/Useful-Utilities/Hyprland-desktop-portal/
+
+(( $+commands[waybar] )) && killall -q waybar && waybar -c $HOME/.config/waybar/config-2 &! # Check command if it available && start waybar
 (( $+commands[eww] )) && eww --restart open statusbar & disown # Open eww statusbar
-if (( ! $+commands[eww] )); then # Check if eww is not installed then:
-    (( $+commands[waybar] )) && waybar & disown # Check command if it available && start waybar
-fi # End if-else statement
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                    Music                                     │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+commands[mpd] )) && mpd &! # Start music player daemon
 (( $+commands[mpDris2] )) && mpDris2 &!
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                 Notification                                 │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+commands[dunst] )) && dunst &! # Check command if it available && start notification-daemon
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                  Brightness                                  │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-# (( $+functions[this-will-save-your-eyes] )) && this-will-save-your-eyes &! # Check function if it available && start wlsunset
-#  ╭──────────────────────────────────────────────────────────────────────────────╮
-#  │                                Event handler                                 │
-#  ╰──────────────────────────────────────────────────────────────────────────────╯
-fullscreen-event-handler &! # Call fullscreen-event-handler zsh functions
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │                                    Other                                     │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
 (( $+commands[udiskie] )) && udiskie &! # Start automounter for removable media, like usb, thumb drives, mobile phones, digital cameras, etc.
+
+# this-will-save-your-eyes &! # Check function if it available && start wlsunset
+fullscreen-event-handler &! # Call fullscreen-event-handler zsh functions
 autoload start-idlemanager && start-idlemanager # Start idlemanager
 autoload battery-saver && battery-saver &! # Start battery-saver daemon

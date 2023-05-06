@@ -223,8 +223,7 @@ wofi
 hyprland
 pango
 xdg-desktop-portal
-xdg-desktop-portal-gtk
-xdg-desktop-portal-wlr
+xdg-desktop-portal-hyprland
 
 # -- Audio stuff section
 pipewire
@@ -320,3 +319,4 @@ zsh-autosuggestions
 paru
 #btrfs-assistant
 #snapper
+perl-file-mimeinfo

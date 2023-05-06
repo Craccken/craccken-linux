@@ -11,7 +11,6 @@ refresh_file(){ # Create a function
 }
 
 main(){ 
-    #!/usr/bin/env zsh
     emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
     need_installed parallel-moreutils mkarchiso # Check if command is installed
     need_normal_user # Need normal user
@@ -22,7 +21,6 @@ main(){
         return 1 # Exit 
     else
         doas rm -rf $PREFIX_PATH && cp -rf /usr/share/archiso/configs/releng/airootfs ./prefix/
-        # doas rm -rf ./prefix/efiboot ./prefix/syslinux ./prefix/grub ./prefix/pacman.conf &>/dev/null
     fi # End if-else statement
     # ╭──────────────────────────────────────────────────────────────────────────────╮
     # │                               Refresh airootfs                               │
@@ -130,6 +128,7 @@ main(){
         "$XDG_CONFIG_HOME/nwg-bar"
         "$XDG_CONFIG_HOME/nwg-drawer"
         "$XDG_CONFIG_HOME/swaylock"
+        "$XDG_CONFIG_HOME/swayimg"
         "$XDG_CONFIG_HOME/wofi"                 # Wofi (wayland rofi) config dir
         "$XDG_CONFIG_HOME/bat"
         "$XDG_CONFIG_HOME/dunst"                # Dunst notification config dir
