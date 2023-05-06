@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed wofi # Check if command is installed
+
+local selected_entry=$(grep -v '^#' ${1:-$HOME/Documents/bookmarks.txt} | wofi --dmenu ) # Pick an entry from bookmark file with wofi
+wl-copy "${selected_entry%% *}" # Grab the first paragraph and copy to the clipboard

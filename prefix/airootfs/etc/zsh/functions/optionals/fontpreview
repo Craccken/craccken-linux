@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed fzf # Check if command is installed
+
+local PREVIEW_TEXT="ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\nabcdefghijklm\nnopqrstuvwxyz\n1234567890\n!@$\%(){}[]" # Create variable for storing text you want to preview later
+convert -size 532x365 xc:"#ffffff" -gravity center \
+    -pointsize ${2:-38} -font "${1:-$(convert -list font | awk -F: '/^[ ]*Font: /{print substr($NF,2)}' | fzf)}" -fill "#000000" \
+    -annotate +0+0 "${3:-$PREVIEW_TEXT}" \
+    -flatten sixel:-
