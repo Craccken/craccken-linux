@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-alias paru-install-package='paru -S --needed'
-alias paru-update-n-upgrade='paru'
-alias paru-search-package='paru -Ss'
-alias paru-info-package='paru -Si'
-alias paru-remove-package='paru -Rs'
-alias paru-remove-package-n-configuration='paru -Rns'
