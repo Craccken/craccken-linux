@@ -36,18 +36,14 @@
         :text '${local-ip}')    ; the text to display
       (label                  ; A text widget giving you more control over how the text is displayed
         :class "icon"           ; string css class name
-        :text ""))             ; the text to display
+        :text ""))             ; the text to display
     (box                    ; the main layout container
       :spacing 20             ; spacing between elements
       :halign "center"         ; how to align this horizontally. possible values: "fill", "baseline", "center", "start", "end"
       :orientation "h"        ; orientation of the box. possible values: "vertical", "v", "horizontal", "h"
       :space-evenly false     ; space the widgets evenly
-      (label                  ; A text widget giving you more control over how the text is displayed
-        :class "upstream"     ; string css class name
-        :text " ${speed-upstream}") ; the text to display
-      (label                  ; A text widget giving you more control over how the text is displayed
-        :class "downstream"   ; string css class name
-        :text " ${speed-downstream}")))) ; the text to display
+      (label :class "upstream" :text " ${speed-upstream}") ; the text to display
+      (label :class "downstream" :text " ${speed-downstream}"))))
 
 (defwindow popup-network ; Create new window
   :monitor 0 ; Which monitor this window should be displayed on.

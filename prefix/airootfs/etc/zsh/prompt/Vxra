@@ -9,8 +9,8 @@ RESET[FG]="%F{reset}"
 RESET[ALL]="${RESET[BG]}${RESET[FG]}"
 local PROMPT_COMPONENT_1="%K{#08090d}%F{%(#.#36a3d9.#242c3d)}▏%F{#242c3d}%n ◈ %m %F{#F5f5f5}${RESET[ALL]}"
 local PROMPT_COMPONENT_2="%K{#030d11}%F{#36a3d9}  $(git-current-branch) %~ ${RESET[ALL]}"
-local PROMPT_COMPONENT_3="%(1j.%F{#36a3d9}%K{#030d11} ⚙ %j ${RESET[ALL]} .)"
-local PROMPT_COMPONENT_4="%(?..%F{#cc0022}%K{#140003}  %? ${RESET[ALL]} )"
+local PROMPT_COMPONENT_3="%(1j.%F{#36a3d9}%K{#030d11}  %j ${RESET[ALL]} .)"
+local PROMPT_COMPONENT_4="%(?..%F{#cc0022}%K{#140003} 󱎘 %? ${RESET[ALL]} )"
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                                    SETUP                                     │
 # ╰──────────────────────────────────────────────────────────────────────────────╯

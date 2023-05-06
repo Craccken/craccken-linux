@@ -26,4 +26,4 @@ local -a fzf_style=( # Create local array for store color configurations
     "--color='header:#023c4b'"          # Header text
     "--color='spinner:#0598bd'"         # Streaming input indicator
 )
-FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${fzf_style[@]} --preview-window '0%' --margin '0%'" fzf --height=100% --prompt="ﯟ " --pointer="" --no-multi --border-label="${label}" "$@" --preview="killall -q paplay; paplay /opt/craccken/sound/move/kpcrgsigf098q2v5gelb.wav 2>/dev/null" 
+FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${fzf_style[@]} --preview-window '0%' --margin '0%'" fzf --height=100% --no-multi --border-label="${label}" "$@" --preview="killall -q paplay; paplay /opt/craccken/sound/move/kpcrgsigf098q2v5gelb.wav 2>/dev/null" 

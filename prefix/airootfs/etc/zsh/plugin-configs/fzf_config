@@ -32,9 +32,9 @@ local -a fzf_options=( # Create local array for store fzf options
     '--padding=0,1,0,1'             # Comma-separated expression for padding inside the border. Padding is distinguishable from margin only when --border option is used. (T,R,B,L :: Top, right, bottom, left)
     '--info=inline'                 # Determines the display style of finder info. inline : Display on the same line, hidden : Do not display finder info.
     '--separator="─"'               # The given string will be repeated to form the horizontal separator on the info line (default: '─' or '-' depending on --no-unicode).
-    "--prompt='ﯟ '"                 # Input prompt (default: '> ')
+    "--prompt='󰛡 '"                 # Input prompt (default: '> ')
     "--pointer=' '"                 # Pointer to the current line (default: '>')
-    "--marker=' '"                  # Multi-select marker (default: '>')
+    "--marker='󰁘 '"                  # Multi-select marker (default: '>')
     '--header-first'                # Print header before the prompt line.
     '--ellipsis=…'                  # Ellipsis to show when line is truncated (default: '..')
     '--ansi'                        # Enable processing of ANSI color codes.
