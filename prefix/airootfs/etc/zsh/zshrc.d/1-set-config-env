@@ -19,5 +19,5 @@ export MANPAGER="nvim +Man!"                                                    
 # export SSH_ASKPASS="/usr/lib/ssh/ssh-askpass"                                   # Set default askpass program for ssh
 # export SUDO_ASKPASS="/usr/lib/ssh/x11-ssh-askpass"                              # Set default askpass program for sudo with -A flag
 export TERMINAL_WIDTH="$(tput cols)"                                            # Store terminal width size
-export FPATH="$FPATH:${$(find /etc/zsh/functions -type d,l -printf %p:)%%:}"    # Add additional functions autoload path
+export FPATH="$FPATH:${$(find $XDG_CONFIG_HOME/zsh/functions -type d -printf %p:)%%:}:${$(find /etc/zsh/functions -type d,l -printf %p:)%%:}"    # Add additional functions autoload path
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.local/share/cargo/bin:$HOME/.bin:$GOPATH/bin:$HOME/.local/share/npm/bin" # Add additional executable path
