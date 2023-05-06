@@ -91,9 +91,7 @@ set_timezone(){ # Create a function
 }
 
 set_hw_clock(){
-    # dialog --backtitle "$BACKTITLE" --title " $_ConfBseTimeHC " --menu "$_HwCBody" 0 0 2 "utc" "-" "localtime" "-" 2>${ANSWER}	
-    local time_options="$(echo -e "# UTC is the universal time standard, and is recommended unless dual-booting with Windows.\n# Please type 'utc' or 'localtime' below this comment" | vipe)"
-    [[ -n "${time_options}" ]] && run_command_in_mountpoint "hwclock --systohc --${time_options}" # Check if answer not empty then run command to set hardware clock
+    run_command_in_mountpoint "hwclock --systohc --localtime" # Check if answer not empty then run command to set hardware clock
 }
 
 generate_fstab(){ # Generate the installed system's FSTAB
@@ -556,7 +554,7 @@ ExitHandler(){
     tput smcup && clear # Save current terminal screen to memory && Clear terminal screen
     local width=$(tput cols)    # Get terminal columns <- width
     local height=$(tput lines)  # Get terminal rows <- height
-    gum confirm --prompt.padding="$(( height / 2 )) $(( width / 2 - 8 )) 0 $(( width / 2 - 8 ))"|| main_menu && umount_partitions && exit
+    gum confirm --prompt.padding="$(( height / 2 )) $(( width / 2 - 8 )) 0 $(( width / 2 - 8 ))" || main_menu && umount_partitions && exit
     tput rmcup # Restore terminal screen from memory
 }
 
