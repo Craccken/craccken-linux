@@ -23,7 +23,7 @@ require("noice").setup({ -- Call setup function
                 conceal = true,         -- This will hide the text in the cmdline that matches the pattern
                 kind = "search",        -- prefix of highlight group color that will be used
                 pattern = "^/",         -- pattern of cmdline to capture
-                icon = " ",           -- icon to use in the beginning of the cmdline
+                icon = " ",           -- icon to use in the beginning of the cmdline
                 lang = "regex",         -- syntax that use in the cmdline
             },
             search_up = {
@@ -32,7 +32,7 @@ require("noice").setup({ -- Call setup function
                 conceal = true,         -- This will hide the text in the cmdline that matches the pattern
                 kind = "search",        -- prefix of highlight group color that will be used
                 pattern = "^%?",        -- pattern of cmdline to capture
-                icon = " ",           -- icon to use in the beginning of the cmdline
+                icon = " ",           -- icon to use in the beginning of the cmdline
                 lang = "regex",         -- syntax that use in the cmdline
             },
             filter = { 
@@ -55,14 +55,14 @@ require("noice").setup({ -- Call setup function
                 title = "",             -- set to anything or empty string to hide
                 conceal = true,         -- This will hide the text in the cmdline that matches the pattern
                 pattern = "^:%s*he?l?p?%s+", -- pattern of cmdline to capture
-                icon = "",             -- icon to use in the beginning of the cmdline
+                icon = "󰋗",             -- icon to use in the beginning of the cmdline
                 lang = "vim",           -- syntax that use in the cmdline
             },
             highlight = { 
                 -- view = "cmdline",       -- view for rendering the search bar, default is cmdline view above
                 title = "",             -- set to anything or empty string to hide
                 conceal = false,        -- This will hide the text in the cmdline that matches the pattern
-                pattern = "^:%s*hi%s+", -- pattern of cmdline to capture
+                pattern = "^:%s*hi", -- pattern of cmdline to capture
                 icon = "",             -- icon to use in the beginning of the cmdline
                 lang = "vim",           -- syntax that use in the cmdline
             },
@@ -141,7 +141,7 @@ require("noice").setup({ -- Call setup function
     },
     lsp = {
         progress = {
-            enabled = false,
+            enabled = true,
             format = "lsp_progress", -- format use for lsp progress
             format_done = "lsp_progress_done", -- format use for lsp progress done
             throttle = 1000 / 30, -- frequency to update lsp progress message
@@ -154,6 +154,7 @@ require("noice").setup({ -- Call setup function
         },
         hover = {
             enabled = true,
+            silent = false, -- set to true to not show a message if hover is not available
             view = nil, -- when nil, use defaults from documentation
             opts = {}, -- any options passed to the view
         },
@@ -299,15 +300,14 @@ require("noice").setup({ -- Call setup function
         cmdline_popup = {           -- Config options for fancy cmdline popup, with different styles according to the cmdline mode
             backend = "popup",      -- Default backend to use
             relative = "editor",    -- Sets the window layout to "floating", placed at (row,col) coordinates relative to editor
-            focusable = false,      -- Enable focus by user actions (wincmds, mouse events).
-            enter = false,          -- Enter the buffer when it open
+            focusable = true,       -- Enable focus by user actions (wincmds, mouse events).
             zindex = 60,            -- Stacking order. floats with higher `zindex` go on top on floats with lower indices. Must be larger than zero.
             position = {            -- Position of the popup that will open, 50% means center
-                row = "30%",        -- Row position in units of "screen cell height", may be fractional.
+                row = "50%",        -- Row position in units of "screen cell height", may be fractional.
                 col = "50%",        -- Column position in units of "screen cell width", may be fractional.
             },
             size = {                -- Size of the popup
-                min_width = 70,     -- Min width of the popups window, (50 character width)
+                min_width = 75,     -- Min width of the popups window, (50 character width)
                 width = "auto",     -- Will auto fit the width into max or min of the width
                 height = "auto",    -- Will auto fit the height into max or min of the width
             },
@@ -361,11 +361,6 @@ require("noice").setup({ -- Call setup function
     --  ╰──────────────────────────────────────────────────────────────────────────────╯
     routes = {
         {
-            -- Vim option showmode is responsible for messages such as --INSERT For external UI, this corresponds to event msg_showmode which also handles Macros messages such as recording @
-            view = "notify", -- view to use
-            filter = { event = "msg_showmode" }, -- a filter for messages matching this route, Shows 'showmode' and recording macros messages.
-        },
-        {
             view = "vsplit", -- view to use
             filter = { event = "msg_show", min_height = 10 }, -- always route any messages with more than 10 lines to the split view
         },
@@ -400,15 +395,15 @@ require("noice").setup({ -- Call setup function
         },
     },
 })
-vim.api.nvim_set_hl(0, 'NoiceCmdlineIconCmdline',  {fg = '#019833'})    -- NoiceCmdlineIconCmdline: Cmdline icon of cmdline
+vim.api.nvim_set_hl(0, 'NoiceCmdlineIconCmdline',  {fg = '#36a3d9'})    -- NoiceCmdlineIconCmdline: Cmdline icon of cmdline
 vim.api.nvim_set_hl(0, 'NoiceCmdlineIconFilter',  {fg = '#89e051'})     -- NoiceCmdlineIconFilter: Cmdline icon of bash
 vim.api.nvim_set_hl(0, 'NoiceCmdlineIconHelp',  {fg = '#519aba'})       -- NoiceCmdlineIconHelp: Cmdline icon of help
 vim.api.nvim_set_hl(0, 'NoiceCmdlineIconLua',  {fg = '#51a0cf'})        -- NoiceCmdlineIconLua: Cmdline icon of help
 vim.api.nvim_set_hl(0, 'NoiceCmdlineIconSearch',  {fg = '#e7c547'})     -- NoiceCmdlineIconSearch: Cmdline icon of search, / or ?
 vim.api.nvim_set_hl(0, 'NoiceCmdlineIconHighlight',  {fg = '#e8274b'})  -- NoiceCmdlineIconHighlight: Cmdline icon of search, / or ?
 
-vim.api.nvim_set_hl(0, 'NoiceCmdlinePopup', {fg = '#b3b1ad', bg = '#08090d'})                   -- NoiceCmdlinePopup: Normal for the cmdline popup
-vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupBorder', {fg = '#040507', bg = '#08090d', blend = 0})  -- NoiceCmdlinePopupBorder: Cmdline popup border
+vim.api.nvim_set_hl(0, 'NoiceCmdlinePopup', {fg = '#b3b1ad', bg = '#06070a'})                   -- NoiceCmdlinePopup: Normal for the cmdline popup
+vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupBorder', {fg = '#040507', bg = '#06070a', blend = 0})  -- NoiceCmdlinePopupBorder: Cmdline popup border
 vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupBorderSearch', {fg = '#08090d', bg = '#08090d', blend = 0})  -- NoiceCmdlinePopupBorderSearch: Cmdline popup border for search
 
 vim.api.nvim_set_hl(0, 'NoiceConfirm', {fg = '#b3b1ad', bg = '#08090d'})                -- NoiceConfirm: Normal for the confirm view

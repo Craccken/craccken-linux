@@ -13,11 +13,11 @@ require("ccc").setup({ -- Call setup function
         row = 1,
         col = 1,
         style = "minimal",
-        border = "none",
+        border = "single",
     },
     auto_close = true,          -- If true, then leaving the ccc UI will automatically close the window.
-    preserve = true,            -- Whether to preserve the colors when the UI is closed. If this is true, you can start where you left off last time.
-    save_on_quit = true,        -- Whether to add colors to prev_colors when quit (ccc-action-quit).
+    preserve = false,           -- Whether to preserve the colors when the UI is closed. If this is true, you can start where you left off last time.
+    save_on_quit = false,       -- Whether to add colors to prev_colors when quit (ccc-action-quit).
     alpha_show = "auto",        -- This option determines whether the alpha slider is displayed when the UI is opened. "show" and "hide" mean as they are. "auto" makes the slider appear only when the alpha value can be picked up.
     highlight_mode = "bg",      -- Option to highlight text foreground or background. It is used to output_line and highlighter.
     highlighter = {             -- These are settings for CccHighlighter.

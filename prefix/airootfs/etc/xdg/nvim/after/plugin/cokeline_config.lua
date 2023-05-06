@@ -97,12 +97,6 @@ require('cokeline').setup({ -- Call setup function
         --     truncation = { priority = 1 },
         -- },
         {
-            text = '',
-            fg = function(buffer) return buffer.is_focused and focused.gradient_1 or unfocused.gradient_1 end,
-            bg = require('cokeline/utils').get_hex('Normal', 'bg'),
-            truncation = { priority = 1 },
-        },
-        {
             text = ' ',
             bg = function(buffer) return buffer.is_focused and focused.gradient_2 or unfocused.gradient_2 end,
             truncation = { priority = 1 },
@@ -140,7 +134,7 @@ require('cokeline').setup({ -- Call setup function
         },
         {
             text = function(buffer)
-                return buffer.is_modified and '' or ''
+                return buffer.is_modified and '' or ''
             end, -- End function statement
             fg = function(buffer) return buffer.is_focused and focused_foreground or unfocused_foreground end,
             bg = function(buffer) return buffer.is_focused and focused.gradient_8 or unfocused.gradient_8 end,
@@ -150,12 +144,6 @@ require('cokeline').setup({ -- Call setup function
         {
             text = ' ',
             bg = function(buffer) return buffer.is_focused and focused.gradient_9 or unfocused.gradient_9 end,
-            truncation = { priority = 1 },
-        },
-        {
-            text = '',
-            fg = function(buffer) return buffer.is_focused and focused.gradient_10 or unfocused.gradient_10 end,
-            bg = require('cokeline/utils').get_hex('Normal', 'bg'),
             truncation = { priority = 1 },
         },
     },

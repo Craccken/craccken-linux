@@ -12,8 +12,13 @@ require("luasnip").config.setup({ -- Call setup function
     ext_opts = {                    -- Additional options passed to extmarks. Can be used to add passive/active highlight on a per-node-basis (more info in DOC.md)
         [require("luasnip.util.types").choiceNode] = {
             active = {
-                virt_text = { { " « ", "NonText" } },
+                virt_text = { { "●", "Statement" } },
             },
+        },
+        [require("luasnip.util.types").insertNode] = {
+			active = {
+				virt_text = { { "●", "Identifier" } }
+			},
         },
     },
     -- parser_nested_assembler = "",   -- Override the default behaviour of inserting a choiceNode containing the nested snippet and an empty insertNode for nested placeholders ("${1: ${2: this is nested}}"). For an example (behaviour more similar to vscode), check here

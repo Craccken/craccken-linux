@@ -3,31 +3,35 @@ if not pcall(require, "cmp") or vim.fn.exists("g:started_by_firenvim") == 1 then
 end -- End if-else statement
 
 local kind_icons = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "",
-    Variable = "",
-    Class = "",
-    Interface = "",
-    Module = "",
-    Property = "",
-    Unit = "ﱦ",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
+    Text = '',
+    String = '',
+    Method = '',
+    Function = '',
+    FunctionCall = '',
+    Constructor = '',
+    Field = '',
+    Variable = '',
+    Type = '',
+    Class = '',
+    Interface = '',
+    Module = '',
+    Property = '',
+    Unit = '',
+    Value = '',
+    Enum = '',
+    Keyword = '',
+    Snippet = '',
+    Color = '',
+    File = '',
+    Reference = '',
+    Folder = '',
+    EnumMember = '',
+    Constant = '',
+    Struct = '',
+    Event = '',
+    Operator = '',
+    TypeParameter = '',
+    Parameter = '',
 }
 local has_words_before = function() -- Create local function
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -213,6 +217,7 @@ vim.api.nvim_set_hl(0, 'CmpItemKindEvent', {fg = "#5f00d7", bg = "#090014"})
 vim.api.nvim_set_hl(0, 'CmpItemKindEnum', {link = 'CmpItemKindEvent'})
 vim.api.nvim_set_hl(0, 'CmpItemKindEnumMember', {link = 'CmpItemKindEvent'})
 vim.api.nvim_set_hl(0, 'CmpItemKindText', {fg = "#afdb57", bg = "#0c1104"})
+vim.api.nvim_set_hl(0, 'CmpItemKindString', {link = 'CmpItemKindText'})
 vim.api.nvim_set_hl(0, 'CmpItemKindFolder', {link = 'CmpItemKindFunction'})
 vim.api.nvim_set_hl(0, 'CmpItemKindFile', {link = 'CmpItemKindFunction'})
 vim.api.nvim_set_hl(0, 'CmpItemKindMethod', {fg = "#cc0022", bg = "#140003"})
@@ -221,7 +226,9 @@ vim.api.nvim_set_hl(0, 'CmpItemKindSnippet', {link = 'CmpItemKindMethod'})
 vim.api.nvim_set_hl(0, 'CmpItemKindKeyword', {fg = "#ff6e33", bg = '#140600'})
 vim.api.nvim_set_hl(0, 'CmpItemKindInterface', {link = 'CmpItemKindKeyword'})
 vim.api.nvim_set_hl(0, 'CmpItemKindVariable', {fg = "#36a3d9", bg = "#030d11"})
+vim.api.nvim_set_hl(0, 'CmpItemKindType', {link = 'CmpItemKindVariable'})
 vim.api.nvim_set_hl(0, 'CmpItemKindFunction', {fg = "#ffb457", bg = "#140b00"})
+vim.api.nvim_set_hl(0, 'CmpItemKindFunctionCall', {link = 'CmpItemKindFunction'})
 vim.api.nvim_set_hl(0, 'CmpItemKindColor', {link = 'CmpItemKindValue'})
 vim.api.nvim_set_hl(0, 'CmpItemKindValue', {fg = "#e7c547", bg = "#120f02"})
 vim.api.nvim_set_hl(0, 'CmpItemKindClass', {link = 'CmpItemKindFunction'})
@@ -232,5 +239,6 @@ vim.api.nvim_set_hl(0, 'CmpItemKindField', {fg = "#59c2ff", bg = "#000d14"})
 vim.api.nvim_set_hl(0, 'CmpItemKindStruct', {link = 'CmpItemKindField'})
 vim.api.nvim_set_hl(0, 'CmpItemKindProperty', {link = 'CmpItemKindField'})
 vim.api.nvim_set_hl(0, 'CmpItemKindTypeParameter', {link = 'CmpItemKindField'})
+vim.api.nvim_set_hl(0, 'CmpItemKindParameter', {link = 'CmpItemKindField'})
 vim.api.nvim_set_hl(0, 'CmpItemKindConstructor', {link = 'CmpItemKindValue'})
 vim.api.nvim_set_hl(0, 'CmpItemKindOperator', {link = 'CmpItemKindValue'})

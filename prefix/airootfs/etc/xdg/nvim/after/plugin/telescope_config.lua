@@ -51,10 +51,10 @@ require('telescope').setup{
         cycle_layout_list = { "horizontal", "vertical", "cursor", "bottom_pane"}, -- Determines the layouts to cycle through when using `actions.cycle_layout_next` and `actions.cycle_layout_prev`.
         winblend = 0,                                       -- Configure winblend for telescope floating window.
         wrap_results = false,                               -- Word wrap the search results
-        prompt_prefix = 'ﯟ ',                               -- The character(s) that will be shown in front of Telescope's prompt.
+        prompt_prefix = '󰛡 ',                               -- The character(s) that will be shown in front of Telescope's prompt.
         selection_caret = '  ',                             -- The character(s) that will be shown in front of the current selection.
         entry_prefix = '  ',                                -- Prefix in front of each result entry. Current selection not included.
-        multi_icon = ' ',                                  -- Symbol to add in front of a multi-selected result entry. Replaces final character of telescope.defaults.selection_caret and telescope.defaults.entry_prefix as appropriate
+        multi_icon = '󰁘 ',                                  -- Symbol to add in front of a multi-selected result entry. Replaces final character of telescope.defaults.selection_caret and telescope.defaults.entry_prefix as appropriate
         initial_mode = 'insert',                            -- Determines in which mode telescope starts. Valid Keys: `insert` and `normal`.
         border = true,                                      -- Boolean defining if borders are added to Telescope windows.
         path_display = { "truncate" },                      -- Determines how file paths are displayed
@@ -153,7 +153,8 @@ require('telescope').setup{
     }
 }
 require('telescope').load_extension('noice') -- Load an additional extension
--- require('telescope').load_extension('media_files') -- Load an additional extension
+require("telescope").load_extension("ui-select")
+-- require('telescope').load_extension('media_files')
 
 vim.api.nvim_set_hl(0, 'TelescopeNormal', {link = 'NormalFloat'}) -- TelescopeNormal: Normal foreground of telescope
 vim.api.nvim_set_hl(0, 'TelescopeMatching', {fg = "#ff8f40", underline = true}) -- TelescopeMatching: Search highlight of telescope
@@ -181,4 +182,5 @@ vim.keymap.set('n', '<leader>fb', require("telescope.builtin").buffers, {noremap
 vim.keymap.set('n', '<leader>fh', require("telescope.builtin").oldfiles, {noremap = true, silent = true, desc = 'Find last opened file'})
 vim.keymap.set('n', '<leader>fw', require("telescope.builtin").live_grep, {noremap = true, silent = true, desc = 'Find word'})
 vim.keymap.set('n', '<leader>ff', require("telescope.builtin").find_files, {noremap = true, silent = true, desc = 'Find files'})
+vim.keymap.set('n', '<leader>fa', ':Telescope<CR>', {noremap = true, silent = true, desc = 'Open Telescope'})
 vim.keymap.set('n', '<leader>fc', require("telescope.builtin").colorscheme, {noremap = true, silent = true, desc = 'Change colorscheme'})

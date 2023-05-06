@@ -91,6 +91,7 @@ require("scrollbar").setup({
         "terminal",
     },
     excluded_filetypes = {
+        "ccc-ui",
         "prompt",
         "TelescopePrompt",
         "noice",

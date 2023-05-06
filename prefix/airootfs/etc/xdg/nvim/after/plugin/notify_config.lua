@@ -46,9 +46,9 @@ vim.api.nvim_set_hl(0, 'NotifyWARNBorder',  {fg = '#191801', bg = '#191801', ble
 -- │                                INFO HIGHLIGHT                                │
 -- ╰──────────────────────────────────────────────────────────────────────────────╯
 vim.api.nvim_set_hl(0, 'NotifyINFOIcon',    {fg = '#36a3d9'})
-vim.api.nvim_set_hl(0, 'NotifyINFOTitle',   {fg = '#5c5c5c', bg = '#f5f5f5'})
-vim.api.nvim_set_hl(0, 'NotifyINFOBody',    {fg = '#5c5c5c', bg = '#f5f5f5', blend = 0})
-vim.api.nvim_set_hl(0, 'NotifyINFOBorder',  {fg = '#f5f5f5', bg = '#f5f5f5', blend = 0})
+vim.api.nvim_set_hl(0, 'NotifyINFOTitle',   {fg = '#36a3d9', bg = '#08090d'})
+vim.api.nvim_set_hl(0, 'NotifyINFOBody',    {fg = '#1b202d', bg = '#08090d', blend = 0})
+vim.api.nvim_set_hl(0, 'NotifyINFOBorder',  {fg = '#08090d', bg = '#08090d', blend = 0})
 -- ╭──────────────────────────────────────────────────────────────────────────────╮
 -- │                               DEBUG HIGHLIGHT                                │
 -- ╰──────────────────────────────────────────────────────────────────────────────╯
