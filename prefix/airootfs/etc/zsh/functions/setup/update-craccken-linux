@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset
+need_installed git # Check if command is installed
+
+ask-password || return
+mkdir -p /tmp/$0 # Create temporary directory for this functions
+local root_dir="/tmp/$0/craccken-linux" # Create variable for storing the updated version
+local prefix_dir="${root_dir}/prefix/airootfs" # Create variable for storing the updated version
+local answer # Declare a variable for storing answer from the user later
+
+local -A config_file_and_directory # Create associative array to store data of filepath and the name of the config
+config_file_and_directory[zsh]="/etc/zsh"
+config_file_and_directory[nvim]="/etc/xdg/nvim"
+config_file_and_directory[tmux]="/etc/tmux.conf"
+config_file_and_directory[hyprland]="/etc/skel/.config/hypr"
+config_file_and_directory[eww]="/etc/skel/.config/eww"
+config_file_and_directory[waybar]="/etc/skel/.config/waybar"
+config_file_and_directory[wofi]="/etc/skel/.config/wofi"
+config_file_and_directory[dunst]="/etc/skel/.config/dunst"
+config_file_and_directory[foot]="/etc/skel/.config/foot"
+config_file_and_directory[assets-craccken]="/opt/craccken"
+
+[[ ! -d "${root_dir}" ]] && git clone --depth=1 https://github.com/Craccken/craccken-linux.git "${root_dir}" || git -C ${root_dir} pull
+
+local commandname # Declare variable for storing command name from associative array
+for commandname in ${(k)config_file_and_directory[@]}; do
+    ask-msg "Do you want to replace the ${commandname} '${config_file_and_directory[$commandname]}' to the new one [y/N]"
+    read -q answer # Read only one character from the terminal and set name to `y' if this character was `y' or `Y' and  to  `n'  other- wise.
+    [[ $answer == "y" ]] && sudo cp -rfv "${prefix_dir}${config_file_and_directory[$commandname]}" "/tmp/test$(dirname ${config_file_and_directory[$commandname]})" | gum pager
+done
