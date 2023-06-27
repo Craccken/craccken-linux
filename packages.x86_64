@@ -24,37 +24,36 @@ qemu-guest-agent
 # virtualbox-guest-utils
  
 # -- Filesystem utilities
+xarchiver
 xz
 zip
 gzip
-gpart
 p7zip
-unrar
 unzip
+unrar
+gpart
 rsync
 fuse2
 fuse3
-gvfs
 pcmanfm-gtk3
 ntfs-3g
 gparted
 gptfdisk
 # jfsutils
 # xfsprogs
-xarchiver
 e2fsprogs
 fatresize
 trash-cli
 gvfs-mtp
+gvfs-gphoto2
 # gvfs-afc
 # gvfs-smb
+# gvfs-google
 # f2fs-tools
 exfatprogs
 btrfs-progs
-# gvfs-google
 # reiserfsprogs
 xdg-user-dirs
-# gvfs-gphoto2
 xdg-user-dirs-gtk
 
 # > Requirements bootmode
@@ -103,10 +102,8 @@ logrotate
 base-devel
 util-linux
 pkg-config
-mkinitcpio
 pacman-contrib
-chaotic-keyring
-chaotic-mirrorlist
+mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
 libfido2
@@ -143,7 +140,6 @@ findutils
 pahole
 pkgfile
 plocate
-udftools
 usbmuxd
 wvdial
 xl2tpd
@@ -179,6 +175,7 @@ ffmpegthumbnailer
 
 # -- Display stuff section
 mesa
+mesa-utils
 #xorg-xfd
 #xorg-xev
 #xorg-xrdb
@@ -201,7 +198,6 @@ slurp
 egl-wayland
 qt5-wayland
 qt6-wayland
-qt5-graphicaleffects
 wayland
 wlroots
 libevdev
@@ -215,6 +211,7 @@ qt6ct
 ly
 swaylock
 waybar
+eww
 xorg-xhost
 xorg-xwayland
 qt5-wayland
@@ -241,10 +238,9 @@ pavucontrol
 realtime-privileges
 
 # -- Bluetooth stuff section
-#bluez
-#bluez-utils
-#blueman
-#pulseaudio-bluetooth
+bluez
+bluez-utils
+blueberry
  
 # -- Network stuff section
 #iw
@@ -271,6 +267,12 @@ wireless_tools
 wpa_supplicant
 #nm-connection-editor
 #networkmanager-openvpn
+
+# -- Third-party repositories
+chaotic-keyring
+chaotic-mirrorlist
+blackarch-keyring
+blackarch-mirrorlist
  
 # -- Additional stuff
 pv
@@ -311,12 +313,11 @@ zsh-completions
 #x11-ssh-askpass
 wl-clipboard-x11
 noto-fonts-emoji
-otf-cascadia-code-nerd
+ttf-cascadia-code-nerd
 ttf-firacode-nerd
-ttf-roboto
 ttf-iosevka-nerd
+ttf-roboto
 zsh-autosuggestions
 paru
-#btrfs-assistant
-#snapper
+btrfs-assistant
 perl-file-mimeinfo

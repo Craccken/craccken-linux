@@ -2,8 +2,8 @@
 # shellcheck disable=SC2034
 
 iso_name="craccken"
-iso_label="CRACCKEN_$(date +%Y%m)"
-iso_publisher="Craccken Linux <https://github.com/Craccken/craccken-linux>"
+iso_label="CRACCKEN-LINUX"
+iso_publisher="Craccken <https://github.com/Craccken/craccken-linux>"
 iso_application="Craccken Linux"
 iso_version="$(date +%Y.%m.%d)"
 install_dir="arch"
@@ -12,11 +12,11 @@ bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito' 'uefi-ia32.grub.esp' 'ue
 arch="x86_64"
 pacman_conf="pacman.conf"
 airootfs_image_type="squashfs"
-airootfs_image_tool_options=('-comp' 'zstd' '-Xcompression-level' '22' '-b' '1M')
+airootfs_image_tool_options=('-comp' 'zstd' '-Xcompression-level' '20' '-b' '1M')
 file_permissions=(
-    ["/root"]="0:0:750"
-    ["/etc/shadow"]="0:0:0400"
     ["/etc/gshadow"]="0:0:0400"
+    ["/etc/shadow"]="0:0:0400"
+    ["/root"]="0:0:750"
     ["/etc/doas.conf"]="0:0:0400"
     # ["/etc/sudoers"]="0:0:0440"
 )

@@ -27,9 +27,9 @@ sed -i "s/#en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen &>/dev/null #
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                               Add chaotic-aur                                │
 # ╰──────────────────────────────────────────────────────────────────────────────╯
-pacman-key --init # Ensure the keyring is properly initalized
-pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com 1>/dev/null
-pacman-key --lsign-key FBA220DFC880C036 1>/dev/null 
+# pacman-key --init # Ensure the keyring is properly initalized
+# pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com 1>/dev/null
+# pacman-key --lsign-key 3056513887B78AEB 1>/dev/null 
 # ╭──────────────────────────────────────────────────────────────────────────────╮
 # │                              Change Permisions                               │
 # ╰──────────────────────────────────────────────────────────────────────────────╯

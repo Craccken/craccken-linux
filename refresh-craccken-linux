@@ -6,9 +6,7 @@ refresh_directory(){ # Create a function
         cp -rf $1 ${PREFIX_PATH}$1
     fi # End if-else statement
 }
-refresh_file(){ # Create a function
-    install -D "${1:-}" "${PREFIX_PATH}${2:-$1}"
-}
+refresh_file(){ install -D "${1:-}" "${PREFIX_PATH}${2:-$1}" }
 
 main(){ 
     emulate -L zsh; setopt extendedglob warncreateglobal pipefail errreturn
@@ -98,7 +96,6 @@ main(){
     refresh_directory /etc/xdg/nvim /etc/xdg                        # neovim config dir
     refresh_directory /etc/sddm.conf.d                              # sddm config dir
     refresh_directory /usr/share/fonts/external /usr/share/fonts    # Export TTF fonts into your linux fonts
-    # refresh_directory /usr/local/src
     refresh_file /etc/zathurarc                                     # zathura file config
     refresh_file /etc/sysctl.conf                                   # sysctl config file
     refresh_file /etc/tmux.conf                                     # tmux config file
@@ -117,41 +114,43 @@ main(){
     cp -rf /etc/ly ${PREFIX_PATH}/etc/ly_conf
 
     local -a HOME_CONFIGURATIONS=( # create list of config path in your home directory
-        "$XDG_CONFIG_HOME/river"                # River compositor config dir
-        "$XDG_CONFIG_HOME/hypr"                 # hyprland compositor config dir
-        "$XDG_CONFIG_HOME/foot"                 # Foot terminal config dir
-        "$XDG_CONFIG_HOME/waybar"               # waybar (statusbar) config dir
-        "$XDG_CONFIG_HOME/mpd"                  # Music player daemon config dir
-        "$XDG_CONFIG_HOME/ncmpcpp"              # ncurses music player cpp config dir
-        "$XDG_CONFIG_HOME/vis"                  # audio visualizer config dir
-        "$XDG_CONFIG_HOME/neofetch"             # Neofetch config dir
-        "$XDG_CONFIG_HOME/nwg-bar"
-        "$XDG_CONFIG_HOME/nwg-drawer"
-        "$XDG_CONFIG_HOME/swaylock"
-        "$XDG_CONFIG_HOME/swayimg"
-        "$XDG_CONFIG_HOME/wofi"                 # Wofi (wayland rofi) config dir
-        "$XDG_CONFIG_HOME/bat"
-        "$XDG_CONFIG_HOME/dunst"                # Dunst notification config dir
-        "$XDG_CONFIG_HOME/eww"                  # eww widget config dir
-        "$XDG_CONFIG_HOME/electron-flags.conf"
-        "$XDG_CONFIG_HOME/wget"                 # wget config dir
-        "$XDG_CONFIG_HOME/npmrc"                # npm config dir
-        "$XDG_CONFIG_HOME/newsboat"             # Newsboat rss config dir
+        "river"                # River compositor config dir
+        "hypr"                 # hyprland compositor config dir
+        "foot"                 # Foot terminal config dir
+        "waybar"               # waybar (statusbar) config dir
+        "mpd"                  # Music player daemon config dir
+        "ncmpcpp"              # ncurses music player cpp config dir
+        "vis"                  # audio visualizer config dir
+        "neofetch"             # Neofetch config dir
+        "nwg-bar"
+        "nwg-drawer"
+        "swaylock"
+        "swayimg"
+        "lf"
+        "wofi"                 # Wofi (wayland rofi) config dir
+        "bat"
+        "dunst"                # Dunst notification config dir
+        "eww"                  # eww widget config dir
+        "electron-flags.conf"
+        "wget"                 # wget config dir
+        "npmrc"                # npm config dir
+        "newsboat"             # Newsboat rss config dir
     )
     local -a SYSTEM_CONFIGURATIONS=( # System configurations
         "/etc/doas.conf"
     )
     
-    cp -rf "${HOME_CONFIGURATIONS[@]}" --target-directory=${PREFIX_PATH}/etc/skel/.config # Copy home configurations to skeleton directory
-    echo "${PREFIX_PATH}/root/.local/share ${PREFIX_PATH}/etc/skel/.local/share" | xargs -n 1 -- cp -rf "$HOME/.local/share/zinit" 
     doas cp -f "${SYSTEM_CONFIGURATIONS[@]}" --target-directory=${PREFIX_PATH}/etc # Copy from /etc/ directory needs run as root
+    local dir; for dir in ${HOME_CONFIGURATIONS[@]}; do
+        cp -rf "$XDG_CONFIG_HOME/$dir" --target-directory=${PREFIX_PATH}/etc/skel/.config # Copy home configurations to skeleton directory
+    done
+    echo "${PREFIX_PATH}/root/.local/share ${PREFIX_PATH}/etc/skel/.local/share" | xargs -n 1 -- cp -rf "$HOME/.local/share/zinit" 
     # ╭──────────────────────────────────────────────────────────────────────────────╮
     # │                               Other operations                               │
     # ╰──────────────────────────────────────────────────────────────────────────────╯
     warn_msg "Running some other operations..." # Show warning message
     sudo chmod 755 ${PREFIX_PATH}/etc/doas.conf
-    sed -i "s/GRUB_DISABLE_LINUX_PARTUUID=false/#GRUB_DISABLE_LINUX_PARTUUID=false/" ./prefix/airootfs/etc/default/grub
-    sed -i "s/GRUB_DISABLE_LINUX_UUID=true/#GRUB_DISABLE_LINUX_UUID=true/" ./prefix/airootfs/etc/default/grub
+    sed -i -e "s/GRUB_DISABLE_LINUX_PARTUUID=false/#GRUB_DISABLE_LINUX_PARTUUID=false/" -e "s/GRUB_DISABLE_LINUX_UUID=true/#GRUB_DISABLE_LINUX_UUID=true/" ./prefix/airootfs/etc/default/grub
     sed 's/#HoldPkg/HoldPkg/g' /etc/pacman.conf > ./prefix/pacman.conf
     info_msg "Done!" # Show info message
 }
