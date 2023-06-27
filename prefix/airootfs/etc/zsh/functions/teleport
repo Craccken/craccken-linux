@@ -4,6 +4,7 @@ autoload spectre_fzf
 
 local -A available_options # Declare local associative array
 available_options[xinit]="/etc/X11/xinit"
+available_options[pacman]="/etc/pacman.d"
 available_options[sddm]="/etc/sddm.conf.d"
 available_options[waybar]="$XDG_CONFIG_HOME/waybar"
 available_options[eww]="$XDG_CONFIG_HOME/eww"
@@ -14,6 +15,7 @@ available_options[dunst]="$XDG_CONFIG_HOME/dunst"
 available_options[temporary]="/tmp"
 available_options[udev]="/etc/udev"
 available_options[temporary]="/tmp"
+available_options[assets]="/opt/craccken/assets"
 
 available_options[home]="$HOME"
 available_options[home__config]="$XDG_CONFIG_HOME"
@@ -53,4 +55,4 @@ local option="${1:-$(print -l ${(ko)available_options} | spectre_fzf 'Choose you
 play-audio-random /opt/craccken/sound/click 2>/dev/null || : # Play random audio in directory
 blink-led &! # Call function to blink-led effect
 speak "Moving, into ${option} directory." || : # Call function from /etc/zsh/functions to translate text to speak
-cd "${available_options[${option}]}" || : # Moving into destination
+cd "${available_options[${option}]}" 2>/dev/null # Moving into destination

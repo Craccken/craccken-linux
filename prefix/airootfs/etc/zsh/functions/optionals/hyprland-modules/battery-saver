@@ -3,12 +3,8 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed hyprctl acpi # Need install this in order to run
 
 mkdir -p /tmp/$0 # Create temporary directory for this program
-local WARNING_LEVEL=30 # Declare variable for storing warning level of battery percentage
+local WARNING_LEVEL=40 # Declare variable for storing warning level of battery percentage
 local lock_file="/tmp/$0/lock-file" # Declare variable for storing the path of lock-file
-# local lock_file_process="/tmp/$0/lock-file-process" # Declare variable for storing the path of lock-file-process
-# [[ -f "${lock_file_process}" ]] && return # If lock-file-process already exist, it means this functions already running && exit
-# touch ${lock_file_process} # Create lock-file-process, prevent from running two separate process
-# trap "rm ${lock_file_process}" INT TERM # Make sure the program clean-up the lock_file_process
 
 _toggle_all() {
     toggle-blur
@@ -22,7 +18,7 @@ _toggle_all() {
 
 rm -f ${lock_file} || : # Remove the old lock-file
 while :; do # Create infinite-loop
-    sleep 13 # Delay interval of the loop
+    sleep 20 # Delay interval of the loop
     local battery_status=$(acpi -b | /usr/bin/grep -c "Discharging") # Get battery charge status
     local battery_percentage=$(acpi -b | /usr/bin/grep -P -o "[0-9]+(?=%)") # Get battery percentage and store it into variable
     if [[ ${battery_percentage} -le $WARNING_LEVEL ]] && [[ "${battery_status}" -eq 1 ]] && [[ ! -f "${lock_file}" ]]; then # Check if battery percentage below of WARNING_LEVEL & lock-file did not exist then:

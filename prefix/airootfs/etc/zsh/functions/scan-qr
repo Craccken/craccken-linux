@@ -4,7 +4,7 @@ need_installed zbarimg dunstify || return $? # Check if command is installed || 
 
 autoload screenshot-area # Load functions
 local temporary_file="/tmp/$(generate-random-string 10).png" # Create local variable for storing temporary_file name
-(( $+functions[screenshot] )) && screenshot-area "$temporary_file" # Screenshot and output it into temporary_file
+screenshot-area "$temporary_file" # Screenshot and output it into temporary_file
 LC_ALL=C zbarimg --quiet --raw "$temporary_file" | wl-copy  # Scan qr on the output of screenshot image and copy to clipboard
 if [[ $? -eq 0 ]]; then # Check if scanning is successfull and then:
     dunstify --raw_icon="${temporary_file}" "$0" "Coppied to the clipboard" # Send notification

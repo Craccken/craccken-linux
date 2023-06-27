@@ -5,6 +5,7 @@ need_installed paccache # Check if command is installed || exit with error exit-
 local AUR_CACHE_DIR=$HOME/.cache/paru/clone # Create variable for storing the location of the cache for your aur helper
 local -a AUR_CACHE_PACKAGES=( $(find "${AUR_CACHE_DIR}" -maxdepth 1 -type d | awk '{ print "-c " $1}' | tail --lines=+2) ) # Create list for store cache package from AUR_CACHE_DIR
 
-paccache --remove --uninstalled --verbose --keep=1 # Clear cache and keep latest version for uninstalled native packages
-paccache --remove --uninstalled --verbose --keep=0 ${AUR_CACHE_PACKAGES} # Remove everything from uninstalled AUR packages
-paccache --remove --verbose --keep=2 -c /var/cache/pacman/pkg ${AUR_CACHE_PACKAGES} # Clear cache and keep two latest versions for installed (native packages and AUR packages)
+ask-password
+sudo paccache --remove --uninstalled --verbose --keep=1 # Clear cache and keep latest version for uninstalled native packages
+sudo paccache --remove --uninstalled --verbose --keep=0 ${AUR_CACHE_PACKAGES} # Remove everything from uninstalled AUR packages
+sudo paccache --remove --verbose --keep=2 -c /var/cache/pacman/pkg ${AUR_CACHE_PACKAGES} # Clear cache and keep two latest versions for installed (native packages and AUR packages)

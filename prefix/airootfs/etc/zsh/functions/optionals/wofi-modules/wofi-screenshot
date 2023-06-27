@@ -3,7 +3,7 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed wofi # Check if command is installed
 
 local -A available_options # Declare local associative array
-local function;for function in /etc/zsh/functions/optionals/screenshot-modules/*(.); do # Create for-loop with list of functions of modules that will used in this functions
+local function;for function in /etc/zsh/functions/optionals/screenshot-modules/*; do # Create for-loop with list of functions of modules that will used in this functions
     autoload ${function} # Load the functions that will be used
     available_options[$(basename $function | cut -d '-' -f2-)]="$(basename $function)"
 done # End for-loop statement
