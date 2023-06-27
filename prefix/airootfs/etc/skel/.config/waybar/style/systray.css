@@ -2,8 +2,13 @@
     font-family: Roboto; /* Specifies a prioritized list of font family names or generic family names. */
 }
 #tray { /* Set style for systray */
-    padding-bottom: 3px;
-    padding-right: 2px;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #000000;
+    border-radius: 50px;
+    margin-bottom: 3px;
+    opacity: 0.8;
 }
 #tray menu { /* Set style for context menu */
     padding: 10px;
@@ -18,8 +23,6 @@
 }
 #tray menuitem { /* Set style for item in systray */
     color: rgba(60, 60, 60, 0.5);
-    /* color: #f5f5f5; */
-    /* color: rgba(60, 60, 60, 0.9); */
     margin-left: 1px;
     padding-top: 2px;
     padding-bottom: 2px;
