@@ -173,7 +173,7 @@ vim.api.nvim_set_hl(0, '@function.macro', {link = 'Macro'})             -- @func
 vim.api.nvim_set_hl(0, '@variable', {link = 'Identifier'})              -- @variable: any variable names that don't fit into other categories.
 vim.api.nvim_set_hl(0, '@variable.builtin', {link = 'Macro'})           -- @variable.builtin: variable names defined by the language: 'this' or 'self' in Javascript.
 
-vim.api.nvim_set_hl(0, '@tag', {link = 'Tag'})                          -- @tag: Tags like HTML tag names.
+vim.api.nvim_set_hl(0, '@tag', {link = 'Keyword'})                          -- @tag: Tags like HTML tag names.
 vim.api.nvim_set_hl(0, '@tag.delimiter', {link = 'Function'})           -- @tag.delimiter: Tag delimiters like '< > /'.
 vim.api.nvim_set_hl(0, '@tag.attribute', {link = 'Identifier'})         -- @tag.attribute: HTML tag attributes.
 

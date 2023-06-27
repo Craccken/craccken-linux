@@ -4,14 +4,10 @@
     "output": ["eDP-1", "VGA-1"],   // Specified the output for the bar, You can also exclude specific output(s) by using exclamation mark
     "position": "bottom",              // Bar position, can be top,bottom,left,right.
     "height": 0,                    // Height to be used by the bar if possible, leave blank for a dynamic value.
-    "width": 0,                     // Width to be used by the bar if possible, leave blank for a dynamic value.
-    "modules-left": [               // Modules that will be displayed on the left.
+    "width": 70,                     // Width to be used by the bar if possible, leave blank for a dynamic value.
+    "modules-center": [               // Modules that will be displayed on the left.
         "tray"
     ],
-    "margin-top": 5,                // Top margins of the bar
-    "margin-bottom": 0,             // Bottom margins of the bar 
-    "margin-left": 5,               // Left margins of the bar
-    "margin-right": 5,              // Right margins of the bar
     "spacing": 0,                   // Size of gaps in between of the different modules.
     "mode": "top",                  // Selects one of the preconfigured display modes.
     "modifier-reset": "press",      // Defines the timing of modifier key to reset the bar visibility.

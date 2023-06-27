@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-# vim:ft=sh
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed rnnoise grep # Check if command is installed || exit with error exit-code
-need_normal_user # Need normal user to run || exit
-
-[[ "$(rnnoise status | /bin/grep load)" == "The plugin is loaded." ]] && rnnoise deactivate || rnnoise activate # Check status if noise-suppression loaded then it will deactivate else activate it.

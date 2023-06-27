@@ -73,7 +73,7 @@ width = (111, 444)
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │      The maximum height of a single notification, excluding the frame.       │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-height = 222
+height = 200
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │              Maximum number of notification (0 means no limit)               │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -93,7 +93,7 @@ notification_limit = 0
 #  █     center                                              
 #  █     right-center                                        
 #  ▼                                                          
-origin = top-center
+origin = top-left
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │      Respectively the horizontal and vertical offset in pixels from the      │
 #  │    corner of the screen specified by origin. A negative offset will lead     │
@@ -156,20 +156,20 @@ padding = 10
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                             Horizontal padding.                              │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-horizontal_padding = 15
+horizontal_padding = 12
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                        Padding between text and icon.                        │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-text_icon_padding = 5
+text_icon_padding = 12
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │   Defines width in pixels of frame around the notification window. Set to    │
 #  │                                0 to disable.                                 │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-frame_width = 2
+frame_width = 1
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                Size of gap to display between notifications.                 │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-gap_size = 0
+gap_size = 10
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │          Defines color of the frame around the notification window.          │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -195,7 +195,7 @@ sort = true
 #  │     A client can set the 'transient' hint to bypass this. See the rules      │
 #  │                 section for how to disable this if necessary                 │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-idle_threshold = 120
+idle_threshold = 200
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │    Uncomment this if you want to let notications appear under fullscreen     │
 #  │                       applications (default: overlay)                        │
@@ -215,7 +215,7 @@ font = "Roboto-Regular 9, Cantarell 9"
 #  │      The spacing between lines. If the height is smaller than the font       │
 #  │                height, it will get raised to the font height.                │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-line_height = 0
+line_height = 5
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                          The format of the message.                          │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -330,7 +330,7 @@ force_xinerama = false
 #  │      The radius will be automatically lowered if it exceeds half of the      │
 #  │           notification height to avoid clipping text and/or icons.           │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-corner_radius = 0
+corner_radius = 5
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                 Defines list of actions for each mouse event                 │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -364,12 +364,12 @@ word_wrap = true
 #  │               Specify where to make an ellipsis in long lines.               │
 #  │               Possible values are "start", "middle" and "end".               │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-ellipsize = middle
+ellipsize = end
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │                          Alignment of message text.                          │
 #  │              Possible values are "left", "center" and "right".               │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
-alignment = center
+alignment = left
 #  ╭──────────────────────────────────────────────────────────────────────────────╮
 #  │               Defines how markup in notifications is handled.                │
 #  ╰──────────────────────────────────────────────────────────────────────────────╯
@@ -442,17 +442,18 @@ background = "#000000ff"
 foreground = "#f5f5f5"
 frame_color = "#000000ff"
 highlight = "#f5f5f5"
-format = "<span size='large' font_desc='Arame,Zector,Roboto' weight='bold' text_transform='none' foreground='#f5f5f5'>%s</span>\n%b"
+format = "<span size='large' font_desc='Arame,Roboto' weight='bold' text_transform='none' foreground='#f5f5f5'>%s</span>\n%b"
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃                  Normal: Matches normal urgency notifcation                  ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 [urgency_normal]
-timeout = 7
-background = "#000000ff"
-foreground = "#f5f5f5"
-frame_color = "#000000ff"
-highlight = "#f5f5f5"
-format = "<span size='large' font_desc='Arame,Zector,Roboto' weight='bold' text_transform='none' foreground='#f5f5f5'>%s</span>\n%b"
+timeout = 10
+background = "#030d11d0"
+foreground = "#36a3d9"
+frame_color = "#36a3d9"
+highlight = "#36a3d9"
+min_icon_size = 49
+format = "<span size='large' font_desc='Arame,Roboto' weight='bold' text_transform='none' foreground='#36a3d9'>%s</span>\n%b"
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃               Critical: Matches critical urgency notification                ┃
 #          ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -465,7 +466,7 @@ highlight = "#cc0022"
 fullscreen = "show"
 min_icon_size = 49
 icon = "/opt/craccken/assets/notification/critical.svg"
-format = "<span size='large' font_desc='Arame,Zector,Roboto' weight='bold' text_transform='none' foreground='#cc0022'>%s</span>\n%b"
+format = "<span size='large' font_desc='Arame,Roboto' weight='bold' text_transform='none' foreground='#cc0022'>%s</span>\n%b"
 #          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #          ┃    Every section that isn't one of the above is interpreted as a rules to    ┃
 #          ┃                   override settings for certain messages.                    ┃

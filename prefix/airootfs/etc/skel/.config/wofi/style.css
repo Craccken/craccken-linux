@@ -9,7 +9,8 @@
 
 #outer-box {
     font-family: "Roboto";
-    background-image: url("/opt/craccken/assets/wofi/background-window.svg");
+    background-image: url("/opt/craccken/assets/launcher/background-window.svg");
+    opacity: 0.85;
     background-origin: border-box;
     background-size: contain;
     background-clip: padding-box;
