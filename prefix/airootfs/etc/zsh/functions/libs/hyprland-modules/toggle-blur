@@ -3,3 +3,4 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed hyprctl jq # Need install this in order to run
 
 [[ $(hyprctl getoption decoration:blur -j | jq '.int') -eq 0 ]] && hyprctl keyword decoration:blur true || hyprctl keyword decoration:blur false
+eww update "blur-value=$(hyprctl getoption decoration:blur -j | jq '.int')" 2>/dev/null || :

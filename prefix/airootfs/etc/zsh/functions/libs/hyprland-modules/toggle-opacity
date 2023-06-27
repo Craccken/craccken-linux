@@ -12,8 +12,10 @@ local FULLSCREEN_OPACITY=$(hyprctl getoption decoration:fullscreen_opacity -j | 
         keyword decoration:inactive_opacity $(< /tmp/$0/saved-value | cut -d ' ' -f2);\
         keyword decoration:fullscreen_opacity $(< /tmp/$0/saved-value | cut -d ' ' -f3)" # Restore value from saved-value
     rm -rf /tmp/$0/saved-value # Remove the saved-value file
+    eww update "opacity-state=true" 2>/dev/null || :
     return 0 # Exit
 }
 
 echo "$ACTIVE_OPACITY $INACTIVE_OPACITY $FULLSCREEN_OPACITY" > /tmp/$0/saved-value # Save gaps into file in temporary directory
 hyprctl --batch "keyword decoration:active_opacity ${1:-1}; keyword decoration:inactive_opacity ${2:-1}; keyword decoration:fullscreen_opacity ${1:-1}" # Remove opacity
+eww update "opacity-state=false" 2>/dev/null || :

@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed rfkill # Check if command is installed
+
+local current_state=$(rfkill -J | jq -r '.rfkilldevices[] | select(.type == "wlan") | .soft' | head -1) # Get current status
+[[ "$current_state" == "unblocked" ]] && rfkill block wlan || rfkill unblock wlan # Toggle it with rfkill
+eww update "network-state=$(rfkill -J | jq -r '.rfkilldevices[] | select(.type == "wlan") | .soft' | head -1)" 2> /dev/null || :

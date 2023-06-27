@@ -3,25 +3,11 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed light # Check if command is installed
 
 case "${1:-}" in # Read argument-1 passed
-    up)
-        (( $+commands[brillo] )) && brillo -A 5 -q -u 150000 || light -A 5 # Increase brightness by 5 value
-        ;;
-    down)
-        (( $+commands[brillo] )) && brillo -U 5 -q -u 150000 || light -U 5 # Decrease brightness by 5 value
-        ;;
-    set-minimum-brightness)
-        (( $+commands[brillo] )) && brillo -c -S ${2:-5} || light -N ${2:-5} # Set minimum capacity brightness
-        ;;
-    save-brightness)
-        (( $+commands[brillo] )) && brillo -O || light -O # Save current brightness into memory
-        ;;
-    restore-brightness)
-        (( $+commands[brillo] )) && brillo -I || light -I # Restore brightness from memory
-        ;;
-    set-value)
-        (( $+commands[brillo] )) && brillo -S ${2:-5} || light -S ${2:-5} # Set value of brightness with argument-2 passed
-        ;;
-    *)
-        : # Do nothing
-        ;;
+    up) (( $+commands[brillo] )) && brillo -A 5 -q -u 150000 || light -A 5 ;; # Increase brightness by 5 value
+    down) (( $+commands[brillo] )) && brillo -U 5 -q -u 150000 || light -U 5 ;; # Decrease brightness by 5 value
+    set-minimum-brightness) (( $+commands[brillo] )) && brillo -c -S ${2:-5} || light -N ${2:-5} ;; # Set minimum capacity brightness
+    save-brightness) (( $+commands[brillo] )) && brillo -O || light -O ;; # Save current brightness into memory
+    restore-brightness) (( $+commands[brillo] )) && brillo -I || light -I ;; # Restore brightness from memory
+    set-value) (( $+commands[brillo] )) && brillo -S ${2:-5} || light -S ${2:-5} ;; # Set value of brightness with argument-2 passed
+    *) : ;; # Do nothing
 esac # End switch-case statement

@@ -3,3 +3,4 @@ emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
 need_installed hyprctl jq # Need install this in order to run
 
 [[ $(hyprctl getoption decoration:dim_inactive -j | jq '.int') -eq 0 ]] && hyprctl keyword decoration:dim_inactive true || hyprctl keyword decoration:dim_inactive false
+eww update "dim-value=$(hyprctl getoption decoration:dim_inactive -j | jq '.int')" 2>/dev/null || :

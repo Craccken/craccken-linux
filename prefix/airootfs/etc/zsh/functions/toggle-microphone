@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed wpctl # Check if command is installed
+
+wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+eww update "microphone-state=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | rg -i muted >/dev/null; echo $?)" 2> /dev/null || :
