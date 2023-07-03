@@ -217,5 +217,4 @@ local -a LIST_OF_CODES=( # Create local array for store color configurations
 )
 export LS_COLORS="${(j.:.)LIST_OF_CODES}" # This environment variable can be used to customise the colours that exa uses to highlight file names, file metadata, and parts of the UI.
 export EXA_COLORS="${(j.:.)LIST_OF_CODES}" # This environment variable can be used to customise the colours that exa uses to highlight file names, file metadata, and parts of the UI.
-# zstyle -e '*' list-colors 'reply=(${(s[:])LS_COLORS})'  # Take advantage of $LS_COLORS for completion
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"              # set list-colors to enable filename colorizing
+zstyle -e '*' list-colors 'reply=(${(s[:])LS_COLORS})'  # Take advantage of $LS_COLORS for completion

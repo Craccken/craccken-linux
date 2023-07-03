@@ -15,6 +15,6 @@ zstyle ':completion:*' use-cache true                               # Enable cac
 zstyle ':completion:*' cache-path ~/.cache/zsh_completion_cache     # Defines the path where any cache files containing dumped completion data are stored
 zstyle ':completion:*' verbose true                                 # If set, as it is by default, the completion listing is more verbose. In particular many commands show descriptions for options if this style is `true'.
 zstyle ':completion::complete:*' gain-privileges true               # If set to true, this style enables the use of commands like sudo or doas to gain extra privileges when retrieving information for completion.
-zstyle ':completion:*:warnings' format 'No matches for: %d'         # set format of completions warnings messages, The sequence `%d' in this string will be replaced with a short description of what these matches are. look zshcompsys(1)
+# zstyle ':completion:*:warnings' format 'No matches for: %d'         # set format of completions warnings messages, The sequence `%d' in this string will be replaced with a short description of what these matches are. look zshcompsys(1)
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w" # Run command if completion processes
 zstyle ':completion:* matcher-list' '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # This style can be set to a list of match specifications that are to be applied everywhere.
