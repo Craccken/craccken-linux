@@ -1,6 +1,0 @@
-#!/usr/bin/env zsh
-emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
-need_installed hyprctl jq # Need install this in order to run
-
-[[ $(hyprctl getoption decoration:drop_shadow -j | jq '.int') -eq 0 ]] && hyprctl keyword decoration:drop_shadow true || hyprctl keyword decoration:drop_shadow false
-eww update "shadow-value=$(hyprctl getoption decoration:drop_shadow -j | jq '.int')" 2>/dev/null || :

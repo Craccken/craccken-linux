@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+hyprctl getoption ${1:-} -j | jq -r "${2:-.}" # Get option from hyprland with argument-2 as selector value e.g int,float,option,str

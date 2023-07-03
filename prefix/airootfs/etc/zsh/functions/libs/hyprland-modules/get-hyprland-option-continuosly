@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+
+get-hyprland-option "${1:-}" "${2:-}"
+
+while :; do # Create infinite-loop
+    sleep ${3:-15} # Argument-3 as the interval, default to 15 seconds
+    get-hyprland-option "${1:-}" "${2:-}"
+done # End while-loop statement

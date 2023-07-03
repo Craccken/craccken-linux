@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+emulate -L zsh; setopt extendedglob warncreateglobal pipefail nounset errreturn
+need_installed hyprctl jq # Need install this in order to run
+must_have_argument ${1:-} # Argument need to pass
+must_have_argument ${2:-} # Argument need to pass
+
+# WARNING: Only works with boolean value
+[[ $(hyprctl getoption ${1}:${2} -j | jq '.int') -eq 0 ]] && hyprctl keyword ${1}:${2} true || hyprctl keyword ${1}:${2} false
+eww update "${2}-value=$(hyprctl getoption ${1}:${2} -j | jq '.int')" 2>/dev/null || :
